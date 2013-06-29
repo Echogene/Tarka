@@ -1,6 +1,6 @@
 package maths.number.integer.universe;
 
-import logic.evaluable.predicate.Predicate;
+import logic.evaluable.Evaluable;
 import logic.factory.SimpleLogicReaderImpl;
 import maths.number.integer.Integer;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class IntegerReaderTest {
 		IntegerUniverse universe = new IntegerUniverse();
 
 		@SuppressWarnings("unchecked")
-		Predicate<Integer> twoPlusTwoIsFour = (Predicate<Integer>) reader.read("((2 + 2) = 4)");
+		Evaluable<Integer> twoPlusTwoIsFour = (Evaluable<Integer>) reader.read("((2 + 2) = 4)");
 		assertTrue(twoPlusTwoIsFour.evaluate(universe));
 	}
 }
