@@ -18,7 +18,6 @@ public class IntegerReaderTest {
 
 		@SuppressWarnings("unchecked")
 		Predicate<Integer> twoPlusTwoIsFour = (Predicate<Integer>) reader.read("((2 + 2) = 4)");
-		System.out.print(twoPlusTwoIsFour.toString());
 		assertTrue(twoPlusTwoIsFour.evaluate(universe));
 	}
 }
