@@ -1,7 +1,7 @@
 package logic.factory;
 
 import logic.function.Function;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 import reading.evaluating.Evaluator;
 import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;

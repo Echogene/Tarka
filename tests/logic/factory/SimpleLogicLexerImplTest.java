@@ -165,9 +165,9 @@ public class SimpleLogicLexerImplTest {
 
 	@Test
 	public void testLexAtom() throws Exception {
-		List<String> list = Arrays.asList("x", "test", "test2", "test_name");
+		List<String> list = Arrays.asList("x", "test", "test2", "test_name", "2");
 		testStringListAgainstTokenKey(NAME, list, "Expect name to be lexed correctly");
-		list = Arrays.asList("=", "∊", "∨", "∧", "¬");
+		list = Arrays.asList("=", "∊", "∨", "∧", "¬",  "+");
 		testStringListAgainstTokenKey(OPERATOR, list, "Expect operator to be lexed correctly");
 		list = Arrays.asList("∀", "∃", "∃!", "¬∀");
 		testStringListAgainstTokenKey(QUANTIFIER, list, "Expect quantifier to be lexed correctly");

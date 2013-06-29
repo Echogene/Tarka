@@ -1,7 +1,7 @@
 package logic.function.reflexiveset;
 
 import logic.Nameable;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 import logic.set.Set;
 
 /**

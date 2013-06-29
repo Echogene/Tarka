@@ -7,12 +7,12 @@ import logic.evaluable.statements.binary.BinaryStatementFactory;
 import logic.evaluable.statements.quantified.QuantifiedStatementFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.factory.SimpleLogicReaderImpl;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.IdentityFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
 import logic.function.reflexiveset.union.UnionFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,18 +20,21 @@ import java.util.List;
  */
 public class StandardReader {
 	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader() {
-		List<FunctionFactory<?, ?>> factories = Arrays.asList(
-			new EqualityPredicateFactory<>(),
-			new MembershipPredicateFactory<>(),
-			new SetIdentityFunctionFactory<T>(),
-			new IdentityFunctionFactory<T>(),
-			new BinaryStatementFactory<>(),
-			new LogicalConstantFactory<>(),
-			new UnaryStatementFactory<>(),
-			new QuantifiedStatementFactory<>(),
-			new UnionFactory<>()
-		);
-
+		List<FunctionFactory<?, ?>> factories = getStandardFunctionFactories();
 		return new SimpleLogicReaderImpl<>(factories);
+	}
+
+	public static <T extends Nameable> List<FunctionFactory<?, ?>> getStandardFunctionFactories() {
+		List<FunctionFactory<?, ?>> output = new ArrayList<>();
+		output.add(new EqualityPredicateFactory<>());
+		output.add(new MembershipPredicateFactory<>());
+		output.add(new SetIdentityFunctionFactory<T>());
+		output.add(new IdentityFunctionFactory<T>());
+		output.add(new BinaryStatementFactory<>());
+		output.add(new LogicalConstantFactory<>());
+		output.add(new UnaryStatementFactory<>());
+		output.add(new QuantifiedStatementFactory<>());
+		output.add(new UnionFactory<>());
+		return output;
 	}
 }

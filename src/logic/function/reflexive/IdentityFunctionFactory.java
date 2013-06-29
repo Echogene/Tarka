@@ -36,15 +36,15 @@ public class IdentityFunctionFactory<T extends Nameable> implements ReflexiveFun
 
 	boolean matchesStandardForm(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 2
-				&& tokens.get(0).getType() == NAME
+				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(0).getValue().equals(IdentityFunction.IDENTITY_NAME)
-				&& tokens.get(1).getType() == NAME
+				&& tokens.get(1).isOfType(NAME)
 				&& noFunctions(functions);
 	}
 
 	boolean matchesSingleNameToken(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 1
-				&& tokens.get(0).getType() == NAME
+				&& tokens.get(0).isOfType(NAME)
 				&& noFunctions(functions);
 	}
 
@@ -56,17 +56,17 @@ public class IdentityFunctionFactory<T extends Nameable> implements ReflexiveFun
 
 	boolean matchesStandardFormWithFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 3
-				&& tokens.get(0).getType() == NAME
+				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(0).getValue().equals(IdentityFunction.IDENTITY_NAME)
-				&& tokens.get(1).getType() == OPEN_PAREN
-				&& tokens.get(2).getType() == CLOSE_PAREN
+				&& tokens.get(1).isOfType(OPEN_PAREN)
+				&& tokens.get(2).isOfType(CLOSE_PAREN)
 				&& oneFunction(functions);
 	}
 
 	boolean matchesSingleFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 2
-				&& tokens.get(0).getType() == OPEN_PAREN
-				&& tokens.get(1).getType() == CLOSE_PAREN
+				&& tokens.get(0).isOfType(OPEN_PAREN)
+				&& tokens.get(1).isOfType(CLOSE_PAREN)
 				&& oneFunction(functions);
 	}
 

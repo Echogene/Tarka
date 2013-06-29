@@ -15,5 +15,6 @@ public interface Function<D extends Nameable, C> {
 	 * @param variables A Set that should contain the keys and values to be used by the function.
 	 * @return The result of the function.
 	 */
+	@Deprecated
 	public C evaluate(Set<? extends D> variables) throws ParameterNotFoundException;
 }

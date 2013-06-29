@@ -1,7 +1,7 @@
 package logic.function.reflexive;
 
 import logic.Nameable;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 
 /**
  * @author Steven Weston

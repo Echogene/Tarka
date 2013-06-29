@@ -1,8 +1,9 @@
-package logic.function;
+package logic.function.factory;
 
 import logic.Nameable;
 import logic.factory.Factory;
 import logic.factory.FactoryException;
+import logic.function.Function;
 import reading.lexing.Token;
 
 import java.util.List;

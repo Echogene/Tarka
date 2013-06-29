@@ -2,7 +2,7 @@ package logic.factory;
 
 import logic.Nameable;
 import logic.function.Function;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 import reading.reading.Reader;
 import reading.reading.ReadingException;
 

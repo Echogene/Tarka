@@ -17,7 +17,7 @@ import logic.evaluable.statements.quantified.QuantifierFactory;
 import logic.evaluable.statements.unary.UnaryConnectiveFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.Function;
-import logic.function.FunctionFactory;
+import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.IdentityFunction;
 import logic.function.reflexive.IdentityFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
