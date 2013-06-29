@@ -5,6 +5,7 @@ import logic.factory.SimpleLogicReaderImpl;
 import maths.number.integer.Integer;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -19,5 +20,8 @@ public class IntegerReaderTest {
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> twoPlusTwoIsFour = (Evaluable<Integer>) reader.read("((2 + 2) = 4)");
 		assertTrue(twoPlusTwoIsFour.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> twoPlusTwoIsFive = (Evaluable<Integer>) reader.read("((2 + 2) = 5)");
+		assertFalse(twoPlusTwoIsFive.evaluate(universe));
 	}
 }
