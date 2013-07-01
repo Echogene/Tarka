@@ -23,5 +23,8 @@ public class IntegerReaderTest {
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> twoPlusTwoIsFive = (Evaluable<Integer>) reader.read("((2 + 2) = 5)");
 		assertFalse(twoPlusTwoIsFive.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> associative = (Evaluable<Integer>) reader.read("((2 + 3) = (3 + 2))");
+		assertTrue(associative.evaluate(universe));
 	}
 }

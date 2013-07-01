@@ -6,6 +6,7 @@ import logic.evaluable.predicate.EqualityPredicate;
 import logic.evaluable.predicate.EqualityPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
+import logic.function.reflexive.IdentityFunction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -40,14 +41,16 @@ public class UnaryStatementFactoryTest {
 		Function<TestClass, Boolean> actual;
 		Function<TestClass, Boolean> evaluable;
 
-		evaluable = new EqualityPredicate<>("x", "y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		evaluable = new EqualityPredicate<>(x, y);
 		expected = new UnaryStatement<>((Evaluable<TestClass>) evaluable);
 		setUpTokens("()");
 		setUpFunction("x = y");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 
-		evaluable = new EqualityPredicate<>("x", "y");
+		evaluable = new EqualityPredicate<>(x, y);
 		expected = new UnaryStatement<>((UnaryConnective) connectiveFactory.createElement("¬"),
 				(Evaluable<TestClass>) evaluable);
 		setUpTokens("¬()");

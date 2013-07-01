@@ -6,6 +6,7 @@ import logic.evaluable.predicate.EqualityPredicate;
 import logic.evaluable.predicate.EqualityPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
+import logic.function.reflexive.IdentityFunction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -41,8 +42,11 @@ public class BinaryStatementFactoryTest {
 		Function<TestClass, Boolean> evaluable1;
 		Function<TestClass, Boolean> evaluable2;
 
-		evaluable1 = new EqualityPredicate<>("x", "y");
-		evaluable2 = new EqualityPredicate<>("y", "z");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		IdentityFunction<TestClass> z = new IdentityFunction<>("z");
+		evaluable1 = new EqualityPredicate<>(x, y);
+		evaluable2 = new EqualityPredicate<>(y, z);
 		expected = new BinaryStatement<>(
 				(Evaluable<TestClass>) evaluable1,
 				(BinaryConnective) connectiveFactory.createElement("∨"),

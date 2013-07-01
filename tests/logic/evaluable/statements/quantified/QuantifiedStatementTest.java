@@ -6,6 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.predicate.EqualityPredicate;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.evaluable.statements.unary.UnaryStatement;
+import logic.function.reflexive.IdentityFunction;
 import logic.set.NamedSet;
 import org.junit.Test;
 
@@ -27,7 +28,9 @@ public class QuantifiedStatementTest {
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
-		Evaluable<TestClass> evaluable = new EqualityPredicate<>("x", "y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		Evaluable<TestClass> evaluable = new EqualityPredicate<>(x, y);
 		QuantifiedStatement<TestClass> nestedStatement =
 				new QuantifiedStatement<>(nestedQuantifier, "y", evaluable);
 		// ∃y(x=y)
@@ -52,7 +55,9 @@ public class QuantifiedStatementTest {
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
-		Evaluable<TestClass> innerEvaluable = new EqualityPredicate<>("x", "y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		Evaluable<TestClass> innerEvaluable = new EqualityPredicate<>(x, y);
 		UnaryConnective connective = new UnaryConnective(NEGATION);
 		Evaluable<TestClass> evaluable = new UnaryStatement<>(connective, innerEvaluable);
 		QuantifiedStatement<TestClass> nestedStatement = new QuantifiedStatement<>(nestedQuantifier, "y", evaluable);

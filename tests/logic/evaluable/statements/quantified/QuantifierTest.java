@@ -6,6 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.EqualityPredicate;
 import logic.evaluable.predicate.Predicate;
+import logic.function.reflexive.IdentityFunction;
 import logic.set.NamedSet;
 import org.junit.Test;
 
@@ -24,7 +25,9 @@ public class QuantifierTest {
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setUniversalSet(X);
 
-		Predicate<TestClass> predicate = new EqualityPredicate<>("x", "y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		Predicate<TestClass> predicate = new EqualityPredicate<>(x, y);
 		Evaluable<TestClass> contradiction = new LogicalConstant<>(false);
 
 		Quantifier quantifier;

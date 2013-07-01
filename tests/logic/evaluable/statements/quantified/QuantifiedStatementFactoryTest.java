@@ -42,7 +42,9 @@ public class QuantifiedStatementFactoryTest {
 
 		Function<TestClass, Boolean> evaluable1;
 
-		evaluable1 = new EqualityPredicate<>("x", "y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		evaluable1 = new EqualityPredicate<>(x, y);
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("∀"),
 				"x",
@@ -53,7 +55,7 @@ public class QuantifiedStatementFactoryTest {
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>("x", "y");
+		evaluable1 = new EqualityPredicate<>(x, y);
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("¬∀"),
 				"x",
@@ -64,7 +66,7 @@ public class QuantifiedStatementFactoryTest {
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>("x", "y");
+		evaluable1 = new EqualityPredicate<>(x, y);
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("∃!"),
 				"x",

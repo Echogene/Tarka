@@ -40,6 +40,13 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 		}
 	}
 
+	/**
+	 * Return whether the given {@code Token}s and {@code Function}s match the pattern formed by two name tokens
+	 * (i.e. of the form "x = y").
+	 * @param tokens A list of {@code Token}s to match against.
+	 * @param functions A list of {@code Function}s to match against.
+	 * @return Whether there are two name tokens and no functions.
+	 */
 	private boolean matchesNoFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 3
 				&& tokens.get(0).isOfType(NAME)
@@ -55,6 +62,13 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				);
 	}
 
+	/**
+	 * Return whether the given {@code Token}s and {@code Function}s match the pattern formed by one function and one
+	 * name token (i.e. of the form "(f) = y").
+	 * @param tokens A list of {@code Token}s to match against.
+	 * @param functions A list of {@code Function}s to match against.
+	 * @return Whether there is one function and one name token.
+	 */
 	private boolean matchesFirstFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 4
 				&& tokens.get(0).isOfType(OPEN_PAREN)
@@ -69,6 +83,13 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions.get(1) == null;
 	}
 
+	/**
+	 * Return whether the given {@code Token}s and {@code Function}s match the pattern formed by one name token and one
+	 * function (i.e. of the form "x = (g)").
+	 * @param tokens A list of {@code Token}s to match against.
+	 * @param functions A list of {@code Function}s to match against.
+	 * @return Whether there is one name token and one function
+	 */
 	private boolean matchesSecondFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 4
 				&& tokens.get(0).isOfType(NAME)
@@ -83,6 +104,13 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions.get(1) instanceof ReflexiveFunction<?>;
 	}
 
+	/**
+	 * Return whether the given {@code Token}s and {@code Function}s match the pattern formed by two functions
+	 * (i.e. of the form "(f) = (g)").
+	 * @param tokens A list of {@code Token}s to match against.
+	 * @param functions A list of {@code Function}s to match against.
+	 * @return Whether there are two functions and no name tokens.
+	 */
 	private boolean matchesBothFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 5
 				&& tokens.get(0).isOfType(OPEN_PAREN)
@@ -97,5 +125,21 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions.get(0) instanceof ReflexiveFunction<?>
 				&& functions.get(1) != null
 				&& functions.get(1) instanceof ReflexiveFunction<?>;
+	}
+
+	public static boolean matchesTwoNameTokens(ValidationResult result) {
+		return result.get(0).equals(TOKEN) && result.get(1).equals(TOKEN);
+	}
+
+	public static boolean matchesFirstFunctionSecondNameToken(ValidationResult result) {
+		return result.get(0).equals(FUNCTION) && result.get(1).equals(TOKEN);
+	}
+
+	public static boolean matchesFirstNameTokenSecondFunction(ValidationResult result) {
+		return result.get(0).equals(TOKEN) && result.get(1).equals(FUNCTION);
+	}
+
+	public static boolean matchesTwoFunctions(ValidationResult result) {
+		return result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION);
 	}
 }

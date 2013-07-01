@@ -2,7 +2,6 @@ package logic.evaluable.predicate;
 
 import logic.Nameable;
 import logic.function.ParameterNotFoundException;
-import logic.function.reflexive.IdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
@@ -18,7 +17,7 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	/**
 	 * The symbol used to represent equality.  Surprisingly, it is an equals symbol.
 	 */
-	public static final String EQUALITY_STRING = "=";
+	public static final String EQUALITY_SYMBOL = "=";
 
 	/**
 	 * The function that precedes the equals symbol in the expression.
@@ -36,36 +35,6 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 
 	public ReflexiveFunction<T> getEquorFunction() {
 		return equorFunction;
-	}
-
-	/**
-	 * Construct an {@code EqualityPredicate} "x = y" from two symbols "x" and "y".
-	 * @param equorSymbol The symbol that precedes the equals symbol.
-	 * @param equandSymbol The symbol that follows the equals symbol.
-	 */
-	public EqualityPredicate(String equorSymbol, String equandSymbol) {
-		this.equorFunction  = new IdentityFunction<>(equorSymbol);
-		this.equandFunction = new IdentityFunction<>(equandSymbol);
-	}
-
-	/**
-	 * Construct an {@code EqualityPredicate} "f = y" from a function "f" and a symbol "y".
-	 * @param equorFunction The function that precedes the equals symbol.
-	 * @param equandSymbol The symbol that follows the equals symbol.
-	 */
-	public EqualityPredicate(ReflexiveFunction<T> equorFunction, String equandSymbol) {
-		this.equorFunction  = equorFunction;
-		this.equandFunction = new IdentityFunction<>(equandSymbol);
-	}
-
-	/**
-	 * Construct an {@code EqualityPredicate} "x = g" from a symbol "x" and a function "g".
-	 * @param equorSymbol The symbol that precedes the equals symbol.
-	 * @param equandFunction The function that follows the equals symbol.
-	 */
-	public EqualityPredicate(String equorSymbol, ReflexiveFunction<T> equandFunction) {
-		this.equorFunction  = new IdentityFunction<>(equorSymbol);
-		this.equandFunction = equandFunction;
 	}
 
 	/**
@@ -92,7 +61,7 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 
 	@Override
 	public String toString() {
-		return "(" + getEquorFunction().toString() + " " + EQUALITY_STRING + " " + getEquandFunction().toString() + ")";
+		return "(" + getEquorFunction().toString() + " " + EQUALITY_SYMBOL + " " + getEquandFunction().toString() + ")";
 	}
 
 	@Override

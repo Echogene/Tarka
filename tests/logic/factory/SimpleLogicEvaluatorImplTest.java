@@ -80,14 +80,15 @@ public class SimpleLogicEvaluatorImplTest {
 		Evaluable<TestClass> evaluable1;
 		Evaluable<TestClass> evaluable2;
 
-		expected = new EqualityPredicate<>("x","y");
+		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
+		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
+		expected = new EqualityPredicate<>(x, y);
 		tokens = lexer.tokeniseString("(x=y)");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		function1 = new IdentityFunction<>("x");
-		expected = new EqualityPredicate<>(function1, "y");
+		expected = new EqualityPredicate<>(x, y);
 		tokens = lexer.tokeniseString("((id x)=y)");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
@@ -100,17 +101,13 @@ public class SimpleLogicEvaluatorImplTest {
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		function1 = new IdentityFunction<>("x");
-		function2 = new IdentityFunction<>(function1);
-		expected = new EqualityPredicate<>(function2, "y");
+		expected = new EqualityPredicate<>(new IdentityFunction<>(x), y);
 		tokens = lexer.tokeniseString("((id (id x))=y)");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		function1 = new IdentityFunction<>("x");
-		function2 = new IdentityFunction<>("y");
-		expected = new EqualityPredicate<>(function1, function2);
+		expected = new EqualityPredicate<>(x, y);
 		tokens = lexer.tokeniseString("((id x)=(id y))");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
@@ -126,8 +123,8 @@ public class SimpleLogicEvaluatorImplTest {
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>("x","y");
-		evaluable2 = new EqualityPredicate<>("y","z");
+		evaluable1 = new EqualityPredicate<>(x, y);
+		evaluable2 = new EqualityPredicate<>(y, new IdentityFunction<>("z"));
 		expected = new BinaryStatement<>(
 				evaluable1,
 				(BinaryConnective) binaryConnectiveFactory.createElement("∧"),
@@ -137,7 +134,7 @@ public class SimpleLogicEvaluatorImplTest {
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>("x","y");
+		evaluable1 = new EqualityPredicate<>(x, y);
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("∀"),
 				"x",

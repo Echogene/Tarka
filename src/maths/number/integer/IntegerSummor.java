@@ -10,8 +10,8 @@ import java.util.Collection;
  */
 public class IntegerSummor implements Summor<Integer> {
 	@Override
-	public Integer add(Integer augand, Integer addend) {
-		return new Integer(augand.value.add(addend.value));
+	public Integer add(Integer augend, Integer addend) {
+		return new Integer(augend.value.add(addend.value));
 	}
 
 	@Override
