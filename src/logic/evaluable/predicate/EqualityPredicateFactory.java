@@ -20,6 +20,18 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  * @author Steven Weston
  */
 public class EqualityPredicateFactory<T extends Nameable> implements PredicateFactory<T> {
+	/**
+	 * @param equorString The string representing the equor of the equals.
+	 * @param equandString The string representing the equand of the equals.
+	 * @param <T> The class of the universe in which to evaluate the equals.
+	 * @return An equality predicate of the form 'equorString = equandString'.
+	 */
+	public static <T extends Nameable> EqualityPredicate<T> createElement(String equorString, String equandString) {
+		IdentityFunction<T> equorFunction = new IdentityFunction<>(equorString);
+		IdentityFunction<T> equandFunction = new IdentityFunction<>(equandString);
+		return new EqualityPredicate<>(equorFunction, equandFunction);
+	}
+
 	final BinaryValidator binaryValidator;
 
 	public EqualityPredicateFactory() {

@@ -3,7 +3,6 @@ package logic.evaluable.predicate;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.ParameterNotFoundException;
-import logic.function.reflexive.IdentityFunction;
 import logic.set.NamedSet;
 import org.junit.Test;
 
@@ -29,20 +28,16 @@ public class EqualityPredicateTest {
 		variables.put(x);
 		variables.put(y);
 
-		IdentityFunction<TestClass> xFunction = new IdentityFunction<>("x");
-		IdentityFunction<TestClass> yFunction = new IdentityFunction<>("y");
-		EqualityPredicate<TestClass> predicate = new EqualityPredicate<>(xFunction, xFunction);
+		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "x");
 		assertTrue("Expect x = x to evaluate to true", predicate.evaluate(variables));
-		predicate = new EqualityPredicate<>(xFunction, yFunction);
+		predicate = EqualityPredicateFactory.createElement("x", "y");
 		assertFalse("Expect x = y to evaluate to false", predicate.evaluate(variables));
 	}
 
 	private void testEvaluateOnVariableOverriding() throws Exception {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
-		IdentityFunction<TestClass> xFunction = new IdentityFunction<>("x");
-		IdentityFunction<TestClass> yFunction = new IdentityFunction<>("y");
-		EqualityPredicate<TestClass> predicate = new EqualityPredicate<>(xFunction, yFunction);
+		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
 		NamedSet<TestClass> variables;
 
 		TestClassUniverse universe = new TestClassUniverse();
@@ -60,9 +55,7 @@ public class EqualityPredicateTest {
 
 	private void testEvaluateOnTwoUniverseMembersMappedToTheSameElement() throws Exception {
 		TestClass x = new TestClass("x");
-		IdentityFunction<TestClass> yFunction = new IdentityFunction<>("y");
-		IdentityFunction<TestClass> xFunction = new IdentityFunction<>("x");
-		EqualityPredicate<TestClass> predicate = new EqualityPredicate<>(xFunction, yFunction);
+		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
 
 		TestClassUniverse universe = new TestClassUniverse();
 

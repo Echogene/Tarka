@@ -2,7 +2,6 @@ package logic.evaluable.statements.quantified;
 
 import logic.TestClass;
 import logic.evaluable.Evaluable;
-import logic.evaluable.predicate.EqualityPredicate;
 import logic.evaluable.predicate.EqualityPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
@@ -42,9 +41,7 @@ public class QuantifiedStatementFactoryTest {
 
 		Function<TestClass, Boolean> evaluable1;
 
-		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
-		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
-		evaluable1 = new EqualityPredicate<>(x, y);
+		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("∀"),
 				"x",
@@ -55,7 +52,7 @@ public class QuantifiedStatementFactoryTest {
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>(x, y);
+		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("¬∀"),
 				"x",
@@ -66,7 +63,7 @@ public class QuantifiedStatementFactoryTest {
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
-		evaluable1 = new EqualityPredicate<>(x, y);
+		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
 				(Quantifier) quantifierFactory.createElement("∃!"),
 				"x",

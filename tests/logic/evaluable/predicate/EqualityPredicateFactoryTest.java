@@ -4,7 +4,6 @@ import logic.TestClass;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
 import logic.function.reflexive.IdentityFunction;
-import logic.function.reflexive.ReflexiveFunction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -34,9 +33,7 @@ public class EqualityPredicateFactoryTest {
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;
 
-		IdentityFunction<TestClass> x = new IdentityFunction<>("x");
-		IdentityFunction<TestClass> y = new IdentityFunction<>("y");
-		expected = new EqualityPredicate<>(x, y);
+		expected =EqualityPredicateFactory.createElement("x", "y");
 		setUpTokens("x = y");
 		actual = factory.createElement(tokens);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
@@ -52,9 +49,6 @@ public class EqualityPredicateFactoryTest {
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpFunctions("x", "y");
-		expected = new EqualityPredicate<>(
-				(ReflexiveFunction<TestClass>) functions.get(0),
-				(ReflexiveFunction<TestClass>) functions.get(1));
 		setUpTokens("() = ()");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
