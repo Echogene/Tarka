@@ -49,7 +49,7 @@ public class AdditionFactoryTest {
 		assertEquals(expected, actual);
 	}
 
-	
+	// todo: add more tests
 
 	private void setUpFunctions(String identityFunctionParameter1, String identityFunctionParameter2) {
 		functions = new ArrayList<>(2);

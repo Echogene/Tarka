@@ -73,9 +73,7 @@ public class SimpleLogicEvaluatorImplTest {
 	public void testEvaluate() throws Exception {
 		Function<?, ?> expected;
 		Function<?, ?> actual;
-		IdentityFunction<TestClass> function1;
 		IdentityFunction<TestClass> nestedX;
-		IdentityFunction<TestClass> function3;
 		IdentityFunction<TestClass> nestedY;
 		Evaluable<TestClass> evaluable1;
 		Evaluable<TestClass> evaluable2;

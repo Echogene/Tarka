@@ -126,20 +126,4 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions.get(1) != null
 				&& functions.get(1) instanceof ReflexiveFunction<?>;
 	}
-
-	public static boolean matchesTwoNameTokens(ValidationResult result) {
-		return result.get(0).equals(TOKEN) && result.get(1).equals(TOKEN);
-	}
-
-	public static boolean matchesFirstFunctionSecondNameToken(ValidationResult result) {
-		return result.get(0).equals(FUNCTION) && result.get(1).equals(TOKEN);
-	}
-
-	public static boolean matchesFirstNameTokenSecondFunction(ValidationResult result) {
-		return result.get(0).equals(TOKEN) && result.get(1).equals(FUNCTION);
-	}
-
-	public static boolean matchesTwoFunctions(ValidationResult result) {
-		return result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION);
-	}
 }
