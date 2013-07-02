@@ -17,9 +17,19 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  */
 public class BinaryValidator implements FunctionFactoryInputValidator {
 	private final List<String> acceptedOperatorSymbols;
+	private Class<?> firstClass;
+	private Class<?> secondClass;
+
+	public BinaryValidator(Class firstClass, List<String> acceptedOperatorSymbols, Class secondClass) {
+		this.acceptedOperatorSymbols = acceptedOperatorSymbols;
+		this.firstClass = firstClass;
+		this.secondClass = secondClass;
+	}
 
 	public BinaryValidator(List<String> acceptedOperatorSymbols) {
 		this.acceptedOperatorSymbols = acceptedOperatorSymbols;
+		this.firstClass = ReflexiveFunction.class;
+		this.secondClass = ReflexiveFunction.class;
 	}
 
 	@Override
@@ -79,7 +89,7 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveFunction<?>
+				&& firstClass.isInstance(functions.get(0))
 				&& functions.get(1) == null;
 	}
 
@@ -101,7 +111,7 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions.size() == 2
 				&& functions.get(0) == null
 				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveFunction<?>;
+				&& secondClass.isInstance(functions.get(1));
 	}
 
 	/**
@@ -122,8 +132,8 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveFunction<?>
+				&& firstClass.isInstance(functions.get(0))
 				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveFunction<?>;
+				&& secondClass.isInstance(functions.get(1));
 	}
 }
