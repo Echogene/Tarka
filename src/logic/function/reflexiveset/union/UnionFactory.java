@@ -3,32 +3,50 @@ package logic.function.reflexiveset.union;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.BinaryValidator;
+import logic.function.factory.ValidationResult;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 import logic.function.reflexiveset.ReflexiveSetFunctionFactory;
+import logic.function.reflexiveset.identity.SetIdentityFunction;
 import logic.set.Set;
 import reading.lexing.Token;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
+import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
+import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 
 /**
  * @author Steven Weston
  */
 public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFactory<T> {
+	private BinaryValidator binaryValidator;
+
+	public UnionFactory() {
+		binaryValidator = new BinaryValidator(
+				ReflexiveSetFunction.class,
+				Collections.singletonList(Union.BINARY_SYMBOL),
+				ReflexiveSetFunction.class);
+	}
+
 	@Override
 	public Function<Set<T>, Set<T>> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		if (matchesBinaryUnionWithStrings(tokens, functions)) {
-			return new Union<>(Arrays.asList(tokens.get(0).getValue(), tokens.get(2).getValue()), convert(functions));
-		} else if (matchesBinaryUnionWithFirstFunction(tokens, functions)) {
-			return new Union<>(Arrays.asList(tokens.get(3).getValue()), convert(functions));
-		} else if (matchesBinaryUnionWithSecondFunction(tokens, functions)) {
-			return new Union<>(Arrays.asList(tokens.get(0).getValue()), convert(functions));
-		} else if (matchesBinaryUnionWithBothFunctions(tokens, functions)) {
-			return new Union<>(null, convert(functions));
+		ValidationResult result = binaryValidator.validate(tokens, functions);
+		if (result.isValid()) {
+			ReflexiveSetFunction<T> parameter1 = null;
+			if (result.get(0).equals(TOKEN)) {
+				parameter1 = new SetIdentityFunction<>(tokens.get(0).getValue());
+			} else if (result.get(0).equals(FUNCTION)) {
+				parameter1 = (ReflexiveSetFunction<T>) functions.get(0);
+			}
+			ReflexiveSetFunction<T> parameter2 = null;
+			if (result.get(1).equals(TOKEN)) {
+				parameter2 = new SetIdentityFunction<>(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
+			} else if (result.get(1).equals(FUNCTION)) {
+				parameter2 = (ReflexiveSetFunction<T>) functions.get(1);
+			}
+			return new Union<>(null, Arrays.asList(parameter1, parameter2));
 		} else {
 			try {return constructMultaryUnion(tokens, functions);}
 			catch (UnionFactoryException ignored) {
@@ -66,81 +84,9 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 		return new Union<>(strings, reflexiveFunctions);
 	}
 
-	List<ReflexiveSetFunction<T>> convert(List<Function<?, ?>> functions) {
-		if (functions == null) {
-			return null;
-		}
-		List<ReflexiveSetFunction<T>> output = new ArrayList<>();
-		for (Function<?, ?> function : functions) {
-			output.add((ReflexiveSetFunction<T>) function);
-		}
-		return output;
-	}
-
 	@Override
 	public Function<Set<T>, Set<T>> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
-	}
-
-	boolean matchesBinaryUnionWithStrings(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 3
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(Union.BINARY_SYMBOL)
-				&& tokens.get(2).isOfType(NAME)
-				&& (functions == null
-					|| functions.isEmpty()
-					|| (functions.size() == 2
-						&& functions.get(0) == null
-						&& functions.get(1) == null));
-	}
-
-	boolean matchesBinaryUnionWithFirstFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 4
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
-				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(Union.BINARY_SYMBOL)
-				&& tokens.get(3).isOfType(NAME)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveSetFunction<?>
-				&& functions.get(1) == null;
-	}
-
-	boolean matchesBinaryUnionWithSecondFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 4
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(Union.BINARY_SYMBOL)
-				&& tokens.get(2).isOfType(OPEN_PAREN)
-				&& tokens.get(3).isOfType(CLOSE_PAREN)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) == null
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveSetFunction<?>;
-	}
-
-	boolean matchesBinaryUnionWithBothFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 5
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
-				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(Union.BINARY_SYMBOL)
-				&& tokens.get(3).isOfType(OPEN_PAREN)
-				&& tokens.get(4).isOfType(CLOSE_PAREN)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveSetFunction<?>
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveSetFunction<?>;
 	}
 
 	private static class UnionFactoryException extends Exception {}
