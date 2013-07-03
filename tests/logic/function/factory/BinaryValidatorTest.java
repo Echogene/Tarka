@@ -28,7 +28,7 @@ public class BinaryValidatorTest {
 
 	@BeforeClass
 	public static void setUp() {
-		lexer   = new SimpleLogicLexerImpl();
+		lexer     = new SimpleLogicLexerImpl();
 		validator = new BinaryValidator(Arrays.asList("+"));
 	}
 

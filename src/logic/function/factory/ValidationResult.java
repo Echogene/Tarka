@@ -21,6 +21,10 @@ public class ValidationResult {
 		return types.get(index);
 	}
 
+	public int size() {
+		return types.size();
+	}
+
 	public enum ValidationType {
 		TOKEN, FUNCTION
 	}
