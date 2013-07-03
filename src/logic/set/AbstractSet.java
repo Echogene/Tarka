@@ -16,7 +16,7 @@ public abstract class AbstractSet<T> implements Set<T> {
 	 */
 	public static <T> Set<T> union(Set<? extends Set<T>> sets) {
 		//todo: look into caching this
-		String newName = Union.N_ARY_SYMBOL;
+		String newName = Union.MULTARY_SYMBOL;
 		Iterator<? extends Set<T>> iterator = sets.iterator();
 		Set<T> set = iterator.next();
 		Set<T> output = set.copy(newName);

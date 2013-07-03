@@ -18,9 +18,9 @@ import java.util.Iterator;
  * @author Steven Weston
  */
 public class Union<T extends Nameable> extends AbstractReflexiveSetFunction<T> {
-	public final static String N_ARY_SYMBOL = "⋃";
+	public final static String MULTARY_SYMBOL = "⋃";
 	public final static String BINARY_SYMBOL = "∪";
-	public final static String UNION_SYMBOLS = N_ARY_SYMBOL + BINARY_SYMBOL;
+	public final static String UNION_SYMBOLS = MULTARY_SYMBOL + BINARY_SYMBOL;
 
 	protected java.util.Set<ReflexiveSetFunction<T>> parameters;
 
@@ -55,7 +55,7 @@ public class Union<T extends Nameable> extends AbstractReflexiveSetFunction<T> {
 
 	@Override
 	public String getName() {
-		return parameters.size() == 2 ? BINARY_SYMBOL : N_ARY_SYMBOL;
+		return parameters.size() == 2 ? BINARY_SYMBOL : MULTARY_SYMBOL;
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 			} else if (token.isOfType(OPEN_PAREN)) {
 
 			} else if (token.isOfType(OPERATOR)) {
-				if (!token.getValue() .equals(Union.N_ARY_SYMBOL)
+				if (!token.getValue() .equals(Union.MULTARY_SYMBOL)
 						|| currentTokenIndex != 0) {
 					throw new UnionFactoryException();
 				}
