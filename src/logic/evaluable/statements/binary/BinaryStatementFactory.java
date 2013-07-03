@@ -5,25 +5,30 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.EvaluableFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.BinaryValidator;
+import logic.function.factory.ValidationResult;
 import reading.lexing.Token;
 
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
+import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
 
 /**
  * @author Steven Weston
  */
 public class BinaryStatementFactory<T extends Nameable> implements EvaluableFactory<T> {
 	private BinaryConnectiveFactory connectiveFactory;
+	private BinaryValidator validator;
 
 	public BinaryStatementFactory() {
 		connectiveFactory = new BinaryConnectiveFactory();
+		validator = new BinaryValidator(Evaluable.class, BinaryConnective.BINARY_CONNECTIVE_SYMBOL_LIST, Evaluable.class);
 	}
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		if (matchesTokens(tokens) && matchesFunctions(functions)) {
+		ValidationResult result = validator.validate(tokens, functions);
+		if (result.isValid() && result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION)) {
 			return new BinaryStatement<>(
 					(Evaluable<T>) functions.get(0),
 					(BinaryConnective) connectiveFactory.createElement(tokens.get(2).getValue()),
@@ -35,24 +40,5 @@ public class BinaryStatementFactory<T extends Nameable> implements EvaluableFact
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
 		throw new FactoryException("Could not create BinaryStatement with no functions");
-	}
-
-	public boolean matchesTokens(List<Token> tokens) {
-		return tokens.size() == 5
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
-				&& tokens.get(2).isOfType(OPERATOR)
-				&& BinaryConnective.BINARY_CONNECTIVE_SYMBOL_LIST.contains(tokens.get(2).getValue())
-				&& tokens.get(3).isOfType(OPEN_PAREN)
-				&& tokens.get(4).isOfType(CLOSE_PAREN);
-	}
-
-	public boolean matchesFunctions(List<Function<?, ?>> functions) {
-		return functions != null
-				&& functions.size() == 2
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof Evaluable<?>
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof Evaluable<?>;
 	}
 }

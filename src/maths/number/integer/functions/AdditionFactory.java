@@ -45,21 +45,20 @@ public class AdditionFactory<N extends Number> implements ReflexiveFunctionFacto
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			ReflexiveFunction<N> parameter1 = null;
+			if (result.get(0).equals(TOKEN)) {
+				parameter1 = new IdentityFunction<>(tokens.get(0).getValue());
+			} else if (result.get(0).equals(FUNCTION)) {
+				parameter1 = (ReflexiveFunction<N>) functions.get(0);
+			}
 			ReflexiveFunction<N> parameter2 = null;
-			if (result.get(0).equals(TOKEN) && result.get(1).equals(TOKEN)) {
-				parameter1 = new IdentityFunction<>(tokens.get(0).getValue());
-				parameter2 = new IdentityFunction<>(tokens.get(2).getValue());
-			} else if (result.get(0).equals(FUNCTION) && result.get(1).equals(TOKEN)) {
-				parameter1 = (ReflexiveFunction<N>) functions.get(0);
-				parameter2 = new IdentityFunction<>(tokens.get(3).getValue());
-			} else if (result.get(0).equals(TOKEN) && result.get(1).equals(FUNCTION)) {
-				parameter1 = new IdentityFunction<>(tokens.get(0).getValue());
-				parameter2 = (ReflexiveFunction<N>) functions.get(1);
-			} else if (result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION)) {
-				parameter1 = (ReflexiveFunction<N>) functions.get(0);
+			if (result.get(1).equals(TOKEN)) {
+				parameter2 = new IdentityFunction<>(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
+			} else if (result.get(1).equals(FUNCTION)) {
 				parameter2 = (ReflexiveFunction<N>) functions.get(1);
 			}
 			return new Addition<>(Arrays.asList(parameter1, parameter2), summor);
+		} else {
+			// todo: multary validator stuff
 		}
 
 		throw new FactoryException("Could not create Addition");

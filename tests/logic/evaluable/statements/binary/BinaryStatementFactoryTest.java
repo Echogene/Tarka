@@ -12,7 +12,7 @@ import reading.lexing.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Steven Weston
@@ -50,52 +50,6 @@ public class BinaryStatementFactoryTest {
 		setUpFunctions("x=y", "y=z");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created binary statement to be equal to the factory-built one", expected, actual);
-	}
-
-	@Test
-	public void testMatchesTokens() throws Exception {
-		setUpTokens("()∨()");
-		assertTrue("Expect standard tokens to match", factory.matchesTokens(tokens));
-
-		setUpTokens("x)∨()");
-		assertFalse("Expect bad bracket to not match", factory.matchesTokens(tokens));
-
-		setUpTokens("(x∨()");
-		assertFalse("Expect bad bracket to not match", factory.matchesTokens(tokens));
-
-		setUpTokens("()∨x)");
-		assertFalse("Expect bad bracket to not match", factory.matchesTokens(tokens));
-
-		setUpTokens("()∨(x");
-		assertFalse("Expect bad bracket to not match", factory.matchesTokens(tokens));
-
-		setUpTokens("() x ()");
-		assertFalse("Expect bad operator to not match", factory.matchesTokens(tokens));
-
-		setUpTokens("() = ()");
-		assertFalse("Expect wrong operator to not match", factory.matchesTokens(tokens));
-	}
-
-	@Test
-	public void testMatchesFunctions() throws Exception {
-		setUpFunctions("x = y", "y = z");
-		assertTrue("Expect standard functions to match", factory.matchesFunctions(functions));
-
-		functions = null;
-		assertFalse("Expect null functions to not match", factory.matchesFunctions(functions));
-
-		functions = new ArrayList<>(1);
-		functions.add(null);
-		assertFalse("Expect wrong number of functions to not match", factory.matchesFunctions(functions));
-
-		setUpFunctions("", "y = z");
-		assertFalse("Expect missing function to not match", factory.matchesFunctions(functions));
-
-		setUpFunctions("x = y", "");
-		assertFalse("Expect missing function to not match", factory.matchesFunctions(functions));
-
-		setUpFunctions("", "");
-		assertFalse("Expect missing functions to not match", factory.matchesFunctions(functions));
 	}
 
 	private void setUpFunctions(String equalityPredicateString1, String equalityPredicateString2) throws Exception {

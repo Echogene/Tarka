@@ -3,18 +3,33 @@ package logic.evaluable.predicate;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.BinaryValidator;
+import logic.function.factory.ValidationResult;
+import logic.function.reflexive.IdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.reflexiveset.identity.SetIdentityFunction;
 import reading.lexing.Token;
 
+import java.util.Collections;
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
+import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
+import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 
 /**
  * @author Steven Weston
  */
 public class MembershipPredicateFactory<T extends Nameable> implements PredicateFactory<T> {
+	private BinaryValidator validator;
+
+	public MembershipPredicateFactory() {
+		validator = new BinaryValidator(
+				ReflexiveFunction.class,
+				Collections.singletonList(MembershipPredicate.MEMBERSHIP_STRING),
+				ReflexiveSetFunction.class);
+	}
+
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
@@ -22,77 +37,22 @@ public class MembershipPredicateFactory<T extends Nameable> implements Predicate
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		if (matchesTwoNameTokens(tokens, functions)) {
-			return new MembershipPredicate<>(tokens.get(0).getValue(), tokens.get(2).getValue());
-		} else if (matchesFirstFunctionSecondNameToken(tokens, functions)) {
-			return new MembershipPredicate<>((ReflexiveFunction<T>) functions.get(0), tokens.get(3).getValue());
-		} else if (matchesFirstNameTokenSecondFunction(tokens, functions)) {
-			return new MembershipPredicate<>(tokens.get(0).getValue(), (ReflexiveSetFunction<T>) functions.get(1));
-		} else if (matchesTwoFunctions(tokens, functions)) {
-			return new MembershipPredicate<>(
-					(ReflexiveFunction<T>) functions.get(0),
-					(ReflexiveSetFunction<T>) functions.get(1));
+		ValidationResult result = validator.validate(tokens, functions);
+		if (result.isValid()) {
+			ReflexiveFunction<T> member = null;
+			if (result.get(0).equals(TOKEN)) {
+				member = new IdentityFunction<>(tokens.get(0).getValue());
+			} else if (result.get(0).equals(FUNCTION)) {
+				member = (ReflexiveFunction<T>) functions.get(0);
+			}
+			ReflexiveSetFunction<T> set = null;
+			if (result.get(1).equals(TOKEN)) {
+				set = new SetIdentityFunction<>(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
+			} else if (result.get(1).equals(FUNCTION)) {
+				set = (ReflexiveSetFunction<T>) functions.get(1);
+			}
+			return new MembershipPredicate<>(member, set);
 		}
 		throw new FactoryException("Could not create MembershipPredicate");
-	}
-
-	public boolean matchesTwoNameTokens(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 3
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
-				&& tokens.get(2).isOfType(NAME)
-				&& (functions == null
-					|| (functions.size() == 2
-						&& functions.get(0) == null
-						&& functions.get(1) == null));
-	}
-
-	public boolean matchesFirstFunctionSecondNameToken(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 4
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
-				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
-				&& tokens.get(3).isOfType(NAME)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveFunction<?>
-				&& functions.get(1) == null;
-	}
-
-	boolean matchesFirstNameTokenSecondFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 4
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
-				&& tokens.get(2).isOfType(OPEN_PAREN)
-				&& tokens.get(3).isOfType(CLOSE_PAREN)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) == null
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveSetFunction<?>;
-	}
-
-	public boolean matchesTwoFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 5
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
-				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
-				&& tokens.get(3).isOfType(OPEN_PAREN)
-				&& tokens.get(4).isOfType(CLOSE_PAREN)
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveFunction<?>
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveSetFunction<?>;
 	}
 }
