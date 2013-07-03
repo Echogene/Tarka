@@ -30,14 +30,14 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 		} else if (matchesBinaryUnionWithBothFunctions(tokens, functions)) {
 			return new Union<>(null, convert(functions));
 		} else {
-			try {return constructNAryUnion(tokens, functions);}
+			try {return constructMultaryUnion(tokens, functions);}
 			catch (UnionFactoryException ignored) {
 				throw new FactoryException("Could not create Union");
 			}
 		}
 	}
 
-	private Union<T> constructNAryUnion(List<Token> tokens, List<Function<?, ?>> functions) throws UnionFactoryException {
+	private Union<T> constructMultaryUnion(List<Token> tokens, List<Function<?, ?>> functions) throws UnionFactoryException {
 		Collection<String> strings = new ArrayList<>();
 		Collection<ReflexiveSetFunction<T>> reflexiveFunctions = new ArrayList<>();
 		int currentFunctionIndex = 0;
