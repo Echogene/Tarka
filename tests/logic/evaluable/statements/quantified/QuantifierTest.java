@@ -4,8 +4,8 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
-import logic.evaluable.predicate.EqualityPredicateFactory;
 import logic.evaluable.predicate.Predicate;
+import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.set.NamedSet;
 import org.junit.Test;
 

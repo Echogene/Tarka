@@ -1,6 +1,7 @@
 package logic.evaluable.predicate;
 
 import logic.TestClass;
+import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
 import logic.function.reflexive.IdentityFunction;

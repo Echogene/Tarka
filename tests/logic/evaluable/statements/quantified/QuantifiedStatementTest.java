@@ -3,7 +3,7 @@ package logic.evaluable.statements.quantified;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.Evaluable;
-import logic.evaluable.predicate.EqualityPredicateFactory;
+import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.evaluable.statements.unary.UnaryStatement;
 import logic.set.NamedSet;

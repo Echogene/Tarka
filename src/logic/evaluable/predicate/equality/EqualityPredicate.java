@@ -1,6 +1,7 @@
-package logic.evaluable.predicate;
+package logic.evaluable.predicate.equality;
 
 import logic.Nameable;
+import logic.evaluable.predicate.Predicate;
 import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;

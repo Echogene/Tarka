@@ -2,6 +2,8 @@ package logic.evaluable.predicate;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
+import logic.evaluable.predicate.equality.EqualityPredicate;
+import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.ParameterNotFoundException;
 import logic.set.NamedSet;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package logic.evaluable.statements.quantified;
 
 import logic.TestClass;
 import logic.evaluable.Evaluable;
-import logic.evaluable.predicate.EqualityPredicateFactory;
+import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
 import logic.function.reflexive.IdentityFunction;
