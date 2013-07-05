@@ -5,6 +5,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.EvaluableFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.BinaryConstructor;
 import logic.function.factory.BinaryValidator;
 import logic.function.factory.ValidationResult;
 import reading.lexing.Token;
@@ -19,6 +20,7 @@ import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
 public class BinaryStatementFactory<T extends Nameable> implements EvaluableFactory<T> {
 	private BinaryConnectiveFactory connectiveFactory;
 	private BinaryValidator validator;
+	private BinaryConstructor<BinaryStatement<T>, Evaluable<T>, Evaluable<T>> constructor;
 
 	public BinaryStatementFactory() {
 		connectiveFactory = new BinaryConnectiveFactory();
@@ -29,10 +31,13 @@ public class BinaryStatementFactory<T extends Nameable> implements EvaluableFact
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		ValidationResult result = validator.validate(tokens, functions);
 		if (result.isValid() && result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION)) {
-			return new BinaryStatement<>(
-					(Evaluable<T>) functions.get(0),
-					(BinaryConnective) connectiveFactory.createElement(tokens.get(2).getValue()),
-					(Evaluable<T>) functions.get(1));
+			BinaryConnective connective = (BinaryConnective) connectiveFactory.createElement(tokens.get(2).getValue());
+			this.constructor = new BinaryConstructor<>(
+					new BinaryStatementConstructorFromTwoParameters<>(connective),
+					null,
+					null
+			);
+			return constructor.construct(result, tokens, functions);
 		}
 		throw new FactoryException("Could not create BinaryStatement");
 	}
