@@ -12,12 +12,13 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  * @author Steven Weston
  */
 public class BinaryConstructor<F extends Function<?, ?>, P extends Function<?, ?>, Q extends Function<?, ?>> {
+	private FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor;
 	private ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1;
 	private ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2;
-	private FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor;
 
 	public BinaryConstructor(
-			FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor, ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1,
+			FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor,
+			ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1,
 			ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2
 	) {
 		this.parameterConstructor1 = parameterConstructor1;
