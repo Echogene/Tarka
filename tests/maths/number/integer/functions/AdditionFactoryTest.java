@@ -44,7 +44,7 @@ public class AdditionFactoryTest {
 		Addition<Integer> expected = new Addition<>(parameters, summor);
 
 		setUpTokens("2+3");
-		Addition<Integer> actual = factory.createElement(tokens);
+		Addition<Integer> actual = (Addition<Integer>) factory.createElement(tokens);
 
 		assertEquals(expected, actual);
 	}

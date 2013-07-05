@@ -21,9 +21,9 @@ public class BinaryConstructor<F extends Function<?, ?>, P extends Function<?, ?
 			ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1,
 			ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2
 	) {
+		this.functionConstructor = functionConstructor;
 		this.parameterConstructor1 = parameterConstructor1;
 		this.parameterConstructor2 = parameterConstructor2;
-		this.functionConstructor = functionConstructor;
 	}
 
 	public F construct(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
