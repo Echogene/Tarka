@@ -4,13 +4,10 @@ import logic.Nameable;
 import logic.function.ParameterNotFoundException;
 import logic.function.reflexiveset.AbstractReflexiveSetFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
 import logic.set.AbstractSet;
 import logic.set.NamedSet;
 import logic.set.Set;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -24,20 +21,8 @@ public class Union<T extends Nameable> extends AbstractReflexiveSetFunction<T> {
 
 	protected java.util.Set<ReflexiveSetFunction<T>> parameters;
 
-	public Union(Collection<String> strings, Collection<ReflexiveSetFunction<T>> functions) {
-		parameters = new HashSet<>();
-		if (strings != null) {
-			for (String string : strings) {
-				parameters.add(new SetIdentityFunction<>(string));
-			}
-		}
-		if (functions != null) {
-			for (ReflexiveSetFunction<T> function : functions) {
-				if (function != null) {
-					parameters.add(function);
-				}
-			}
-		}
+	public Union(java.util.Set<ReflexiveSetFunction<T>> parameters) {
+		this.parameters = parameters;
 	}
 
 	@Override

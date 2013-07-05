@@ -5,8 +5,6 @@ import logic.set.NamedSet;
 import logic.set.Set;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +30,7 @@ public class UnionTest {
 		sets.put(B);
 		sets.put(C);
 
-		Union<TestClass> union = new Union<>(Arrays.asList("A", "B"), null);
+		Union<TestClass> union = UnionFactory.createElement("A", "B");
 		Set<TestClass> unionResult = union.evaluate(sets);
 
 		assertTrue(unionResult.containsValue(a));

@@ -1,11 +1,12 @@
 package logic.function.factory;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author Steven Weston
  */
-public class ValidationResult {
+public class ValidationResult implements Iterable<ValidationResult.ValidationType> {
 	public static final ValidationResult INVALID = new ValidationResult(null);
 	private List<ValidationType> types;
 
@@ -23,6 +24,11 @@ public class ValidationResult {
 
 	public int size() {
 		return types.size();
+	}
+
+	@Override
+	public Iterator<ValidationType> iterator() {
+		return types.iterator();
 	}
 
 	public enum ValidationType {

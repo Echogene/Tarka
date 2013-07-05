@@ -3,17 +3,21 @@ package logic.function.reflexiveset.union;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.BinaryConstructor;
 import logic.function.factory.BinaryValidator;
+import logic.function.factory.MultaryValidator;
 import logic.function.factory.ValidationResult;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 import logic.function.reflexiveset.ReflexiveSetFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunction;
+import logic.function.reflexiveset.identity.SetIdentityFunctionConstructorFromString;
 import logic.set.Set;
 import reading.lexing.Token;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
 import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 
@@ -22,72 +26,65 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  */
 public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFactory<T> {
 	private BinaryValidator binaryValidator;
+	private BinaryConstructor<ReflexiveSetFunction<T>, Union<T>> binaryConstructor;
+	private MultaryValidator multaryValidator;
 
 	public UnionFactory() {
 		binaryValidator = new BinaryValidator(
 				ReflexiveSetFunction.class,
 				Collections.singletonList(Union.BINARY_SYMBOL),
-				ReflexiveSetFunction.class);
+				ReflexiveSetFunction.class
+		);
+		binaryConstructor = new BinaryConstructor<>(
+				new SetIdentityFunctionConstructorFromString<T>(),
+				new UnionConstructorFromParameterList<>()
+		);
+		multaryValidator = new MultaryValidator(
+				Collections.singletonList(Union.MULTARY_SYMBOL),
+				ReflexiveSetFunction.class
+		);
+	}
+
+	public static <T extends Nameable> Union<T> createElement(String... parameters) {
+		java.util.Set<ReflexiveSetFunction<T>> functions = new HashSet<>();
+		for (String parameter : parameters) {
+			ReflexiveSetFunction<T> function = new SetIdentityFunction<>(parameter);
+			functions.add(function);
+		}
+		return new Union<>(functions);
 	}
 
 	@Override
 	public Function<Set<T>, Set<T>> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
-			ReflexiveSetFunction<T> parameter1 = null;
-			if (result.get(0).equals(TOKEN)) {
-				parameter1 = new SetIdentityFunction<>(tokens.get(0).getValue());
-			} else if (result.get(0).equals(FUNCTION)) {
-				parameter1 = (ReflexiveSetFunction<T>) functions.get(0);
-			}
-			ReflexiveSetFunction<T> parameter2 = null;
-			if (result.get(1).equals(TOKEN)) {
-				parameter2 = new SetIdentityFunction<>(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
-			} else if (result.get(1).equals(FUNCTION)) {
-				parameter2 = (ReflexiveSetFunction<T>) functions.get(1);
-			}
-			return new Union<>(null, Arrays.asList(parameter1, parameter2));
-		} else {
-			try {return constructMultaryUnion(tokens, functions);}
-			catch (UnionFactoryException ignored) {
-				throw new FactoryException("Could not create Union");
-			}
+			return binaryConstructor.construct(result, tokens, functions);
 		}
+		result = multaryValidator.validate(tokens, functions);
+		if (result.isValid()) {
+			return constructMultaryUnion(result, tokens, functions);
+		}
+		throw new FactoryException("Could not create Union");
 	}
 
-	private Union<T> constructMultaryUnion(List<Token> tokens, List<Function<?, ?>> functions) throws UnionFactoryException {
-		Collection<String> strings = new ArrayList<>();
-		Collection<ReflexiveSetFunction<T>> reflexiveFunctions = new ArrayList<>();
-		int currentFunctionIndex = 0;
-		int currentTokenIndex = 0;
-		Token lastToken = null;
-		for (Token token : tokens) {
-			if (token.isOfType(CLOSE_PAREN)) {
-				if (lastToken == null || !lastToken.isOfType(OPEN_PAREN)) {
-					throw new UnionFactoryException();
-				}
-				reflexiveFunctions.add((ReflexiveSetFunction<T>) functions.get(currentFunctionIndex++));
-			} else if (token.isOfType(OPEN_PAREN)) {
-
-			} else if (token.isOfType(OPERATOR)) {
-				if (!token.getValue() .equals(Union.MULTARY_SYMBOL)
-						|| currentTokenIndex != 0) {
-					throw new UnionFactoryException();
-				}
-			} else if (token.isOfType(NAME)) {
-				strings.add(token.getValue());
-				currentFunctionIndex++;
+	private Union<T> constructMultaryUnion(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
+		int tokenIndex = 1;
+		int functionIndex = 0;
+		java.util.Set<ReflexiveSetFunction<T>> set = new HashSet<>();
+		for (ValidationResult.ValidationType type : result) {
+			if (type.equals(TOKEN)) {
+				set.add(new SetIdentityFunction<>(tokens.get(tokenIndex++).getValue()));
+				functionIndex++;
+			} else if (type.equals(FUNCTION)) {
+				set.add((ReflexiveSetFunction<T>) functions.get(functionIndex++));
+				tokenIndex += 2;
 			}
-			currentTokenIndex++;
-			lastToken = token;
 		}
-		return new Union<>(strings, reflexiveFunctions);
+		return new Union<>(set);
 	}
 
 	@Override
 	public Function<Set<T>, Set<T>> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
 	}
-
-	private static class UnionFactoryException extends Exception {}
 }
