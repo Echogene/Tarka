@@ -1,6 +1,7 @@
-package logic.evaluable.predicate;
+package logic.evaluable.predicate.membership;
 
 import logic.Nameable;
+import logic.evaluable.predicate.PredicateFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.BinaryValidator;

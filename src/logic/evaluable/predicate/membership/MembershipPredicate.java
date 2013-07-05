@@ -1,6 +1,7 @@
-package logic.evaluable.predicate;
+package logic.evaluable.predicate.membership;
 
 import logic.Nameable;
+import logic.evaluable.predicate.Predicate;
 import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.IdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;

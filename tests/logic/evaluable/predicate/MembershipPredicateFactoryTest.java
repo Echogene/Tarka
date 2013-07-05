@@ -1,6 +1,8 @@
 package logic.evaluable.predicate;
 
 import logic.TestClass;
+import logic.evaluable.predicate.membership.MembershipPredicate;
+import logic.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
 import logic.function.reflexive.IdentityFunction;

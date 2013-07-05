@@ -1,8 +1,8 @@
 package logic;
 
 import logic.evaluable.constants.LogicalConstantFactory;
-import logic.evaluable.predicate.MembershipPredicateFactory;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
+import logic.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.evaluable.statements.binary.BinaryStatementFactory;
 import logic.evaluable.statements.quantified.QuantifiedStatementFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;

@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
-import logic.evaluable.predicate.MembershipPredicate;
+import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.set.NamedSet;
 import logic.set.Set;
 import org.junit.Test;

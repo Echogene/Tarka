@@ -2,6 +2,7 @@ package logic.evaluable.predicate;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
+import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.set.NamedSet;
 import logic.set.Set;
 import org.junit.Test;

@@ -3,7 +3,6 @@ package logic.function.factory;
 import logic.function.Function;
 import reading.lexing.Token;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
@@ -12,38 +11,33 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 /**
  * @author Steven Weston
  */
-public class BinaryConstructor<F extends Function<?, ?>, G extends Function<?, ?>> {
-	private ReflexiveFunctionConstructorFromString<? extends F> identityConstructor;
-	private FunctionConstructorFromParameterList<F, G> functionConstructor;
+public class BinaryConstructor<F extends Function<?, ?>, P extends Function<?, ?>, Q extends Function<?, ?>> {
+	private ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1;
+	private ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2;
+	private FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor;
 
 	public BinaryConstructor(
-			ReflexiveFunctionConstructorFromString<? extends F> identityConstructor,
-			FunctionConstructorFromParameterList<F, G> functionConstructor
+			FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor, ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1,
+			ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2
 	) {
-		this.identityConstructor = identityConstructor;
+		this.parameterConstructor1 = parameterConstructor1;
+		this.parameterConstructor2 = parameterConstructor2;
 		this.functionConstructor = functionConstructor;
 	}
 
-	private List<F> getParameterList(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
-		java.util.List<F> list = new ArrayList<>();
-		F parameter1 = null;
+	public F construct(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
+		P parameter1 = null;
 		if (result.get(0).equals(TOKEN)) {
-			parameter1 = identityConstructor.construct(tokens.get(0).getValue());
+			parameter1 = parameterConstructor1.construct(tokens.get(0).getValue());
 		} else if (result.get(0).equals(FUNCTION)) {
-			parameter1 = (F) functions.get(0);
+			parameter1 = (P) functions.get(0);
 		}
-		list.add(parameter1);
-		F parameter2 = null;
+		Q parameter2 = null;
 		if (result.get(1).equals(TOKEN)) {
-			parameter2 = identityConstructor.construct(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
+			parameter2 = parameterConstructor2.construct(tokens.get(result.get(0).equals(TOKEN) ? 2 : 3).getValue());
 		} else if (result.get(1).equals(FUNCTION)) {
-			parameter2 = (F) functions.get(1);
+			parameter2 = (Q) functions.get(1);
 		}
-		list.add(parameter2);
-		return list;
-	}
-
-	public G construct(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
-		return functionConstructor.construct(getParameterList(result, tokens, functions));
+		return functionConstructor.construct(parameter1, parameter2);
 	}
 }

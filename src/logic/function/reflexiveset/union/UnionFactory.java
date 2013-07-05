@@ -26,7 +26,7 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  */
 public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFactory<T> {
 	private BinaryValidator binaryValidator;
-	private BinaryConstructor<ReflexiveSetFunction<T>, Union<T>> binaryConstructor;
+	private BinaryConstructor<Union<T>, ReflexiveSetFunction<T>, ReflexiveSetFunction<T>> binaryConstructor;
 	private MultaryValidator multaryValidator;
 
 	public UnionFactory() {
@@ -36,8 +36,9 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 				ReflexiveSetFunction.class
 		);
 		binaryConstructor = new BinaryConstructor<>(
+				new UnionConstructorFromTwoParameters<>(),
 				new SetIdentityFunctionConstructorFromString<T>(),
-				new UnionConstructorFromParameterList<>()
+				new SetIdentityFunctionConstructorFromString<T>()
 		);
 		multaryValidator = new MultaryValidator(
 				Collections.singletonList(Union.MULTARY_SYMBOL),

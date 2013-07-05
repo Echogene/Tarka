@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class EqualityPredicateFactory<T extends Nameable> implements PredicateFactory<T> {
 	final BinaryValidator binaryValidator;
-	private BinaryConstructor<ReflexiveFunction<T>, EqualityPredicate<T>> binaryConstructor;
+	private BinaryConstructor<EqualityPredicate<T>, ReflexiveFunction<T>, ReflexiveFunction<T>> binaryConstructor;
 
 	/**
 	 * @param equorString The string representing the equor of the equals.
@@ -38,8 +38,9 @@ public class EqualityPredicateFactory<T extends Nameable> implements PredicateFa
 	public EqualityPredicateFactory() {
 		this.binaryValidator = new BinaryValidator(Arrays.asList(EqualityPredicate.EQUALITY_SYMBOL));
 		this.binaryConstructor = new BinaryConstructor<>(
+				new EqualityPredicateConstructorFromTwoParameters<>(),
 				new IdentityFunctionConstructorFromString<T>(),
-				new EqualityPredicateConstructorFromParameterList<>()
+				new IdentityFunctionConstructorFromString<T>()
 		);
 	}
 
