@@ -27,9 +27,7 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	}
 
 	public BinaryValidator(List<String> acceptedOperatorSymbols) {
-		this.acceptedOperatorSymbols = acceptedOperatorSymbols;
-		this.firstClass = ReflexiveFunction.class;
-		this.secondClass = ReflexiveFunction.class;
+		this(ReflexiveFunction.class, acceptedOperatorSymbols, ReflexiveFunction.class);
 	}
 
 	@Override
