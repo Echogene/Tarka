@@ -25,7 +25,7 @@ public class AdditionConstructorFromTwoParameters<N extends Number>
 	}
 
 	@Override
-	public Addition<N> construct(ReflexiveFunction<N> parameter1, ReflexiveFunction<N> parameter2) {
+	public Addition<N> construct(ReflexiveFunction<N> parameter1, String operator, ReflexiveFunction<N> parameter2) {
 		List<ReflexiveFunction<N>> parameters = new ArrayList<>();
 		parameters.add(parameter1);
 		parameters.add(parameter2);

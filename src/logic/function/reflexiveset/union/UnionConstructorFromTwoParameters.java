@@ -12,7 +12,7 @@ import java.util.HashSet;
 public class UnionConstructorFromTwoParameters<T extends Nameable>
 		implements FunctionConstructorFromTwoParameters<Union<T>, ReflexiveSetFunction<T>, ReflexiveSetFunction<T>> {
 	@Override
-	public Union<T> construct(ReflexiveSetFunction<T> parameter1, ReflexiveSetFunction<T> parameter2) {
+	public Union<T> construct(ReflexiveSetFunction<T> parameter1, String operator, ReflexiveSetFunction<T> parameter2) {
 		HashSet<ReflexiveSetFunction<T>> parameters = new HashSet<>();
 		parameters.add(parameter1);
 		parameters.add(parameter2);

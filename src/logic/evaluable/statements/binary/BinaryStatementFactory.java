@@ -12,8 +12,6 @@ import reading.lexing.Token;
 
 import java.util.List;
 
-import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
-
 /**
  * @author Steven Weston
  */
@@ -25,18 +23,13 @@ public class BinaryStatementFactory<T extends Nameable> implements EvaluableFact
 	public BinaryStatementFactory() {
 		connectiveFactory = new BinaryConnectiveFactory();
 		validator = new BinaryValidator(Evaluable.class, BinaryConnective.BINARY_CONNECTIVE_SYMBOL_LIST, Evaluable.class);
+		this.constructor = new BinaryConstructor<>(new BinaryStatementConstructorFromTwoParameters<>(new BinaryConnectiveFactory()), null, null);
 	}
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		ValidationResult result = validator.validate(tokens, functions);
-		if (result.isValid() && result.get(0).equals(FUNCTION) && result.get(1).equals(FUNCTION)) {
-			BinaryConnective connective = (BinaryConnective) connectiveFactory.createElement(tokens.get(2).getValue());
-			this.constructor = new BinaryConstructor<>(
-					new BinaryStatementConstructorFromTwoParameters<>(connective),
-					null,
-					null
-			);
+		if (result.isValid()) {
 			return constructor.construct(result, tokens, functions);
 		}
 		throw new FactoryException("Could not create BinaryStatement");

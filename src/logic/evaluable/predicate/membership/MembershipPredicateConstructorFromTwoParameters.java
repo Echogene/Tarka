@@ -15,7 +15,7 @@ public class MembershipPredicateConstructorFromTwoParameters<T extends Nameable>
 			ReflexiveSetFunction<T>
 		> {
 	@Override
-	public MembershipPredicate<T> construct(ReflexiveFunction<T> parameter1, ReflexiveSetFunction<T> parameter2) {
+	public MembershipPredicate<T> construct(ReflexiveFunction<T> parameter1, String operator, ReflexiveSetFunction<T> parameter2) {
 		return new MembershipPredicate<>(parameter1, parameter2);
 	}
 }
