@@ -3,10 +3,7 @@ package logic.function.reflexiveset.union;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.BinaryConstructor;
-import logic.function.factory.BinaryValidator;
-import logic.function.factory.MultaryValidator;
-import logic.function.factory.ValidationResult;
+import logic.function.factory.*;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 import logic.function.reflexiveset.ReflexiveSetFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunction;
@@ -18,9 +15,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
-import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
-
 /**
  * @author Steven Weston
  */
@@ -28,6 +22,7 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 	private BinaryValidator binaryValidator;
 	private BinaryConstructor<Union<T>, ReflexiveSetFunction<T>, ReflexiveSetFunction<T>> binaryConstructor;
 	private MultaryValidator multaryValidator;
+	private MultaryConstructor<Union<T>, ReflexiveSetFunction<T>> multaryConstructor;
 
 	public UnionFactory() {
 		binaryValidator = new BinaryValidator(
@@ -43,6 +38,10 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 		multaryValidator = new MultaryValidator(
 				Collections.singletonList(Union.MULTARY_SYMBOL),
 				ReflexiveSetFunction.class
+		);
+		multaryConstructor = new MultaryConstructor<>(
+				new UnionConstructorFromParameterList<>(),
+				new SetIdentityFunctionConstructorFromString<T>()
 		);
 	}
 
@@ -63,25 +62,9 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 		}
 		result = multaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
-			return constructMultaryUnion(result, tokens, functions);
+			return multaryConstructor.construct(result, tokens, functions);
 		}
 		throw new FactoryException("Could not create Union");
-	}
-
-	private Union<T> constructMultaryUnion(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) {
-		int tokenIndex = 1;
-		int functionIndex = 0;
-		java.util.Set<ReflexiveSetFunction<T>> set = new HashSet<>();
-		for (ValidationResult.ValidationType type : result) {
-			if (type.equals(TOKEN)) {
-				set.add(new SetIdentityFunction<>(tokens.get(tokenIndex++).getValue()));
-				functionIndex++;
-			} else if (type.equals(FUNCTION)) {
-				set.add((ReflexiveSetFunction<T>) functions.get(functionIndex++));
-				tokenIndex += 2;
-			}
-		}
-		return new Union<>(set);
 	}
 
 	@Override

@@ -11,7 +11,9 @@ public interface FunctionConstructorFromTwoParameters<F, P, Q> {
 	 *
 	 * @param parameter1
 	 * @param operator
-	 *@param parameter2  @return
+	 * @param parameter2
+	 * @return
+	 * @throws FactoryException
 	 */
 	F construct(P parameter1, String operator, Q parameter2) throws FactoryException;
 }
