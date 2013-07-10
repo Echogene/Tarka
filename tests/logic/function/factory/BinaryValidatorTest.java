@@ -3,7 +3,7 @@ package logic.function.factory;
 import logic.TestClass;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
-import logic.function.reflexive.IdentityFunction;
+import logic.function.reflexive.identity.IdentityFunction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;

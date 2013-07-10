@@ -1,4 +1,4 @@
-package logic.function.reflexive;
+package logic.function.reflexive.identity;
 
 import logic.Nameable;
 import logic.function.factory.ReflexiveFunctionConstructorFromString;

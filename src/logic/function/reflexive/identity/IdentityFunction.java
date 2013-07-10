@@ -1,7 +1,9 @@
-package logic.function.reflexive;
+package logic.function.reflexive.identity;
 
 import logic.Nameable;
 import logic.function.ParameterNotFoundException;
+import logic.function.reflexive.AbstractReflexiveFunction;
+import logic.function.reflexive.ReflexiveFunction;
 import logic.set.Set;
 
 /**

@@ -8,7 +8,7 @@ import logic.evaluable.statements.quantified.QuantifiedStatementFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.factory.FunctionFactory;
-import logic.function.reflexive.IdentityFunctionFactory;
+import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
 import logic.function.reflexiveset.union.UnionFactory;
 

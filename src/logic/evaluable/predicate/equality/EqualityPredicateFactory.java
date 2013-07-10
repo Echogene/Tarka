@@ -7,9 +7,9 @@ import logic.function.Function;
 import logic.function.factory.BinaryConstructor;
 import logic.function.factory.BinaryValidator;
 import logic.function.factory.ValidationResult;
-import logic.function.reflexive.IdentityFunction;
-import logic.function.reflexive.IdentityFunctionConstructorFromString;
 import logic.function.reflexive.ReflexiveFunction;
+import logic.function.reflexive.identity.IdentityFunction;
+import logic.function.reflexive.identity.IdentityFunctionConstructorFromString;
 import reading.lexing.Token;
 
 import java.util.Arrays;

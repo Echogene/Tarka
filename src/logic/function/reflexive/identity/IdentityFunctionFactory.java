@@ -1,8 +1,10 @@
-package logic.function.reflexive;
+package logic.function.reflexive.identity;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.reflexive.ReflexiveFunction;
+import logic.function.reflexive.ReflexiveFunctionFactory;
 import reading.lexing.Token;
 
 import java.util.List;
