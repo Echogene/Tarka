@@ -49,19 +49,33 @@ public class AdditionFactoryTest {
 		assertEquals(expected, actual);
 	}
 
-	// todo: add more tests
+	@Test
+	public void testMultary() throws Exception {
+		ReflexiveFunction<Integer> two = new IdentityFunction<>("2");
+		ReflexiveFunction<Integer> three = new IdentityFunction<>("3");
+		ReflexiveFunction<Integer> four = new IdentityFunction<>("4");
+		List<ReflexiveFunction<Integer>> parameters = new ArrayList<>();
+		parameters.add(two);
+		parameters.add(three);
+		parameters.add(four);
 
-	private void setUpFunctions(String identityFunctionParameter1, String identityFunctionParameter2) {
-		functions = new ArrayList<>(2);
-		if (identityFunctionParameter1.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter1));
-		}
-		if (identityFunctionParameter2.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter2));
+		Addition<Integer> expected = new Addition<>(parameters, summor);
+
+		setUpTokens("Σ 2 3 4");
+		setUpFunctions("", "", "");
+		Addition<Integer> actual = (Addition<Integer>) factory.createElement(tokens, functions);
+
+		assertEquals(expected, actual);
+	}
+
+	private void setUpFunctions(String... identityFunctionParameters) {
+		functions = new ArrayList<>();
+		for (String identityFunctionParameter : identityFunctionParameters) {
+			if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
+				functions.add(null);
+			} else {
+				functions.add(new IdentityFunction<TestClass>(identityFunctionParameter));
+			}
 		}
 	}
 

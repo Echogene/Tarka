@@ -2,9 +2,7 @@ package maths.number.integer.functions;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.BinaryConstructor;
-import logic.function.factory.BinaryValidator;
-import logic.function.factory.ValidationResult;
+import logic.function.factory.*;
 import logic.function.reflexive.IdentityFunctionConstructorFromString;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
@@ -19,16 +17,23 @@ import java.util.List;
  * @author Steven Weston
  */
 public class AdditionFactory<N extends Number> implements ReflexiveFunctionFactory<N> {
+	private final Summor<N> summor;
 	private final BinaryValidator binaryValidator;
 	private BinaryConstructor<Addition<N>, ReflexiveFunction<N>, ReflexiveFunction<N>> binaryConstructor;
-	private final Summor<N> summor;
+	private MultaryValidator multaryValidator;
+	private MultaryConstructor<Addition<N>, ReflexiveFunction<N>> multaryConstructor;
 
 	public AdditionFactory(Summor<N> summor) {
-		this.binaryValidator = new BinaryValidator(Arrays.asList(Addition.PLUS_SYMBOL));
 		this.summor = summor;
+		this.binaryValidator = new BinaryValidator(Arrays.asList(Addition.PLUS_SYMBOL));
 		this.binaryConstructor = new BinaryConstructor<>(
 				new AdditionConstructorFromTwoParameters<>(this.summor),
 				new IdentityFunctionConstructorFromString<N>(),
+				new IdentityFunctionConstructorFromString<N>()
+		);
+		this.multaryValidator = new MultaryValidator(Arrays.asList(Addition.SUM_SYMBOL), ReflexiveFunction.class);
+		this.multaryConstructor = new MultaryConstructor<>(
+				new AdditionConstructorFromParameterList<>(this.summor),
 				new IdentityFunctionConstructorFromString<N>()
 		);
 	}
@@ -43,10 +48,11 @@ public class AdditionFactory<N extends Number> implements ReflexiveFunctionFacto
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			return binaryConstructor.construct(result, tokens, functions);
-		} else {
-			// todo: multary validator stuff
 		}
-
+		result = multaryValidator.validate(tokens, functions);
+		if (result.isValid()) {
+			return multaryConstructor.construct(result, tokens, functions);
+		}
 		throw new FactoryException("Could not create Addition");
 	}
 }
