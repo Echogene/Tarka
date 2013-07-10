@@ -1,6 +1,8 @@
-package logic.function.factory;
+package logic.function.factory.binary;
 
 import logic.function.Function;
+import logic.function.factory.FunctionFactoryInputValidator;
+import logic.function.factory.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import reading.lexing.Token;
 

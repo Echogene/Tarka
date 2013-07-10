@@ -3,7 +3,7 @@ package logic.evaluable.statements.binary;
 import logic.Nameable;
 import logic.evaluable.Evaluable;
 import logic.factory.FactoryException;
-import logic.function.factory.FunctionConstructorFromTwoParameters;
+import logic.function.factory.binary.FunctionConstructorFromTwoParameters;
 
 /**
  * @author Steven Weston

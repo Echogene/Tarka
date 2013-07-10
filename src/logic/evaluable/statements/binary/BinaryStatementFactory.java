@@ -5,9 +5,9 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.EvaluableFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.BinaryConstructor;
-import logic.function.factory.BinaryValidator;
 import logic.function.factory.ValidationResult;
+import logic.function.factory.binary.BinaryConstructor;
+import logic.function.factory.binary.BinaryValidator;
 import reading.lexing.Token;
 
 import java.util.List;

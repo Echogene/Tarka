@@ -1,4 +1,4 @@
-package logic.function.factory;
+package logic.function.factory.binary;
 
 import logic.factory.FactoryException;
 

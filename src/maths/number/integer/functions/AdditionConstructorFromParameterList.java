@@ -1,7 +1,7 @@
 package maths.number.integer.functions;
 
 import logic.factory.FactoryException;
-import logic.function.factory.FunctionConstructorFromParameterList;
+import logic.function.factory.multary.FunctionConstructorFromParameterList;
 import logic.function.reflexive.ReflexiveFunction;
 import maths.number.Number;
 import maths.number.Summor;

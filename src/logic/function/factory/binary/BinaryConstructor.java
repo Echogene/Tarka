@@ -1,7 +1,9 @@
-package logic.function.factory;
+package logic.function.factory.binary;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.factory.ReflexiveFunctionConstructorFromString;
+import logic.function.factory.ValidationResult;
 import reading.lexing.Token;
 
 import java.util.List;

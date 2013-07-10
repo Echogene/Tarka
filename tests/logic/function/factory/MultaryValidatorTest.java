@@ -3,6 +3,7 @@ package logic.function.factory;
 import logic.TestClass;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
+import logic.function.factory.multary.MultaryValidator;
 import logic.function.reflexiveset.identity.SetIdentityFunction;
 import org.junit.BeforeClass;
 import org.junit.Test;

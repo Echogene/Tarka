@@ -1,7 +1,7 @@
 package logic.function.reflexiveset.union;
 
 import logic.Nameable;
-import logic.function.factory.FunctionConstructorFromTwoParameters;
+import logic.function.factory.binary.FunctionConstructorFromTwoParameters;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 
 import java.util.HashSet;

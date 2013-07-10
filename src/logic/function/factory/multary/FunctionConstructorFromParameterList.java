@@ -1,4 +1,4 @@
-package logic.function.factory;
+package logic.function.factory.multary;
 
 import logic.factory.FactoryException;
 

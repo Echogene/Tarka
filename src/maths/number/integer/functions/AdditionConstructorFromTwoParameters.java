@@ -1,6 +1,6 @@
 package maths.number.integer.functions;
 
-import logic.function.factory.FunctionConstructorFromTwoParameters;
+import logic.function.factory.binary.FunctionConstructorFromTwoParameters;
 import logic.function.reflexive.ReflexiveFunction;
 import maths.number.Number;
 import maths.number.Summor;

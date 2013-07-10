@@ -1,7 +1,7 @@
 package logic.evaluable.predicate.membership;
 
 import logic.Nameable;
-import logic.function.factory.FunctionConstructorFromTwoParameters;
+import logic.function.factory.binary.FunctionConstructorFromTwoParameters;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 

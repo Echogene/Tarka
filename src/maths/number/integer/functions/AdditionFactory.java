@@ -2,7 +2,11 @@ package maths.number.integer.functions;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.*;
+import logic.function.factory.ValidationResult;
+import logic.function.factory.binary.BinaryConstructor;
+import logic.function.factory.binary.BinaryValidator;
+import logic.function.factory.multary.MultaryConstructor;
+import logic.function.factory.multary.MultaryValidator;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
 import logic.function.reflexive.identity.IdentityFunctionConstructorFromString;

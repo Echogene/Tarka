@@ -2,7 +2,7 @@ package logic.function.reflexiveset.union;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
-import logic.function.factory.FunctionConstructorFromParameterList;
+import logic.function.factory.multary.FunctionConstructorFromParameterList;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 
 import java.util.HashSet;
