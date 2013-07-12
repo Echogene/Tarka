@@ -1,8 +1,6 @@
 package maths.number.integer.universe;
 
-import logic.model.universe.Universe;
-import logic.model.universe.VariableAlreadyExistsException;
-import logic.model.universe.VariableNotAssignedException;
+import logic.model.universe.AbstractUniverse;
 import logic.set.NamedSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
@@ -11,11 +9,13 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * @author Steven Weston
  */
-public class IntegerUniverse implements Universe<maths.number.integer.Integer> {
+public class IntegerUniverse extends AbstractUniverse<Integer> {
 	IntegerUniversalSet universalSet;
+	NamedSet<Integer> variables;
 
 	public IntegerUniverse() {
 		universalSet = new IntegerUniversalSet("universe");
+		variables = new NamedSet<>("variables");
 	}
 
 	@Override
@@ -30,27 +30,11 @@ public class IntegerUniverse implements Universe<maths.number.integer.Integer> {
 
 	@Override
 	public Set<Integer> getVariables() {
-		// todo
-		return new NamedSet<>("NotImplemented");
+		return variables;
 	}
 
 	@Override
 	public Set<Integer> getValueSet() {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public Integer unassignVariable(String variableSymbol) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void assignVariable(String variableSymbol) throws VariableAlreadyExistsException {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public Integer setVariable(String variableSymbol, Integer integer) throws VariableNotAssignedException {
 		throw new NotImplementedException();
 	}
 
