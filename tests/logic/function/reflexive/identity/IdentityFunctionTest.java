@@ -18,7 +18,6 @@ public class IdentityFunctionTest {
 		variables.put(x);
 
 		IdentityFunction<TestClass> function = new IdentityFunction<>("x");
-		assertEquals("Expect evaluation of function to be equal to " + x.toString(), x, function.evaluate(variables));
 
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setVariables(variables);

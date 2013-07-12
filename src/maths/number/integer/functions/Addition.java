@@ -1,12 +1,9 @@
 package maths.number.integer.functions;
 
-import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
-import logic.set.Set;
 import maths.number.Number;
 import maths.number.Summor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +25,12 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public N evaluate(Universe<N> universe) throws ParameterNotFoundException {
+	public N evaluate(Universe<N> universe) throws Exception {
 		List<N> numbers = new ArrayList<>();
 		for(ReflexiveFunction<N> function : parameters) {
 			numbers.add(function.evaluate(universe));
 		}
 		return summor.sum(numbers);
-	}
-
-	@Override
-	public N evaluate(Set<? extends N> variables) throws ParameterNotFoundException {
-		throw new NotImplementedException();
 	}
 
 	@Override

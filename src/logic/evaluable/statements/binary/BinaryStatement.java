@@ -2,9 +2,7 @@ package logic.evaluable.statements.binary;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
-import logic.function.ParameterNotFoundException;
 import logic.model.universe.Universe;
-import logic.set.Set;
 
 /**
  * @author Steven Weston
@@ -18,11 +16,6 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 		this.firstEvaluable  = firstEvaluable;
 		this.connective      = connective;
 		this.secondEvaluable = secondEvaluable;
-	}
-
-	@Override
-	public Boolean evaluate(Set<? extends T> variables) throws ParameterNotFoundException {
-		return connective.apply(firstEvaluable.evaluate(variables), secondEvaluable.evaluate(variables));
 	}
 
 	@Override

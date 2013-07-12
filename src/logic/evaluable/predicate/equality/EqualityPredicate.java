@@ -2,10 +2,8 @@ package logic.evaluable.predicate.equality;
 
 import logic.Nameable;
 import logic.evaluable.predicate.Predicate;
-import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
-import logic.set.Set;
 
 /**
  * A class that represents an equality predicate.  An equality predicate is of the form "x = y" and either evaluates to
@@ -46,11 +44,6 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	public EqualityPredicate(ReflexiveFunction<T> equorFunction, ReflexiveFunction<T> equandFunction) {
 		this.equorFunction  = equorFunction;
 		this.equandFunction = equandFunction;
-	}
-
-	@Override
-	public Boolean evaluate(Set<? extends T> set) throws ParameterNotFoundException {
-		return getEquorFunction().evaluate(set).equals(getEquandFunction().evaluate(set));
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package logic.evaluable.predicate.membership;
 
 import logic.Nameable;
 import logic.evaluable.predicate.Predicate;
-import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
@@ -47,14 +46,8 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Set<? extends T> variables) throws ParameterNotFoundException {
-		// Needs a universe to evaluate
-		throw new ParameterNotFoundException();
-	}
-
-	@Override
 	public Boolean evaluate(Universe<T> universe) throws Exception {
-		Set<T> set = setFunction.evaluate(universe.getUniversalSetOfSets());
+		Set<T> set = setFunction.evaluate(universe);
 		T member = memberFunction.evaluate(universe);
 		return set.containsValue(member);
 	}

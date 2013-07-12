@@ -5,8 +5,8 @@ import logic.TestClassUniverse;
 import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
+import logic.model.universe.Universe;
 import logic.set.NamedSet;
-import logic.set.Set;
 import org.junit.Test;
 
 import static logic.evaluable.statements.binary.BinaryConnective.BinaryConnectiveType.*;
@@ -20,12 +20,6 @@ public class BinaryStatementTest {
 
 	public static final LogicalConstant<TestClass> CONTRADICTION = new LogicalConstant<>(false);
 	public static final LogicalConstant<TestClass> TAUTOLOGY = new LogicalConstant<>(true);
-
-	@Test
-	public void testEvaluate() throws Exception {
-		NamedSet<TestClass> emptySet = new NamedSet<>("∅");
-		testAllTheThings(TAUTOLOGY, CONTRADICTION, emptySet);
-	}
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {
@@ -43,7 +37,7 @@ public class BinaryStatementTest {
 		testAllTheThings(membershipPredicate, CONTRADICTION, universe);
 	}
 
-	private void testAllTheThings(Evaluable<TestClass> t, Evaluable<TestClass> f, Object o) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass> t, Evaluable<TestClass> f, Universe<TestClass> o) throws Exception {
 		assertBinaryStatementStates(f, new BinaryConnective(OR),          t, o, false, true,  true,  true);
 		assertBinaryStatementStates(f, new BinaryConnective(NOR),         t, o, true,  false, false, false);
 		assertBinaryStatementStates(f, new BinaryConnective(AND),         t, o, false, false, false, true);
@@ -60,7 +54,7 @@ public class BinaryStatementTest {
 			Evaluable<TestClass> contradiction,
 			BinaryConnective connective,
 			Evaluable<TestClass> tautology,
-			Object setOrUniverse,
+			Universe<TestClass> setOrUniverse,
 			boolean state1,
 			boolean state2,
 			boolean state3,
@@ -76,25 +70,16 @@ public class BinaryStatementTest {
 			Evaluable<TestClass> firstEvaluable,
 			BinaryConnective connective,
 			Evaluable<TestClass> secondEvaluable,
-			Object setOrUniverse,
+			Universe<TestClass> setOrUniverse,
 			boolean assertTrue)
 			throws Exception {
 		BinaryStatement<TestClass> statement;
 		statement = new BinaryStatement<>(firstEvaluable, connective, secondEvaluable);
-		if (setOrUniverse instanceof Set<?>) {
-			Set<TestClass> set = (Set<TestClass>) setOrUniverse;
-			if (assertTrue) {
-				assertTrue(statement.evaluate(set));
-			} else {
-				assertFalse(statement.evaluate(set));
-			}
+		TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
+		if (assertTrue) {
+			assertTrue(statement.evaluate(universe));
 		} else {
-			TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
-			if (assertTrue) {
-				assertTrue(statement.evaluate(universe));
-			} else {
-				assertFalse(statement.evaluate(universe));
-			}
+			assertFalse(statement.evaluate(universe));
 		}
 	}
 }

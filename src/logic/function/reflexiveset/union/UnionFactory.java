@@ -59,7 +59,7 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 	}
 
 	@Override
-	public Function<Set<T>, Set<T>> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public Function<T, Set<T>> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			return binaryConstructor.construct(result, tokens, functions);
@@ -72,7 +72,7 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 	}
 
 	@Override
-	public Function<Set<T>, Set<T>> createElement(List<Token> tokens) throws FactoryException {
+	public Function<T, Set<T>> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
 	}
 }

@@ -2,14 +2,14 @@ package logic.function.reflexive.identity;
 
 import logic.Nameable;
 import logic.function.ParameterNotFoundException;
-import logic.function.reflexive.AbstractReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunction;
+import logic.model.universe.Universe;
 import logic.set.Set;
 
 /**
  * @author Steven Weston
  */
-public class IdentityFunction<T extends Nameable> extends AbstractReflexiveFunction<T> {
+public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T> {
 	public static final String IDENTITY_NAME = "id";
 	protected String parameter;
 	protected ReflexiveFunction<T> function;
@@ -25,11 +25,24 @@ public class IdentityFunction<T extends Nameable> extends AbstractReflexiveFunct
 	}
 
 	@Override
-	public T evaluate(Set<? extends T> variables) throws ParameterNotFoundException {
-		if (variables == null || !variables.contains(getParameter())) {
+	public T evaluate(Universe<T> universe) throws Exception {
+		if (function != null) {
+			return function.evaluate(universe);
+		}
+		Set<T> variables = universe.getVariables();
+		Set<T> universalSet = universe.getUniversalSet();
+		boolean variablesContainsParameter    = variables    != null && variables.contains(getParameter());
+		boolean universalSetContainsParameter = universalSet != null && universalSet.contains(getParameter());
+		if (!variablesContainsParameter && !universalSetContainsParameter) {
 			throw new ParameterNotFoundException("Identity function could not find its parameter");
 		}
-		return function == null ? variables.get(getParameter()) : function.evaluate(variables);
+		T t;
+		if (variablesContainsParameter) {
+			return variables.get(getParameter());
+		} else {
+			return universalSet.get(getParameter());
+		}
+
 	}
 
 	@Override

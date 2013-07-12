@@ -26,5 +26,8 @@ public class IntegerReaderTest {
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> associative = (Evaluable<Integer>) reader.read("((2 + 3) = (3 + 2))");
 		assertTrue(associative.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> sum = (Evaluable<Integer>) reader.read("((Σ 2 3 4) = 9)");
+		assertTrue(sum.evaluate(universe));
 	}
 }

@@ -2,9 +2,7 @@ package logic.evaluable.statements.quantified;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
-import logic.function.ParameterNotFoundException;
 import logic.model.universe.Universe;
-import logic.set.Set;
 
 /**
  * @author Steven Weston
@@ -18,11 +16,6 @@ public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
 		this.quantifier     = quantifier;
 		this.variableSymbol = variableSymbol;
 		this.evaluable      = evaluable;
-	}
-
-	@Override
-	public Boolean evaluate(Set<? extends T> variables) throws ParameterNotFoundException {
-		throw new ParameterNotFoundException("Quantified statement can only be evaluated in a universe");
 	}
 
 	@Override

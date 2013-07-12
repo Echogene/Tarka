@@ -14,15 +14,14 @@ import static org.junit.Assert.assertEquals;
 public class SetIdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
+		TestClassUniverse universe = new TestClassUniverse();
 		Set<Set<TestClass>> sets = new NamedSet<>("sets");
 		NamedSet<TestClass> X = new NamedSet<>("X");
 		sets.put(X);
 
-		SetIdentityFunction<TestClass> function = new SetIdentityFunction<>("X");
-		assertEquals("Expect evaluation of function to be equal to " + X.toString(), X, function.evaluate(sets));
-
-		TestClassUniverse universe = new TestClassUniverse();
 		universe.setUniversalSetOfSets(sets);
+
+		SetIdentityFunction<TestClass> function = new SetIdentityFunction<>("X");
 		assertEquals("Expect evaluation of function with variables to be equal to " + X.toString(), X, function.evaluate(universe));
 	}
 }

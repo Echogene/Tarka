@@ -5,8 +5,8 @@ import logic.TestClassUniverse;
 import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
+import logic.model.universe.Universe;
 import logic.set.NamedSet;
-import logic.set.Set;
 import org.junit.Test;
 
 import static logic.evaluable.statements.unary.UnaryConnective.UnaryConnectiveType.EMPTY;
@@ -22,11 +22,6 @@ public class UnaryStatementTest {
 	public static final NamedSet<TestClass> EMPTY_SET = new NamedSet<>("∅");
 	public static final LogicalConstant<TestClass> TAUTOLOGY = new LogicalConstant<>(true);
 	public static final LogicalConstant<TestClass> CONTRADICTION = new LogicalConstant<>(false);
-
-	@Test
-	public void testEvaluate() throws Exception {
-		testAllTheThings(TAUTOLOGY, CONTRADICTION, EMPTY_SET);
-	}
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {
@@ -59,7 +54,7 @@ public class UnaryStatementTest {
 		assertFalse(statement.evaluate(universe));
 	}
 
-	private void testAllTheThings(LogicalConstant<TestClass> tautology, LogicalConstant<TestClass> contradiction, Object setOrUniverse) throws Exception {
+	private void testAllTheThings(LogicalConstant<TestClass> tautology, LogicalConstant<TestClass> contradiction, Universe<TestClass> setOrUniverse) throws Exception {
 		UnaryConnective c;
 		c = new UnaryConnective(EMPTY);
 		assertUnaryStatement(tautology, c, setOrUniverse, true);
@@ -73,26 +68,17 @@ public class UnaryStatementTest {
 	private void assertUnaryStatement(
 		Evaluable<TestClass> evaluable,
 		UnaryConnective connective,
-		Object setOrUniverse,
+		Universe<TestClass> setOrUniverse,
 		boolean assertTrue
 	) throws Exception {
 
 		UnaryStatement<TestClass> statement;
 		statement = new UnaryStatement<>(connective, evaluable);
-		if (setOrUniverse instanceof Set<?>) {
-			Set<TestClass> set = (Set<TestClass>) setOrUniverse;
-			if (assertTrue) {
-				assertTrue(statement.evaluate(set));
-			} else {
-				assertFalse(statement.evaluate(set));
-			}
+		TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
+		if (assertTrue) {
+			assertTrue(statement.evaluate(universe));
 		} else {
-			TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
-			if (assertTrue) {
-				assertTrue(statement.evaluate(universe));
-			} else {
-				assertFalse(statement.evaluate(universe));
-			}
+			assertFalse(statement.evaluate(universe));
 		}
 	}
 }

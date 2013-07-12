@@ -1,6 +1,7 @@
 package logic.function.reflexiveset.union;
 
 import logic.TestClass;
+import logic.TestClassUniverse;
 import logic.set.NamedSet;
 import logic.set.Set;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class UnionTest {
 	@Test
 	public void testEvaluate() throws Exception {
+		TestClassUniverse universe = new TestClassUniverse();
 		Set<Set<TestClass>> sets = new NamedSet<>("sets");
 
 		Set<TestClass> A = new NamedSet<>("A");
@@ -30,8 +32,10 @@ public class UnionTest {
 		sets.put(B);
 		sets.put(C);
 
+		universe.setUniversalSetOfSets(sets);
+
 		Union<TestClass> union = UnionFactory.createElement("A", "B");
-		Set<TestClass> unionResult = union.evaluate(sets);
+		Set<TestClass> unionResult = union.evaluate(universe);
 
 		assertTrue(unionResult.containsValue(a));
 		assertTrue(unionResult.containsValue(b));

@@ -17,7 +17,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
  */
 public class SetIdentityFunctionFactory<T extends Nameable> implements ReflexiveSetFunctionFactory<T> {
 	@Override
-	public Function<Set<T>, Set<T>> createElement
+	public Function<T, Set<T>> createElement
 			(List<Token> tokens,
 			 List<Function<?, ?>> functions)
 			throws FactoryException {
@@ -34,7 +34,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> implements Reflexive
 	}
 
 	@Override
-	public Function<Set<T>, Set<T>> createElement(List<Token> tokens) throws FactoryException {
+	public Function<T, Set<T>> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
 	}
 

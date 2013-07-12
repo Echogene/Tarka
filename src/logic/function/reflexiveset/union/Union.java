@@ -1,9 +1,8 @@
 package logic.function.reflexiveset.union;
 
 import logic.Nameable;
-import logic.function.ParameterNotFoundException;
-import logic.function.reflexiveset.AbstractReflexiveSetFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.model.universe.Universe;
 import logic.set.AbstractSet;
 import logic.set.NamedSet;
 import logic.set.Set;
@@ -14,7 +13,7 @@ import java.util.Iterator;
  *
  * @author Steven Weston
  */
-public class Union<T extends Nameable> extends AbstractReflexiveSetFunction<T> {
+public class Union<T extends Nameable> implements ReflexiveSetFunction<T> {
 	public final static String MULTARY_SYMBOL = "⋃";
 	public final static String BINARY_SYMBOL = "∪";
 	public final static String UNION_SYMBOLS = MULTARY_SYMBOL + BINARY_SYMBOL;
@@ -26,10 +25,10 @@ public class Union<T extends Nameable> extends AbstractReflexiveSetFunction<T> {
 	}
 
 	@Override
-	public Set<T> evaluate(Set<? extends Set<T>> variables) throws ParameterNotFoundException {
+	public Set<T> evaluate(Universe<T> universe) throws Exception {
 		Set<Set<T>> setsToUnion = new NamedSet<>(this.getName());
 		for(ReflexiveSetFunction<T> function : parameters) {
-			setsToUnion.put(function.evaluate(variables));
+			setsToUnion.put(function.evaluate(universe));
 		}
 		return AbstractSet.union(setsToUnion);
 	}

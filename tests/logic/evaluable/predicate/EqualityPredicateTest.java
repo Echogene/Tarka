@@ -4,7 +4,6 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.predicate.equality.EqualityPredicate;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.function.ParameterNotFoundException;
 import logic.set.NamedSet;
 import org.junit.Test;
 
@@ -22,7 +21,8 @@ public class EqualityPredicateTest {
 		testEvaluateOnTwoUniverseMembersMappedToTheSameElement();
 	}
 
-	private void testEvaluateOnSimpleExpressions() throws ParameterNotFoundException {
+	private void testEvaluateOnSimpleExpressions() throws Exception {
+		TestClassUniverse universe = new TestClassUniverse();
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 
@@ -30,10 +30,12 @@ public class EqualityPredicateTest {
 		variables.put(x);
 		variables.put(y);
 
+		universe.setVariables(variables);
+
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "x");
-		assertTrue("Expect x = x to evaluate to true", predicate.evaluate(variables));
+		assertTrue("Expect x = x to evaluate to true", predicate.evaluate(universe));
 		predicate = EqualityPredicateFactory.createElement("x", "y");
-		assertFalse("Expect x = y to evaluate to false", predicate.evaluate(variables));
+		assertFalse("Expect x = y to evaluate to false", predicate.evaluate(universe));
 	}
 
 	private void testEvaluateOnVariableOverriding() throws Exception {

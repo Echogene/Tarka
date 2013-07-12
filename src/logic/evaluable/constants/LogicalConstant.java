@@ -2,9 +2,7 @@ package logic.evaluable.constants;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
-import logic.function.ParameterNotFoundException;
 import logic.model.universe.Universe;
-import logic.set.Set;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,11 +43,6 @@ public class LogicalConstant<T extends Nameable> implements Evaluable<T> {
 	 */
 	public LogicalConstant(boolean value) {
 		this.value = value;
-	}
-
-	@Override
-	public Boolean evaluate(Set<? extends T> variables) throws ParameterNotFoundException {
-		return value;
 	}
 
 	@Override
