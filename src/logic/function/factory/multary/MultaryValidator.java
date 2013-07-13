@@ -44,13 +44,18 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 				}
 				validationTypes.add(FUNCTION);
 			} else if (token.isOfType(OPEN_PAREN)) {
-
+				if (currentTokenIndex == 0) {
+					return INVALID;
+				}
 			} else if (token.isOfType(OPERATOR)) {
 				if (!acceptedOperatorSymbols.contains(token.getValue())
 						|| currentTokenIndex != 0) {
 					return INVALID;
 				}
 			} else if (token.isOfType(NAME)) {
+				if (currentTokenIndex == 0) {
+					return INVALID;
+				}
 				Function function = safeGet(functions, currentFunctionIndex++);
 				if (function != null) {
 					return INVALID;

@@ -38,4 +38,15 @@ public class Assignment<T extends Nameable> implements Function<T, Object> {
 	public String getName() {
 		return toString();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Assignment)) {
+			return false;
+		}
+		Assignment other = (Assignment) o;
+		return this.evaluee.equals(other.evaluee)
+				&& this.assignee.equals(other.assignee)
+				&& this.assingment.equals(other.assingment);
+	}
 }
