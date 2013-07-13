@@ -19,7 +19,7 @@ import java.util.List;
  * A {@code Factory} for creating {@code EqualityPredicate}s.
  * @author Steven Weston
  */
-public class EqualityPredicateFactory<T extends Nameable> implements PredicateFactory<T> {
+public class EqualityPredicateFactory<T extends Nameable> extends PredicateFactory<T> {
 	final BinaryValidator binaryValidator;
 	private BinaryConstructor<EqualityPredicate<T>, ReflexiveFunction<T>, ReflexiveFunction<T>> binaryConstructor;
 
@@ -42,11 +42,6 @@ public class EqualityPredicateFactory<T extends Nameable> implements PredicateFa
 				new IdentityFunctionConstructorFromString<T>(),
 				new IdentityFunctionConstructorFromString<T>()
 		);
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class UnaryStatementFactory<T extends Nameable> implements EvaluableFactory<T> {
+public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<T> {
 	UnaryConnectiveFactory connectiveFactory;
 
 	public UnaryStatementFactory() {
@@ -33,11 +33,6 @@ public class UnaryStatementFactory<T extends Nameable> implements EvaluableFacto
 			}
 		}
 		throw new FactoryException("Could not create UnaryStatement");
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		throw new FactoryException("Could not create UnaryStatement with no functions");
 	}
 
 	public boolean matchesTwoBrackets(List<Token> tokens) {

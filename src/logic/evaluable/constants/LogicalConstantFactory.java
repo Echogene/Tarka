@@ -14,18 +14,13 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPER
  * A {@code Factory} for creating {@code LogicalConstant}s.
  * @author Steven Weston
  */
-public class LogicalConstantFactory<T extends Nameable> implements EvaluableFactory<T> {
+public class LogicalConstantFactory<T extends Nameable> extends EvaluableFactory<T> {
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		if ((functions == null || functions.size() == 0) && matches(tokens)) {
 			return new LogicalConstant<>(tokens.get(0).getValue().equals(LogicalConstant.TAUTOLOGY_SYMBOL));
 		}
 		throw new FactoryException("Could not create LogicalConstant");
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 
 	/**

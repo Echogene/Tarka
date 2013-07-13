@@ -14,7 +14,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class IdentityFunctionFactory<T extends Nameable> implements ReflexiveFunctionFactory<T> {
+public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
 	@Override
 	public Function<T, T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		if (functions != null && functions.size() == 2) {
@@ -29,11 +29,6 @@ public class IdentityFunctionFactory<T extends Nameable> implements ReflexiveFun
 			return new IdentityFunction<>((ReflexiveFunction<T>) (Object) functions.get(0));
 		}
 		throw new FactoryException("Could not create IdentityFunction");
-	}
-
-	@Override
-	public Function<T, T> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 
 	boolean matchesStandardForm(List<Token> tokens, List<Function<?, ?>> functions) {

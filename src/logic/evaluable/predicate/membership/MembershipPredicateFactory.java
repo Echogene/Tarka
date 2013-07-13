@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class MembershipPredicateFactory<T extends Nameable> implements PredicateFactory<T> {
+public class MembershipPredicateFactory<T extends Nameable> extends PredicateFactory<T> {
 	private BinaryValidator validator;
 	private BinaryConstructor<MembershipPredicate<T>, ReflexiveFunction<T>, ReflexiveSetFunction<T>> constructor;
 
@@ -33,11 +33,6 @@ public class MembershipPredicateFactory<T extends Nameable> implements Predicate
 				new IdentityFunctionConstructorFromString<T>(),
 				new SetIdentityFunctionConstructorFromString<T>()
 		);
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 
 	@Override

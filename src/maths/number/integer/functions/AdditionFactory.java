@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class AdditionFactory<N extends Number> implements ReflexiveFunctionFactory<N> {
+public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<N> {
 	private final Summor<N> summor;
 	private final BinaryValidator binaryValidator;
 	private BinaryConstructor<Addition<N>, ReflexiveFunction<N>, ReflexiveFunction<N>> binaryConstructor;
@@ -40,11 +40,6 @@ public class AdditionFactory<N extends Number> implements ReflexiveFunctionFacto
 				new AdditionConstructorFromParameterList<>(this.summor),
 				new IdentityFunctionConstructorFromString<N>()
 		);
-	}
-
-	@Override
-	public Function<N, N> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 
 	@Override

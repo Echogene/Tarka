@@ -14,7 +14,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class QuantifiedStatementFactory<T extends Nameable> implements EvaluableFactory<T> {
+public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFactory<T> {
 	QuantifierFactory quantifierFactory;
 
 	public QuantifiedStatementFactory() {
@@ -36,11 +36,6 @@ public class QuantifiedStatementFactory<T extends Nameable> implements Evaluable
 			);
 		}
 		throw new FactoryException("Could not create QuantifiedStatement");
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		throw new FactoryException("Could not create QuantifiedStatement with no functions");
 	}
 
 	public boolean matchesTokens(List<Token> tokens) {

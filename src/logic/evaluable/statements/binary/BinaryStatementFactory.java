@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class BinaryStatementFactory<T extends Nameable> implements EvaluableFactory<T> {
+public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory<T> {
 	private BinaryConnectiveFactory connectiveFactory;
 	private BinaryValidator validator;
 	private BinaryConstructor<BinaryStatement<T>, Evaluable<T>, Evaluable<T>> constructor;
@@ -33,10 +33,5 @@ public class BinaryStatementFactory<T extends Nameable> implements EvaluableFact
 			return constructor.construct(result, tokens, functions);
 		}
 		throw new FactoryException("Could not create BinaryStatement");
-	}
-
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens) throws FactoryException {
-		throw new FactoryException("Could not create BinaryStatement with no functions");
 	}
 }

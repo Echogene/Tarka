@@ -6,5 +6,5 @@ import logic.evaluable.EvaluableFactory;
 /**
  * @author Steven Weston
  */
-public interface PredicateFactory<T extends Nameable> extends EvaluableFactory<T> {
+public abstract class PredicateFactory<T extends Nameable> extends EvaluableFactory<T> {
 }

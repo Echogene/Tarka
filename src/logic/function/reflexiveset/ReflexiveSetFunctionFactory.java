@@ -7,5 +7,5 @@ import logic.set.Set;
 /**
  * @author Steven Weston
  */
-public interface ReflexiveSetFunctionFactory<T extends Nameable> extends FunctionFactory<T, Set<T>> {
+public abstract class ReflexiveSetFunctionFactory<T extends Nameable> extends FunctionFactory<T, Set<T>> {
 }

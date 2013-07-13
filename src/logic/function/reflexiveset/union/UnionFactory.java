@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFactory<T> {
+public class UnionFactory<T extends Nameable> extends ReflexiveSetFunctionFactory<T> {
 	private BinaryValidator binaryValidator;
 	private BinaryConstructor<Union<T>, ReflexiveSetFunction<T>, ReflexiveSetFunction<T>> binaryConstructor;
 	private MultaryValidator multaryValidator;
@@ -69,10 +69,5 @@ public class UnionFactory<T extends Nameable> implements ReflexiveSetFunctionFac
 			return multaryConstructor.construct(result, tokens, functions);
 		}
 		throw new FactoryException("Could not create Union");
-	}
-
-	@Override
-	public Function<T, Set<T>> createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
 	}
 }

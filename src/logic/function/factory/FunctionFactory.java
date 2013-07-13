@@ -11,6 +11,11 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public interface FunctionFactory<D extends Nameable, C> extends Factory<Function<D, C>> {
-	public Function<D, C> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException;
+public abstract class FunctionFactory<D extends Nameable, C> implements Factory<Function<D, C>> {
+	@Override
+	public Function<D, C> createElement(List<Token> tokens) throws FactoryException {
+		return createElement(tokens, null);
+	}
+
+	public abstract Function<D, C> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException;
 }
