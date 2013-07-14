@@ -34,7 +34,7 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 		boolean variablesContainsParameter    = variables    != null && variables.contains(getParameter());
 		boolean universalSetContainsParameter = universalSet != null && universalSet.contains(getParameter());
 		if (!variablesContainsParameter && !universalSetContainsParameter) {
-			throw new ParameterNotFoundException("Identity function could not find its parameter");
+			throw new ParameterNotFoundException("Identity function could not find the parameter " + getParameter());
 		}
 		T t;
 		if (variablesContainsParameter) {

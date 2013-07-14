@@ -26,6 +26,6 @@ public class IntegerUniversalSet extends NamedSet<Integer> {
 	}
 
 	private boolean stringIsNumber(String string) {
-		return string.matches("[\\d]+");
+		return string.matches("\\-?[\\d]+");
 	}
 }
