@@ -8,8 +8,8 @@ import logic.function.reflexive.identity.IdentityFunction;
 import logic.set.NamedSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
-import maths.number.integer.universe.IntegerReader;
-import maths.number.integer.universe.IntegerUniverse;
+import maths.number.integer.model.universe.IntegerReader;
+import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

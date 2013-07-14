@@ -33,7 +33,7 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends FunctionFact
 			if (functions == null || functions.size() < 5) {
 				throw new FactoryException("Could not create Assignment.  The first function was missing.");
 			}
-			evaluee = (ReflexiveAssignment<T>) functions.get(0);
+			evaluee = (ReflexiveFunction<T>) functions.get(0);
 			tokenIndex += 2;
 		} else if (tokens.get(tokenIndex).isOfType(NAME)) {
 			evaluee = new IdentityFunction<>(tokens.get(tokenIndex++).getValue());

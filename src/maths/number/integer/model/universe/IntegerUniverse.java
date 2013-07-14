@@ -1,4 +1,4 @@
-package maths.number.integer.universe;
+package maths.number.integer.model.universe;
 
 import logic.model.universe.AbstractUniverse;
 import logic.set.NamedSet;

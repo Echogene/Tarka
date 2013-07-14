@@ -22,6 +22,11 @@ public class Integer implements maths.number.Number {
 
 	@Override
 	public String getName() {
+		return toString();
+	}
+
+	@Override
+	public String toString() {
 		return value.toString();
 	}
 

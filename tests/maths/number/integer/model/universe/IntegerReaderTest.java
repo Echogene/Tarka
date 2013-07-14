@@ -1,4 +1,4 @@
-package maths.number.integer.universe;
+package maths.number.integer.model.universe;
 
 import logic.evaluable.Evaluable;
 import logic.factory.SimpleLogicReaderImpl;

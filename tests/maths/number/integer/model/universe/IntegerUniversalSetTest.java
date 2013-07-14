@@ -1,4 +1,4 @@
-package maths.number.integer.universe;
+package maths.number.integer.model.universe;
 
 import maths.number.integer.Integer;
 import org.junit.Test;

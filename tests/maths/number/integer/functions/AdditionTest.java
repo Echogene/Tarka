@@ -4,7 +4,7 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
-import maths.number.integer.universe.IntegerUniverse;
+import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
 import java.util.ArrayList;
