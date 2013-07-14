@@ -1,7 +1,6 @@
 package logic.function.reflexive.assignment;
 
 import logic.Nameable;
-import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 
@@ -9,22 +8,22 @@ import logic.model.universe.Universe;
  * An assignment is a function that assigns a value to a variable.
  * @author Steven Weston
  */
-public class Assignment<T extends Nameable> implements Function<T, Object> {
-	private Function<T, ?> evaluee;
+public class ReflexiveAssignment<T extends Nameable> implements ReflexiveFunction<T> {
+	private ReflexiveFunction<T> evaluee;
 	private String assignee;
 	private ReflexiveFunction<T> assingment;
 
-	public Assignment(Function<T, ?> evaluee, String assignee, ReflexiveFunction<T> assingment) {
+	public ReflexiveAssignment(ReflexiveFunction<T> evaluee, String assignee, ReflexiveFunction<T> assingment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
 		this.assingment = assingment;
 	}
 
 	@Override
-	public Object evaluate(Universe<T> universe) throws Exception {
+	public T evaluate(Universe<T> universe) throws Exception {
 		universe.assignVariable(assignee);
 		universe.setVariable(assignee, assingment.evaluate(universe));
-		Object result = evaluee.evaluate(universe);
+		T result = evaluee.evaluate(universe);
 		universe.unassignVariable(assignee);
 		return result;
 	}
@@ -41,10 +40,10 @@ public class Assignment<T extends Nameable> implements Function<T, Object> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Assignment)) {
+		if (!(o instanceof ReflexiveAssignment)) {
 			return false;
 		}
-		Assignment other = (Assignment) o;
+		ReflexiveAssignment other = (ReflexiveAssignment) o;
 		return this.evaluee.equals(other.evaluee)
 				&& this.assignee.equals(other.assignee)
 				&& this.assingment.equals(other.assingment);

@@ -8,7 +8,7 @@ import logic.evaluable.statements.quantified.QuantifiedStatementFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.factory.FunctionFactory;
-import logic.function.reflexive.assignment.AssignmentFactory;
+import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
 import logic.function.reflexiveset.union.UnionFactory;
@@ -36,7 +36,7 @@ public class StandardReader {
 		output.add(new UnaryStatementFactory<>());
 		output.add(new QuantifiedStatementFactory<>());
 		output.add(new UnionFactory<>());
-		output.add(new AssignmentFactory<>());
+		output.add(new ReflexiveAssignmentFactory<>());
 		return output;
 	}
 }

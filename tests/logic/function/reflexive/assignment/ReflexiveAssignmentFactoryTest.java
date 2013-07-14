@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class AssignmentFactoryTest {
-	private static AssignmentFactory<TestClass> factory;
+public class ReflexiveAssignmentFactoryTest {
+	private static ReflexiveAssignmentFactory<TestClass> factory;
 	private ArrayList<Function<?, ?>> functions;
 	private List<Token> tokens;
 	private static SimpleLogicLexerImpl lexer;
@@ -26,12 +26,12 @@ public class AssignmentFactoryTest {
 	@BeforeClass
 	public static void setUp() {
 		lexer   = new SimpleLogicLexerImpl();
-		factory = new AssignmentFactory<>();
+		factory = new ReflexiveAssignmentFactory<>();
 	}
 
 	@Test
 	public void testCreateElement() throws Exception {
-		Assignment<TestClass> expected = new Assignment<TestClass>(
+		ReflexiveAssignment<TestClass> expected = new ReflexiveAssignment<TestClass>(
 				new IdentityFunction<>("x"),
 				"x",
 				new IdentityFunction<>("y")
@@ -39,7 +39,7 @@ public class AssignmentFactoryTest {
 
 		setUpTokens("x where x is y");
 		setUpFunctions("", "", "", "", "");
-		Assignment<TestClass> actual = factory.createElement(tokens, functions);
+		ReflexiveAssignment<TestClass> actual = (ReflexiveAssignment<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
 

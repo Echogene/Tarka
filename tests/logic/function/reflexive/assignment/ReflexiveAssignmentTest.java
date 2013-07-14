@@ -3,7 +3,6 @@ package logic.function.reflexive.assignment;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicReaderImpl;
-import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.set.NamedSet;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class AssignmentTest {
+public class ReflexiveAssignmentTest {
 	@Test
 	public void testSimpleEvaluation() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
@@ -28,7 +27,7 @@ public class AssignmentTest {
 		universalSet.put(new TestClass("x"));
 		universalSet.put(new TestClass("y"));
 
-		Assignment<TestClass> assignment = new Assignment<TestClass>(
+		ReflexiveAssignment<TestClass> assignment = new ReflexiveAssignment<TestClass>(
 				new IdentityFunction<>("x"),
 				"x",
 				new IdentityFunction<>("y")
@@ -43,8 +42,8 @@ public class AssignmentTest {
 
 		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader();
 
-		Assignment<Integer> assignment = new Assignment<>(
-				(Function<Integer,?>) reader.read("(2+x)"),
+		ReflexiveAssignment<Integer> assignment = new ReflexiveAssignment<>(
+				(ReflexiveFunction<Integer>) reader.read("(2+x)"),
 				"x",
 				(ReflexiveFunction<Integer>) reader.read("(2+2)")
 		);

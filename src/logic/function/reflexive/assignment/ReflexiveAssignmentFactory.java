@@ -17,15 +17,15 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object> {
+public class ReflexiveAssignmentFactory<T extends Nameable> extends FunctionFactory<T, T> {
 	public static final String WHERE = "where";
 	public static final String IS = "is";
 	private final ReflexiveFunctionConstructorFromString<IdentityFunction<T>> constructor = new IdentityFunctionConstructorFromString();
 
 	@Override
-	public Assignment<T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public Function<T, T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		int tokenIndex = 0;
-		Function<T, ?> evaluee;
+		ReflexiveFunction<T> evaluee;
 		if (tokens.get(tokenIndex).isOfType(OPEN_PAREN)) {
 			if (!tokens.get(tokenIndex + 1).isOfType(CLOSE_PAREN)) {
 				throw new FactoryException("Could not create Assignment.  First function must have closed parenthesis.");
@@ -33,7 +33,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 			if (functions == null || functions.size() < 5) {
 				throw new FactoryException("Could not create Assignment.  The first function was missing.");
 			}
-			evaluee = (Function<T, Object>) functions.get(0);
+			evaluee = (ReflexiveAssignment<T>) functions.get(0);
 			tokenIndex += 2;
 		} else if (tokens.get(tokenIndex).isOfType(NAME)) {
 			evaluee = new IdentityFunction<>(tokens.get(tokenIndex++).getValue());
@@ -75,6 +75,6 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 		if (tokens.size() > tokenIndex) {
 			throw new FactoryException("Could not create Assignment.  Too many tokens.");
 		}
-		return new Assignment<>(evaluee, assignee, assignment);
+		return new ReflexiveAssignment<>(evaluee, assignee, assignment);
 	}
 }
