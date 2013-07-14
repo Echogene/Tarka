@@ -49,7 +49,7 @@ public class ReflexiveAssignmentFactoryTest {
 			if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
 				functions.add(null);
 			} else {
-				functions.add(new SetIdentityFunction<TestClass>(identityFunctionParameter));
+				functions.add(new SetIdentityFunction<>(identityFunctionParameter));
 			}
 		}
 	}
