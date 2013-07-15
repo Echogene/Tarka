@@ -1,4 +1,4 @@
-package maths.number.integer.functions;
+package maths.number.integer.functions.addition;
 
 import logic.TestClass;
 import logic.factory.SimpleLogicLexerImpl;
@@ -7,8 +7,6 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
-import maths.number.integer.functions.addition.Addition;
-import maths.number.integer.functions.addition.AdditionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;

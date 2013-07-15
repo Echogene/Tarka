@@ -1,10 +1,9 @@
-package maths.number.integer.functions;
+package maths.number.integer.functions.addition;
 
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
-import maths.number.integer.functions.addition.Addition;
 import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
