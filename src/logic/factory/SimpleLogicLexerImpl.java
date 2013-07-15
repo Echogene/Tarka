@@ -5,7 +5,7 @@ import logic.evaluable.statements.binary.BinaryConnective;
 import logic.evaluable.statements.quantified.Quantifier;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.function.reflexiveset.union.Union;
-import maths.number.integer.functions.Addition;
+import maths.number.integer.functions.addition.Addition;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
 import reading.lexing.PatternNotRecognisedException;

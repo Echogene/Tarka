@@ -1,4 +1,4 @@
-package maths.number.integer.functions;
+package maths.number.integer.functions.addition;
 
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;

@@ -5,7 +5,7 @@ import logic.factory.SimpleLogicReaderImpl;
 import logic.function.factory.FunctionFactory;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
-import maths.number.integer.functions.AdditionFactory;
+import maths.number.integer.functions.addition.AdditionFactory;
 
 import java.util.List;
 
