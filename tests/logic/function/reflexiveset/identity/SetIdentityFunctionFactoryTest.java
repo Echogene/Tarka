@@ -1,30 +1,21 @@
 package logic.function.reflexiveset.identity;
 
 import logic.TestClass;
-import logic.factory.SimpleLogicLexerImpl;
-import logic.function.Function;
-import org.junit.BeforeClass;
+import logic.factory.FactoryTest;
 import org.junit.Test;
-import reading.lexing.Token;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
  */
-public class SetIdentityFunctionFactoryTest {
-	private static List<Token> tokens;
-	private static List<Function<?, ?>> functions;
-	private static SimpleLogicLexerImpl lexer;
-	private static SetIdentityFunctionFactory<TestClass> factory;
-
-	@BeforeClass
-	public static void setUp() {
-		lexer   = new SimpleLogicLexerImpl();
+public class SetIdentityFunctionFactoryTest extends FactoryTest<SetIdentityFunctionFactory<TestClass>> {
+	public SetIdentityFunctionFactoryTest() {
+		super();
 		factory = new SetIdentityFunctionFactory<>();
+		functionFactory = new SetIdentityFunctionFactory<>();
 	}
 
 	@Test
@@ -128,11 +119,7 @@ public class SetIdentityFunctionFactoryTest {
 		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
 			functions.add(null);
 		} else {
-			functions.add(new SetIdentityFunction<TestClass>(identityFunctionParameter));
+			functions.add(new SetIdentityFunction<>(identityFunctionParameter));
 		}
-	}
-
-	private void setUpTokens(String tokenString) throws Exception {
-		tokens = lexer.tokeniseString(tokenString);
 	}
 }
