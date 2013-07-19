@@ -13,7 +13,7 @@ public class Integer implements maths.number.Number {
 	}
 
 	public Integer(String value) {
-		this.value = new BigInteger(value);
+		this.value = new BigInteger(value.replace("−", "-"));
 	}
 
 	Integer(BigInteger value) {
