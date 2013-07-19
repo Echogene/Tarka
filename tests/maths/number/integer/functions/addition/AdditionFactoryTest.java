@@ -1,8 +1,10 @@
 package maths.number.integer.functions.addition;
 
+import logic.TestClass;
 import logic.factory.FactoryTest;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
+import logic.function.reflexive.identity.IdentityFunctionFactory;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import org.junit.Test;
@@ -22,6 +24,7 @@ public class AdditionFactoryTest extends FactoryTest<AdditionFactory<Integer>> {
 		super();
 		summor  = new IntegerSummor();
 		factory = new AdditionFactory<>(summor);
+		functionFactory = new IdentityFunctionFactory<TestClass>();
 	}
 
 	@Test

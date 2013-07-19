@@ -1,8 +1,8 @@
 package logic.factory;
 
-import logic.TestClass;
 import logic.function.Function;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.function.factory.FunctionFactory;
+import reading.lexing.LexerException;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -16,18 +16,19 @@ public abstract class FactoryTest<F extends Factory<?>> {
 	protected List<Function<?, ?>> functions;
 	protected F factory;
 	protected SimpleLogicLexerImpl lexer;
+	protected FunctionFactory<?, ?> functionFactory;
 
 	public FactoryTest() {
 		lexer = new SimpleLogicLexerImpl();
 	}
 
-	protected void setUpFunctions(String... identityFunctionParameters) {
-		functions = new ArrayList<>();
-		for (String identityFunctionParameter : identityFunctionParameters) {
-			if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
-				functions.add(null);
+	protected void setUpFunctions(String... functions) throws LexerException, FactoryException {
+		this.functions = new ArrayList<>();
+		for (String function : functions) {
+			if (function == null || function.isEmpty()) {
+				this.functions.add(null);
 			} else {
-				functions.add(new IdentityFunction<TestClass>(identityFunctionParameter));
+				this.functions.add(functionFactory.createElement(lexer.tokeniseString(function)));
 			}
 		}
 	}
