@@ -1,4 +1,4 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
@@ -8,14 +8,15 @@ import logic.model.universe.Universe;
  * @author Steven Weston
  */
 public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
-	protected Quantifier quantifier;
-	protected String variableSymbol;
-	protected Evaluable<T> evaluable;
+
+	private Quantifier quantifier;
+	private String variableSymbol;
+	private Evaluable<T> evaluable;
 
 	public QuantifiedStatement(Quantifier quantifier, String variableSymbol, Evaluable<T> evaluable) {
-		this.quantifier     = quantifier;
+		this.quantifier = quantifier;
 		this.variableSymbol = variableSymbol;
-		this.evaluable      = evaluable;
+		this.evaluable = evaluable;
 	}
 
 	@Override

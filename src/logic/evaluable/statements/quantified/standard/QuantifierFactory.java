@@ -1,21 +1,20 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
-import logic.Connective;
 import logic.ConnectiveFactory;
 import logic.factory.FactoryException;
 import reading.lexing.Token;
 
 import java.util.List;
 
-import static logic.evaluable.statements.quantified.Quantifier.*;
+import static logic.evaluable.statements.quantified.standard.Quantifier.*;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.QUANTIFIER;
 
 /**
  * @author Steven Weston
  */
-public class QuantifierFactory implements ConnectiveFactory {
+public class QuantifierFactory implements ConnectiveFactory<Quantifier> {
 	@Override
-	public Connective createElement(String string) throws FactoryException {
+	public Quantifier createElement(String string) throws FactoryException {
 		switch (string) {
 			case EXISTS_SYMBOL:
 				return new Quantifier(QuantifierType.EXISTS);
@@ -35,7 +34,7 @@ public class QuantifierFactory implements ConnectiveFactory {
 	}
 
 	@Override
-	public Connective createElement(List<Token> tokens) throws FactoryException {
+	public Quantifier createElement(List<Token> tokens) throws FactoryException {
 		if (matchesOneQuantifierToken(tokens)) {
 			return createElement(tokens.get(0).getValue());
 		}

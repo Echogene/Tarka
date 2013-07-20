@@ -4,7 +4,8 @@ import logic.evaluable.constants.LogicalConstantFactory;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.evaluable.statements.binary.BinaryStatementFactory;
-import logic.evaluable.statements.quantified.QuantifiedStatementFactory;
+import logic.evaluable.statements.quantified.restricted.RestrictedQuantifiedStatementFactory;
+import logic.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.factory.FunctionFactory;
@@ -29,14 +30,15 @@ public class StandardReader {
 		List<FunctionFactory<?, ?>> output = new ArrayList<>();
 		output.add(new EqualityPredicateFactory<>());
 		output.add(new MembershipPredicateFactory<>());
-		output.add(new SetIdentityFunctionFactory<T>());
+		output.add(new SetIdentityFunctionFactory<>());
 		output.add(new IdentityFunctionFactory<T>());
 		output.add(new BinaryStatementFactory<>());
 		output.add(new LogicalConstantFactory<>());
 		output.add(new UnaryStatementFactory<>());
 		output.add(new QuantifiedStatementFactory<>());
 		output.add(new UnionFactory<>());
-		output.add(new ReflexiveAssignmentFactory<>());
+		output.add(new ReflexiveAssignmentFactory<T>());
+		output.add(new RestrictedQuantifiedStatementFactory<>());
 		return output;
 	}
 }

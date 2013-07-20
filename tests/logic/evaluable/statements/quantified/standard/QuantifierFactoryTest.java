@@ -1,4 +1,4 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
 import logic.Connective;
 import org.junit.BeforeClass;

@@ -1,4 +1,4 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
@@ -30,7 +30,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 				functions = functions.subList(1, 2);
 			}
 			return new QuantifiedStatement<>(
-					(Quantifier) quantifierFactory.createElement(tokens.get(0).getValue()),
+					quantifierFactory.createElement(tokens.get(0).getValue()),
 					tokens.get(1).getValue(),
 					(Evaluable<T>) functions.get(0)
 			);
@@ -38,7 +38,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 		throw new FactoryException("Could not create QuantifiedStatement");
 	}
 
-	public boolean matchesTokens(List<Token> tokens) {
+	boolean matchesTokens(List<Token> tokens) {
 		return tokens != null
 				&& tokens.size() == 4
 				&& tokens.get(0).isOfType(QUANTIFIER)
@@ -47,16 +47,16 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 				&& tokens.get(3).isOfType(CLOSE_PAREN);
 	}
 
-	public boolean matchesFunctions(List<Function<?, ?>> tokens) {
-		return tokens != null
+	boolean matchesFunctions(List<Function<?, ?>> functions) {
+		return functions != null
 				&& (
-					(tokens.size() == 1
-						&& tokens.get(0) != null
-						&& tokens.get(0) instanceof Evaluable<?>)
-					|| (tokens.size() == 2
-						&& tokens.get(0) == null
-						&& tokens.get(1) != null
-						&& tokens.get(1) instanceof Evaluable<?>)
+					(functions.size() == 1
+						&& functions.get(0) != null
+						&& functions.get(0) instanceof Evaluable<?>)
+					|| (functions.size() == 2
+						&& functions.get(0) == null
+						&& functions.get(1) != null
+						&& functions.get(1) instanceof Evaluable<?>)
 				);
 	}
 }

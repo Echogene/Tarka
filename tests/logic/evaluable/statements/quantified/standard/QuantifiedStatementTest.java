@@ -1,4 +1,4 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
@@ -9,8 +9,8 @@ import logic.evaluable.statements.unary.UnaryStatement;
 import logic.set.NamedSet;
 import org.junit.Test;
 
-import static logic.evaluable.statements.quantified.Quantifier.QuantifierType.EXISTS;
-import static logic.evaluable.statements.quantified.Quantifier.QuantifierType.FOR_ALL;
+import static logic.evaluable.statements.quantified.standard.Quantifier.QuantifierType.EXISTS;
+import static logic.evaluable.statements.quantified.standard.Quantifier.QuantifierType.FOR_ALL;
 import static logic.evaluable.statements.unary.UnaryConnective.UnaryConnectiveType.NEGATION;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

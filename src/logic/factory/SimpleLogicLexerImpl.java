@@ -2,7 +2,7 @@ package logic.factory;
 
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.statements.binary.BinaryConnective;
-import logic.evaluable.statements.quantified.Quantifier;
+import logic.evaluable.statements.quantified.standard.Quantifier;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.function.reflexiveset.union.Union;
 import maths.number.integer.functions.addition.Addition;

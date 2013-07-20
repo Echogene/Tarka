@@ -1,6 +1,5 @@
 package logic.evaluable.statements.unary;
 
-import logic.Connective;
 import logic.ConnectiveFactory;
 import logic.factory.FactoryException;
 import reading.lexing.Token;
@@ -12,9 +11,9 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPER
 /**
  * @author Steven Weston
  */
-public class UnaryConnectiveFactory implements ConnectiveFactory {
+public class UnaryConnectiveFactory implements ConnectiveFactory<UnaryConnective> {
 	@Override
-	public Connective createElement(List<Token> tokens) throws FactoryException {
+	public UnaryConnective createElement(List<Token> tokens) throws FactoryException {
 		if (matchesTokens(tokens)) {
 			if (tokens.get(0).getValue().equals(UnaryConnective.NEGATION_SYMBOL)) {
 				return new UnaryConnective(UnaryConnective.UnaryConnectiveType.NEGATION);
@@ -24,7 +23,7 @@ public class UnaryConnectiveFactory implements ConnectiveFactory {
 	}
 
 	@Override
-	public Connective createElement(String string) throws FactoryException {
+	public UnaryConnective createElement(String string) throws FactoryException {
 		if (string.equals(UnaryConnective.NEGATION_SYMBOL)) {
 			return new UnaryConnective(UnaryConnective.UnaryConnectiveType.NEGATION);
 		} else if (string.equals(UnaryConnective.EMPTY_SYMBOL)) {

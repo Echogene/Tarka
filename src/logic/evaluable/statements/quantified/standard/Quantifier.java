@@ -1,4 +1,4 @@
-package logic.evaluable.statements.quantified;
+package logic.evaluable.statements.quantified.standard;
 
 import logic.Connective;
 import logic.Nameable;
@@ -27,16 +27,20 @@ public class Quantifier extends Connective {
 		this.type = type;
 	}
 
+	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T> evaluable, Universe<T> universe) throws Exception {
+		return apply(variableSymbol, evaluable, universe, universe.getValueSet());
+	}
+
 	public <T extends Nameable> boolean apply(
 			String variableSymbol,
 			Evaluable<T> evaluable,
-			Universe<T> universe) throws Exception {
+			Universe<T> universe,
+			Set<T> set) throws Exception {
 
-		Set<T> valueSet = universe.getValueSet();
 		universe.assignVariable(variableSymbol);
 		int existCount = 0;
 		Boolean output = null;
-		for (T t : valueSet) {
+		for (T t : set) {
 			universe.setVariable(variableSymbol, t);
 			if (evaluable.evaluate(universe)) {
 				if (type.equals(QuantifierType.EXISTS)) {

@@ -1,6 +1,5 @@
 package logic.evaluable.statements.binary;
 
-import logic.Connective;
 import logic.ConnectiveFactory;
 import logic.factory.FactoryException;
 import reading.lexing.Token;
@@ -13,9 +12,9 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPER
 /**
  * @author Steven Weston
  */
-public class BinaryConnectiveFactory implements ConnectiveFactory {
+public class BinaryConnectiveFactory implements ConnectiveFactory<BinaryConnective> {
 	@Override
-	public Connective createElement(String string) throws FactoryException {
+	public BinaryConnective createElement(String string) throws FactoryException {
 		switch (string) {
 			case OR_SYMBOL:
 				return new BinaryConnective(BinaryConnectiveType.OR);
@@ -42,7 +41,7 @@ public class BinaryConnectiveFactory implements ConnectiveFactory {
 	}
 
 	@Override
-	public Connective createElement(List<Token> tokens) throws FactoryException {
+	public BinaryConnective createElement(List<Token> tokens) throws FactoryException {
 		if (matchesOneOperatorToken(tokens)) {
 			return createElement(tokens.get(0).getValue());
 		}

@@ -8,12 +8,12 @@ import logic.factory.FactoryException;
  * {@code Connective}s from {@code String}s.
  * @author Steven Weston
  */
-public interface ConnectiveFactory extends Factory<Connective> {
+public interface ConnectiveFactory<T extends Connective> extends Factory<T> {
 	/**
 	 * Create a {@code Connective} specified by a {@code String}.
 	 * @param string The {@code String} with which to create the {@code Connective}.
 	 * @return The created {@code Connective}.
 	 * @throws FactoryException if the {@code Factory} cannot create the {@code Connective}.
 	 */
-	public Connective createElement(String string) throws FactoryException;
+	public T createElement(String string) throws FactoryException;
 }
