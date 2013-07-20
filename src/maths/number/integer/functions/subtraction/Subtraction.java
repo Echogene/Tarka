@@ -15,8 +15,6 @@ public class Subtraction<N extends Number> implements ReflexiveFunction<N> {
 	public static final String MINUS = "−";
 	public static final String HYPHEN = "-";
 
-	public static final String SUBTRACTION_SYMBOLS = MINUS + HYPHEN;
-
 	public static final List<String> SYMBOL_LIST = Arrays.asList(MINUS, HYPHEN);
 
 	private ReflexiveFunction<N> minuend;
