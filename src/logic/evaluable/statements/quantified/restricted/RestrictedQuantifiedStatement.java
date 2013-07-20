@@ -2,6 +2,7 @@ package logic.evaluable.statements.quantified.restricted;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
+import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.evaluable.statements.quantified.standard.QuantifiedStatement;
 import logic.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.reflexiveset.ReflexiveSetFunction;
@@ -34,5 +35,19 @@ public class RestrictedQuantifiedStatement<T extends Nameable> extends Quantifie
 				universe,
 				restrictedSet
 		);
+	}
+
+	@Override
+	public String toString() {
+		return "("
+				+ getQuantifier().toString()
+				+ getVariableSymbol()
+				+ " "
+				+ MembershipPredicate.MEMBERSHIP_STRING
+				+ " "
+				+ setFunction.toString()
+				+ " "
+				+ getEvaluable().toString()
+				+ ")";
 	}
 }
