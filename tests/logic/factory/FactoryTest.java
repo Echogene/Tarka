@@ -15,6 +15,7 @@ import java.util.List;
  * @author Steven Weston
  */
 public abstract class FactoryTest<F extends Factory<?>> {
+
 	protected List<Token> tokens;
 	protected List<Function<?, ?>> functions;
 	protected F factory;
