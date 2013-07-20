@@ -63,4 +63,13 @@ public abstract class FactoryTest<F extends Factory<?>> {
 			functions.add(new SetIdentityFunction<>(identityFunctionParameter2));
 		}
 	}
+
+	protected void setUpIdentityFunction(String identityFunctionParameter) {
+		functions = new ArrayList<>(1);
+		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
+			functions.add(null);
+		} else {
+			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter));
+		}
+	}
 }

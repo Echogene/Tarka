@@ -1,32 +1,20 @@
 package logic.function.reflexiveset.union;
 
 import logic.TestClass;
-import logic.factory.SimpleLogicLexerImpl;
-import logic.function.Function;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
-import org.junit.BeforeClass;
+import logic.factory.FactoryTest;
+import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
 import org.junit.Test;
-import reading.lexing.Lexer;
-import reading.lexing.Token;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * @author Steven Weston
  */
-public class UnionFactoryTest {
-	private static Lexer lexer;
-	private List<Token> tokens;
-	private List<Function<?, ?>> functions;
-	private static UnionFactory<TestClass> factory;
+public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 
-	@BeforeClass
-	public static void setUp() {
-		lexer   = new SimpleLogicLexerImpl();
+	public UnionFactoryTest() {
 		factory = new UnionFactory<>();
+		functionFactory = new SetIdentityFunctionFactory<>();
 	}
 
 	@Test
@@ -55,17 +43,17 @@ public class UnionFactoryTest {
 		assertEquals(expected, actual);
 
 		setUpTokens("() ∪ Y");
-		setUpFunctions("X", null);
+		setUpFunctions("Id X", null);
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("X ∪ ()");
-		setUpFunctions(null, "Y");
+		setUpFunctions(null, "Id Y");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("() ∪ ()");
-		setUpFunctions("X", "Y");
+		setUpFunctions("Id X", "Id Y");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -86,28 +74,13 @@ public class UnionFactoryTest {
 		assertEquals(expected, actual);
 
 		setUpTokens("⋃ () () ()");
-		setUpFunctions("X", "Y", "Z");
+		setUpFunctions("Id X", "Id Y", "Id Z");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("⋃ X () ()");
-		setUpFunctions(null, "Y", "Z");
+		setUpFunctions(null, "Id Y", "Id Z");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
-	}
-
-	private void setUpFunctions(String... identityFunctionParameters) {
-		functions = new ArrayList<>();
-		for (String identityFunctionParameter : identityFunctionParameters) {
-			if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
-				functions.add(null);
-			} else {
-				functions.add(new SetIdentityFunction<TestClass>(identityFunctionParameter));
-			}
-		}
-	}
-
-	private void setUpTokens(String tokenString) throws Exception {
-		tokens = lexer.tokeniseString(tokenString);
 	}
 }
