@@ -7,11 +7,16 @@ import java.util.List;
  * @author Steven Weston
  */
 public class ValidationResult implements Iterable<ValidationResult.ValidationType> {
-	public static final ValidationResult INVALID = new ValidationResult(null);
 	private List<ValidationType> types;
+	private String message;
 
 	public ValidationResult(List<ValidationType> types) {
 		this.types = types;
+	}
+
+	private ValidationResult(String message) {
+		this.types   = null;
+		this.message = message;
 	}
 
 	public boolean isValid() {
@@ -29,6 +34,10 @@ public class ValidationResult implements Iterable<ValidationResult.ValidationTyp
 	@Override
 	public Iterator<ValidationType> iterator() {
 		return types.iterator();
+	}
+
+	public static ValidationResult invalid(String message) {
+		return new ValidationResult(message);
 	}
 
 	public enum ValidationType {

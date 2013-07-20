@@ -2,6 +2,7 @@ package logic.function.factory.binary;
 
 import logic.function.Function;
 import logic.function.factory.FunctionFactoryInputValidator;
+import logic.function.factory.ValidationException;
 import logic.function.factory.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import reading.lexing.Token;
@@ -10,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
-import static logic.function.factory.ValidationResult.INVALID;
 import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
 import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
+import static logic.function.factory.ValidationResult.invalid;
 
 /**
  * @author Steven Weston
@@ -34,9 +35,16 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 
 	@Override
 	public ValidationResult validate(List<Token> tokens, List<Function<?, ?>> functions) {
-		if (tokens == null || tokens.size() < 3) {
-			return INVALID;
+		try {
+			return validateWithException(tokens, functions);
+		} catch (ValidationException e) {
+			return invalid(e.getMessage());
 		}
+	}
+
+	private ValidationResult validateWithException(List<Token> tokens, List<Function<?, ?>> functions) throws ValidationException {
+		validateAtLeastThreeTokens(tokens);
+		// todo: make the match functions return a validation error?
 		if (matchesNoFunctions(tokens, functions)) {
 			return new ValidationResult(Arrays.asList(TOKEN, TOKEN));
 		} else if (matchesFirstFunction(tokens, functions)) {
@@ -46,7 +54,13 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 		} else if (matchesBothFunctions(tokens, functions)) {
 			return new ValidationResult(Arrays.asList(FUNCTION, FUNCTION));
 		} else {
-			return INVALID;
+			throw new ValidationException("The tokens and function should match.");
+		}
+	}
+
+	private void validateAtLeastThreeTokens(List<Token> tokens) throws ValidationException {
+		if (tokens == null || tokens.size() < 3) {
+			throw new ValidationException("There must be at least three tokens.");
 		}
 	}
 
