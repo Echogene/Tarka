@@ -4,8 +4,6 @@ import logic.TestClass;
 import logic.factory.FactoryTest;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 /**
@@ -30,7 +28,7 @@ public class SetIdentityFunctionFactoryTest extends FactoryTest<SetIdentityFunct
 
 		expected = new SetIdentityFunction<>(new SetIdentityFunction<>("X"));
 		setUpTokens("Id ()");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		actual = (SetIdentityFunction<TestClass>) factory.createElement(tokens, functions);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 	}
@@ -38,88 +36,79 @@ public class SetIdentityFunctionFactoryTest extends FactoryTest<SetIdentityFunct
 	@Test
 	public void testMatchesStandardForm() throws Exception {
 		setUpTokens("Id X");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertTrue("Expect standard tokens to match standard form", factory.matchesStandardForm(tokens, functions));
 
 		setUpTokens("Id X Y");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertFalse("Expect additional parameter to not match standard form", factory.matchesStandardForm(tokens, functions));
 
 		setUpTokens("f X");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertFalse("Expect bad function name to not match standard form", factory.matchesStandardForm(tokens, functions));
 
 		setUpTokens("Id (");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertFalse("Expect bad parameter name to not match standard form", factory.matchesStandardForm(tokens, functions));
 
 		setUpTokens("Id X");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertFalse("Expect unexpected function to not match standard form", factory.matchesStandardForm(tokens, functions));
 
 		setUpTokens("Id X");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		functions.add(null);
 		assertFalse("Expect additional function to not match standard form", factory.matchesStandardForm(tokens, functions));
 	}
 
 	@Test
 	public void testNoFunctions() throws Exception {
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertTrue("Expect single null function to count as no function", factory.noFunctions(functions));
 
 		functions = null;
 		assertTrue("Expect no functions to count as no function", factory.noFunctions(functions));
 
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertFalse("Expect single function to not count as no function", factory.noFunctions(functions));
 	}
 
 	@Test
 	public void testMatchesStandardFormWithFunction() throws Exception {
 		setUpTokens("Id ()");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertTrue("Expect standard form with function to match standard form with function", factory.matchesStandardFormWithFunction(tokens, functions));
 
 		setUpTokens("Id ()");
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertFalse("Expect missing function to not match standard form with function", factory.matchesStandardFormWithFunction(tokens, functions));
 
 		setUpTokens("X ()");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertFalse("Expect function name to not match standard form with function", factory.matchesStandardFormWithFunction(tokens, functions));
 
 		setUpTokens("Id (X");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertFalse("Expect bad brackets to not match standard form with function", factory.matchesStandardFormWithFunction(tokens, functions));
 
 		setUpTokens("Id X)");
-		setUpFunction("X");
+		setUpSetIdentityFunction("X");
 		assertFalse("Expect bad brackets to not match standard form with function", factory.matchesStandardFormWithFunction(tokens, functions));
 	}
 
 	@Test
 	public void testOneFunction() throws Exception {
-		setUpFunction("");
+		setUpSetIdentityFunction("");
 		assertFalse("Expect single null function to not count as one function", factory.oneFunction(functions));
 
 		functions = null;
 		assertFalse("Expect no functions to not count as one function", factory.oneFunction(functions));
 
-		setUpFunction("x");
+		setUpSetIdentityFunction("x");
 		assertTrue("Expect single function to count as one function", factory.oneFunction(functions));
 
-		setUpFunction("x");
+		setUpSetIdentityFunction("x");
 		functions.add(null);
 		assertFalse("Expect additional function to not count as one function", factory.oneFunction(functions));
-	}
-
-	private void setUpFunction(String identityFunctionParameter) {
-		functions = new ArrayList<>(1);
-		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(new SetIdentityFunction<>(identityFunctionParameter));
-		}
 	}
 }

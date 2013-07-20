@@ -2,6 +2,7 @@ package logic.factory;
 
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.reflexiveset.identity.SetIdentityFunction;
 import reading.lexing.LexerException;
 import reading.lexing.Token;
 
@@ -35,5 +36,14 @@ public abstract class FactoryTest<F extends Factory<?>> {
 
 	protected void setUpTokens(String tokenString) throws Exception {
 		tokens = lexer.tokeniseString(tokenString);
+	}
+
+	protected void setUpSetIdentityFunction(String identityFunctionParameter) {
+		functions = new ArrayList<>(1);
+		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
+			functions.add(null);
+		} else {
+			functions.add(new SetIdentityFunction<>(identityFunctionParameter));
+		}
 	}
 }
