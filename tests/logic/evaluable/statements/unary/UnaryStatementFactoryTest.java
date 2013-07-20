@@ -39,7 +39,7 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 
 		evaluable = EqualityPredicateFactory.createElement("x", "y");
-		expected = new UnaryStatement<>((UnaryConnective) connectiveFactory.createElement("¬"),
+		expected = new UnaryStatement<>(connectiveFactory.createElement("¬"),
 				(Evaluable<TestClass>) evaluable);
 		setUpTokens("¬()");
 		setUpFunctions("x = y");

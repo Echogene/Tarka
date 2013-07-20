@@ -34,7 +34,7 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 
 		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
-				(Quantifier) quantifierFactory.createElement("∀"),
+				quantifierFactory.createElement("∀"),
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);
@@ -45,7 +45,7 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 
 		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
-				(Quantifier) quantifierFactory.createElement("¬∀"),
+				quantifierFactory.createElement("¬∀"),
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);
@@ -56,7 +56,7 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 
 		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
-				(Quantifier) quantifierFactory.createElement("∃!"),
+				quantifierFactory.createElement("∃!"),
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);

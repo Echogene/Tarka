@@ -26,7 +26,7 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 			return new IdentityFunction<>(tokens.get(0).getValue());
 		} else if (matchesStandardFormWithFunction(tokens, functions)
 				|| matchesSingleFunction(tokens, functions)) {
-			return new IdentityFunction<>((ReflexiveFunction<T>) (Object) functions.get(0));
+			return new IdentityFunction<>((ReflexiveFunction<T>) functions.get(0));
 		}
 		throw new FactoryException("Could not create IdentityFunction");
 	}

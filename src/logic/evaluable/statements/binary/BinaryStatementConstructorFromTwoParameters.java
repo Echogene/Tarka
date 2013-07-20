@@ -23,7 +23,7 @@ public class BinaryStatementConstructorFromTwoParameters<T extends Nameable>
 
 	@Override
 	public BinaryStatement<T> construct(Evaluable<T> parameter1, String operator, Evaluable<T> parameter2) throws FactoryException {
-		BinaryConnective connective = (BinaryConnective) factory.createElement(operator);
+		BinaryConnective connective = factory.createElement(operator);
 		return new BinaryStatement<>(parameter1, connective, parameter2);
 	}
 }

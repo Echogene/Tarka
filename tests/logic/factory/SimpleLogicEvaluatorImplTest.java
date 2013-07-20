@@ -6,13 +6,11 @@ import logic.evaluable.constants.LogicalConstantFactory;
 import logic.evaluable.predicate.equality.EqualityPredicate;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.predicate.membership.MembershipPredicateFactory;
-import logic.evaluable.statements.binary.BinaryConnective;
 import logic.evaluable.statements.binary.BinaryConnectiveFactory;
 import logic.evaluable.statements.binary.BinaryStatement;
 import logic.evaluable.statements.binary.BinaryStatementFactory;
 import logic.evaluable.statements.quantified.standard.QuantifiedStatement;
 import logic.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
-import logic.evaluable.statements.quantified.standard.Quantifier;
 import logic.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.evaluable.statements.unary.UnaryConnectiveFactory;
 import logic.evaluable.statements.unary.UnaryStatementFactory;
@@ -122,7 +120,7 @@ public class SimpleLogicEvaluatorImplTest {
 		evaluable2 = EqualityPredicateFactory.createElement("y", "z");
 		expected = new BinaryStatement<>(
 				evaluable1,
-				(BinaryConnective) binaryConnectiveFactory.createElement("∧"),
+				binaryConnectiveFactory.createElement("∧"),
 				evaluable2);
 		tokens = lexer.tokeniseString("((x=y)∧(y=z))");
 		tree = parser.parseTokens(tokens);
@@ -131,7 +129,7 @@ public class SimpleLogicEvaluatorImplTest {
 
 		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
 		expected = new QuantifiedStatement<>(
-				(Quantifier) quantifierFactory.createElement("∀"),
+				quantifierFactory.createElement("∀"),
 				"x",
 				evaluable1);
 		tokens = lexer.tokeniseString("(∀x(x=y))");

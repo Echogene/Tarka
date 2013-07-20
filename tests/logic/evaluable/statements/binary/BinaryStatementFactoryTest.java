@@ -34,7 +34,7 @@ public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFacto
 		evaluable2 = EqualityPredicateFactory.createElement("y", "z");
 		expected = new BinaryStatement<>(
 				(Evaluable<TestClass>) evaluable1,
-				(BinaryConnective) connectiveFactory.createElement("∨"),
+				connectiveFactory.createElement("∨"),
 				(Evaluable<TestClass>) evaluable2);
 		setUpTokens("()∨()");
 		setUpFunctions("x=y", "y=z");

@@ -28,7 +28,7 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 				return new UnaryStatement<>((Evaluable<T>) functions.get(0));
 			} else if (matchesStandardTokens(tokens)) {
 				return new UnaryStatement<>(
-						(UnaryConnective) connectiveFactory.createElement(tokens.get(0).getValue()),
+						connectiveFactory.createElement(tokens.get(0).getValue()),
 						(Evaluable<T>) functions.get(0));
 			}
 		}
