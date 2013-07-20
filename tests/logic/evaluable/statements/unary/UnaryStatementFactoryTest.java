@@ -3,34 +3,26 @@ package logic.evaluable.statements.unary;
 import logic.TestClass;
 import logic.evaluable.Evaluable;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
+import logic.factory.FactoryTest;
 import logic.factory.SimpleLogicLexerImpl;
 import logic.function.Function;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import reading.lexing.Token;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
  */
-public class UnaryStatementFactoryTest {
-	private static List<Token> tokens;
-	private static List<Function<?, ?>> functions;
-	private static SimpleLogicLexerImpl lexer;
-	private static UnaryStatementFactory<TestClass> factory;
+public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory<TestClass>> {
 	private static UnaryConnectiveFactory connectiveFactory;
-	private static EqualityPredicateFactory<TestClass> predicateFactory;
 
-	@BeforeClass
-	public static void setUp() {
+	public UnaryStatementFactoryTest() {
 		lexer   = new SimpleLogicLexerImpl();
 		factory = new UnaryStatementFactory<>();
 		connectiveFactory = new UnaryConnectiveFactory();
-		predicateFactory = new EqualityPredicateFactory<>();
+		functionFactory = new EqualityPredicateFactory<>();
 	}
 
 	@Test
@@ -42,7 +34,7 @@ public class UnaryStatementFactoryTest {
 		evaluable = EqualityPredicateFactory.createElement("x", "y");
 		expected = new UnaryStatement<>((Evaluable<TestClass>) evaluable);
 		setUpTokens("()");
-		setUpFunction("x = y");
+		setUpFunctions("x = y");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 
@@ -50,7 +42,7 @@ public class UnaryStatementFactoryTest {
 		expected = new UnaryStatement<>((UnaryConnective) connectiveFactory.createElement("¬"),
 				(Evaluable<TestClass>) evaluable);
 		setUpTokens("¬()");
-		setUpFunction("x = y");
+		setUpFunctions("x = y");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 	}
@@ -90,28 +82,15 @@ public class UnaryStatementFactoryTest {
 		functions = null;
 		assertFalse("Expect null functions to not match", factory.matchesFunction(functions));
 
-		setUpFunction("x = y");
+		setUpFunctions("x = y");
 		assertTrue("Expect single function to match", factory.matchesFunction(functions));
 
-		setUpFunction("x = y");
+		setUpFunctions("x = y");
 		functions.add(null);
 		assertFalse("Expect additional function to not match", factory.matchesFunction(functions));
 
 		functions = new ArrayList<>(1);
 		functions.add(null);
 		assertFalse("Expect null function to not match", factory.matchesFunction(functions));
-	}
-
-	private void setUpFunction(String equalityPredicateString1) throws Exception {
-		functions = new ArrayList<>(1);
-		if (equalityPredicateString1.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(predicateFactory.createElement(lexer.tokeniseString(equalityPredicateString1)));
-		}
-	}
-
-	private void setUpTokens(String tokenString) throws Exception {
-		tokens = lexer.tokeniseString(tokenString);
 	}
 }
