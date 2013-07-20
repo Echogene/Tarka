@@ -1,26 +1,17 @@
 package logic.evaluable.constants;
 
 import logic.TestClass;
-import logic.factory.SimpleLogicLexerImpl;
-import org.junit.BeforeClass;
+import logic.factory.FactoryTest;
 import org.junit.Test;
-import reading.lexing.Token;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
  */
-public class LogicalConstantFactoryTest {
-	private static List<Token> tokens;
-	private static SimpleLogicLexerImpl lexer;
-	private static LogicalConstantFactory<TestClass> factory;
+public class LogicalConstantFactoryTest extends FactoryTest<LogicalConstantFactory<TestClass>> {
 
-	@BeforeClass
-	public static void setUp() {
-		lexer   = new SimpleLogicLexerImpl();
+	public LogicalConstantFactoryTest() {
 		factory = new LogicalConstantFactory<>();
 	}
 
@@ -56,9 +47,5 @@ public class LogicalConstantFactoryTest {
 
 		setUpTokens("∨");
 		assertFalse("Expect wrong operator to not match", factory.matches(tokens));
-	}
-
-	private void setUpTokens(String tokenString) throws Exception {
-		tokens = lexer.tokeniseString(tokenString);
 	}
 }

@@ -1,7 +1,9 @@
 package logic.factory;
 
+import logic.TestClass;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexiveset.identity.SetIdentityFunction;
 import reading.lexing.LexerException;
 import reading.lexing.Token;
@@ -44,6 +46,20 @@ public abstract class FactoryTest<F extends Factory<?>> {
 			functions.add(null);
 		} else {
 			functions.add(new SetIdentityFunction<>(identityFunctionParameter));
+		}
+	}
+
+	protected void setUpOneIdentityAndOneSetIdentityFunction(String identityFunctionParameter1, String identityFunctionParameter2) {
+		functions = new ArrayList<>(2);
+		if (identityFunctionParameter1.isEmpty()) {
+			functions.add(null);
+		} else {
+			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter1));
+		}
+		if (identityFunctionParameter2.isEmpty()) {
+			functions.add(null);
+		} else {
+			functions.add(new SetIdentityFunction<>(identityFunctionParameter2));
 		}
 	}
 }
