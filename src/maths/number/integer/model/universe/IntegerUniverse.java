@@ -14,7 +14,7 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	NamedSet<Integer> variables;
 
 	public IntegerUniverse() {
-		universalSet = new IntegerUniversalSet("universe");
+		universalSet = new IntegerUniversalSet("ℤ");
 		variables = new NamedSet<>("variables");
 	}
 
