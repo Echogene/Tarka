@@ -29,5 +29,11 @@ public class IntegerReaderTest {
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> sum = (Evaluable<Integer>) reader.read("((Σ 2 3 4) = 9)");
 		assertTrue(sum.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> negative = (Evaluable<Integer>) reader.read("((2 + -2) = 0)");
+		assertTrue(negative.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> subtraction = (Evaluable<Integer>) reader.read("((2 − 2) = 0)");
+		assertTrue(subtraction.evaluate(universe));
 	}
 }
