@@ -50,4 +50,13 @@ public class RestrictedQuantifiedStatement<T extends Nameable> extends Quantifie
 				+ getEvaluable().toString()
 				+ ")";
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(super.equals(o) && o instanceof RestrictedQuantifiedStatement)) {
+			return false;
+		}
+		RestrictedQuantifiedStatement other = (RestrictedQuantifiedStatement) o;
+		return this.setFunction.equals(other.setFunction);
+	}
 }
