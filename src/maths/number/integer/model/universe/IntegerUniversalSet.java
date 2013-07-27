@@ -1,12 +1,12 @@
 package maths.number.integer.model.universe;
 
-import logic.set.NamedSet;
+import logic.set.InfiniteSet;
 import maths.number.integer.Integer;
 
 /**
  * @author Steven Weston
  */
-public class IntegerUniversalSet extends NamedSet<Integer> {
+public class IntegerUniversalSet extends InfiniteSet<Integer> {
 	public IntegerUniversalSet(String name) {
 		super(name);
 	}
