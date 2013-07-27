@@ -32,6 +32,18 @@ public class SimpleLogicLexerImplTest {
 				CLOSE_PAREN
 		), "expect simple predicate be lexed correctly");
 
+		testTokensKeysEqualIntArray("(x ∊ {1 2 3})", Arrays.asList(
+				OPEN_PAREN,
+				NAME,
+				OPERATOR,
+				OPEN_PAREN,
+				NAME,
+				NAME,
+				NAME,
+				CLOSE_PAREN,
+				CLOSE_PAREN
+		), "expect simple predicate be lexed correctly");
+
 		testTokensKeysEqualIntArray("(¬∀x(x=y))", Arrays.asList(
 				OPEN_PAREN,
 				QUANTIFIER,
@@ -171,9 +183,9 @@ public class SimpleLogicLexerImplTest {
 		testStringListAgainstTokenKey(OPERATOR, list, "Expect operator to be lexed correctly");
 		list = Arrays.asList("∀", "∃", "∃!", "¬∀");
 		testStringListAgainstTokenKey(QUANTIFIER, list, "Expect quantifier to be lexed correctly");
-		list = Arrays.asList("(");
+		list = Arrays.asList("(", "{");
 		testStringListAgainstTokenKey(OPEN_PAREN, list, "Expect open paren to be lexed correctly");
-		list = Arrays.asList(")");
+		list = Arrays.asList(")", "}");
 		testStringListAgainstTokenKey(CLOSE_PAREN, list, "Expect close paren to be lexed correctly");
 	}
 
