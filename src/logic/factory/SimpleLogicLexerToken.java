@@ -11,6 +11,6 @@ public class SimpleLogicLexerToken extends Token {
 	}
 
 	public enum SimpleLogicLexerTokenType implements TokenType {
-		OPEN_PAREN, CLOSE_PAREN, NAME, OPERATOR, QUANTIFIER
+		OPEN_BRACKET, CLOSE_BRACKET, NAME, OPERATOR, QUANTIFIER
 	}
 }

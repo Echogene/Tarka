@@ -51,8 +51,8 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSet
 		return tokens.size() == 3
 				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(0).getValue().equals(SetIdentityFunction.SET_IDENTITY_NAME)
-				&& tokens.get(1).isOfType(OPEN_PAREN)
-				&& tokens.get(2).isOfType(CLOSE_PAREN)
+				&& tokens.get(1).isOfType(OPEN_BRACKET)
+				&& tokens.get(2).isOfType(CLOSE_BRACKET)
 				&& oneFunction(functions);
 	}
 

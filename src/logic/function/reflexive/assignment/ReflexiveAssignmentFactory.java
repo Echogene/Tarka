@@ -29,8 +29,8 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends FunctionFact
 		}
 		int tokenIndex = 0;
 		ReflexiveFunction<T> evaluee;
-		if (tokens.get(tokenIndex).isOfType(OPEN_PAREN)) {
-			if (!tokens.get(tokenIndex + 1).isOfType(CLOSE_PAREN)) {
+		if (tokens.get(tokenIndex).isOfType(OPEN_BRACKET)) {
+			if (!tokens.get(tokenIndex + 1).isOfType(CLOSE_BRACKET)) {
 				throw new FactoryException("Could not create Assignment.  First function must have closed parenthesis.");
 			}
 			if (functions == null || functions.size() < 5) {
@@ -60,8 +60,8 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends FunctionFact
 		tokenIndex++;
 
 		ReflexiveFunction<T> assignment;
-		if (tokens.get(tokenIndex).isOfType(OPEN_PAREN)) {
-			if (!tokens.get(tokenIndex + 1).isOfType(CLOSE_PAREN)) {
+		if (tokens.get(tokenIndex).isOfType(OPEN_BRACKET)) {
+			if (!tokens.get(tokenIndex + 1).isOfType(CLOSE_BRACKET)) {
 				throw new FactoryException("Could not create Assignment.  Second function must have closed parenthesis.");
 			}
 			if (functions == null || functions.size() < 5) {

@@ -25,153 +25,153 @@ public class SimpleLogicLexerImplTest {
 	@Test
 	public void testTokeniseString() throws Exception {
 		testTokensKeysEqualIntArray("(test∊testSet)", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN
+				CLOSE_BRACKET
 		), "expect simple predicate be lexed correctly");
 
 		testTokensKeysEqualIntArray("(x ∊ {1 2 3})", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect simple predicate be lexed correctly");
 
 		testTokensKeysEqualIntArray("(¬∀x(x=y))", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect simple quantified statement be lexed correctly");
 
 		testTokensKeysEqualIntArray("(∃!x(x=y))", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect simple quantified statement be lexed correctly");
 
 		testTokensKeysEqualIntArray("((test ∊ testSet) ∨ (y = Y))", Arrays.asList(
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect simple connected predicates be lexed correctly");
 
 		testTokensKeysEqualIntArray("((function test)∊testSet)", Arrays.asList(
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN
+				CLOSE_BRACKET
 		), "expect simple function and predicate be lexed correctly");
 
 		testTokensKeysEqualIntArray("(∀test((function test)∊testSet))", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect simple function, quantifier and predicate be lexed correctly");
 
 		testTokensKeysEqualIntArray("((∃x(((f x y)=z)∨((g y z)∊Z)))∧(x=t))", Arrays.asList(
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
-				OPERATOR,
-				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN,
-				CLOSE_PAREN,
-				OPERATOR,
-				OPEN_PAREN,
-				NAME,
+				CLOSE_BRACKET,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET,
+				CLOSE_BRACKET,
+				OPERATOR,
+				OPEN_BRACKET,
+				NAME,
+				OPERATOR,
+				NAME,
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect complicated expression be lexed correctly");
 
 		testTokensKeysEqualIntArray("(∀x(∃y(((f x y) = testValue)→(testValue∊X))))", Arrays.asList(
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				QUANTIFIER,
 				NAME,
-				OPEN_PAREN,
-				OPEN_PAREN,
-				OPEN_PAREN,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
+				OPEN_BRACKET,
 				NAME,
 				NAME,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
+				CLOSE_BRACKET,
 				OPERATOR,
-				OPEN_PAREN,
+				OPEN_BRACKET,
 				NAME,
 				OPERATOR,
 				NAME,
-				CLOSE_PAREN,
-				CLOSE_PAREN,
-				CLOSE_PAREN,
-				CLOSE_PAREN
+				CLOSE_BRACKET,
+				CLOSE_BRACKET,
+				CLOSE_BRACKET,
+				CLOSE_BRACKET
 		), "expect another complicated expression be lexed correctly");
 	}
 
@@ -184,9 +184,9 @@ public class SimpleLogicLexerImplTest {
 		list = Arrays.asList("∀", "∃", "∃!", "¬∀");
 		testStringListAgainstTokenKey(QUANTIFIER, list, "Expect quantifier to be lexed correctly");
 		list = Arrays.asList("(", "{");
-		testStringListAgainstTokenKey(OPEN_PAREN, list, "Expect open paren to be lexed correctly");
+		testStringListAgainstTokenKey(OPEN_BRACKET, list, "Expect open paren to be lexed correctly");
 		list = Arrays.asList(")", "}");
-		testStringListAgainstTokenKey(CLOSE_PAREN, list, "Expect close paren to be lexed correctly");
+		testStringListAgainstTokenKey(CLOSE_BRACKET, list, "Expect close paren to be lexed correctly");
 	}
 
 	private void testTokensKeysEqualIntArray(String test, List<? extends Token.TokenType> expectedArray, String assertion) throws Exception {

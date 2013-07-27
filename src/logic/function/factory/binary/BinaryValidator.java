@@ -95,8 +95,8 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 */
 	private boolean matchesFirstFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 4
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
+				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& tokens.get(1).isOfType(CLOSE_BRACKET)
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(2).getValue())
 				&& tokens.get(3).isOfType(NAME)
@@ -119,8 +119,8 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(1).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(1).getValue())
-				&& tokens.get(2).isOfType(OPEN_PAREN)
-				&& tokens.get(3).isOfType(CLOSE_PAREN)
+				&& tokens.get(2).isOfType(OPEN_BRACKET)
+				&& tokens.get(3).isOfType(CLOSE_BRACKET)
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) == null
@@ -137,12 +137,12 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 */
 	private boolean matchesBothFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 5
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
+				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& tokens.get(1).isOfType(CLOSE_BRACKET)
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(2).getValue())
-				&& tokens.get(3).isOfType(OPEN_PAREN)
-				&& tokens.get(4).isOfType(CLOSE_PAREN)
+				&& tokens.get(3).isOfType(OPEN_BRACKET)
+				&& tokens.get(4).isOfType(CLOSE_BRACKET)
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) != null

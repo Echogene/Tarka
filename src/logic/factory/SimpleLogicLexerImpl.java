@@ -69,9 +69,9 @@ public class SimpleLogicLexerImpl implements Lexer {
 	public static Token lexAtom(String s) throws LexerException {
 		// todo: this might be able to be neater
 		if (OPEN_PAREN_PATTERN.matcher(s).matches()) {
-			return new Token(OPEN_PAREN, s);
+			return new Token(OPEN_BRACKET, s);
 		} else if (CLOSE_PAREN_PATTERN.matcher(s).matches()) {
-			return new Token(CLOSE_PAREN, s);
+			return new Token(CLOSE_BRACKET, s);
 		} else if (NAME_PATTERN.matcher(s).matches()) {
 			return new Token(NAME, s);
 		} else if (OPERATOR_PATTERN.matcher(s).matches()) {

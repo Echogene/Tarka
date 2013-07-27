@@ -38,8 +38,8 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 	public boolean matchesTwoBrackets(List<Token> tokens) {
 		return tokens != null
 				&& tokens.size() == 2
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN);
+				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& tokens.get(1).isOfType(CLOSE_BRACKET);
 	}
 
 	public boolean matchesStandardTokens(List<Token> tokens) {
@@ -47,8 +47,8 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 				&& tokens.size() == 3
 				&& tokens.get(0).isOfType(OPERATOR)
 				&& UnaryConnective.UNARY_CONNECTIVE_SYMBOL_LIST.contains(tokens.get(0).getValue())
-				&& tokens.get(1).isOfType(OPEN_PAREN)
-				&& tokens.get(2).isOfType(CLOSE_PAREN);
+				&& tokens.get(1).isOfType(OPEN_BRACKET)
+				&& tokens.get(2).isOfType(CLOSE_BRACKET);
 	}
 
 	public boolean matchesFunction(List<Function<?, ?>> functions) {

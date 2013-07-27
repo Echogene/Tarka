@@ -57,8 +57,8 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Fu
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
 				&& tokens.get(3).isOfType(NAME)
-				&& tokens.get(4).isOfType(OPEN_PAREN)
-				&& tokens.get(5).isOfType(CLOSE_PAREN);
+				&& tokens.get(4).isOfType(OPEN_BRACKET)
+				&& tokens.get(5).isOfType(CLOSE_BRACKET);
 	}
 
 	boolean matchesFunctionsName(List<Function<?, ?>> functions) {
@@ -81,10 +81,10 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Fu
 				&& tokens.get(1).isOfType(NAME)
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
-				&& tokens.get(3).isOfType(OPEN_PAREN)
-				&& tokens.get(4).isOfType(CLOSE_PAREN)
-				&& tokens.get(5).isOfType(OPEN_PAREN)
-				&& tokens.get(6).isOfType(CLOSE_PAREN);
+				&& tokens.get(3).isOfType(OPEN_BRACKET)
+				&& tokens.get(4).isOfType(CLOSE_BRACKET)
+				&& tokens.get(5).isOfType(OPEN_BRACKET)
+				&& tokens.get(6).isOfType(CLOSE_BRACKET);
 	}
 
 	boolean matchesFunctionsSetFunction(List<Function<?, ?>> functions) {

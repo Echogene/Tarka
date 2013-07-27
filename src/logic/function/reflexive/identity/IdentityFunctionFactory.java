@@ -55,15 +55,15 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 		return tokens.size() == 3
 				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(0).getValue().equals(IdentityFunction.IDENTITY_NAME)
-				&& tokens.get(1).isOfType(OPEN_PAREN)
-				&& tokens.get(2).isOfType(CLOSE_PAREN)
+				&& tokens.get(1).isOfType(OPEN_BRACKET)
+				&& tokens.get(2).isOfType(CLOSE_BRACKET)
 				&& oneFunction(functions);
 	}
 
 	boolean matchesSingleFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		return tokens.size() == 2
-				&& tokens.get(0).isOfType(OPEN_PAREN)
-				&& tokens.get(1).isOfType(CLOSE_PAREN)
+				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& tokens.get(1).isOfType(CLOSE_BRACKET)
 				&& oneFunction(functions);
 	}
 

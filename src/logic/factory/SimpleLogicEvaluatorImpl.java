@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_PAREN;
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
@@ -33,7 +33,7 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 		List<Token> tokens = extractTokens(nodes);
 		List<Function<?, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
-			if (n.getToken().getType() == OPEN_PAREN) {
+			if (n.getToken().getType() == OPEN_BRACKET) {
 				functions.add(evaluate(n.getChildren()));
 			} else if (n.getToken().getType() == NAME) {
 				functions.add(null);

@@ -44,12 +44,12 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 		int currentTokenIndex = 0;
 		Token lastToken = null;
 		for (Token token : tokens) {
-			if (token.isOfType(CLOSE_PAREN)) {
+			if (token.isOfType(CLOSE_BRACKET)) {
 				validatePreviousTokenWasOpenParen(lastToken);
 				Function function = safeGet(functions, currentFunctionIndex++);
 				validateFunction(function);
 				validationTypes.add(FUNCTION);
-			} else if (token.isOfType(OPEN_PAREN)) {
+			} else if (token.isOfType(OPEN_BRACKET)) {
 				validateOpenParenIsNotFirstToken(currentTokenIndex);
 			} else if (token.isOfType(OPERATOR)) {
 				validateOperatorIsFirstToken(currentTokenIndex);
@@ -112,7 +112,7 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 	}
 
 	private void validatePreviousTokenWasOpenParen(Token lastToken) throws ValidationException {
-		if (lastToken == null || !lastToken.isOfType(OPEN_PAREN)) {
+		if (lastToken == null || !lastToken.isOfType(OPEN_BRACKET)) {
 			throw new ValidationException("A closing parenthesis must be immediately after an opening parenthesis.");
 		}
 	}
