@@ -9,7 +9,6 @@ import logic.function.voidfunction.VoidFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
 import maths.number.integer.model.universe.IntegerUniverse;
-import reading.reading.ReadingException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,8 +22,8 @@ public class IntegerReaderRepl {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		IntegerUniverse universe = new IntegerUniverse();
 		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader();
-		String in = "";
-		while (!"exit".equals(in)) {
+		String in;
+		while (true) {
 			in =  br.readLine();
 			if ("exit".equals(in)) {
 				return;
@@ -44,10 +43,6 @@ public class IntegerReaderRepl {
 					VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
 					voidFunction.evaluate(universe);
 				}
-			} catch (ReadingException e) {
-				e.printStackTrace();
-			} catch (ClassCastException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
