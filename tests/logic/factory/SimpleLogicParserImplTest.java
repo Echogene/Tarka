@@ -31,6 +31,10 @@ public class SimpleLogicParserImplTest {
 				0, 1, 1, 1, 0
 		}, "expected a simple statement to be parsed correctly");
 
+		testDepths("(x ∊ {1 2 3})", new int[] {
+				0, 1, 1, 1, 2, 2, 2, 1, 0
+		}, "expected a simple statement to be parsed correctly");
+
 		testDepths("((∃x(((f x y)=z)∨((g y z)∊Z)))∧(x=t))", new int[] {
 				0, 1, 2, 2, 2, 3, 4, 5, 5, 5, 4, 4, 4, 3, 3, 3, 4, 5, 5, 5, 4, 4, 4, 3, 2, 1, 1, 1, 2, 2, 2, 1, 0
 		}, "expected a complicated statement to be parsed correctly");
