@@ -13,6 +13,8 @@ public class MemberDefinition<T extends Nameable> implements VoidFunction<T> {
 	private String variableName;
 	private ReflexiveFunction<T> definition;
 
+	public String DEFINITION_SYMBOL = ":=";
+
 	public MemberDefinition(String variableName, ReflexiveFunction<T> definition) {
 		this.variableName = variableName;
 		this.definition   = definition;
@@ -27,6 +29,11 @@ public class MemberDefinition<T extends Nameable> implements VoidFunction<T> {
 
 	@Override
 	public String getName() {
-		return "(" + variableName + " := " + definition.toString() + ")";
+		return "(" + variableName + " " + DEFINITION_SYMBOL + " " + definition.toString() + ")";
+	}
+
+	@Override
+	public String toString() {
+		return getName();
 	}
 }
