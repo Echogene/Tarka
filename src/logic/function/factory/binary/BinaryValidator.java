@@ -5,6 +5,7 @@ import logic.function.factory.FunctionFactoryInputValidator;
 import logic.function.factory.ValidationException;
 import logic.function.factory.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
+import logic.function.reflexiveset.ReflexiveSetFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;
@@ -94,9 +95,17 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 * @return Whether there is one function and one name token.
 	 */
 	private boolean matchesFirstFunction(List<Token> tokens, List<Function<?, ?>> functions) {
+		boolean firstClassNeedsNeedsRoundBrackets = false;
+		if (!ReflexiveSetFunction.class.isAssignableFrom(firstClass)) {
+			firstClassNeedsNeedsRoundBrackets = true;
+		}
 		return tokens.size() == 4
 				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& (!firstClassNeedsNeedsRoundBrackets
+					|| isTokenOpenParenthesis(tokens.get(0)))
 				&& tokens.get(1).isOfType(CLOSE_BRACKET)
+				&& (!firstClassNeedsNeedsRoundBrackets
+					|| isTokenCloseParenthesis(tokens.get(1)))
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(2).getValue())
 				&& tokens.get(3).isOfType(NAME)
@@ -115,12 +124,20 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 * @return Whether there is one name token and one function
 	 */
 	private boolean matchesSecondFunction(List<Token> tokens, List<Function<?, ?>> functions) {
+		boolean secondClassNeedsNeedsRoundBrackets = false;
+		if (!ReflexiveSetFunction.class.isAssignableFrom(secondClass)) {
+			secondClassNeedsNeedsRoundBrackets = true;
+		}
 		return tokens.size() == 4
 				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(1).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(1).getValue())
 				&& tokens.get(2).isOfType(OPEN_BRACKET)
+				&& (!secondClassNeedsNeedsRoundBrackets
+					|| isTokenOpenParenthesis(tokens.get(2)))
 				&& tokens.get(3).isOfType(CLOSE_BRACKET)
+				&& (!secondClassNeedsNeedsRoundBrackets
+					|| isTokenCloseParenthesis(tokens.get(3)))
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) == null
@@ -136,13 +153,29 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 * @return Whether there are two functions and no name tokens.
 	 */
 	private boolean matchesBothFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
+		boolean firstClassNeedsNeedsRoundBrackets = false;
+		if (!ReflexiveSetFunction.class.isAssignableFrom(firstClass)) {
+			firstClassNeedsNeedsRoundBrackets = true;
+		}
+		boolean secondClassNeedsNeedsRoundBrackets = false;
+		if (!ReflexiveSetFunction.class.isAssignableFrom(secondClass)) {
+			secondClassNeedsNeedsRoundBrackets = true;
+		}
 		return tokens.size() == 5
 				&& tokens.get(0).isOfType(OPEN_BRACKET)
+				&& (!firstClassNeedsNeedsRoundBrackets
+					|| isTokenOpenParenthesis(tokens.get(0)))
 				&& tokens.get(1).isOfType(CLOSE_BRACKET)
+				&& (!firstClassNeedsNeedsRoundBrackets
+					|| isTokenCloseParenthesis(tokens.get(1)))
 				&& tokens.get(2).isOfType(OPERATOR)
 				&& acceptedOperatorSymbols.contains(tokens.get(2).getValue())
 				&& tokens.get(3).isOfType(OPEN_BRACKET)
+				&& (!secondClassNeedsNeedsRoundBrackets
+					|| isTokenOpenParenthesis(tokens.get(3)))
 				&& tokens.get(4).isOfType(CLOSE_BRACKET)
+				&& (!secondClassNeedsNeedsRoundBrackets
+					|| isTokenCloseParenthesis(tokens.get(4)))
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) != null

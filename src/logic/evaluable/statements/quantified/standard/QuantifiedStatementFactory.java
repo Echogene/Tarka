@@ -43,8 +43,8 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 				&& tokens.size() == 4
 				&& tokens.get(0).isOfType(QUANTIFIER)
 				&& tokens.get(1).isOfType(NAME)
-				&& tokens.get(2).isOfType(OPEN_BRACKET)
-				&& tokens.get(3).isOfType(CLOSE_BRACKET);
+				&& isTokenOpenParenthesis(tokens.get(2))
+				&& isTokenCloseParenthesis(tokens.get(3));
 	}
 
 	boolean matchesFunctions(List<Function<?, ?>> functions) {

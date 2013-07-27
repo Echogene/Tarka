@@ -47,8 +47,8 @@ public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory
 				&& tokens.get(0).isOfType(NAME)
 				&& tokens.get(1).isOfType(OPERATOR)
 				&& tokens.get(1).getValue().equals(MemberDefinition.DEFINITION_SYMBOL)
-				&& tokens.get(2).isOfType(OPEN_BRACKET)
-				&& tokens.get(3).isOfType(CLOSE_BRACKET)
+				&& isTokenOpenParenthesis(tokens.get(2))
+				&& isTokenCloseParenthesis(tokens.get(3))
 				&& functions != null
 				&& functions.size() == 2
 				&& functions.get(0) == null

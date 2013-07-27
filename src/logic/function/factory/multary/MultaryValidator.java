@@ -4,6 +4,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactoryInputValidator;
 import logic.function.factory.ValidationException;
 import logic.function.factory.ValidationResult;
+import logic.function.reflexiveset.ReflexiveSetFunction;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -45,11 +46,13 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 		Token lastToken = null;
 		for (Token token : tokens) {
 			if (token.isOfType(CLOSE_BRACKET)) {
+				validateCloseParenthesis(token);
 				validatePreviousTokenWasOpenParen(lastToken);
 				Function function = safeGet(functions, currentFunctionIndex++);
 				validateFunction(function);
 				validationTypes.add(FUNCTION);
 			} else if (token.isOfType(OPEN_BRACKET)) {
+				validateOpenParenthesis(token);
 				validateOpenParenIsNotFirstToken(currentTokenIndex);
 			} else if (token.isOfType(OPERATOR)) {
 				validateOperatorIsFirstToken(currentTokenIndex);
@@ -123,4 +126,15 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 		}
 	}
 
+	private void validateOpenParenthesis(Token token) throws ValidationException {
+		if (!(ReflexiveSetFunction.class.isAssignableFrom(parameterClass) || isTokenOpenParenthesis(token))) {
+			throw new ValidationException("The token must be an open parenthesis");
+		}
+	}
+
+	private void validateCloseParenthesis(Token token) throws ValidationException {
+		if (!(ReflexiveSetFunction.class.isAssignableFrom(parameterClass) || isTokenCloseParenthesis(token))) {
+			throw new ValidationException("The token must be a close parenthesis");
+		}
+	}
 }

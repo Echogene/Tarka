@@ -2,7 +2,6 @@ package logic.evaluable.statements.quantified.restricted;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
-import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -13,6 +12,7 @@ import reading.lexing.Token;
 
 import java.util.List;
 
+import static logic.evaluable.predicate.membership.MembershipPredicate.MEMBERSHIP_STRING;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 
 /**
@@ -55,10 +55,10 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Fu
 				&& tokens.get(0).isOfType(QUANTIFIER)
 				&& tokens.get(1).isOfType(NAME)
 				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
+				&& tokens.get(2).getValue().equals(MEMBERSHIP_STRING)
 				&& tokens.get(3).isOfType(NAME)
-				&& tokens.get(4).isOfType(OPEN_BRACKET)
-				&& tokens.get(5).isOfType(CLOSE_BRACKET);
+				&& isTokenOpenParenthesis(tokens.get(4))
+				&& isTokenCloseParenthesis(tokens.get(5));
 	}
 
 	boolean matchesFunctionsName(List<Function<?, ?>> functions) {
@@ -80,11 +80,11 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Fu
 				&& tokens.get(0).isOfType(QUANTIFIER)
 				&& tokens.get(1).isOfType(NAME)
 				&& tokens.get(2).isOfType(OPERATOR)
-				&& tokens.get(2).getValue().equals(MembershipPredicate.MEMBERSHIP_STRING)
+				&& tokens.get(2).getValue().equals(MEMBERSHIP_STRING)
 				&& tokens.get(3).isOfType(OPEN_BRACKET)
 				&& tokens.get(4).isOfType(CLOSE_BRACKET)
-				&& tokens.get(5).isOfType(OPEN_BRACKET)
-				&& tokens.get(6).isOfType(CLOSE_BRACKET);
+				&& isTokenOpenParenthesis(tokens.get(5))
+				&& isTokenCloseParenthesis(tokens.get(6));
 	}
 
 	boolean matchesFunctionsSetFunction(List<Function<?, ?>> functions) {
