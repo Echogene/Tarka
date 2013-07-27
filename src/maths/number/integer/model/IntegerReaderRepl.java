@@ -5,6 +5,7 @@ import logic.factory.SimpleLogicReaderImpl;
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.voidfunction.VoidFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
 import maths.number.integer.model.universe.IntegerUniverse;
@@ -23,8 +24,11 @@ public class IntegerReaderRepl {
 		IntegerUniverse universe = new IntegerUniverse();
 		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader();
 		String in = "";
-		while (!in.equals("exit")) {
+		while (!"exit".equals(in)) {
 			in =  br.readLine();
+			if ("exit".equals(in)) {
+				return;
+			}
 			try {
 				Function<?, ?> function = reader.read(in);
 				if (function instanceof ReflexiveFunction) {
@@ -36,6 +40,9 @@ public class IntegerReaderRepl {
 				} else if (function instanceof ReflexiveSetFunction) {
 					ReflexiveSetFunction<Integer> setFunction = (ReflexiveSetFunction<Integer>) function;
 					System.out.println(setFunction.evaluate(universe));
+				} else if (function instanceof VoidFunction) {
+					VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
+					voidFunction.evaluate(universe);
 				}
 			} catch (ReadingException e) {
 				e.printStackTrace();

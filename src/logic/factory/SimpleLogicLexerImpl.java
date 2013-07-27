@@ -5,6 +5,7 @@ import logic.evaluable.statements.binary.BinaryConnective;
 import logic.evaluable.statements.quantified.standard.Quantifier;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.function.reflexiveset.union.Union;
+import logic.function.voidfunction.definition.member.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;
 import maths.number.integer.functions.subtraction.Subtraction;
 import reading.lexing.Lexer;
@@ -29,7 +30,8 @@ public class SimpleLogicLexerImpl implements Lexer {
 			+ LogicalConstant.CONSTANT_SYMBOLS
 			+ Union.UNION_SYMBOLS
 			+ Addition.ADDITION_SYMBOLS
-			+ Subtraction.MINUS;
+			+ Subtraction.MINUS
+			+ MemberDefinition.DEFINITION_SYMBOL;
 	private static final String QUANTIFIER_GROUP = Quantifier.QUANTIFIER_SYMBOLS;
 
 	private static final String OPEN_PAREN_REGEX = "\\(";

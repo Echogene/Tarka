@@ -13,6 +13,7 @@ import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
 import logic.function.reflexiveset.union.UnionFactory;
+import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class StandardReader {
 		output.add(new UnionFactory<>());
 		output.add(new ReflexiveAssignmentFactory<T>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
+		output.add(new MemberDefinitionFactory<>());
 		return output;
 	}
 }
