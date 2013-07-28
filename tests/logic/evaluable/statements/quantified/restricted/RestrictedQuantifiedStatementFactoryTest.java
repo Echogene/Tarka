@@ -39,8 +39,8 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 				new SetIdentityFunction<>("X"),
 				(Evaluable<TestClass>) evaluable1
 		);
-		setUpTokens("∀x∊X()");
-		setUpFunctions("", "", "x=y");
+		setUpTokens("(∀x∊X())");
+		setUpFunctions("", "", "(x=y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -51,8 +51,8 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 				UnionFactory.<TestClass>createElement("X", "Y"),
 				(Evaluable<TestClass>) evaluable1
 		);
-		setUpTokens("∀x∊()()");
-		setUpFunctions("", "", "x=y");
+		setUpTokens("(∀x∊()())");
+		setUpFunctions("", "", "(x=y)");
 		functions.set(1, UnionFactory.<TestClass>createElement("X", "Y"));
 		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);

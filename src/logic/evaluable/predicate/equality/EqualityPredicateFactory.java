@@ -46,6 +46,7 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			return binaryConstructor.construct(result, tokens, functions);

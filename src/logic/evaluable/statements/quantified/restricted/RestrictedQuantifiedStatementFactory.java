@@ -27,6 +27,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Ev
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		if (matchesName(tokens, functions)) {
 			return new RestrictedQuantifiedStatement<>(
 					quantifierFactory.createElement(tokens.get(0).getValue()),

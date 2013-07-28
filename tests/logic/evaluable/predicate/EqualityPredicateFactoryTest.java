@@ -25,23 +25,23 @@ public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateF
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;
 
+		setUpTokens("(x = y)");
 		expected =EqualityPredicateFactory.createElement("x", "y");
-		setUpTokens("x = y");
 		actual = factory.createElement(tokens);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
+		setUpTokens("(x = ())");
 		setUpFunctions("", "y");
-		setUpTokens("x = ()");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
+		setUpTokens("(() = y)");
 		setUpFunctions("x", "");
-		setUpTokens("() = y");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
+		setUpTokens("(() = ())");
 		setUpFunctions("x", "y");
-		setUpTokens("() = ()");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 	}
