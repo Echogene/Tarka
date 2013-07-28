@@ -79,7 +79,7 @@ public class SimpleLogicParseTree implements ParseTree {
 			children.add(child);
 		}
 
-		public Node getParent() {
+		public Node getMother() {
 			return parent;
 		}
 

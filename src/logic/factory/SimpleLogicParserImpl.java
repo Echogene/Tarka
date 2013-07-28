@@ -17,21 +17,22 @@ public class SimpleLogicParserImpl implements Parser {
 	@Override
 	public ParseTree parseTokens(List<Token> tokens) {
 		SimpleLogicParseTree output = new SimpleLogicParseTree();
-		Node currentParent = new Node(tokens.get(0));
-		output.getNodes().add(currentParent);
+		Node currentMother = new Node(tokens.get(0));
+		output.getNodes().add(currentMother);
 		Node currentChild;
 		for (int i = 1; i < tokens.size(); i++) {
 			Token t = tokens.get(i);
 			if (t.getType() == OPEN_BRACKET) {
-				currentChild = new Node(currentParent, t);
-				currentParent = currentChild;
+				currentChild = new Node(currentMother, t);
+				currentMother = currentChild;
 			} else if (t.getType() == CLOSE_BRACKET) {
-				Node spouse = currentParent;
-				currentParent = currentParent.getParent();
-				currentChild = new Node(currentParent, t);
-				currentChild.marry(spouse);
+				Node wife = currentMother;
+				currentMother = currentMother.getMother();
+				Node husband = new Node(currentMother, t);
+				husband.marry(wife);
+				currentChild = husband;
 			} else {
-				currentChild = new Node(currentParent, t);
+				currentChild = new Node(currentMother, t);
 			}
 			output.getNodes().add(currentChild);
 		}
