@@ -60,6 +60,7 @@ public class UnionFactory<T extends Nameable> extends ReflexiveSetFunctionFactor
 
 	@Override
 	public Function<T, Set<T>> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			return binaryConstructor.construct(result, tokens, functions);
