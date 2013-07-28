@@ -19,4 +19,8 @@ public class CollectionUtils {
 		}
 		return list.get(index);
 	}
+
+	public static <T> List<T> stripFirstAndLast(List<T> list) {
+		return list.subList(1, list.size() - 1);
+	}
 }

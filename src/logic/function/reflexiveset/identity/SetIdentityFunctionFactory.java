@@ -22,6 +22,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSet
 			 List<Function<?, ?>> functions)
 			throws FactoryException {
 
+		tokens = validateAndStripParentheses(tokens);
 		if(functions != null && functions.size() == 2) {
 			functions = functions.subList(1, 2);
 		}
