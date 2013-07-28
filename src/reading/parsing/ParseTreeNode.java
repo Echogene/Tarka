@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface ParseTreeNode {
 	public ParseTreeNode getMother();
+	public ParseTreeNode getFather();
 	public List<ParseTreeNode> getChildren();
 	public Token getToken();
 	public ParseTreeNode getSpouse();
