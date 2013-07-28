@@ -34,9 +34,9 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 		List<Token> tokens = extractTokens(nodes);
 		List<Function<?, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
-			if (n.getToken().getType() == OPEN_BRACKET) {
+			if (n.getToken().isOfType(OPEN_BRACKET)) {
 				functions.add(evaluate(n.getChildren()));
-			} else if (n.getToken().getType() == NAME) {
+			} else if (n.getToken().isOfType(NAME)) {
 				functions.add(null);
 			}
 		}
