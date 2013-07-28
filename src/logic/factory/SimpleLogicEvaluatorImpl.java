@@ -19,6 +19,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  */
 public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 	protected List<FunctionFactory<?, ?>> factories;
+	private static final boolean LOG_FACTORY_FAILURES = false;
 
 	public SimpleLogicEvaluatorImpl(List<FunctionFactory<?, ?>> factories) {
 		this.factories = factories;
@@ -43,6 +44,9 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 			try {
 				return factory.createElement(tokens, functions);
 			} catch (FactoryException e) {
+				if (LOG_FACTORY_FAILURES) {
+					System.out.println(factory.getClass().toString() + " did not work : " + e.getMessage());
+				}
 			}
 		}
 		throw new EvaluatorException();
