@@ -31,17 +31,17 @@ public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateF
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpTokens("(x = ())");
-		setUpFunctions("", "y");
+		setUpFunctions("", "(y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpTokens("(() = y)");
-		setUpFunctions("x", "");
+		setUpFunctions("(x)", "");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpTokens("(() = ())");
-		setUpFunctions("x", "y");
+		setUpFunctions("(x)", "(y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 	}

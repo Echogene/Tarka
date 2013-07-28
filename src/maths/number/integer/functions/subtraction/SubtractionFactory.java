@@ -36,6 +36,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 
 	@Override
 	public Function<N, N> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		ValidationResult result = validator.validate(tokens, functions);
 		if (result.isValid()) {
 			return constructor.construct(result, tokens, functions);

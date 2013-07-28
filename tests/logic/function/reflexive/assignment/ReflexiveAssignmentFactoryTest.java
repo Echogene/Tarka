@@ -26,7 +26,7 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 				new IdentityFunction<>("y")
 		);
 
-		setUpTokens("x where x is y");
+		setUpTokens("(x where x is y)");
 		setUpFunctions("", "", "", "", "");
 		ReflexiveAssignment<TestClass> actual = (ReflexiveAssignment<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);

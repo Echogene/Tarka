@@ -23,6 +23,7 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		if (matchesFunction(functions)) {
 			if (matchesTwoBrackets(tokens)) {
 				return new UnaryStatement<>((Evaluable<T>) functions.get(0));

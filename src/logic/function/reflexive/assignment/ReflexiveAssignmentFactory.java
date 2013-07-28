@@ -24,6 +24,7 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFun
 
 	@Override
 	public Function<T, T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		if (tokens == null || tokens.isEmpty()) {
 			throw new FactoryException("Could not create Assignment. There must be at least one token.");
 		}

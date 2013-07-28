@@ -44,6 +44,7 @@ public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<
 
 	@Override
 	public Function<N, N> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		ValidationResult result = binaryValidator.validate(tokens, functions);
 		if (result.isValid()) {
 			return binaryConstructor.construct(result, tokens, functions);

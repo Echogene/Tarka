@@ -21,23 +21,23 @@ public class IdentityFunctionFactoryTest extends FactoryTest<IdentityFunctionFac
 		IdentityFunction<TestClass> actual;
 
 		expected = new IdentityFunction<>("x");
-		setUpTokens("id x");
+		setUpTokens("(id x)");
 		actual = (IdentityFunction<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
 		expected = new IdentityFunction<>("x");
-		setUpTokens("x");
+		setUpTokens("(x)");
 		actual = (IdentityFunction<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
 		expected = new IdentityFunction<>(new IdentityFunction<>("x"));
-		setUpTokens("id ()");
+		setUpTokens("(id ())");
 		setUpIdentityFunction("x");
 		actual = (IdentityFunction<TestClass>) factory.createElement(tokens, functions);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
 		expected = new IdentityFunction<>(new IdentityFunction<>("x"));
-		setUpTokens("()");
+		setUpTokens("(())");
 		setUpIdentityFunction("x");
 		actual = (IdentityFunction<TestClass>) factory.createElement(tokens, functions);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);

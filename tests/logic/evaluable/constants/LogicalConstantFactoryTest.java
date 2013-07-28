@@ -21,12 +21,12 @@ public class LogicalConstantFactoryTest extends FactoryTest<LogicalConstantFacto
 		LogicalConstant<TestClass> actual;
 
 		expected = new LogicalConstant<>(true);
-		setUpTokens("⊤");
+		setUpTokens("(⊤)");
 		actual = (LogicalConstant<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created tautology to be equal to the factory-built one", expected, actual);
 
 		expected = new LogicalConstant<>(false);
-		setUpTokens("⊥");
+		setUpTokens("(⊥)");
 		actual = (LogicalConstant<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created contradiction to be equal to the factory-built one", expected, actual);
 	}

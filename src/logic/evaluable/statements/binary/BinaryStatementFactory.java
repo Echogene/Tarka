@@ -28,6 +28,7 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		ValidationResult result = validator.validate(tokens, functions);
 		if (result.isValid()) {
 			return constructor.construct(result, tokens, functions);

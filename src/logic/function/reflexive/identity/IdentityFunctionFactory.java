@@ -17,6 +17,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
 	@Override
 	public Function<T, T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		if (functions != null && functions.size() == 2) {
 			functions = functions.subList(1, 2);
 		}

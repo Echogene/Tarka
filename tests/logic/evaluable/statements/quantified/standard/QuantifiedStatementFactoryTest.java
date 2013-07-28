@@ -38,8 +38,8 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);
-		setUpTokens("∀x()");
-		setUpFunctions("x=y");
+		setUpTokens("(∀x())");
+		setUpFunctions("(x=y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
@@ -49,8 +49,8 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);
-		setUpTokens("¬∀x()");
-		setUpFunctions("x=y");
+		setUpTokens("(¬∀x())");
+		setUpFunctions("(x=y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 
@@ -60,8 +60,8 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 				"x",
 				(Evaluable<TestClass>) evaluable1
 		);
-		setUpTokens("∃!x()");
-		setUpFunctions("x=y");
+		setUpTokens("(∃!x())");
+		setUpFunctions("(x=y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created quantified statement to be equal to the factory-built one", expected, actual);
 	}
@@ -98,18 +98,18 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 
 	@Test
 	public void testMatchesFunctions() throws Exception {
-		setUpFunctions("x = y");
+		setUpFunctions("(x = y)");
 		assertTrue("Expect one function to match", factory.matchesFunctions(functions));
 
 		functions = new ArrayList<>(2);
 		functions.add(null);
-		functions.add(functionFactory.createElement(lexer.tokeniseString("x = y")));
+		functions.add(functionFactory.createElement(lexer.tokeniseString("(x = y)")));
 		assertTrue("Expect two functions with first null to match", factory.matchesFunctions(functions));
 
 		functions = null;
 		assertFalse("Expect null function to not match", factory.matchesFunctions(functions));
 
-		setUpFunctions("x = y");
+		setUpFunctions("(x = y)");
 		functions.add(null);
 		assertFalse("Expect wrong order of functions to not match", factory.matchesFunctions(functions));
 

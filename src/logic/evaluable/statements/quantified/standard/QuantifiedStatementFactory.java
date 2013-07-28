@@ -24,6 +24,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions)
 			throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 
 		if (matchesTokens(tokens) && matchesFunctions(functions)) {
 			if(functions.size() == 2) {

@@ -31,7 +31,7 @@ public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFac
 		assertEquals(expected, actual);
 
 		setUpTokens("(x ≔ ())");
-		setUpFunctions("", "2");
+		setUpFunctions("", "(2)");
 
 		expected = new MemberDefinition<>("x", new IdentityFunction<>("2"));
 		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);

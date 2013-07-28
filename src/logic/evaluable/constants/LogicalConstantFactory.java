@@ -17,6 +17,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPER
 public class LogicalConstantFactory<T extends Nameable> extends EvaluableFactory<T> {
 	@Override
 	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		tokens = validateAndStripParentheses(tokens);
 		if ((functions == null || functions.size() == 0) && matches(tokens)) {
 			return new LogicalConstant<>(tokens.get(0).getValue().equals(LogicalConstant.TAUTOLOGY_SYMBOL));
 		}

@@ -36,8 +36,8 @@ public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFacto
 				(Evaluable<TestClass>) evaluable1,
 				connectiveFactory.createElement("∨"),
 				(Evaluable<TestClass>) evaluable2);
-		setUpTokens("()∨()");
-		setUpFunctions("x=y", "y=z");
+		setUpTokens("(()∨())");
+		setUpFunctions("(x=y)", "(y=z)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created binary statement to be equal to the factory-built one", expected, actual);
 	}

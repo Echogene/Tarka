@@ -33,16 +33,16 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 
 		evaluable = EqualityPredicateFactory.createElement("x", "y");
 		expected = new UnaryStatement<>((Evaluable<TestClass>) evaluable);
-		setUpTokens("()");
-		setUpFunctions("x = y");
+		setUpTokens("(())");
+		setUpFunctions("(x = y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 
 		evaluable = EqualityPredicateFactory.createElement("x", "y");
 		expected = new UnaryStatement<>(connectiveFactory.createElement("¬"),
 				(Evaluable<TestClass>) evaluable);
-		setUpTokens("¬()");
-		setUpFunctions("x = y");
+		setUpTokens("(¬())");
+		setUpFunctions("(x = y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expect created unary statement to be equal to the factory-built one", expected, actual);
 	}
@@ -82,10 +82,10 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 		functions = null;
 		assertFalse("Expect null functions to not match", factory.matchesFunction(functions));
 
-		setUpFunctions("x = y");
+		setUpFunctions("(x = y)");
 		assertTrue("Expect single function to match", factory.matchesFunction(functions));
 
-		setUpFunctions("x = y");
+		setUpFunctions("(x = y)");
 		functions.add(null);
 		assertFalse("Expect additional function to not match", factory.matchesFunction(functions));
 
