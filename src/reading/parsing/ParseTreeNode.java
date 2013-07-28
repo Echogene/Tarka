@@ -1,5 +1,6 @@
 package reading.parsing;
 
+import javafx.util.Pair;
 import reading.lexing.Token;
 
 import java.util.List;
@@ -14,4 +15,9 @@ public interface ParseTreeNode {
 	public ParseTreeNode getSpouse();
 	public int getDepth();
 	public List<ParseTreeNode> getAllDescendants();
+
+	/**
+	 * @return the parents of this node in the form (mother, father).
+	 */
+	public Pair<ParseTreeNode, ParseTreeNode> getParents();
 }

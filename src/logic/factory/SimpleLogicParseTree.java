@@ -1,5 +1,6 @@
 package logic.factory;
 
+import javafx.util.Pair;
 import reading.lexing.Token;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
@@ -107,6 +108,11 @@ public class SimpleLogicParseTree implements ParseTree {
 				output.addAll(n.getAllDescendants());
 			}
 			return output;
+		}
+
+		@Override
+		public Pair<ParseTreeNode, ParseTreeNode> getParents() {
+			return new Pair<ParseTreeNode, ParseTreeNode>(getMother(), getMother().getSpouse());
 		}
 
 		public int getDepth() {
