@@ -44,7 +44,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSet
 	boolean noFunctions(List<Function<?, ?>> functions) {
 		return functions == null
 				|| (functions.size() == 1
-				&& functions.get(0) == null);
+					&& functions.get(0) == null);
 	}
 
 	boolean matchesStandardFormWithFunction(List<Token> tokens, List<Function<?, ?>> functions) {
