@@ -19,7 +19,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  */
 public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 	protected List<FunctionFactory<?, ?>> factories;
-	private static final boolean LOG_FACTORY_FAILURES = false;
+	private static final boolean LOG_FACTORY_FAILURES = true;
 
 	public SimpleLogicEvaluatorImpl(List<FunctionFactory<?, ?>> factories) {
 		this.factories = factories;
@@ -45,7 +45,7 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 				return factory.createElement(tokens, functions);
 			} catch (FactoryException e) {
 				if (LOG_FACTORY_FAILURES) {
-					System.out.println(factory.getClass().toString() + " did not work : " + e.getMessage());
+					System.out.println(factory.getClass().getSimpleName() + " did not work: " + e.getMessage());
 				}
 			}
 		}
@@ -54,8 +54,12 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 
 	List<Token> extractTokens(List<ParseTreeNode> nodes) {
 		List<Token> output = new ArrayList<>(nodes.size());
-		for (ParseTreeNode n : nodes) {
-			output.add(n.getToken());
+		if (!nodes.isEmpty()) {
+			output.add(nodes.get(0).getMother().getToken());
+			for (ParseTreeNode n : nodes) {
+				output.add(n.getToken());
+			}
+			output.add(nodes.get(0).getFather().getToken());
 		}
 		return output;
 	}

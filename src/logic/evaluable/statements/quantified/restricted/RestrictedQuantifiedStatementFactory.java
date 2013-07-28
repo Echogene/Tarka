@@ -42,7 +42,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Fu
 					(Evaluable<T>) functions.get(2)
 			);
 		}
-		throw new FactoryException("Could not create " + RestrictedQuantifiedStatement.class.getName());
+		throw new FactoryException("Could not create " + RestrictedQuantifiedStatement.class.getSimpleName());
 	}
 
 	boolean matchesName(List<Token> tokens, List<Function<?, ?>> functions) {
