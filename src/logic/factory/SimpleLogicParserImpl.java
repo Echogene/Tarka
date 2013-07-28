@@ -8,6 +8,7 @@ import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
+import static logic.factory.SimpleLogicParseTree.Node;
 
 /**
  * @author Steven Weston
@@ -16,21 +17,21 @@ public class SimpleLogicParserImpl implements Parser {
 	@Override
 	public ParseTree parseTokens(List<Token> tokens) {
 		SimpleLogicParseTree output = new SimpleLogicParseTree();
-		SimpleLogicParseTree.Node currentParent = new SimpleLogicParseTree.Node(tokens.get(0));
+		Node currentParent = new Node(tokens.get(0));
 		output.getNodes().add(currentParent);
-		SimpleLogicParseTree.Node currentChild;
+		Node currentChild;
 		for (int i = 1; i < tokens.size(); i++) {
 			Token t = tokens.get(i);
 			if (t.getType() == OPEN_BRACKET) {
-				currentChild = new SimpleLogicParseTree.Node(currentParent, t);
+				currentChild = new Node(currentParent, t);
 				currentParent = currentChild;
 			} else if (t.getType() == CLOSE_BRACKET) {
-				SimpleLogicParseTree.Node spouse = currentParent;
+				Node spouse = currentParent;
 				currentParent = currentParent.getParent();
-				currentChild = new SimpleLogicParseTree.Node(currentParent, t);
+				currentChild = new Node(currentParent, t);
 				currentChild.marry(spouse);
 			} else {
-				currentChild = new SimpleLogicParseTree.Node(currentParent, t);
+				currentChild = new Node(currentParent, t);
 			}
 			output.getNodes().add(currentChild);
 		}
