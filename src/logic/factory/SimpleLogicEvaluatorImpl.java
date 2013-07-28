@@ -31,7 +31,6 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 	}
 
 	Function<?, ?> evaluate(List<ParseTreeNode> nodes) throws EvaluatorException {
-		List<Token> tokens = extractTokens(nodes);
 		List<Function<?, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
 			if (n.getToken().isOfType(OPEN_BRACKET)) {
@@ -40,6 +39,7 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 				functions.add(null);
 			}
 		}
+		List<Token> tokens = extractTokens(nodes);
 		for (FunctionFactory<?, ?> factory : factories) {
 			try {
 				return factory.createElement(tokens, functions);
