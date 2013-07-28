@@ -23,14 +23,14 @@ public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFac
 		MemberDefinition<Integer> expected;
 		MemberDefinition<Integer> actual;
 
-		setUpTokens("x ≔ 2");
+		setUpTokens("(x ≔ 2)");
 		setUpFunctions("", "");
 
 		expected = new MemberDefinition<>("x", new IdentityFunction<>("2"));
 		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
-		setUpTokens("x ≔ ()");
+		setUpTokens("(x ≔ ())");
 		setUpFunctions("", "2");
 
 		expected = new MemberDefinition<>("x", new IdentityFunction<>("2"));

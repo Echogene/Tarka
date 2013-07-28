@@ -3,9 +3,9 @@ package logic.function.reflexive.assignment;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.FunctionFactory;
 import logic.function.factory.ReflexiveFunctionConstructorFromString;
 import logic.function.reflexive.ReflexiveFunction;
+import logic.function.reflexive.ReflexiveFunctionFactory;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionConstructorFromString;
 import reading.lexing.Token;
@@ -17,7 +17,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class ReflexiveAssignmentFactory<T extends Nameable> extends FunctionFactory<T, T> {
+public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
 	public static final String WHERE = "where";
 	public static final String IS = "is";
 	private final ReflexiveFunctionConstructorFromString<IdentityFunction<T>> constructor = new IdentityFunctionConstructorFromString();

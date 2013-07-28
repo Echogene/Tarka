@@ -2,10 +2,10 @@ package logic.evaluable.statements.quantified.restricted;
 
 import logic.Nameable;
 import logic.evaluable.Evaluable;
+import logic.evaluable.EvaluableFactory;
 import logic.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.FunctionFactory;
 import logic.function.reflexiveset.ReflexiveSetFunction;
 import logic.function.reflexiveset.identity.SetIdentityFunction;
 import reading.lexing.Token;
@@ -18,7 +18,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends FunctionFactory<T, Boolean> {
+public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends EvaluableFactory<T> {
 	private QuantifierFactory quantifierFactory;
 
 	public RestrictedQuantifiedStatementFactory() {
