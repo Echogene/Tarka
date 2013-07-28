@@ -18,7 +18,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
-import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
+import logic.function.set.identity.SetIdentityFunctionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;

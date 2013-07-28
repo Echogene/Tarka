@@ -5,7 +5,7 @@ import logic.function.factory.FunctionFactoryInputValidator;
 import logic.function.factory.ValidationException;
 import logic.function.factory.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.set.SetFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;
@@ -96,7 +96,7 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 */
 	private boolean matchesFirstFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		boolean firstClassNeedsNeedsRoundBrackets = false;
-		if (!ReflexiveSetFunction.class.isAssignableFrom(firstClass)) {
+		if (!SetFunction.class.isAssignableFrom(firstClass)) {
 			firstClassNeedsNeedsRoundBrackets = true;
 		}
 		return tokens.size() == 4
@@ -125,7 +125,7 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 */
 	private boolean matchesSecondFunction(List<Token> tokens, List<Function<?, ?>> functions) {
 		boolean secondClassNeedsNeedsRoundBrackets = false;
-		if (!ReflexiveSetFunction.class.isAssignableFrom(secondClass)) {
+		if (!SetFunction.class.isAssignableFrom(secondClass)) {
 			secondClassNeedsNeedsRoundBrackets = true;
 		}
 		return tokens.size() == 4
@@ -154,11 +154,11 @@ public class BinaryValidator implements FunctionFactoryInputValidator {
 	 */
 	private boolean matchesBothFunctions(List<Token> tokens, List<Function<?, ?>> functions) {
 		boolean firstClassNeedsNeedsRoundBrackets = false;
-		if (!ReflexiveSetFunction.class.isAssignableFrom(firstClass)) {
+		if (!SetFunction.class.isAssignableFrom(firstClass)) {
 			firstClassNeedsNeedsRoundBrackets = true;
 		}
 		boolean secondClassNeedsNeedsRoundBrackets = false;
-		if (!ReflexiveSetFunction.class.isAssignableFrom(secondClass)) {
+		if (!SetFunction.class.isAssignableFrom(secondClass)) {
 			secondClassNeedsNeedsRoundBrackets = true;
 		}
 		return tokens.size() == 5

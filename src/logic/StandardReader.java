@@ -11,8 +11,8 @@ import logic.factory.SimpleLogicReaderImpl;
 import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
-import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
-import logic.function.reflexiveset.union.UnionFactory;
+import logic.function.set.identity.SetIdentityFunctionFactory;
+import logic.function.set.union.UnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
 
 import java.util.ArrayList;

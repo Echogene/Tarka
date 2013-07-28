@@ -4,7 +4,7 @@ import logic.evaluable.Evaluable;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
@@ -36,8 +36,8 @@ public class IntegerReaderRepl {
 				} else if (function instanceof Evaluable) {
 					Evaluable<Integer> evaluable = (Evaluable<Integer>) function;
 					System.out.println(evaluable.evaluate(universe));
-				} else if (function instanceof ReflexiveSetFunction) {
-					ReflexiveSetFunction<Integer> setFunction = (ReflexiveSetFunction<Integer>) function;
+				} else if (function instanceof SetFunction) {
+					SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
 					System.out.println(setFunction.evaluate(universe));
 				} else if (function instanceof VoidFunction) {
 					VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;

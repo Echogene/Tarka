@@ -9,8 +9,8 @@ import logic.function.factory.binary.BinaryConstructor;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunctionConstructorFromString;
-import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.identity.SetIdentityFunctionConstructorFromString;
+import logic.function.set.SetFunction;
+import logic.function.set.identity.SetIdentityFunctionConstructorFromString;
 import reading.lexing.Token;
 
 import java.util.Collections;
@@ -21,13 +21,13 @@ import java.util.List;
  */
 public class MembershipPredicateFactory<T extends Nameable> extends PredicateFactory<T> {
 	private BinaryValidator validator;
-	private BinaryConstructor<MembershipPredicate<T>, ReflexiveFunction<T>, ReflexiveSetFunction<T>> constructor;
+	private BinaryConstructor<MembershipPredicate<T>, ReflexiveFunction<T>, SetFunction<T>> constructor;
 
 	public MembershipPredicateFactory() {
 		validator = new BinaryValidator(
 				ReflexiveFunction.class,
 				Collections.singletonList(MembershipPredicate.MEMBERSHIP_STRING),
-				ReflexiveSetFunction.class);
+				SetFunction.class);
 		constructor = new BinaryConstructor<>(
 				new MembershipPredicateConstructorFromTwoParameters<>(),
 				new IdentityFunctionConstructorFromString<T>(),

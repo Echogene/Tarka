@@ -1,4 +1,4 @@
-package logic.function.reflexiveset.union;
+package logic.function.set.union;
 
 import logic.TestClass;
 import logic.TestClassUniverse;

@@ -6,8 +6,8 @@ import logic.evaluable.EvaluableFactory;
 import logic.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
+import logic.function.set.SetFunction;
+import logic.function.set.identity.SetIdentityFunction;
 import reading.lexing.Token;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Ev
 			return new RestrictedQuantifiedStatement<>(
 					quantifierFactory.createElement(tokens.get(0).getValue()),
 					tokens.get(1).getValue(),
-					(ReflexiveSetFunction<T>) functions.get(1),
+					(SetFunction<T>) functions.get(1),
 					(Evaluable<T>) functions.get(2)
 			);
 		}
@@ -93,7 +93,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Ev
 				&& functions.size() == 3
 				&& functions.get(0) == null
 				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveSetFunction<?>
+				&& functions.get(1) instanceof SetFunction<?>
 				&& functions.get(2) != null
 				&& functions.get(2) instanceof Evaluable<?>;
 	}

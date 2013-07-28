@@ -1,8 +1,8 @@
-package logic.function.reflexiveset.union;
+package logic.function.set.union;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
-import logic.function.reflexiveset.identity.SetIdentityFunctionFactory;
+import logic.function.set.identity.SetIdentityFunctionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

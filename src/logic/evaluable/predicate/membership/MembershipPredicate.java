@@ -4,8 +4,8 @@ import logic.Nameable;
 import logic.evaluable.predicate.Predicate;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
+import logic.function.set.SetFunction;
+import logic.function.set.identity.SetIdentityFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 
@@ -15,7 +15,7 @@ import logic.set.Set;
 public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	public static final String MEMBERSHIP_STRING = "∊";
 	protected ReflexiveFunction<T> memberFunction;
-	protected ReflexiveSetFunction<T> setFunction;
+	protected SetFunction<T> setFunction;
 
 	public MembershipPredicate(String memberSymbol, String setSymbol) {
 		this.memberFunction = new IdentityFunction<>(memberSymbol);
@@ -27,12 +27,12 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 		this.setFunction    = new SetIdentityFunction<>(setSymbol);
 	}
 
-	public MembershipPredicate(String memberSymbol, ReflexiveSetFunction<T> setFunction) {
+	public MembershipPredicate(String memberSymbol, SetFunction<T> setFunction) {
 		this.memberFunction = new IdentityFunction<>(memberSymbol);
 		this.setFunction    = setFunction;
 	}
 
-	public MembershipPredicate(ReflexiveFunction<T> memberFunction, ReflexiveSetFunction<T> setFunction) {
+	public MembershipPredicate(ReflexiveFunction<T> memberFunction, SetFunction<T> setFunction) {
 		this.memberFunction = memberFunction;
 		this.setFunction    = setFunction;
 	}
@@ -41,7 +41,7 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 		return memberFunction;
 	}
 
-	public ReflexiveSetFunction getSetFunction() {
+	public SetFunction getSetFunction() {
 		return setFunction;
 	}
 

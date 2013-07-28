@@ -1,10 +1,10 @@
-package logic.function.reflexiveset.identity;
+package logic.function.set.identity;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.ReflexiveSetFunctionFactory;
+import logic.function.set.SetFunction;
+import logic.function.set.SetFunctionFactory;
 import logic.set.Set;
 import reading.lexing.Token;
 
@@ -15,7 +15,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSetFunctionFactory<T> {
+public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 	@Override
 	public Function<T, Set<T>> createElement
 			(List<Token> tokens,
@@ -29,7 +29,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSet
 		if (matchesStandardForm(tokens, functions)) {
 			return new SetIdentityFunction<>(tokens.get(1).getValue());
 		} else if (matchesStandardFormWithFunction(tokens, functions)) {
-			return new SetIdentityFunction<>((ReflexiveSetFunction<T>) functions.get(0));
+			return new SetIdentityFunction<>((SetFunction<T>) functions.get(0));
 		}
 		throw new FactoryException("Could not create SetIdentityFunction");
 	}
@@ -61,6 +61,6 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends ReflexiveSet
 		return functions != null
 				&& functions.size() == 1
 				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveSetFunction<?>;
+				&& functions.get(0) instanceof SetFunction<?>;
 	}
 }

@@ -6,8 +6,8 @@ import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.factory.FactoryTest;
 import logic.function.Function;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
-import logic.function.reflexiveset.union.UnionFactory;
+import logic.function.set.identity.SetIdentityFunction;
+import logic.function.set.union.UnionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

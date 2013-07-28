@@ -4,7 +4,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactoryInputValidator;
 import logic.function.factory.ValidationException;
 import logic.function.factory.ValidationResult;
-import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.set.SetFunction;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -127,13 +127,13 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 	}
 
 	private void validateOpenParenthesis(Token token) throws ValidationException {
-		if (!(ReflexiveSetFunction.class.isAssignableFrom(parameterClass) || isTokenOpenParenthesis(token))) {
+		if (!(SetFunction.class.isAssignableFrom(parameterClass) || isTokenOpenParenthesis(token))) {
 			throw new ValidationException("The token must be an open parenthesis");
 		}
 	}
 
 	private void validateCloseParenthesis(Token token) throws ValidationException {
-		if (!(ReflexiveSetFunction.class.isAssignableFrom(parameterClass) || isTokenCloseParenthesis(token))) {
+		if (!(SetFunction.class.isAssignableFrom(parameterClass) || isTokenCloseParenthesis(token))) {
 			throw new ValidationException("The token must be a close parenthesis");
 		}
 	}

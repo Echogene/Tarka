@@ -1,25 +1,25 @@
-package logic.function.reflexiveset.identity;
+package logic.function.set.identity;
 
 import logic.Nameable;
 import logic.function.ParameterNotFoundException;
-import logic.function.reflexiveset.ReflexiveSetFunction;
+import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 
 /**
  * @author Steven Weston
  */
-public class SetIdentityFunction<T extends Nameable> implements ReflexiveSetFunction<T> {
+public class SetIdentityFunction<T extends Nameable> implements SetFunction<T> {
 	public static final String SET_IDENTITY_NAME = "Id";
 	protected String parameter;
-	protected ReflexiveSetFunction<T> function;
+	protected SetFunction<T> function;
 
 	public SetIdentityFunction(String parameter) {
 		this.parameter = parameter;
 		this.function  = null;
 	}
 
-	public SetIdentityFunction(ReflexiveSetFunction<T> function) {
+	public SetIdentityFunction(SetFunction<T> function) {
 		this.parameter = null;
 		this.function  = function;
 	}
@@ -42,7 +42,7 @@ public class SetIdentityFunction<T extends Nameable> implements ReflexiveSetFunc
 		return parameter;
 	}
 
-	public ReflexiveSetFunction<T> getFunction() {
+	public SetFunction<T> getFunction() {
 		return function;
 	}
 

@@ -1,4 +1,4 @@
-package logic.function.reflexiveset.union;
+package logic.function.set.union;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
@@ -8,10 +8,10 @@ import logic.function.factory.binary.BinaryConstructor;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.multary.MultaryConstructor;
 import logic.function.factory.multary.MultaryValidator;
-import logic.function.reflexiveset.ReflexiveSetFunction;
-import logic.function.reflexiveset.ReflexiveSetFunctionFactory;
-import logic.function.reflexiveset.identity.SetIdentityFunction;
-import logic.function.reflexiveset.identity.SetIdentityFunctionConstructorFromString;
+import logic.function.set.SetFunction;
+import logic.function.set.SetFunctionFactory;
+import logic.function.set.identity.SetIdentityFunction;
+import logic.function.set.identity.SetIdentityFunctionConstructorFromString;
 import logic.set.Set;
 import reading.lexing.Token;
 
@@ -22,17 +22,17 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class UnionFactory<T extends Nameable> extends ReflexiveSetFunctionFactory<T> {
+public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 	private BinaryValidator binaryValidator;
-	private BinaryConstructor<Union<T>, ReflexiveSetFunction<T>, ReflexiveSetFunction<T>> binaryConstructor;
+	private BinaryConstructor<Union<T>, SetFunction<T>, SetFunction<T>> binaryConstructor;
 	private MultaryValidator multaryValidator;
-	private MultaryConstructor<Union<T>, ReflexiveSetFunction<T>> multaryConstructor;
+	private MultaryConstructor<Union<T>, SetFunction<T>> multaryConstructor;
 
 	public UnionFactory() {
 		binaryValidator = new BinaryValidator(
-				ReflexiveSetFunction.class,
+				SetFunction.class,
 				Collections.singletonList(Union.BINARY_SYMBOL),
-				ReflexiveSetFunction.class
+				SetFunction.class
 		);
 		binaryConstructor = new BinaryConstructor<>(
 				new UnionConstructorFromTwoParameters<>(),
@@ -41,7 +41,7 @@ public class UnionFactory<T extends Nameable> extends ReflexiveSetFunctionFactor
 		);
 		multaryValidator = new MultaryValidator(
 				Collections.singletonList(Union.MULTARY_SYMBOL),
-				ReflexiveSetFunction.class
+				SetFunction.class
 		);
 		multaryConstructor = new MultaryConstructor<>(
 				new UnionConstructorFromParameterList<>(),
@@ -50,9 +50,9 @@ public class UnionFactory<T extends Nameable> extends ReflexiveSetFunctionFactor
 	}
 
 	public static <T extends Nameable> Union<T> createElement(String... parameters) {
-		java.util.Set<ReflexiveSetFunction<T>> functions = new HashSet<>();
+		java.util.Set<SetFunction<T>> functions = new HashSet<>();
 		for (String parameter : parameters) {
-			ReflexiveSetFunction<T> function = new SetIdentityFunction<>(parameter);
+			SetFunction<T> function = new SetIdentityFunction<>(parameter);
 			functions.add(function);
 		}
 		return new Union<>(functions);

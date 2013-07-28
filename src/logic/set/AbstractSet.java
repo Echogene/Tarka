@@ -1,6 +1,6 @@
 package logic.set;
 
-import logic.function.reflexiveset.union.Union;
+import logic.function.set.union.Union;
 
 import java.util.Iterator;
 

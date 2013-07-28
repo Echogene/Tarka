@@ -4,7 +4,7 @@ import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.statements.binary.BinaryConnective;
 import logic.evaluable.statements.quantified.standard.Quantifier;
 import logic.evaluable.statements.unary.UnaryConnective;
-import logic.function.reflexiveset.union.Union;
+import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;
 import maths.number.integer.functions.subtraction.Subtraction;
