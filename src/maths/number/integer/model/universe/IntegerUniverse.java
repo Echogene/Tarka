@@ -10,22 +10,28 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Steven Weston
  */
 public class IntegerUniverse extends AbstractUniverse<Integer> {
-	IntegerUniversalSet universalSet;
+	IntegerUniversalSet ℤ;
 	NamedSet<Integer> variables;
 
+	Set<Set<Integer>> universalSetOfSets;
+
 	public IntegerUniverse() {
-		universalSet = new IntegerUniversalSet("ℤ");
+		ℤ = new IntegerUniversalSet("ℤ");
 		variables = new NamedSet<>("variables");
+
+		universalSetOfSets = new NamedSet<>("sets");
+		universalSetOfSets.put(ℤ);
+		universalSetOfSets.put(variables);
 	}
 
 	@Override
 	public Set<Integer> getUniversalSet() {
-		return universalSet;
+		return ℤ;
 	}
 
 	@Override
 	public Set<Set<Integer>> getUniversalSetOfSets() {
-		throw new NotImplementedException();
+		return universalSetOfSets;
 	}
 
 	@Override

@@ -25,6 +25,11 @@ public class IntegerUniversalSet extends InfiniteSet<Integer> {
 		return stringIsNumber(string) || super.contains(string);
 	}
 
+	@Override
+	public boolean containsValue(Integer thing) {
+		return true;
+	}
+
 	private boolean stringIsNumber(String string) {
 		return string.matches("\\-?[\\d]+");
 	}
