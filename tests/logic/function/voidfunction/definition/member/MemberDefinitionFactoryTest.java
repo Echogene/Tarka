@@ -19,6 +19,17 @@ public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFac
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{x ≔ 2}");
+		setUpFunctions("", "");
+		expectFactoryException();
+
+		setUpTokens("(x ≔ {})");
+		setUpFunctions("", "(2)");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		MemberDefinition<Integer> expected;
 		MemberDefinition<Integer> actual;

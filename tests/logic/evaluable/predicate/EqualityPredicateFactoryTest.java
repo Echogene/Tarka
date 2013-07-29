@@ -19,6 +19,20 @@ public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateF
 		functionFactory = new IdentityFunctionFactory<TestClass>();
 	}
 
+	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{x = y}");
+		setUpFunctions("", "");
+		expectFactoryException();
+
+		setUpTokens("({} = y)");
+		setUpFunctions("(x)", "");
+		expectFactoryException();
+
+		setUpTokens("(x = {})");
+		setUpFunctions("", "(y)");
+		expectFactoryException();
+	}
 
 	@Test
 	public void testCreateElements() throws Exception {

@@ -17,6 +17,13 @@ public class SimpleSetFactoryTest extends FactoryTest<SimpleSetFactory<Integer>>
 	}
 
 	@Test
+	public void testParenthesesThrowException() throws Exception {
+		setUpTokens("(1 2)");
+		setUpFunctions("", "");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		SimpleSet<Integer> expected;
 		SimpleSet<Integer> actual;

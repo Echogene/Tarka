@@ -16,6 +16,12 @@ public class LogicalConstantFactoryTest extends FactoryTest<LogicalConstantFacto
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{⊤}");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		LogicalConstant<TestClass> expected;
 		LogicalConstant<TestClass> actual;

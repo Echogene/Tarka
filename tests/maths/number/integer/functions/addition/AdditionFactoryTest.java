@@ -28,6 +28,21 @@ public class AdditionFactoryTest extends FactoryTest<AdditionFactory<Integer>> {
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{2 + 3}");
+		setUpFunctions("", "");
+		expectFactoryException();
+
+		setUpTokens("({} + 3)");
+		setUpFunctions("(2)", "");
+		expectFactoryException();
+
+		setUpTokens("(2 + {})");
+		setUpFunctions("", "(3)");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testFactoryWithoutFunctions() throws Exception {
 		ReflexiveFunction<Integer> two = new IdentityFunction<>("2");
 		ReflexiveFunction<Integer> three = new IdentityFunction<>("3");
