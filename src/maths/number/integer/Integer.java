@@ -43,4 +43,8 @@ public class Integer implements maths.number.Number {
 	public int hashCode() {
 		return value.hashCode();
 	}
+
+	public BigInteger getValue() {
+		return value;
+	}
 }
