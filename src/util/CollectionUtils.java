@@ -14,7 +14,7 @@ public class CollectionUtils {
 	 * @return The indexth element of the list or null if the index is out-of-bounds.
 	 */
 	public static <T> T safeGet(List<T> list, int index) {
-		if (list == null || index >= list.size()) {
+		if (list == null || index >= list.size() || index < 0) {
 			return null;
 		}
 		return list.get(index);

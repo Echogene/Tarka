@@ -35,5 +35,8 @@ public class IntegerReaderTest {
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> subtraction = (Evaluable<Integer>) reader.read("((2 − 2) = 0)");
 		assertTrue(subtraction.evaluate(universe));
+		@SuppressWarnings("unchecked")
+		Evaluable<Integer> membership = (Evaluable<Integer>) reader.read("(2 ∊ {1 2 3})");
+		assertTrue(membership.evaluate(universe));
 	}
 }

@@ -76,4 +76,9 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 				|| (getFunction() != null && getFunction().equals(other.getFunction()));
 		return areParametersEqual && areFunctionsEqual;
 	}
+
+	@Override
+	public int hashCode() {
+		return function == null ? parameter.hashCode() : function.hashCode();
+	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
 import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
+import static util.CollectionUtils.safeGet;
 
 /**
  * @author Steven Weston
@@ -18,15 +19,21 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 public class MultaryConstructor<F extends Function<?, ?>, P extends Function<?, ?>> {
 	private FunctionConstructorFromParameterList<F, P> functionConstructor;
 	private ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor;
+	private int startIndex;
 
 	public MultaryConstructor(FunctionConstructorFromParameterList<F, P> functionConstructor,
 	                          ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor) {
 		this.functionConstructor  = functionConstructor;
 		this.parameterConstructor = parameterConstructor;
+		startIndex = 1;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
 	}
 
 	public F construct(ValidationResult result, List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		int tokenIndex = 1;
+		int tokenIndex = startIndex;
 		int functionIndex = 0;
 		java.util.List<P> parameterList = new ArrayList<>();
 		for (ValidationResult.ValidationType type : result) {
@@ -38,6 +45,7 @@ public class MultaryConstructor<F extends Function<?, ?>, P extends Function<?, 
 				tokenIndex += 2;
 			}
 		}
-		return functionConstructor.construct(tokens.get(0).getValue(), parameterList);
+		String operator = Token.valueOf(safeGet(tokens, startIndex - 1));
+		return functionConstructor.construct(operator, parameterList);
 	}
 }

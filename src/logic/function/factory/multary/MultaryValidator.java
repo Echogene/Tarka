@@ -21,6 +21,9 @@ import static util.CollectionUtils.safeGet;
  * @author Steven Weston
  */
 public class MultaryValidator implements FunctionFactoryInputValidator {
+	/**
+	 * The list of accepted operator symbols.  If this is null, assume that no operator is needed.
+	 */
 	private final List<String> acceptedOperatorSymbols;
 	private final Class parameterClass;
 
@@ -53,9 +56,9 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 				validationTypes.add(FUNCTION);
 			} else if (token.isOfType(OPEN_BRACKET)) {
 				validateOpenParenthesis(token);
-				validateOpenParenIsNotFirstToken(currentTokenIndex);
+				validateOpenParenIsNotFirst(currentTokenIndex);
 			} else if (token.isOfType(OPERATOR)) {
-				validateOperatorIsFirstToken(currentTokenIndex);
+				validateOperatorIsFirst(currentTokenIndex);
 				validateOperatorIsAccepted(token);
 			} else if (token.isOfType(NAME)) {
 				validateNameTokenIsNotFirst(currentTokenIndex);
@@ -83,7 +86,7 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 	}
 
 	private void validateNameTokenIsNotFirst(int currentTokenIndex) throws ValidationException {
-		if (currentTokenIndex == 0) {
+		if (currentTokenIndex == 0 && acceptedOperatorSymbols != null) {
 			throw new ValidationException("The first token cannot be a name token.");
 		}
 	}
@@ -94,14 +97,14 @@ public class MultaryValidator implements FunctionFactoryInputValidator {
 		}
 	}
 
-	private void validateOperatorIsFirstToken(int currentTokenIndex) throws ValidationException {
+	private void validateOperatorIsFirst(int currentTokenIndex) throws ValidationException {
 		if (currentTokenIndex != 0) {
 			throw new ValidationException("The operator must be the first token.");
 		}
 	}
 
-	private void validateOpenParenIsNotFirstToken(int currentTokenIndex) throws ValidationException {
-		if (currentTokenIndex == 0) {
+	private void validateOpenParenIsNotFirst(int currentTokenIndex) throws ValidationException {
+		if (currentTokenIndex == 0 && acceptedOperatorSymbols != null) {
 			throw new ValidationException("The first token cannot be an opening parenthesis.");
 		}
 	}

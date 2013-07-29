@@ -38,5 +38,13 @@ public class Token {
 		return this.getType().equals(type);
 	}
 
+	public static final String valueOf(Token token) {
+		if (token == null) {
+			return null;
+		} else {
+			return token.getValue();
+		}
+	}
+
 	public static interface TokenType {}
 }

@@ -12,6 +12,7 @@ import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.identity.SetIdentityFunctionFactory;
+import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.UnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
 
@@ -41,6 +42,7 @@ public class StandardReader {
 		output.add(new ReflexiveAssignmentFactory<T>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
 		output.add(new MemberDefinitionFactory<>());
+		output.add(new SimpleSetFactory<>());
 		return output;
 	}
 }

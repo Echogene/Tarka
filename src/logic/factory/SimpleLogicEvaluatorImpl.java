@@ -19,7 +19,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  */
 public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 	protected List<FunctionFactory<?, ?>> factories;
-	private static final boolean LOG_FACTORY_FAILURES = true;
+	private static final boolean LOG_FACTORY_FAILURES = false;
 
 	public SimpleLogicEvaluatorImpl(List<FunctionFactory<?, ?>> factories) {
 		this.factories = factories;
