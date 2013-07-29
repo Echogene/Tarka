@@ -18,34 +18,42 @@ import java.io.InputStreamReader;
  * @author Steven Weston
  */
 public class IntegerReaderRepl {
+
+	private static IntegerUniverse universe;
+	private static SimpleLogicReaderImpl<Integer> reader;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		IntegerUniverse universe = new IntegerUniverse();
-		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader();
+		universe = new IntegerUniverse();
+		reader = IntegerReader.createStandardReader();
 		String in;
 		while (true) {
 			in =  br.readLine();
 			if ("exit".equals(in)) {
 				return;
 			}
-			try {
-				Function<?, ?> function = reader.read(in);
-				if (function instanceof ReflexiveFunction) {
-					ReflexiveFunction<Integer> reflexiveFunction = (ReflexiveFunction<Integer>) function;
-					System.out.println(reflexiveFunction.evaluate(universe));
-				} else if (function instanceof Evaluable) {
-					Evaluable<Integer> evaluable = (Evaluable<Integer>) function;
-					System.out.println(evaluable.evaluate(universe));
-				} else if (function instanceof SetFunction) {
-					SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
-					System.out.println(setFunction.evaluate(universe));
-				} else if (function instanceof VoidFunction) {
-					VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
-					voidFunction.evaluate(universe);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			evaluateInput(in);
+		}
+	}
+
+	private static void evaluateInput(String in) {
+		try {
+			Function<?, ?> function = reader.read(in);
+			if (function instanceof ReflexiveFunction) {
+				ReflexiveFunction<Integer> reflexiveFunction = (ReflexiveFunction<Integer>) function;
+				System.out.println(reflexiveFunction.evaluate(universe));
+			} else if (function instanceof Evaluable) {
+				Evaluable<Integer> evaluable = (Evaluable<Integer>) function;
+				System.out.println(evaluable.evaluate(universe));
+			} else if (function instanceof SetFunction) {
+				SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
+				System.out.println(setFunction.evaluate(universe));
+			} else if (function instanceof VoidFunction) {
+				VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
+				voidFunction.evaluate(universe);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
