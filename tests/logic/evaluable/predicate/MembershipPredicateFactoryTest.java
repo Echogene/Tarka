@@ -21,6 +21,17 @@ public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredic
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{x ∊ X}");
+		setUpOneIdentityAndOneSetIdentityFunction("", "");
+		expectFactoryException();
+
+		setUpTokens("({} ∊ X)");
+		setUpOneIdentityAndOneSetIdentityFunction("x", "");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;
