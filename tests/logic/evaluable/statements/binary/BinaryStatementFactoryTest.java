@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
  * @author Steven Weston
  */
 public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFactory<TestClass>> {
-	private static BinaryStatementFactory<TestClass> factory;
 	private static BinaryConnectiveFactory connectiveFactory;
 
 	public BinaryStatementFactoryTest() {
@@ -21,6 +20,21 @@ public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFacto
 		factory = new BinaryStatementFactory<>();
 		connectiveFactory = new BinaryConnectiveFactory();
 		functionFactory = new EqualityPredicateFactory<>();
+	}
+
+	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{()∨()}");
+		setUpFunctions("(x=y)", "(y=z)");
+		expectFactoryException();
+
+		setUpTokens("({}∨())");
+		setUpFunctions("(x=y)", "(y=z)");
+		expectFactoryException();
+
+		setUpTokens("(()∨{})");
+		setUpFunctions("(x=y)", "(y=z)");
+		expectFactoryException();
 	}
 
 	@Test
