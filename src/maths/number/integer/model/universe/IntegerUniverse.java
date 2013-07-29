@@ -4,23 +4,27 @@ import logic.model.universe.AbstractUniverse;
 import logic.set.NamedSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
+import maths.number.integer.prime.SimplePrimalityChecker;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Steven Weston
  */
 public class IntegerUniverse extends AbstractUniverse<Integer> {
-	IntegerUniversalSet ℤ;
+	PrimeNumberSet ℙ;
+	IntegerSet ℤ;
 	NamedSet<Integer> variables;
 
 	Set<Set<Integer>> universalSetOfSets;
 
 	public IntegerUniverse() {
-		ℤ = new IntegerUniversalSet("ℤ");
+		ℤ = new IntegerSet("ℤ");
+		ℙ = new PrimeNumberSet("ℙ", new SimplePrimalityChecker());
 		variables = new NamedSet<>("variables");
 
 		universalSetOfSets = new NamedSet<>("sets");
 		universalSetOfSets.put(ℤ);
+		universalSetOfSets.put(ℙ);
 		universalSetOfSets.put(variables);
 	}
 

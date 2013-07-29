@@ -8,10 +8,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class IntegerUniversalSetTest {
+public class IntegerSetTest {
 	@Test
 	public void testGet() throws Exception {
-		IntegerUniversalSet set = new IntegerUniversalSet("Integers");
+		IntegerSet set = new IntegerSet("Integers");
 
 		assertEquals(new Integer(5), set.get("5"));
 

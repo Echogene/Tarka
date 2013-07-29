@@ -6,8 +6,8 @@ import maths.number.integer.Integer;
 /**
  * @author Steven Weston
  */
-public class IntegerUniversalSet extends InfiniteSet<Integer> {
-	public IntegerUniversalSet(String name) {
+public class IntegerSet extends InfiniteSet<Integer> {
+	public IntegerSet(String name) {
 		super(name);
 	}
 
