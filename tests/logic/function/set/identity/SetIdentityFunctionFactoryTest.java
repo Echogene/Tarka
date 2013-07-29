@@ -17,6 +17,13 @@ public class SetIdentityFunctionFactoryTest extends FactoryTest<SetIdentityFunct
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{Id X}");
+		setUpFunctions("");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		SetIdentityFunction<TestClass> expected;
 		SetIdentityFunction<TestClass> actual;
