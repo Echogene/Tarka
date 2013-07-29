@@ -26,6 +26,17 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{∀x()}");
+		setUpFunctions("(x=y)");
+		expectFactoryException();
+
+		setUpTokens("(∀x{})");
+		setUpFunctions("(x=y)");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;

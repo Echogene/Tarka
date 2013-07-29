@@ -11,10 +11,12 @@ import reading.lexing.Token;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.fail;
+
 /**
  * @author Steven Weston
  */
-public abstract class FactoryTest<F extends Factory<?>> {
+public abstract class FactoryTest<F extends FunctionFactory<?, ?>> {
 
 	protected List<Token> tokens;
 	protected List<Function<?, ?>> functions;
@@ -71,5 +73,12 @@ public abstract class FactoryTest<F extends Factory<?>> {
 		} else {
 			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter));
 		}
+	}
+
+	protected void expectFactoryException() {
+		try {
+			factory.createElement(tokens, functions);
+			fail("Should not have been able to create");
+		} catch (FactoryException e) {}
 	}
 }

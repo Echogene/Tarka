@@ -21,7 +21,7 @@ public class SimpleLogicReaderImplTest {
 		Function<?, ?> expected;
 		Function<?, ?> actual;
 
-		actual = reader.read("(∃!y(¬∀x∊(V ∪ W)(((z where z is x)∊X)∨(y∊(⋃ X Y Z)))))");
+		actual = reader.read("(∃!y(¬∀x∊(V ∪ W)(((z where z is x)∊X)∨(y∊(⋃ X Y {a b c})))))");
 		System.out.println(actual);
 	}
 }
