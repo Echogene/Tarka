@@ -19,6 +19,13 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{x where x is y}");
+		setUpFunctions("", "", "", "", "");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		ReflexiveAssignment<TestClass> expected = new ReflexiveAssignment<TestClass>(
 				new IdentityFunction<>("x"),

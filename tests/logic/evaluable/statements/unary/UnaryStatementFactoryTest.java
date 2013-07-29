@@ -26,6 +26,17 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{()}");
+		setUpFunctions("(x = y)");
+		expectFactoryException();
+
+		setUpTokens("{¬()}");
+		setUpFunctions("(x = y)");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;

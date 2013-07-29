@@ -26,6 +26,17 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{∀x∊X()}");
+		setUpFunctions("", "", "(x=y)");
+		expectFactoryException();
+
+		setUpTokens("(∀x∊X{})");
+		setUpFunctions("", "", "(x=y)");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;

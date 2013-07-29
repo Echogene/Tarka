@@ -18,6 +18,17 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 	}
 
 	@Test
+	public void testCurlyBracketsThrowException() throws Exception {
+		setUpTokens("{X ∪ Y}");
+		setUpFunctions("", "");
+		expectFactoryException();
+
+		setUpTokens("{⋃ X Y}");
+		setUpFunctions("", "");
+		expectFactoryException();
+	}
+
+	@Test
 	public void testCreateElement() throws Exception {
 		Union<TestClass> expected;
 		Union<TestClass> actual;
