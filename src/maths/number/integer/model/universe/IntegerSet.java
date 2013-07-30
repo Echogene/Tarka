@@ -15,7 +15,11 @@ public class IntegerSet extends InfiniteSet<Integer> {
 
 	@Override
 	public Integer get(String string) {
-		return new Integer(string);
+		if (this.contains(string)) {
+			return new Integer(string);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

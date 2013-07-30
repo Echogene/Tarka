@@ -1,10 +1,11 @@
 package logic.set;
 
 import logic.TestClass;
+import maths.number.integer.Integer;
+import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
@@ -31,5 +32,19 @@ public class AbstractSetTest {
 		assertTrue("Expect union to contain x", union.contains("x"));
 		assertTrue("Expect union to contain y", union.contains("y"));
 		assertTrue("Expect union to contain z", union.contains("z"));
+	}
+
+	@Test
+	public void testUnionWithInfiniteSet() throws Exception {
+		ModifiableSet<maths.number.integer.Integer> X = new FiniteSet<>("X");
+		X.put(new Integer(1));
+		assertTrue(X.contains("1"));
+
+		Set<Integer> ℙ = new PrimeNumberSet("ℙ");
+		assertFalse(ℙ.contains("1"));
+
+		Set<Integer> union = AbstractSet.union(X, ℙ);
+
+		assertTrue(union.contains("1"));
 	}
 }
