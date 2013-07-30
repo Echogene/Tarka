@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.AbstractSet;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
 import logic.set.Set;
 
 import java.util.Iterator;
@@ -26,7 +26,7 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 
 	@Override
 	public Set<T> evaluate(Universe<T> universe) throws Exception {
-		Set<Set<T>> setsToUnion = new NamedSet<>(this.getName());
+		FiniteSet<Set<T>> setsToUnion = new FiniteSet<>(this.getName());
 		for(SetFunction<T> function : parameters) {
 			setsToUnion.put(function.evaluate(universe));
 		}

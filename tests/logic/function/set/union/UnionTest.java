@@ -2,7 +2,8 @@ package logic.function.set.union;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 import org.junit.Test;
 
@@ -16,15 +17,15 @@ public class UnionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		Set<Set<TestClass>> sets = new NamedSet<>("sets");
+		ModifiableSet<Set<TestClass>> sets = new FiniteSet<>("sets");
 
-		Set<TestClass> A = new NamedSet<>("A");
+		ModifiableSet<TestClass> A = new FiniteSet<>("A");
 		TestClass a = new TestClass("a");
 		A.put(a);
-		Set<TestClass> B = new NamedSet<>("B");
+		ModifiableSet<TestClass> B = new FiniteSet<>("B");
 		TestClass b = new TestClass("b");
 		B.put(b);
-		Set<TestClass> C = new NamedSet<>("C");
+		ModifiableSet<TestClass> C = new FiniteSet<>("C");
 		TestClass c = new TestClass("c");
 		C.put(c);
 

@@ -6,7 +6,7 @@ import maths.number.integer.prime.PrimalityChecker;
 /**
  * @author Steven Weston
  */
-public class PrimeNumberSet extends UnmodifiableIntegerSet {
+public class PrimeNumberSet extends IntegerSet {
 
 	private PrimalityChecker checker;
 

@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.Predicate;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.quantified.standard.Quantifier.QuantifierType.*;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class QuantifierTest {
 	@Test
 	public void testApply() throws Exception {
-		NamedSet<TestClass> X = new NamedSet<>("X");
+		FiniteSet<TestClass> X = new FiniteSet<>("X");
 
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setUniversalSet(X);
@@ -87,7 +87,7 @@ public class QuantifierTest {
 		quantifier = new Quantifier(NEXISTS_UNIQUE);
 		assertTrue(quantifier.apply("x", predicate, universe, universe.getValueSet()));
 
-		X = new NamedSet<>("universe");
+		X = new FiniteSet<>("universe");
 		X.put(new TestClass("y"));
 		X.put("z", new TestClass("y"));
 		universe.setUniversalSet(X);
@@ -105,7 +105,7 @@ public class QuantifierTest {
 		quantifier = new Quantifier(NEXISTS_UNIQUE);
 		assertTrue(quantifier.apply("x", predicate, universe, universe.getValueSet()));
 
-		X = new NamedSet<>("universe");
+		X = new FiniteSet<>("universe");
 		X.put(new TestClass("y"));
 		universe.setUniversalSet(X);
 		// 000

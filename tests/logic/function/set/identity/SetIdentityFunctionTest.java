@@ -2,7 +2,8 @@ package logic.function.set.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ public class SetIdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		Set<Set<TestClass>> sets = new NamedSet<>("sets");
-		NamedSet<TestClass> X = new NamedSet<>("X");
+		ModifiableSet<Set<TestClass>> sets = new FiniteSet<>("sets");
+		FiniteSet<TestClass> X = new FiniteSet<>("X");
 		sets.put(X);
 
 		universe.setUniversalSetOfSets(sets);

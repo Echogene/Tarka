@@ -1,33 +1,34 @@
 package logic;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 
 /**
  * @author Steven Weston
  */
 public class TestClassUniverse extends AbstractUniverse<TestClass> {
-	protected Set<TestClass> universalSet;
+	protected ModifiableSet<TestClass> universalSet;
 
-	protected Set<Set<TestClass>> universalSetOfSets;
+	protected ModifiableSet<Set<TestClass>> universalSetOfSets;
 
-	protected Set<TestClass> variableSet;
+	protected ModifiableSet<TestClass> variableSet;
 
 	protected Set<TestClass> valueSet;
 
 	@Override
-	public Set<TestClass> getUniversalSet() {
+	public ModifiableSet<TestClass> getUniversalSet() {
 		return universalSet;
 	}
 
 	@Override
-	public Set<Set<TestClass>> getUniversalSetOfSets() {
+	public ModifiableSet<Set<TestClass>> getUniversalSetOfSets() {
 		return universalSetOfSets;
 	}
 
 	@Override
-	public Set<TestClass> getVariables() {
+	public ModifiableSet<TestClass> getVariables() {
 		return variableSet;
 	}
 
@@ -39,25 +40,25 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	}
 
 	public TestClassUniverse() {
-		variableSet        = new NamedSet<>("variables");
-		universalSet       = new NamedSet<>("universalSet");
-		universalSetOfSets = new NamedSet<>("universalSetOfSets");
+		variableSet        = new FiniteSet<>("variables");
+		universalSet       = new FiniteSet<>("universalSet");
+		universalSetOfSets = new FiniteSet<>("universalSetOfSets");
 		universalSetOfSets.put(universalSet);
 	}
 
-	public void setVariables(NamedSet<TestClass> variables) {
+	public void setVariables(FiniteSet<TestClass> variables) {
 		this.variableSet = variables;
 	}
 
-	public void setUniverse(NamedSet<TestClass> universe) {
+	public void setUniverse(FiniteSet<TestClass> universe) {
 		this.universalSet = universe;
 	}
 
-	public void setUniversalSetOfSets(Set<Set<TestClass>> universalSetOfSets) {
+	public void setUniversalSetOfSets(ModifiableSet<Set<TestClass>> universalSetOfSets) {
 		this.universalSetOfSets = universalSetOfSets;
 	}
 
-	public void setUniversalSet(Set<TestClass> universalSet) {
+	public void setUniversalSet(ModifiableSet<TestClass> universalSet) {
 		universalSetOfSets.remove(universalSet.getName());
 		this.universalSet = universalSet;
 		universalSetOfSets.put(universalSet);

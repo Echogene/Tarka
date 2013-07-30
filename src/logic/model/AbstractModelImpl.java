@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
 import logic.set.Set;
 
 /**
@@ -12,8 +12,8 @@ import logic.set.Set;
  */
 public abstract class AbstractModelImpl<T extends Nameable> implements Model<T> {
 	protected Universe<T> universe;
-	protected NamedSet<ReflexiveFunction<T>> functions;
-	protected NamedSet<Evaluable<T>> evaluables;
+	protected FiniteSet<ReflexiveFunction<T>> functions;
+	protected FiniteSet<Evaluable<T>> evaluables;
 
 	@Override
 	public Universe<T> getUniverse() {

@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.evaluable.statements.unary.UnaryStatement;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.quantified.standard.Quantifier.QuantifierType.EXISTS;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class QuantifiedStatementTest {
 	@Test
 	public void testEvaluate() throws Exception {
-		NamedSet<TestClass> universalSet = new NamedSet<>("universalSet");
+		FiniteSet<TestClass> universalSet = new FiniteSet<>("universalSet");
 
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setUniversalSet(universalSet);
@@ -46,7 +46,7 @@ public class QuantifiedStatementTest {
 
 	@Test
 	public void testEvaluateFalseOnSetWithOneElement() throws Exception {
-		NamedSet<TestClass> universalSet = new NamedSet<>("universalSet");
+		FiniteSet<TestClass> universalSet = new FiniteSet<>("universalSet");
 
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setUniversalSet(universalSet);

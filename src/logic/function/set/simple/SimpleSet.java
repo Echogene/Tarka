@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
 import logic.set.Set;
 
 /**
@@ -19,7 +19,7 @@ public class SimpleSet<T extends Nameable> implements SetFunction<T> {
 	}
 
 	public Set<T> evaluate(Universe<T> universe) throws Exception {
-		Set<T> output = new NamedSet<>(getName());
+		FiniteSet<T> output = new FiniteSet<>(getName());
 		for (ReflexiveFunction<T> member : members) {
 			output.put(member.evaluate(universe));
 		}

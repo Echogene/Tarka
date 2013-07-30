@@ -3,7 +3,8 @@ package logic.evaluable.predicate;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.predicate.membership.MembershipPredicate;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 import org.junit.Test;
 
@@ -18,15 +19,15 @@ public class MembershipPredicateTest {
 	public void testEvaluate() throws Exception {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
-		NamedSet<TestClass> universalSet = new NamedSet<>("universalSet");
+		FiniteSet<TestClass> universalSet = new FiniteSet<>("universalSet");
 		universalSet.put(x);
 		universalSet.put(y);
 
-		Set<TestClass> X = new NamedSet<>("X");
+		ModifiableSet<TestClass> X = new FiniteSet<>("X");
 		X.put(x);
-		Set<TestClass> Y = new NamedSet<>("Y");
+		ModifiableSet<TestClass> Y = new FiniteSet<>("Y");
 		Y.put(y);
-		Set<Set<TestClass>> sets = new NamedSet<>("sets");
+		ModifiableSet<Set<TestClass>> sets = new FiniteSet<>("sets");
 		sets.put(X);
 		sets.put(Y);
 
@@ -42,7 +43,7 @@ public class MembershipPredicateTest {
 		predicate = new MembershipPredicate<>("x", "Y");
 		assertFalse("Expect x to not be in Y", predicate.evaluate(universe));
 
-		NamedSet<TestClass> variables = new NamedSet<>("variables");
+		FiniteSet<TestClass> variables = new FiniteSet<>("variables");
 		variables.put("x", y);
 		universe.setVariables(variables);
 		predicate = new MembershipPredicate<>("x", "X");

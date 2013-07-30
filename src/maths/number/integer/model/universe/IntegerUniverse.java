@@ -1,7 +1,8 @@
 package maths.number.integer.model.universe;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
 import maths.number.integer.prime.SimplePrimalityChecker;
@@ -13,16 +14,16 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class IntegerUniverse extends AbstractUniverse<Integer> {
 	PrimeNumberSet ℙ;
 	IntegerSet ℤ;
-	NamedSet<Integer> variables;
+	FiniteSet<Integer> variables;
 
-	Set<Set<Integer>> universalSetOfSets;
+	ModifiableSet<Set<Integer>> universalSetOfSets;
 
 	public IntegerUniverse() {
 		ℤ = new IntegerSet("ℤ");
 		ℙ = new PrimeNumberSet("ℙ", new SimplePrimalityChecker());
-		variables = new NamedSet<>("variables");
+		variables = new FiniteSet<>("variables");
 
-		universalSetOfSets = new NamedSet<>("sets");
+		universalSetOfSets = new FiniteSet<>("sets");
 		universalSetOfSets.put(ℤ);
 		universalSetOfSets.put(ℙ);
 		universalSetOfSets.put(variables);
@@ -39,22 +40,12 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	}
 
 	@Override
-	public Set<Integer> getVariables() {
+	public ModifiableSet<Integer> getVariables() {
 		return variables;
 	}
 
 	@Override
 	public Set<Integer> getValueSet() {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void setUniversalSet(Set<Integer> set) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void setUniversalSetOfSets(Set<Set<Integer>> sets) {
 		throw new NotImplementedException();
 	}
 }

@@ -12,15 +12,15 @@ import static org.junit.Assert.assertTrue;
 public class AbstractSetTest {
 	@Test
 	public void testUnion() throws Exception {
-		NamedSet<TestClass> A = new NamedSet<>("A");
+		FiniteSet<TestClass> A = new FiniteSet<>("A");
 		A.put(new TestClass("x"));
 		A.put(new TestClass("y"));
 
-		NamedSet<TestClass> B = new NamedSet<>("B");
+		FiniteSet<TestClass> B = new FiniteSet<>("B");
 		B.put(new TestClass("y"));
 		B.put(new TestClass("z"));
 
-		NamedSet<NamedSet<TestClass>> sets = new NamedSet<>("sets");
+		FiniteSet<FiniteSet<TestClass>> sets = new FiniteSet<>("sets");
 		sets.put(A);
 		sets.put(B);
 

@@ -9,8 +9,6 @@ import java.util.Collection;
  */
 public interface Set<T> extends Iterable<T>, Nameable {
 	T get(String string);
-	void put(T thing);
-	T put(String string, T thing);
 
 	/**
 	 * @param string The name to test whether it represents an element in this {@code Set}.
@@ -43,6 +41,4 @@ public interface Set<T> extends Iterable<T>, Nameable {
 	int size();
 
 	void setName(String name);
-
-	T remove(String name);
 }

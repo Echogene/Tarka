@@ -1,6 +1,7 @@
 package logic.model.universe;
 
 import logic.Nameable;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 
 /**
@@ -11,7 +12,7 @@ public interface Universe<T extends Nameable> {
 
 	Set<Set<T>> getUniversalSetOfSets();
 
-	Set<T> getVariables();
+	ModifiableSet<T> getVariables();
 
 	Set<T> getValueSet();
 
@@ -30,8 +31,4 @@ public interface Universe<T extends Nameable> {
 	 * @throws VariableNotAssignedException
 	 */
 	T setVariable(String variableSymbol, T t) throws VariableNotAssignedException;
-
-	void setUniversalSet(Set<T> set);
-
-	void setUniversalSetOfSets(Set<Set<T>> sets);
 }

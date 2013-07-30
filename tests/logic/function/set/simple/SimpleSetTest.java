@@ -1,6 +1,7 @@
 package logic.function.set.simple;
 
-import logic.set.NamedSet;
+import logic.set.FiniteSet;
+import logic.set.ModifiableSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerUniverse;
@@ -15,7 +16,7 @@ public class SimpleSetTest {
 
 	@Test
 	public void testResult() throws Exception {
-		Set<Integer> expected;
+		ModifiableSet<Integer> expected;
 		Set<Integer> actual;
 		SimpleSet<Integer> set = SimpleSetFactory.createElement("x", "2");
 
@@ -24,7 +25,7 @@ public class SimpleSetTest {
 		universe.assignVariable("x");
 		universe.setVariable("x", new Integer(1));
 
-		expected = new NamedSet<>(set.getName());
+		expected = new FiniteSet<>(set.getName());
 		expected.put(new Integer(1));
 		expected.put(new Integer(2));
 
@@ -33,7 +34,7 @@ public class SimpleSetTest {
 
 		universe.setVariable("x", new Integer(2));
 
-		expected = new NamedSet<>(set.getName());
+		expected = new FiniteSet<>(set.getName());
 		expected.put(new Integer(2));
 
 		actual = set.evaluate(universe);
