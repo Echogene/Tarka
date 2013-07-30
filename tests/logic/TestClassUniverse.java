@@ -1,9 +1,9 @@
 package logic;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import logic.set.Set;
+import logic.set.finite.FiniteSet;
 
 /**
  * @author Steven Weston

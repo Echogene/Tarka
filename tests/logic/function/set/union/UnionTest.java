@@ -2,9 +2,9 @@ package logic.function.set.union;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import logic.set.Set;
+import logic.set.finite.FiniteSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

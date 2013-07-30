@@ -1,7 +1,7 @@
 package maths.number.integer.model.universe;
 
-import logic.set.InfiniteSet;
 import logic.set.Set;
+import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

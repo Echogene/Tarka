@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.model.universe.Universe;
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.binary.BinaryConnective.BinaryConnectiveType.*;

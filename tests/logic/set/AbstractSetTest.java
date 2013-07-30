@@ -1,6 +1,7 @@
 package logic.set;
 
 import logic.TestClass;
+import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;

@@ -4,8 +4,8 @@ import logic.Nameable;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.AbstractSet;
-import logic.set.FiniteSet;
 import logic.set.Set;
+import logic.set.finite.FiniteSet;
 
 import java.util.Iterator;
 

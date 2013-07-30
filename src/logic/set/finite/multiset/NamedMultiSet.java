@@ -1,7 +1,7 @@
-package logic.set.multiset;
+package logic.set.finite.multiset;
 
 import logic.Nameable;
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 
 /**
  * @author Steven Weston

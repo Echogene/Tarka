@@ -1,7 +1,7 @@
 package logic;
 
 import logic.model.AbstractModelImpl;
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 
 /**
  * @author Steven Weston

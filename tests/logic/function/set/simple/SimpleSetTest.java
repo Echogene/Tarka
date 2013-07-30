@@ -1,8 +1,8 @@
 package logic.function.set.simple;
 
-import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import logic.set.Set;
+import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;

@@ -1,6 +1,7 @@
-package logic.set;
+package logic.set.infinite;
 
 import logic.Nameable;
+import logic.set.NamedSet;
 
 import java.util.Collection;
 import java.util.Iterator;

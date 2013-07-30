@@ -1,5 +1,7 @@
 package logic.set;
 
+import logic.set.finite.FiniteSet;
+import logic.set.infinite.CompoundSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package logic.set.multiset;
+package logic.set.finite.multiset;
 
 import logic.TestClass;
 import org.junit.Test;

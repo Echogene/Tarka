@@ -1,6 +1,9 @@
-package logic.set;
+package logic.set.infinite;
 
 import logic.Nameable;
+import logic.set.AmbiguousMemberException;
+import logic.set.Set;
+import logic.set.finite.FiniteSet;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collections;

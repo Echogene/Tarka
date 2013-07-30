@@ -1,6 +1,9 @@
-package logic.set;
+package logic.set.finite;
 
 import logic.Nameable;
+import logic.set.ModifiableSet;
+import logic.set.NamedSet;
+import logic.set.Set;
 
 import java.util.Collection;
 import java.util.HashMap;

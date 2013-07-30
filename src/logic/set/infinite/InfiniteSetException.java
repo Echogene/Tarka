@@ -1,4 +1,4 @@
-package logic.set;
+package logic.set.infinite;
 
 /**
  * @author Steven Weston

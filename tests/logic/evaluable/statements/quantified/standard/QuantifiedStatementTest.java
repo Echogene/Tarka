@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.evaluable.statements.unary.UnaryConnective;
 import logic.evaluable.statements.unary.UnaryStatement;
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.quantified.standard.Quantifier.QuantifierType.EXISTS;

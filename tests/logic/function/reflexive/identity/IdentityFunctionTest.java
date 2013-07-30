@@ -2,7 +2,7 @@ package logic.function.reflexive.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
