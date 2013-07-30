@@ -5,7 +5,6 @@ import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
-import maths.number.integer.prime.SimplePrimalityChecker;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -20,7 +19,7 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 
 	public IntegerUniverse() {
 		ℤ = new IntegerSet("ℤ");
-		ℙ = new PrimeNumberSet("ℙ", new SimplePrimalityChecker());
+		ℙ = new PrimeNumberSet("ℙ");
 		variables = new FiniteSet<>("variables");
 
 		universalSetOfSets = new FiniteSet<>("sets");
