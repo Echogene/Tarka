@@ -3,8 +3,8 @@ package logic.function.set.union;
 import logic.Nameable;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
-import logic.set.AbstractSet;
 import logic.set.Set;
+import logic.set.Uniter;
 import logic.set.finite.FiniteSet;
 
 import java.util.Iterator;
@@ -30,7 +30,7 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 		for(SetFunction<T> function : parameters) {
 			setsToUnion.put(function.evaluate(universe));
 		}
-		return AbstractSet.union(setsToUnion);
+		return Uniter.unite(setsToUnion);
 	}
 
 	public java.util.Set<SetFunction<T>> getParameters() {

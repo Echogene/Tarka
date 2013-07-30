@@ -17,8 +17,8 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 	private FiniteSet<T> finitePart;
 	private java.util.Set<InfiniteSet<T>> infinitePart;
 
-	private CompoundSet(String name) {
-		super(name);
+	public CompoundSet(String name) {
+		this(name, new FiniteSet<>(null), new HashSet<>());
 	}
 
 	public CompoundSet(String name, FiniteSet<T> finitePart, InfiniteSet<T> infiniteSet) {
@@ -26,7 +26,7 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 	}
 
 	public CompoundSet(String name, FiniteSet<T> finitePart, java.util.Set<InfiniteSet<T>> infinitePart) {
-		this(name);
+		super(name);
 		this.finitePart = finitePart;
 		this.infinitePart = infinitePart;
 	}
@@ -55,7 +55,7 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 
 	@Override
 	public boolean contains(String string) {
-		if (finitePart.contains(string)) {
+		if (finitePart != null && finitePart.contains(string)) {
 			return true;
 		}
 		for (InfiniteSet<T> set : infinitePart) {
@@ -81,7 +81,11 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 
 	@Override
 	public void uniteWith(Set<T> s) {
-		throw new NotImplementedException();
+		if (s instanceof FiniteSet<?>) {
+			finitePart.uniteWith(s);
+		} else if (s instanceof InfiniteSet<?>) {
+			infinitePart.add((InfiniteSet<T>) s);
+		}
 	}
 
 	@Override

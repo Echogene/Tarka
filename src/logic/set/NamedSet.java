@@ -6,7 +6,7 @@ import logic.Nameable;
  * A {@code NamedSet} is a {@code HashMap} that has a name.
  * @author Steven Weston
  */
-public abstract class NamedSet<T extends Nameable> extends AbstractSet<T> {
+public abstract class NamedSet<T extends Nameable> implements Set<T> {
 	protected String name;
 
 	public NamedSet(String name) {
