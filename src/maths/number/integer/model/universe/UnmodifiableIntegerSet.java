@@ -1,7 +1,6 @@
 package maths.number.integer.model.universe;
 
 import maths.number.integer.Integer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Steven Weston
