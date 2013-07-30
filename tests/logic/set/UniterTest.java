@@ -40,9 +40,11 @@ public class UniterTest {
 		ModifiableSet<maths.number.integer.Integer> X = new FiniteSet<>("X");
 		X.put(new maths.number.integer.Integer(1));
 		assertTrue(X.contains("1"));
+		assertFalse(X.contains("2"));
 
 		Set<Integer> ℙ = new PrimeNumberSet("ℙ");
 		assertFalse(ℙ.contains("1"));
+		assertTrue(ℙ.contains("2"));
 
 		FiniteSet<Set<Integer>> sets = new FiniteSet<>("sets");
 		sets.put(X);
@@ -51,5 +53,6 @@ public class UniterTest {
 		Set<Integer> union = Uniter.unite(sets);
 
 		assertTrue(union.contains("1"));
+		assertTrue(union.contains("2"));
 	}
 }
