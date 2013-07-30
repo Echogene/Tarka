@@ -3,6 +3,7 @@ package logic.set;
 import logic.TestClass;
 import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
+import maths.number.integer.model.universe.IntegerSet;
 import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ public class UniterTest {
 
 	@Test
 	public void testUnionWithInfiniteSet() throws Exception {
-		ModifiableSet<maths.number.integer.Integer> X = new FiniteSet<>("X");
+		ModifiableSet<Integer> X = new FiniteSet<>("X");
 		X.put(new maths.number.integer.Integer(1));
 		assertTrue(X.contains("1"));
 		assertFalse(X.contains("2"));
@@ -48,6 +49,26 @@ public class UniterTest {
 
 		FiniteSet<Set<Integer>> sets = new FiniteSet<>("sets");
 		sets.put(X);
+		sets.put(ℙ);
+
+		Set<Integer> union = Uniter.unite(sets);
+
+		assertTrue(union.contains("1"));
+		assertTrue(union.contains("2"));
+	}
+
+	@Test
+	public void testUnionOfInfiniteSets() throws Exception {
+		Set<Integer> ℤ = new IntegerSet("ℤ");
+		assertTrue(ℤ.contains("1"));
+		assertTrue(ℤ.contains("2"));
+
+		Set<Integer> ℙ = new PrimeNumberSet("ℙ");
+		assertFalse(ℙ.contains("1"));
+		assertTrue(ℙ.contains("2"));
+
+		FiniteSet<Set<Integer>> sets = new FiniteSet<>("sets");
+		sets.put(ℤ);
 		sets.put(ℙ);
 
 		Set<Integer> union = Uniter.unite(sets);
