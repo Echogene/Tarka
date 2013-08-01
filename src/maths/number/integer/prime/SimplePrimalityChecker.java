@@ -18,7 +18,7 @@ public class SimplePrimalityChecker implements PrimalityChecker {
 	@Override
 	public boolean isPrime(Integer integer) {
 		BigInteger v = integer.getValue();
-		if (ONE.equals(v)) {
+		if (v.compareTo(ONE) <= 0) {
 			return false;
 		}
 		BigInteger root = floorSquareRoot(v);

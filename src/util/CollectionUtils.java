@@ -20,7 +20,32 @@ public class CollectionUtils {
 		return list.get(index);
 	}
 
+	/**
+	 * Get rid of the first and last members of a list.
+	 * @param list
+	 * @param <T>
+	 * @return
+	 */
 	public static <T> List<T> stripFirstAndLast(List<T> list) {
 		return list.subList(1, list.size() - 1);
+	}
+
+	/**
+	 * Join a list of strings using another string.
+	 * @param list
+	 * @param joiner
+	 * @return
+	 */
+	public static String join(List<String> list, String joiner) {
+		String output = "";
+		boolean first = true;
+		for (String string : list) {
+			if (!first) {
+				output += joiner;
+			}
+			output += string;
+			first = false;
+		}
+		return output;
 	}
 }

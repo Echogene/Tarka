@@ -22,7 +22,7 @@ public class SimpleLogicParseTreeNode implements ParseTreeNode {
 	}
 
 	public SimpleLogicParseTreeNode(SimpleLogicParseTreeNode mother, Token token) {
-		this.mother = mother;
+		this.mother   = mother;
 		this.children = new ArrayList<>();
 		this.token    = token;
 		this.spouse   = null;
