@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.reflexive.identity.IdentityFunction.IDENTITY_NAME;
 
 /**
  * @author Steven Weston
@@ -34,7 +35,7 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 				new ConstructorWithoutId<T>()
 		);
 		Validator validatorWithId = new Validator();
-		validatorWithId.addValidator(new WordAtom("id"), ONE);
+		validatorWithId.addValidator(new WordAtom(IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
