@@ -1,59 +1,61 @@
 package logic.function.voidfunction.definition.member;
 
 import logic.Nameable;
-import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.factory.construction.Constructor;
+import logic.function.factory.construction.ValidatorAndConstructor;
+import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.VariableAtom;
+import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
+import logic.function.factory.validation.group.validators.OperatorAtom;
+import logic.function.factory.validation.results.FunctionResult;
+import logic.function.factory.validation.results.StringResult;
+import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
-import reading.lexing.Token;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
+import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.voidfunction.definition.member.MemberDefinition.DEFINITION_SYMBOL;
 
 /**
  * @author Steven Weston
  */
 public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void> {
 
-	@Override
-	public Function<T, Void> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		tokens = validateAndStripParentheses(tokens);
-		if (matchesName(tokens, functions)) {
-			return new MemberDefinition<>(tokens.get(0).getValue(), new IdentityFunction<>(tokens.get(2).getValue()));
-		} else if (matchesFunction(tokens, functions)) {
-			return new MemberDefinition<>(tokens.get(0).getValue(), (ReflexiveFunction<T>) functions.get(1));
+	public MemberDefinitionFactory() {
+		super(getConstructors());
+	}
+
+	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Void>>> getConstructors() {
+		Validator validator = new Validator();
+		validator.addValidator(new VariableAtom(), ONE);
+		validator.addValidator(new OperatorAtom(DEFINITION_SYMBOL), ONE);
+		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
+		ValidatorAndConstructor<Function<T, Void>> constructor = new ValidatorAndConstructor<>(
+				validator,
+				new MemberDefinitionConstructor<T>()
+		);
+		return Arrays.asList(
+				constructor
+		);
+	}
+
+	private static class MemberDefinitionConstructor<T extends Nameable> implements Constructor<Function<T, Void>> {
+		@Override
+		public Function<T, Void> construct(List<ValidationResult> results) {
+			StringResult variable = (StringResult) results.get(1);
+			ValidationResult result = results.get(3);
+			ReflexiveFunction<T> function;
+			if (result instanceof StringResult) {
+				function = new IdentityFunction<>(((StringResult) result).getString());
+			} else {
+				function = (ReflexiveFunction<T>) ((FunctionResult) result).getFunction();
+			}
+			return new MemberDefinition<>(variable.getString(), function);
 		}
-		throw new FactoryException("Could not create MembershipDefinition");
-	}
-
-	private boolean matchesName(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 3
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(MemberDefinition.DEFINITION_SYMBOL)
-				&& tokens.get(2).isOfType(NAME)
-				&& (functions == null
-					|| functions.isEmpty()
-					|| (functions.size() == 2
-						&& functions.get(0) == null
-						&& functions.get(1) == null));
-	}
-
-	private boolean matchesFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens != null
-				&& tokens.size() == 4
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(1).isOfType(OPERATOR)
-				&& tokens.get(1).getValue().equals(MemberDefinition.DEFINITION_SYMBOL)
-				&& isTokenOpenParenthesis(tokens.get(2))
-				&& isTokenCloseParenthesis(tokens.get(3))
-				&& functions != null
-				&& functions.size() == 2
-				&& functions.get(0) == null
-				&& functions.get(1) != null
-				&& functions.get(1) instanceof ReflexiveFunction<?>;
 	}
 }

@@ -1,77 +1,43 @@
 package logic.function.reflexive.identity;
 
 import logic.Nameable;
-import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.reflexive.ReflexiveFunction;
+import logic.function.factory.construction.Constructor;
+import logic.function.factory.construction.ValidatorAndConstructor;
+import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.VariableAtom;
+import logic.function.factory.validation.results.StringResult;
+import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunctionFactory;
-import reading.lexing.Token;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
+import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston
  */
 public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
-	@Override
-	public Function<T, T> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		tokens = validateAndStripParentheses(tokens);
-		if (functions != null && functions.size() == 2) {
-			functions = functions.subList(1, 2);
+	public IdentityFunctionFactory() {
+		super(getConstructors());
+	}
+
+	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, T>>> getConstructors() {
+		Validator validatorWithoutId = new Validator();
+		validatorWithoutId.addValidator(new VariableAtom(), ONE);
+		ValidatorAndConstructor<Function<T, T>> constructorWithoutId = new ValidatorAndConstructor<>(
+				validatorWithoutId,
+				new ConstructorWithoutId<T>()
+		);
+		return Arrays.asList(constructorWithoutId);
+	}
+
+	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, T>> {
+		@Override
+		public Function<T, T> construct(List<ValidationResult> results) {
+			StringResult result = (StringResult) results.get(1);
+			return new IdentityFunction<>(result.getString());
 		}
-		if (matchesStandardForm(tokens, functions)) {
-			return new IdentityFunction<>(tokens.get(1).getValue());
-		} else if (matchesSingleNameToken(tokens, functions)) {
-			return new IdentityFunction<>(tokens.get(0).getValue());
-		} else if (matchesStandardFormWithFunction(tokens, functions)
-				|| matchesSingleFunction(tokens, functions)) {
-			return new IdentityFunction<>((ReflexiveFunction<T>) functions.get(0));
-		}
-		throw new FactoryException("Could not create IdentityFunction");
-	}
-
-	boolean matchesStandardForm(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens.size() == 2
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(0).getValue().equals(IdentityFunction.IDENTITY_NAME)
-				&& tokens.get(1).isOfType(NAME)
-				&& noFunctions(functions);
-	}
-
-	boolean matchesSingleNameToken(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens.size() == 1
-				&& tokens.get(0).isOfType(NAME)
-				&& noFunctions(functions);
-	}
-
-	boolean noFunctions(List<Function<?, ?>> functions) {
-		return functions == null
-				|| (functions.size() == 1
-					&& functions.get(0) == null);
-	}
-
-	boolean matchesStandardFormWithFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens.size() == 3
-				&& tokens.get(0).isOfType(NAME)
-				&& tokens.get(0).getValue().equals(IdentityFunction.IDENTITY_NAME)
-				&& isTokenOpenParenthesis(tokens.get(1))
-				&& isTokenCloseParenthesis(tokens.get(2))
-				&& oneFunction(functions);
-	}
-
-	boolean matchesSingleFunction(List<Token> tokens, List<Function<?, ?>> functions) {
-		return tokens.size() == 2
-				&& isTokenOpenParenthesis(tokens.get(0))
-				&& isTokenCloseParenthesis(tokens.get(1))
-				&& oneFunction(functions);
-	}
-
-	boolean oneFunction(List<Function<?, ?>> functions) {
-		return functions != null
-				&& functions.size() == 1
-				&& functions.get(0) != null
-				&& functions.get(0) instanceof ReflexiveFunction<?>;
 	}
 }

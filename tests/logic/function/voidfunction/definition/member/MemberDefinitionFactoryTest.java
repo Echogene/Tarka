@@ -21,11 +21,7 @@ public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFac
 	@Test
 	public void testCurlyBracketsThrowException() throws Exception {
 		setUpTokens("{x ≔ 2}");
-		setUpFunctions("", "");
-		expectFactoryException();
-
-		setUpTokens("(x ≔ {})");
-		setUpFunctions("", "(2)");
+		setUpFunctions();
 		expectFactoryException();
 	}
 
@@ -35,14 +31,14 @@ public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFac
 		MemberDefinition<Integer> actual;
 
 		setUpTokens("(x ≔ 2)");
-		setUpFunctions("", "");
+		setUpFunctions();
 
 		expected = new MemberDefinition<>("x", new IdentityFunction<>("2"));
 		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(x ≔ ())");
-		setUpFunctions("", "(2)");
+		setUpFunctions("(2)");
 
 		expected = new MemberDefinition<>("x", new IdentityFunction<>("2"));
 		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);

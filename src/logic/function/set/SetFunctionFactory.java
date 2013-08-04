@@ -2,7 +2,9 @@ package logic.function.set;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.set.Set;
 import reading.lexing.Token;
 import util.CollectionUtils;
@@ -16,6 +18,10 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.isTo
  * @author Steven Weston
  */
 public abstract class SetFunctionFactory<T extends Nameable> extends FunctionFactory<T, Set<T>> {
+
+	public SetFunctionFactory(List<ValidatorAndConstructor<Function<T, Set<T>>>> constructors) {
+		super(constructors);
+	}
 
 	protected List<Token> validateAndStripCurlyBrackets(List<Token> tokens) throws FactoryException {
 		if (tokens.size() < 2) {

@@ -6,7 +6,6 @@ import logic.function.Function;
 import logic.function.factory.multary.MultaryValidator;
 import logic.function.set.identity.SetIdentityFunction;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -14,8 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static logic.function.factory.ValidationResult.ValidationType;
-import static logic.function.factory.ValidationResult.ValidationType.FUNCTION;
-import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
 import static org.junit.Assert.*;
 
 /**
@@ -33,58 +30,7 @@ public class MultaryValidatorTest {
 		validator = new MultaryValidator(Arrays.asList("⋃"), SetIdentityFunction.class);
 	}
 
-	@Test
-	public void testValidate() throws Exception {
-		setUpTokens("⋃ X");
-		setUpFunctions("");
-		assertValid(getResult(), TOKEN);
-
-		setUpTokens("⋃ X Y");
-		setUpFunctions("", "");
-		assertValid(getResult(), TOKEN, TOKEN);
-
-		setUpTokens("⋃ X Y Z");
-		setUpFunctions("", "", "");
-		assertValid(getResult(), TOKEN, TOKEN, TOKEN);
-
-		setUpTokens("⋃ ()");
-		setUpFunctions("X");
-		assertValid(getResult(), FUNCTION);
-
-		setUpTokens("⋃ () ()");
-		setUpFunctions("X", "Y");
-		assertValid(getResult(), FUNCTION, FUNCTION);
-
-		setUpTokens("⋃ () Y ()");
-		setUpFunctions("X", "", "Z");
-		assertValid(getResult(), FUNCTION, TOKEN, FUNCTION);
-
-		setUpTokens("⋃ X Y ()");
-		setUpFunctions("", "", "Z");
-		assertValid(getResult(), TOKEN, TOKEN, FUNCTION);
-
-		setUpTokens("⋃ ()");
-		setUpFunctions("");
-		assertInvalid(getResult());
-
-		setUpTokens("⋃ ()");
-		setUpFunctions();
-		assertInvalid(getResult());
-
-		setUpTokens("⋃ X");
-		setUpFunctions();
-		assertInvalid(getResult());
-
-		setUpTokens("⋃ X");
-		setUpFunctions("X");
-		assertInvalid(getResult());
-
-		setUpTokens("⋃ X");
-		setUpFunctions("", "");
-		assertInvalid(getResult());
-	}
-
-	private ValidationResult getResult() {
+	private List<logic.function.factory.validation.results.ValidationResult> getResult() throws ValidationException {
 		return validator.validate(tokens, functions);
 	}
 

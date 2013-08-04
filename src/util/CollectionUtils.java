@@ -22,10 +22,10 @@ public class CollectionUtils {
 	}
 
 	public static <T> T safeNext(Iterator<T> iterator) {
-		if (iterator.hasNext()) {
-			return iterator.next();
-		} else {
+		if (iterator == null || !iterator.hasNext()) {
 			return null;
+		} else {
+			return iterator.next();
 		}
 	}
 

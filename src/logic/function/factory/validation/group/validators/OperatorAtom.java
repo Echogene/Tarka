@@ -6,6 +6,7 @@ import logic.function.factory.validation.group.TokenGroup;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,6 +17,10 @@ public class OperatorAtom extends FunctionlessAtom {
 
 	public OperatorAtom(List<String> acceptedOperatorSymbols) {
 		this.acceptedOperatorSymbols = acceptedOperatorSymbols;
+	}
+
+	public OperatorAtom(String acceptedOperatorSymbol) {
+		this(Arrays.asList(acceptedOperatorSymbol));
 	}
 
 	@Override

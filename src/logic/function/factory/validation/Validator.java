@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static logic.function.factory.validation.GroupValidatorWithNumber.Number;
@@ -37,6 +38,10 @@ public class Validator {
 		this.groupValidators = new ArrayList<>();
 	}
 
+	public Validator() {
+		this(asList("("), asList(")"));
+	}
+
 	public void addValidator(GroupValidator validator, Number number) {
 		groupValidators.add(new GroupValidatorWithNumber(validator, number));
 	}
@@ -48,7 +53,7 @@ public class Validator {
 		tokenGroups = groupTokens(stripFirstAndLast(tokens));
 		Iterator<GroupValidatorWithNumber> validatorIterator = groupValidators.iterator();
 		GroupValidatorWithNumber currentValidator = safeNext(validatorIterator);
-		Iterator<Function<?, ?>> functionIterator = functions.iterator();
+		Iterator<Function<?, ?>> functionIterator = functions == null ? null : functions.iterator();
 		Function<?, ?> currentFunction = safeNext(functionIterator);
 		for (TokenGroup group : tokenGroups) {
 			boolean validated = false;

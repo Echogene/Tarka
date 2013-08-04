@@ -2,17 +2,11 @@ package logic.evaluable.predicate.equality;
 
 import logic.Nameable;
 import logic.evaluable.predicate.PredicateFactory;
-import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.ValidationResult;
-import logic.function.factory.binary.BinaryConstructor;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.reflexive.ReflexiveFunction;
+import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionConstructorFromString;
-import reading.lexing.Token;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,9 +14,6 @@ import java.util.List;
  * @author Steven Weston
  */
 public class EqualityPredicateFactory<T extends Nameable> extends PredicateFactory<T> {
-	final BinaryValidator binaryValidator;
-	private BinaryConstructor<EqualityPredicate<T>, ReflexiveFunction<T>, ReflexiveFunction<T>> binaryConstructor;
-
 	/**
 	 * @param equorString The string representing the equor of the equals.
 	 * @param equandString The string representing the equand of the equals.
@@ -36,21 +27,10 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	public EqualityPredicateFactory() {
-		this.binaryValidator = new BinaryValidator(Arrays.asList(EqualityPredicate.EQUALITY_SYMBOL));
-		this.binaryConstructor = new BinaryConstructor<>(
-				new EqualityPredicateConstructorFromTwoParameters<>(),
-				new IdentityFunctionConstructorFromString<T>(),
-				new IdentityFunctionConstructorFromString<T>()
-		);
+		super(getConstructors());
 	}
 
-	@Override
-	public Function<T, Boolean> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		tokens = validateAndStripParentheses(tokens);
-		ValidationResult result = binaryValidator.validate(tokens, functions);
-		if (result.isValid()) {
-			return binaryConstructor.construct(result, tokens, functions);
-		}
-		throw new FactoryException("Could not create EqualityPredicate");
+	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Boolean>>> getConstructors() {
+		throw new NotImplementedException();
 	}
 }
