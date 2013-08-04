@@ -59,6 +59,9 @@ public class Validator {
 			boolean validated = false;
 			boolean getNextFunctionAtEndOfLoop = false;
 			while (!validated) {
+				if (currentValidator == null) {
+					throw new ValidationException("There were too many tokens.");
+				}
 				// Keep on finding validators until one passes or the validator is mandatory.
 				try {
 					if (currentValidator.requiresFunction()) {
