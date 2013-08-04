@@ -1,7 +1,7 @@
 package logic.function.factory.binary;
 
 import logic.function.factory.validation.Validator;
-import logic.function.factory.validation.group.validators.FunctionAtom;
+import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
 import logic.function.reflexive.ReflexiveFunction;
 
@@ -21,9 +21,9 @@ public class BinaryValidator extends Validator {
 			Class secondClass,
 			List<String> acceptedClosingBrackets) {
 		super(acceptedOpeningBrackets, acceptedClosingBrackets);
-		addValidator(new FunctionAtom(firstClass), ONE);
+		addValidator(new FunctionOrVariableValidator(firstClass), ONE);
 		addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
-		addValidator(new FunctionAtom(secondClass), ONE);
+		addValidator(new FunctionOrVariableValidator(secondClass), ONE);
 	}
 
 	public BinaryValidator(Class firstClass, List<String> acceptedOperatorSymbols, Class secondClass) {

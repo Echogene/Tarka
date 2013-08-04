@@ -3,11 +3,20 @@ package logic.evaluable.predicate.equality;
 import logic.Nameable;
 import logic.evaluable.predicate.PredicateFactory;
 import logic.function.Function;
+import logic.function.factory.binary.BinaryValidator;
+import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
+import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.results.FunctionResult;
+import logic.function.factory.validation.results.StringResult;
+import logic.function.factory.validation.results.ValidationResult;
+import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
 import java.util.List;
+
+import static logic.evaluable.predicate.equality.EqualityPredicate.EQUALITY_SYMBOL;
 
 /**
  * A {@code Factory} for creating {@code EqualityPredicate}s.
@@ -31,6 +40,33 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Boolean>>> getConstructors() {
-		throw new NotImplementedException();
+		Validator validator = new BinaryValidator(Arrays.asList(EQUALITY_SYMBOL));
+		return Arrays.asList(
+				new ValidatorAndConstructor<>(
+						validator,
+						new EqualityPredicateConstructor<T>()
+				)
+		);
+	}
+
+	private static class EqualityPredicateConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
+		@Override
+		public Function<T, Boolean> construct(List<ValidationResult> results) {
+			ReflexiveFunction<T> firstFunction;
+			ReflexiveFunction<T> secondFunction;
+			ValidationResult firstResult = results.get(1);
+			if (firstResult instanceof StringResult) {
+				firstFunction = new IdentityFunction<T>(((StringResult) firstResult).getString());
+			} else {
+				firstFunction = (ReflexiveFunction<T>) ((FunctionResult) firstResult).getFunction();
+			}
+			ValidationResult secondResult = results.get(3);
+			if (secondResult instanceof StringResult) {
+				secondFunction = new IdentityFunction<T>(((StringResult) secondResult).getString());
+			} else {
+				secondFunction = (ReflexiveFunction<T>) ((FunctionResult) secondResult).getFunction();
+			}
+			return new EqualityPredicate<T>(firstFunction, secondFunction);
+		}
 	}
 }

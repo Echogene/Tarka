@@ -24,14 +24,6 @@ public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateF
 		setUpTokens("{x = y}");
 		setUpFunctions("", "");
 		expectFactoryException();
-
-		setUpTokens("({} = y)");
-		setUpFunctions("(x)", "");
-		expectFactoryException();
-
-		setUpTokens("(x = {})");
-		setUpFunctions("", "(y)");
-		expectFactoryException();
 	}
 
 	@Test
@@ -45,12 +37,12 @@ public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateF
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpTokens("(x = ())");
-		setUpFunctions("", "(y)");
+		setUpFunctions("(y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
 		setUpTokens("(() = y)");
-		setUpFunctions("(x)", "");
+		setUpFunctions("(x)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created equality predicate to be equal to the factory-built one", expected, actual);
 
