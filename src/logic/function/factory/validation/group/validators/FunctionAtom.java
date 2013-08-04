@@ -9,6 +9,8 @@ import logic.function.factory.validation.results.ValidationResult;
 import java.util.Arrays;
 import java.util.List;
 
+import static util.CollectionUtils.simpleNames;
+
 /**
  * @author Steven Weston
  */
@@ -73,7 +75,7 @@ public class FunctionAtom implements AtomicValidator {
 			}
 		}
 		if (!classFound) {
-			throw new ValidationException("The function—" + function.toString() + "—was not in " + acceptedFunctionClasses.toString() + ".");
+			throw new ValidationException("The function—" + function.toString() + "—was not in " + simpleNames(acceptedFunctionClasses) + ".");
 		}
 		return new FunctionResult(function);
 	}

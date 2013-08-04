@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,5 +57,13 @@ public class CollectionUtils {
 			first = false;
 		}
 		return output;
+	}
+
+	public static String simpleNames(List<Class> classes) {
+		List<String> output = new ArrayList<>();
+		for (Class clazz : classes) {
+			output.add(clazz.getSimpleName());
+		}
+		return "[" + join(output, ", ") + "]";
 	}
 }
