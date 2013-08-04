@@ -25,10 +25,6 @@ public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredic
 		setUpTokens("{x ∊ X}");
 		setUpOneIdentityAndOneSetIdentityFunction("", "");
 		expectFactoryException();
-
-		setUpTokens("({} ∊ X)");
-		setUpOneIdentityAndOneSetIdentityFunction("x", "");
-		expectFactoryException();
 	}
 
 	@Test
@@ -48,7 +44,7 @@ public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredic
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);
 
 		setUpOneIdentityAndOneSetIdentityFunction("", "X");
-		expected = new MembershipPredicate<>("x", (SetFunction<TestClass>) functions.get(1));
+		expected = new MembershipPredicate<>("x", (SetFunction<TestClass>) functions.get(0));
 		setUpTokens("(x ∊ ())");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);

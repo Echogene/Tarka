@@ -43,7 +43,7 @@ public class RestrictedQuantifiedStatement<T extends Nameable> extends Quantifie
 				+ getQuantifier().toString()
 				+ getVariableSymbol()
 				+ " "
-				+ MembershipPredicate.MEMBERSHIP_STRING
+				+ MembershipPredicate.MEMBERSHIP_SYMBOL
 				+ " "
 				+ setFunction.toString()
 				+ " "

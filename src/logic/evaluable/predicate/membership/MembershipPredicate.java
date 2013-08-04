@@ -13,7 +13,7 @@ import logic.set.Set;
  * @author Steven Weston
  */
 public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
-	public static final String MEMBERSHIP_STRING = "∊";
+	public static final String MEMBERSHIP_SYMBOL = "∊";
 	protected ReflexiveFunction<T> memberFunction;
 	protected SetFunction<T> setFunction;
 
@@ -54,7 +54,7 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 
 	@Override
 	public String toString() {
-		return "(" + getMemberFunction().toString() + " " + MEMBERSHIP_STRING + " " + getSetFunction().toString() + ")";
+		return "(" + getMemberFunction().toString() + " " + MEMBERSHIP_SYMBOL + " " + getSetFunction().toString() + ")";
 	}
 
 	@Override

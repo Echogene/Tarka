@@ -54,14 +54,10 @@ public abstract class FactoryTest<F extends FunctionFactory<?, ?>> {
 
 	protected void setUpOneIdentityAndOneSetIdentityFunction(String identityFunctionParameter1, String identityFunctionParameter2) {
 		functions = new ArrayList<>(2);
-		if (identityFunctionParameter1.isEmpty()) {
-			functions.add(null);
-		} else {
+		if (!identityFunctionParameter1.isEmpty()) {
 			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter1));
 		}
-		if (identityFunctionParameter2.isEmpty()) {
-			functions.add(null);
-		} else {
+		if (!identityFunctionParameter2.isEmpty()) {
 			functions.add(new SetIdentityFunction<>(identityFunctionParameter2));
 		}
 	}

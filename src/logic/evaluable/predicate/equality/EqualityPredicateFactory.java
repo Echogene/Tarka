@@ -56,17 +56,17 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 			ReflexiveFunction<T> secondFunction;
 			ValidationResult firstResult = results.get(1);
 			if (firstResult instanceof StringResult) {
-				firstFunction = new IdentityFunction<T>(((StringResult) firstResult).getString());
+				firstFunction = new IdentityFunction<>(((StringResult) firstResult).getString());
 			} else {
 				firstFunction = (ReflexiveFunction<T>) ((FunctionResult) firstResult).getFunction();
 			}
 			ValidationResult secondResult = results.get(3);
 			if (secondResult instanceof StringResult) {
-				secondFunction = new IdentityFunction<T>(((StringResult) secondResult).getString());
+				secondFunction = new IdentityFunction<>(((StringResult) secondResult).getString());
 			} else {
 				secondFunction = (ReflexiveFunction<T>) ((FunctionResult) secondResult).getFunction();
 			}
-			return new EqualityPredicate<T>(firstFunction, secondFunction);
+			return new EqualityPredicate<>(firstFunction, secondFunction);
 		}
 	}
 }
