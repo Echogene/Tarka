@@ -9,7 +9,7 @@ import logic.function.factory.validation.results.ValidationResult;
 /**
 * @author Steven Weston
 */
-class GroupValidatorWithNumber implements GroupValidator {
+public class GroupValidatorWithNumber implements GroupValidator {
 	private final GroupValidator validator;
 	private final Number number;
 
