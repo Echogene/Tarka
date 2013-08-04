@@ -6,6 +6,7 @@ import logic.function.factory.validation.group.TokenGroup;
 import logic.function.factory.validation.results.FunctionResult;
 import logic.function.factory.validation.results.ValidationResult;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +30,13 @@ public class FunctionAtom implements AtomicValidator {
 		this.acceptedOpeningBrackets = acceptedOpeningBrackets;
 		this.acceptedClosingBrackets = acceptedClosingBrackets;
 		this.acceptedFunctionClasses = acceptedFunctionClasses;
+	}
+	public FunctionAtom(List<Class> acceptedFunctionClasses) {
+		this(null, acceptedFunctionClasses, null);
+	}
+
+	public FunctionAtom(Class acceptedClass) {
+		this(Arrays.<Class>asList(acceptedClass));
 	}
 
 	@Override
