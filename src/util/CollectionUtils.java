@@ -1,5 +1,6 @@
 package util;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,6 +19,14 @@ public class CollectionUtils {
 			return null;
 		}
 		return list.get(index);
+	}
+
+	public static <T> T safeNext(Iterator<T> iterator) {
+		if (iterator.hasNext()) {
+			return iterator.next();
+		} else {
+			return null;
+		}
 	}
 
 	/**

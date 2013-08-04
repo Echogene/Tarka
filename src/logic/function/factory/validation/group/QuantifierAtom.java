@@ -2,13 +2,15 @@ package logic.function.factory.validation.group;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
+import logic.function.factory.validation.results.StringResult;
+import logic.function.factory.validation.results.ValidationResult;
 
 import java.util.List;
 
 /**
  * @author Steven Weston
  */
-public class QuantifierAtom implements AtomicValidator {
+public class QuantifierAtom extends FunctionlessAtom {
 	private final List<String> acceptedQuantifierSymbols;
 
 	public QuantifierAtom(List<String> acceptedQuantifierSymbols) {
@@ -16,7 +18,7 @@ public class QuantifierAtom implements AtomicValidator {
 	}
 
 	@Override
-	public GroupValidator validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
+	public ValidationResult validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
 		if (function != null) {
 			throw new ValidationException("The function—" + function.toString() + "—was not null.");
 		}
@@ -26,6 +28,6 @@ public class QuantifierAtom implements AtomicValidator {
 		if (!acceptedQuantifierSymbols.contains(group.getValue())) {
 			throw new ValidationException("The quantifier—" + group.toString() + "—was not in " + acceptedQuantifierSymbols +".");
 		}
-		return this;
+		return new StringResult(group.getValue());
 	}
 }

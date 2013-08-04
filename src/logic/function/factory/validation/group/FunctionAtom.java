@@ -2,6 +2,8 @@ package logic.function.factory.validation.group;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
+import logic.function.factory.validation.results.FunctionResult;
+import logic.function.factory.validation.results.ValidationResult;
 
 import java.util.List;
 
@@ -29,22 +31,31 @@ public class FunctionAtom implements AtomicValidator {
 	}
 
 	@Override
-	public GroupValidator validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
+	public ValidationResult validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
 		if (!group.representsFunction()) {
 			throw new ValidationException("The group—" + group.toString() + "—did not represent a function.");
 		}
-		String openingBracket = group.getOpeningBracket();
-		int openingIndex = acceptedOpeningBrackets.indexOf(openingBracket);
-		if (openingIndex == -1) {
-			throw new ValidationException("The opening bracket—" + openingBracket + "—was not in " + acceptedOpeningBrackets.toString() + ".");
+		int openingIndex = 0;
+		if (acceptedOpeningBrackets != null) {
+			String openingBracket = group.getOpeningBracket();
+			openingIndex = acceptedOpeningBrackets.indexOf(openingBracket);
+			if (openingIndex == -1) {
+				throw new ValidationException("The opening bracket—" + openingBracket + "—was not in " + acceptedOpeningBrackets.toString() + ".");
+			}
 		}
-		String closingBracket = group.getClosingBracket();
-		int closingIndex = acceptedClosingBrackets.indexOf(closingBracket);
-		if (closingIndex == -1) {
-			throw new ValidationException("The closing bracket—" + closingBracket + "—was not in " + acceptedClosingBrackets.toString() + ".");
+		int closingIndex = 0;
+		if (acceptedClosingBrackets != null) {
+			String closingBracket = group.getClosingBracket();
+			closingIndex = acceptedClosingBrackets.indexOf(closingBracket);
+			if (closingIndex == -1) {
+				throw new ValidationException("The closing bracket—" + closingBracket + "—was not in " + acceptedClosingBrackets.toString() + ".");
+			}
 		}
 		if (openingIndex != closingIndex) {
 			throw new ValidationException("The opening−closing pair was not accepted.");
+		}
+		if (function == null) {
+			throw new ValidationException("The function was null.");
 		}
 		boolean classFound = false;
 		for (Class clazz : acceptedFunctionClasses) {
@@ -55,6 +66,11 @@ public class FunctionAtom implements AtomicValidator {
 		if (!classFound) {
 			throw new ValidationException("The function—" + function.toString() + "—was not in " + acceptedFunctionClasses.toString() + ".");
 		}
-		return this;
+		return new FunctionResult(function);
+	}
+
+	@Override
+	public boolean requiresFunction() {
+		return true;
 	}
 }

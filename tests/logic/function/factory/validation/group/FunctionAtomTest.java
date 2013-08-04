@@ -44,5 +44,22 @@ public class FunctionAtomTest extends GroupValidatorTest {
 				newFunctionGroup("(", "}"),
 				new SetIdentityFunction<>("X")
 		);
+		validator = new FunctionAtom(
+				null,
+				Arrays.<Class>asList(SetFunction.class),
+				null
+		);
+		validator.validate(
+				newFunctionGroup("{", "}"),
+				new SetIdentityFunction<>("X")
+		);
+		validator.validate(
+				newFunctionGroup("(", ")"),
+				new SetIdentityFunction<>("X")
+		);
+		validator.validate(
+				newFunctionGroup("(", "}"),
+				new SetIdentityFunction<>("X")
+		);
 	}
 }

@@ -2,13 +2,15 @@ package logic.function.factory.validation.group;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
+import logic.function.factory.validation.results.StringResult;
+import logic.function.factory.validation.results.ValidationResult;
 
 import java.util.List;
 
 /**
  * @author Steven Weston
  */
-public class OperatorAtom implements AtomicValidator {
+public class OperatorAtom extends FunctionlessAtom {
 	private final List<String> acceptedOperatorSymbols;
 
 	public OperatorAtom(List<String> acceptedOperatorSymbols) {
@@ -16,7 +18,7 @@ public class OperatorAtom implements AtomicValidator {
 	}
 
 	@Override
-	public GroupValidator validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
+	public ValidationResult validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
 		if (function != null) {
 			throw new ValidationException("The function—" + function.toString() + "—was not null.");
 		}
@@ -26,6 +28,6 @@ public class OperatorAtom implements AtomicValidator {
 		if (!acceptedOperatorSymbols.contains(group.getValue())) {
 			throw new ValidationException("The operator—" + group.toString() + "—was not in " + acceptedOperatorSymbols +".");
 		}
-		return this;
+		return new StringResult(group.getValue());
 	}
 }
