@@ -1,5 +1,6 @@
 package logic.function.factory.validation.group;
 
+import logic.function.factory.validation.group.validators.OperatorAtom;
 import logic.function.reflexive.identity.IdentityFunction;
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
 package logic.function.factory.validation.group;
 
+import logic.function.factory.validation.group.validators.FunctionAtom;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.set.SetFunction;

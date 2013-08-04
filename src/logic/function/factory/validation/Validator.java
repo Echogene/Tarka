@@ -60,8 +60,8 @@ public class Validator {
 						ValidationResult result = currentValidator.validate(group, currentFunction);
 						output.add(result);
 						if (result instanceof FunctionResult) {
-							// We have used the current function, so we should get the next one at the end of the outer for
-							// loop.
+							// We have used the current function, so we should get the next one at the end of the outer
+							// for loop.
 							getNextFunctionAtEndOfLoop = true;
 						}
 					} else {

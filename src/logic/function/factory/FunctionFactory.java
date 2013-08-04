@@ -16,6 +16,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.isTo
  * @author Steven Weston
  */
 public abstract class FunctionFactory<D extends Nameable, C> implements Factory<Function<D, C>> {
+
 	@Override
 	public Function<D, C> createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);

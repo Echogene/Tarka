@@ -2,8 +2,8 @@ package logic.function.factory.validation;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.group.NameAtom;
 import logic.function.factory.validation.group.TokenGroup;
+import logic.function.factory.validation.group.validators.NameAtom;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 

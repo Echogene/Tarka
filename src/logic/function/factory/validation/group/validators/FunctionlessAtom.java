@@ -1,4 +1,4 @@
-package logic.function.factory.validation.group;
+package logic.function.factory.validation.group.validators;
 
 /**
  * @author Steven Weston
