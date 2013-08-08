@@ -54,8 +54,8 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) {
-			ReflexiveFunction<T> firstFunction = identityFunctionConstructor.construct(results.get(1));
-			SetFunction<T> secondFunction = setIdentityFunctionConstructor.construct(results.get(3));
+			ReflexiveFunction<T> firstFunction = identityFunctionConstructor.convert(results.get(1));
+			SetFunction<T> secondFunction = setIdentityFunctionConstructor.convert(results.get(3));
 			return new MembershipPredicate<>(firstFunction, secondFunction);
 		}
 	}

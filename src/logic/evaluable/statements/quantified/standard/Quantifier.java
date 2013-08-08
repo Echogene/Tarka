@@ -6,6 +6,9 @@ import logic.evaluable.Evaluable;
 import logic.model.universe.Universe;
 import logic.set.Set;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Steven Weston
  */
@@ -16,6 +19,15 @@ public class Quantifier extends Connective {
 	public final static String NFOR_ALL_SYMBOL = "¬∀";
 	public final static String EXISTS_UNIQUE_SYMBOL = "∃!";
 	public final static String NEXISTS_UNIQUE_SYMBOL = "∄!";
+
+	public final static List<String> QUANTIFIER_SYMBOL_LIST = Arrays.asList(
+			EXISTS_SYMBOL,
+			NEXISTS_SYMBOL,
+			FOR_ALL_SYMBOL,
+			NFOR_ALL_SYMBOL,
+			EXISTS_UNIQUE_SYMBOL,
+			NEXISTS_UNIQUE_SYMBOL
+	);
 
 	public final static String QUANTIFIER_SYMBOLS = "∃∄∀¬!";
 

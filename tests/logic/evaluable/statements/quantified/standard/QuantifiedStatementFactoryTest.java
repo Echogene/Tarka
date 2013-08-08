@@ -27,10 +27,6 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 		setUpTokens("{∀x()}");
 		setUpFunctions("(x=y)");
 		expectFactoryException();
-
-		setUpTokens("(∀x{})");
-		setUpFunctions("(x=y)");
-		expectFactoryException();
 	}
 
 	@Test

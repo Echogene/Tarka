@@ -3,7 +3,6 @@ package logic.evaluable.statements.binary;
 import logic.Nameable;
 import logic.evaluable.Evaluable;
 import logic.evaluable.EvaluableFactory;
-import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.constants.LogicalConstantFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -41,20 +40,20 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 
 	private static class BinaryStatementConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
 
-		private final FunctionConvertor<LogicalConstant<T>, T> constructor;
+		private final FunctionConvertor<Evaluable<T>, T> constructor;
 
 		private BinaryStatementConstructor() {
-			this.constructor = new FunctionConvertor<>(new LogicalConstantFactory<>());
+			this.constructor = new FunctionConvertor<Evaluable<T>, T>(new LogicalConstantFactory<T>());
 		}
 
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) throws FactoryException {
-			Evaluable<T> firstFunction = constructor.construct(results.get(1));
+			Evaluable<T> firstFunction = constructor.convert(results.get(1));
 
 			StringResult connectiveResult = (StringResult) results.get(2);
 			BinaryConnective binaryConnective = BinaryConnectiveFactory.create(connectiveResult.getString());
 
-			Evaluable<T> secondFunction = constructor.construct(results.get(3));
+			Evaluable<T> secondFunction = constructor.convert(results.get(3));
 			return new BinaryStatement<>(firstFunction, binaryConnective, secondFunction);
 		}
 	}

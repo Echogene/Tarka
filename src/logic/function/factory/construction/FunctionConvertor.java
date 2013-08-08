@@ -12,13 +12,13 @@ import logic.function.factory.validation.results.ValidationResult;
  */
 public class FunctionConvertor<F extends Function<T, ?>, T extends Nameable> {
 
-	private final ConstructorFromString<F> constructor;
+	private final ConstructorFromString<? extends F> constructor;
 
-	public FunctionConvertor(ConstructorFromString<F> constructor) {
+	public FunctionConvertor(ConstructorFromString<? extends F> constructor) {
 		this.constructor = constructor;
 	}
 
-	public F construct(ValidationResult result) {
+	public F convert(ValidationResult result) {
 		if (result instanceof StringResult) {
 			return constructor.construct(((StringResult) result).getString());
 		} else {

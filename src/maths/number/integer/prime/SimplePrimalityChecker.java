@@ -45,6 +45,7 @@ public class SimplePrimalityChecker implements PrimalityChecker {
 			return x;
 		}
 		BigInteger y;
+		//noinspection StatementWithEmptyBody
 		for (y = x.divide(TWO);
 		     y.compareTo(x.divide(y)) > 0;
 		     y = ((x.divide(y)).add(y)).divide(TWO));
