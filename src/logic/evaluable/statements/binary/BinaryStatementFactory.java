@@ -3,14 +3,15 @@ package logic.evaluable.statements.binary;
 import logic.Nameable;
 import logic.evaluable.Evaluable;
 import logic.evaluable.EvaluableFactory;
+import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.constants.LogicalConstantFactory;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
+import logic.function.factory.construction.FunctionConstructorFromFunctionOrVariable;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
-import logic.function.factory.validation.results.FunctionResult;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 
@@ -39,27 +40,22 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	}
 
 	private static class BinaryStatementConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
+
+		private final FunctionConstructorFromFunctionOrVariable<LogicalConstant<T>, T> constructor;
+
+		private BinaryStatementConstructor() {
+			this.constructor = new FunctionConstructorFromFunctionOrVariable<>(new LogicalConstantFactory<>());
+		}
+
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) throws FactoryException {
-			Evaluable<T> firstFunction;
-			Evaluable<T> secondFunction;
-			ValidationResult firstResult = results.get(1);
-			if (firstResult instanceof StringResult) {
-				firstFunction = LogicalConstantFactory.create(((StringResult) firstResult).getString());
-			} else {
-				firstFunction = (Evaluable<T>) ((FunctionResult) firstResult).getFunction();
-			}
+			Evaluable<T> firstFunction = constructor.construct(results.get(1));
 
 			StringResult connectiveResult = (StringResult) results.get(2);
 			BinaryConnective binaryConnective = BinaryConnectiveFactory.create(connectiveResult.getString());
 
-			ValidationResult secondResult = results.get(3);
-			if (secondResult instanceof StringResult) {
-				secondFunction = LogicalConstantFactory.create(((StringResult) secondResult).getString());
-			} else {
-				secondFunction = (Evaluable<T>) ((FunctionResult) secondResult).getFunction();
-			}
-			return new BinaryStatement<T>(firstFunction, binaryConnective, secondFunction);
+			Evaluable<T> secondFunction = constructor.construct(results.get(3));
+			return new BinaryStatement<>(firstFunction, binaryConnective, secondFunction);
 		}
 	}
 }
