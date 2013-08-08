@@ -9,7 +9,7 @@ import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConstructorFromFunctionOrVariable;
+import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
 import logic.function.factory.validation.results.StringResult;
@@ -41,10 +41,10 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 
 	private static class BinaryStatementConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
 
-		private final FunctionConstructorFromFunctionOrVariable<LogicalConstant<T>, T> constructor;
+		private final FunctionConvertor<LogicalConstant<T>, T> constructor;
 
 		private BinaryStatementConstructor() {
-			this.constructor = new FunctionConstructorFromFunctionOrVariable<>(new LogicalConstantFactory<>());
+			this.constructor = new FunctionConvertor<>(new LogicalConstantFactory<>());
 		}
 
 		@Override

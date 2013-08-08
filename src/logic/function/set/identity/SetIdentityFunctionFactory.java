@@ -2,6 +2,7 @@ package logic.function.set.identity;
 
 import logic.Nameable;
 import logic.function.Function;
+import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
@@ -23,7 +24,7 @@ import static logic.function.set.identity.SetIdentityFunction.SET_IDENTITY_NAME;
 /**
  * @author Steven Weston
  */
-public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionFactory<T> {
+public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionFactory<T> implements ConstructorFromString<SetIdentityFunction<T>> {
 	public SetIdentityFunctionFactory() {
 		super(getConstructors());
 	}
@@ -44,6 +45,12 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
+
+	@Override
+	public SetIdentityFunction<T> construct(String parameterName) {
+		return new SetIdentityFunction<>(parameterName);
+	}
+
 	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
 		@Override
 		public Function<T, Set<T>> construct(List<ValidationResult> results) {

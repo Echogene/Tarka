@@ -5,15 +5,16 @@ import logic.evaluable.predicate.PredicateFactory;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
+import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
+import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.SetFunction;
 import logic.function.set.identity.SetIdentityFunction;
+import logic.function.set.identity.SetIdentityFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,7 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 				SetFunction.class
 		);
 		return Arrays.asList(
-				new ValidatorAndConstructor<Function<T, Boolean>>(
+				new ValidatorAndConstructor<>(
 						validator,
 						new MembershipPredicateConstructor<T>()
 				)
@@ -42,22 +43,19 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 	}
 
 	private static class MembershipPredicateConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
+
+		private final FunctionConvertor<IdentityFunction<T>, T> identityFunctionConstructor;
+		private final FunctionConvertor<SetIdentityFunction<T>, T> setIdentityFunctionConstructor;
+
+		private MembershipPredicateConstructor() {
+			this.identityFunctionConstructor = new FunctionConvertor<>(new IdentityFunctionFactory<>());
+			this.setIdentityFunctionConstructor = new FunctionConvertor<>(new SetIdentityFunctionFactory<>());
+		}
+
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) {
-			ReflexiveFunction<T> firstFunction;
-			SetFunction<T> secondFunction;
-			ValidationResult firstResult = results.get(1);
-			if (firstResult instanceof StringResult) {
-				firstFunction = new IdentityFunction<>(((StringResult) firstResult).getString());
-			} else {
-				firstFunction = (ReflexiveFunction<T>) ((FunctionResult) firstResult).getFunction();
-			}
-			ValidationResult secondResult = results.get(3);
-			if (secondResult instanceof StringResult) {
-				secondFunction = new SetIdentityFunction<>(((StringResult) secondResult).getString());
-			} else {
-				secondFunction = (SetFunction<T>) ((FunctionResult) secondResult).getFunction();
-			}
+			ReflexiveFunction<T> firstFunction = identityFunctionConstructor.construct(results.get(1));
+			SetFunction<T> secondFunction = setIdentityFunctionConstructor.construct(results.get(3));
 			return new MembershipPredicate<>(firstFunction, secondFunction);
 		}
 	}

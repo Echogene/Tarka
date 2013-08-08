@@ -2,6 +2,7 @@ package logic.function.reflexive.identity;
 
 import logic.Nameable;
 import logic.function.Function;
+import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
@@ -22,7 +23,7 @@ import static logic.function.reflexive.identity.IdentityFunction.IDENTITY_NAME;
 /**
  * @author Steven Weston
  */
-public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
+public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> implements ConstructorFromString<IdentityFunction<T>> {
 	public IdentityFunctionFactory() {
 		super(getConstructors());
 	}
@@ -42,6 +43,11 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 				new ConstructorWithId<T>()
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
+	}
+
+	@Override
+	public IdentityFunction<T> construct(String parameterName) {
+		return new IdentityFunction<>(parameterName);
 	}
 
 	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, T>> {

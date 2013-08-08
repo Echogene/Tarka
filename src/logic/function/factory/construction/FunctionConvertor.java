@@ -10,11 +10,11 @@ import logic.function.factory.validation.results.ValidationResult;
 /**
  * @author Steven Weston
  */
-public class FunctionConstructorFromFunctionOrVariable<F extends Function<T, ?>, T extends Nameable> {
+public class FunctionConvertor<F extends Function<T, ?>, T extends Nameable> {
 
 	private final ConstructorFromString<F> constructor;
 
-	public FunctionConstructorFromFunctionOrVariable(ConstructorFromString<F> constructor) {
+	public FunctionConvertor(ConstructorFromString<F> constructor) {
 		this.constructor = constructor;
 	}
 
