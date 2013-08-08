@@ -34,14 +34,14 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		validatorWithoutId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
-				new ConstructorWithoutId<T>()
+				new ConstructorWithoutId<T>(1)
 		);
 		Validator validatorWithId = new Validator();
 		validatorWithId.addValidator(new WordAtom(SET_IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
-				new ConstructorWithId<T>()
+				new ConstructorWithoutId<T>(2)
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
@@ -52,23 +52,16 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 	}
 
 	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
-		@Override
-		public Function<T, Set<T>> construct(List<ValidationResult> results) {
-			ValidationResult validationResult = results.get(1);
-			if (validationResult instanceof StringResult) {
-				StringResult result = (StringResult) validationResult;
-				return new SetIdentityFunction<>(result.getString());
-			} else {
-				FunctionResult result = (FunctionResult) validationResult;
-				return new SetIdentityFunction<>((SetFunction<T>) result.getFunction());
-			}
-		}
-	}
 
-	private static class ConstructorWithId<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
+		private final int resultIndex;
+
+		public ConstructorWithoutId(int resultIndex) {
+			this.resultIndex = resultIndex;
+		}
+
 		@Override
 		public Function<T, Set<T>> construct(List<ValidationResult> results) {
-			ValidationResult validationResult = results.get(2);
+			ValidationResult validationResult = results.get(resultIndex);
 			if (validationResult instanceof StringResult) {
 				StringResult result = (StringResult) validationResult;
 				return new SetIdentityFunction<>(result.getString());
