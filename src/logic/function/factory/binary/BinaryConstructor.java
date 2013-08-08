@@ -2,7 +2,7 @@ package logic.function.factory.binary;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.ReflexiveFunctionConstructorFromString;
+import logic.function.factory.ConstructorFromString;
 import logic.function.factory.ValidationResult;
 import reading.lexing.Token;
 
@@ -16,13 +16,13 @@ import static logic.function.factory.ValidationResult.ValidationType.TOKEN;
  */
 public class BinaryConstructor<F extends Function<?, ?>, P extends Function<?, ?>, Q extends Function<?, ?>> {
 	private FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor;
-	private ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1;
-	private ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2;
+	private ConstructorFromString<? extends P> parameterConstructor1;
+	private ConstructorFromString<? extends Q> parameterConstructor2;
 
 	public BinaryConstructor(
 			FunctionConstructorFromTwoParameters<F, P, Q> functionConstructor,
-			ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor1,
-			ReflexiveFunctionConstructorFromString<? extends Q> parameterConstructor2
+			ConstructorFromString<? extends P> parameterConstructor1,
+			ConstructorFromString<? extends Q> parameterConstructor2
 	) {
 		this.functionConstructor   = functionConstructor;
 		this.parameterConstructor1 = parameterConstructor1;

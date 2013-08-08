@@ -2,7 +2,7 @@ package logic.function.factory.multary;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
-import logic.function.factory.ReflexiveFunctionConstructorFromString;
+import logic.function.factory.ConstructorFromString;
 import logic.function.factory.ValidationResult;
 import reading.lexing.Token;
 
@@ -18,11 +18,11 @@ import static util.CollectionUtils.safeGet;
  */
 public class MultaryConstructor<F extends Function<?, ?>, P extends Function<?, ?>> {
 	private FunctionConstructorFromParameterList<F, P> functionConstructor;
-	private ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor;
+	private ConstructorFromString<? extends P> parameterConstructor;
 	private int startIndex;
 
 	public MultaryConstructor(FunctionConstructorFromParameterList<F, P> functionConstructor,
-	                          ReflexiveFunctionConstructorFromString<? extends P> parameterConstructor) {
+	                          ConstructorFromString<? extends P> parameterConstructor) {
 		this.functionConstructor  = functionConstructor;
 		this.parameterConstructor = parameterConstructor;
 		startIndex = 1;

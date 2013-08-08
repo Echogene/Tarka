@@ -3,6 +3,6 @@ package logic.function.factory;
 /**
  * @author Steven Weston
  */
-public interface ReflexiveFunctionConstructorFromString<F> {
+public interface ConstructorFromString<F> {
 	F construct(String parameterName);
 }
