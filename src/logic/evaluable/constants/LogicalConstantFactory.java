@@ -22,8 +22,13 @@ import static logic.function.factory.validation.GroupValidatorWithNumber.Number.
  * @author Steven Weston
  */
 public class LogicalConstantFactory<T extends Nameable> extends EvaluableFactory<T> {
+
 	public LogicalConstantFactory() {
 		super(getConstructors());
+	}
+
+	public static <T extends Nameable> LogicalConstant<T> create(String string) {
+		return new LogicalConstant<>(TAUTOLOGY_SYMBOL.equals(string));
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Boolean>>> getConstructors() {
@@ -41,7 +46,7 @@ public class LogicalConstantFactory<T extends Nameable> extends EvaluableFactory
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) {
 			StringResult result = (StringResult) results.get(1);
-			return new LogicalConstant<>(TAUTOLOGY_SYMBOL.equals(result.getString()));
+			return LogicalConstantFactory.create(result.getString());
 		}
 	}
 }

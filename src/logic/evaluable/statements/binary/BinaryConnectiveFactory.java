@@ -15,6 +15,10 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPER
 public class BinaryConnectiveFactory implements ConnectiveFactory<BinaryConnective> {
 	@Override
 	public BinaryConnective createElement(String string) throws FactoryException {
+		return BinaryConnectiveFactory.create(string);
+	}
+
+	public static BinaryConnective create(String string) throws FactoryException {
 		switch (string) {
 			case OR_SYMBOL:
 				return new BinaryConnective(BinaryConnectiveType.OR);

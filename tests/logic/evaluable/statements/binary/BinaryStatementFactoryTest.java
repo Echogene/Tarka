@@ -27,14 +27,6 @@ public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFacto
 		setUpTokens("{()∨()}");
 		setUpFunctions("(x=y)", "(y=z)");
 		expectFactoryException();
-
-		setUpTokens("({}∨())");
-		setUpFunctions("(x=y)", "(y=z)");
-		expectFactoryException();
-
-		setUpTokens("(()∨{})");
-		setUpFunctions("(x=y)", "(y=z)");
-		expectFactoryException();
 	}
 
 	@Test
