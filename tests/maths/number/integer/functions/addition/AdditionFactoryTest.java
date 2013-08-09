@@ -32,14 +32,6 @@ public class AdditionFactoryTest extends FactoryTest<AdditionFactory<Integer>> {
 		setUpTokens("{2 + 3}");
 		setUpFunctions("", "");
 		expectFactoryException();
-
-		setUpTokens("({} + 3)");
-		setUpFunctions("(2)", "");
-		expectFactoryException();
-
-		setUpTokens("(2 + {})");
-		setUpFunctions("", "(3)");
-		expectFactoryException();
 	}
 
 	@Test
@@ -71,7 +63,7 @@ public class AdditionFactoryTest extends FactoryTest<AdditionFactory<Integer>> {
 		Addition<Integer> expected = new Addition<>(parameters, summor);
 
 		setUpTokens("(Σ 2 3 4)");
-		setUpFunctions("", "", "");
+		setUpFunctions();
 		Addition<Integer> actual = (Addition<Integer>) factory.createElement(tokens, functions);
 
 		assertEquals(expected, actual);

@@ -55,7 +55,7 @@ public class TokenGroup {
 
 	@Override
 	public String toString() {
-		return group.toString();
+		return representsFunction() ? group.toString() : group.get(0).toString();
 	}
 
 	public String getValue() {

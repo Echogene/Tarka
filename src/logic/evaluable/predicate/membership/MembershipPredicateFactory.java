@@ -48,8 +48,8 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 		private final FunctionConvertor<SetIdentityFunction<T>, T> setIdentityFunctionConstructor;
 
 		private MembershipPredicateConstructor() {
-			this.identityFunctionConstructor = new FunctionConvertor<>(new IdentityFunctionFactory<>());
-			this.setIdentityFunctionConstructor = new FunctionConvertor<>(new SetIdentityFunctionFactory<>());
+			this.identityFunctionConstructor = new FunctionConvertor<>(new IdentityFunctionFactory<T>());
+			this.setIdentityFunctionConstructor = new FunctionConvertor<>(new SetIdentityFunctionFactory<T>());
 		}
 
 		@Override

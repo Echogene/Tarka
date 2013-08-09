@@ -5,13 +5,13 @@ import logic.evaluable.predicate.PredicateFactory;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
+import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
+import logic.function.reflexive.identity.IdentityFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,22 +50,17 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	private static class EqualityPredicateConstructor<T extends Nameable> implements Constructor<Function<T, Boolean>> {
+
+		private final FunctionConvertor<IdentityFunction<T>, T> convertor;
+
+		private EqualityPredicateConstructor() {
+			this.convertor = new FunctionConvertor<>(new IdentityFunctionFactory<T>());
+		}
+
 		@Override
 		public Function<T, Boolean> construct(List<ValidationResult> results) {
-			ReflexiveFunction<T> firstFunction;
-			ReflexiveFunction<T> secondFunction;
-			ValidationResult firstResult = results.get(1);
-			if (firstResult instanceof StringResult) {
-				firstFunction = new IdentityFunction<>(((StringResult) firstResult).getString());
-			} else {
-				firstFunction = (ReflexiveFunction<T>) ((FunctionResult) firstResult).getFunction();
-			}
-			ValidationResult secondResult = results.get(3);
-			if (secondResult instanceof StringResult) {
-				secondFunction = new IdentityFunction<>(((StringResult) secondResult).getString());
-			} else {
-				secondFunction = (ReflexiveFunction<T>) ((FunctionResult) secondResult).getFunction();
-			}
+			ReflexiveFunction<T> firstFunction = convertor.convert(results.get(1));
+			ReflexiveFunction<T> secondFunction = convertor.convert(results.get(3));
 			return new EqualityPredicate<>(firstFunction, secondFunction);
 		}
 	}
