@@ -30,10 +30,6 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 		setUpTokens("{∀x∊X()}");
 		setUpFunctions("", "", "(x=y)");
 		expectFactoryException();
-
-		setUpTokens("(∀x∊X{})");
-		setUpFunctions("", "", "(x=y)");
-		expectFactoryException();
 	}
 
 	@Test
@@ -51,7 +47,7 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 				(Evaluable<TestClass>) evaluable1
 		);
 		setUpTokens("(∀x∊X())");
-		setUpFunctions("", "", "(x=y)");
+		setUpFunctions("(x=y)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -63,8 +59,8 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 				(Evaluable<TestClass>) evaluable1
 		);
 		setUpTokens("(∀x∊()())");
-		setUpFunctions("", "", "(x=y)");
-		functions.set(1, UnionFactory.<TestClass>createElement("X", "Y"));
+		setUpFunctions("", "(x=y)");
+		functions.set(0, UnionFactory.<TestClass>createElement("X", "Y"));
 		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
