@@ -21,7 +21,7 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 	@Test
 	public void testCurlyBracketsThrowException() throws Exception {
 		setUpTokens("{x where x is y}");
-		setUpFunctions("", "", "", "", "");
+		setUpFunctions();
 		expectFactoryException();
 	}
 
@@ -34,7 +34,7 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 		);
 
 		setUpTokens("(x where x is y)");
-		setUpFunctions("", "", "", "", "");
+		setUpFunctions();
 		ReflexiveAssignment<TestClass> actual = (ReflexiveAssignment<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
