@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static maths.number.integer.functions.addition.Addition.PLUS_SYMBOL;
+import static maths.number.integer.functions.subtraction.Subtraction.MINUS;
 
 /**
  * @author Steven Weston
@@ -30,7 +30,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	}
 
 	private static <N extends Number> List<ValidatorAndConstructor<Function<N, N>>> getConstructors(Subtractor<N> subtractor) {
-		Validator binaryValidator = new BinaryValidator(asList(PLUS_SYMBOL));
+		Validator binaryValidator = new BinaryValidator(asList(MINUS));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						binaryValidator,

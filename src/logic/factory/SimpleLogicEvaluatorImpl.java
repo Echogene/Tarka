@@ -11,7 +11,6 @@ import reading.parsing.ParseTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
@@ -35,8 +34,6 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 		for (ParseTreeNode n : nodes) {
 			if (n.getToken().isOfType(OPEN_BRACKET)) {
 				functions.add(evaluate(n.getChildren()));
-			} else if (n.getToken().isOfType(NAME)) {
-				functions.add(null);
 			}
 		}
 		List<Token> tokens = extractTokens(nodes);
