@@ -19,7 +19,7 @@ public class SimpleSetFactoryTest extends FactoryTest<SimpleSetFactory<Integer>>
 	@Test
 	public void testParenthesesThrowException() throws Exception {
 		setUpTokens("(1 2)");
-		setUpFunctions("", "");
+		setUpFunctions();
 		expectFactoryException();
 	}
 
@@ -31,7 +31,7 @@ public class SimpleSetFactoryTest extends FactoryTest<SimpleSetFactory<Integer>>
 		expected = createElement("1", "2");
 
 		setUpTokens("{1 2}");
-		setUpFunctions("", "");
+		setUpFunctions();
 		actual = (SimpleSet<Integer>) factory.createElement(tokens, functions);
 
 		assertEquals(expected, actual);

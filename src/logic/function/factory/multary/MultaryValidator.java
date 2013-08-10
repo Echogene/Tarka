@@ -17,7 +17,9 @@ import static logic.function.factory.validation.GroupValidatorWithNumber.Number.
 public class MultaryValidator extends Validator {
 	public MultaryValidator(List<String> acceptedOpeningBrackets, List<String> acceptedOperatorSymbols, Class parameterClass, List<String> acceptedClosingBrackets) {
 		super(acceptedOpeningBrackets, acceptedClosingBrackets);
-		addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+		if (acceptedOperatorSymbols != null) {
+			addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+		}
 		addValidator(new FunctionOrVariableValidator(parameterClass), MANY);
 	}
 
