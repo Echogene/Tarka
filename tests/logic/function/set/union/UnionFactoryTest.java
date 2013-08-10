@@ -35,7 +35,7 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 
 		expected = UnionFactory.createElement("X", "Y");
 		setUpTokens("(X ∪ Y)");
-		setUpFunctions(null, null);
+		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -54,12 +54,12 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 		assertEquals(expected, actual);
 
 		setUpTokens("(() ∪ Y)");
-		setUpFunctions("(Id X)", null);
+		setUpFunctions("(Id X)");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(X ∪ ())");
-		setUpFunctions(null, "(Id Y)");
+		setUpFunctions("(Id Y)");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -69,18 +69,18 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ X Y)");
-		setUpFunctions(null, null);
+		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ Y X)");
-		setUpFunctions(null, null);
+		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		expected = UnionFactory.createElement("X", "Y", "Z");
 		setUpTokens("(⋃ X Y Z)");
-		setUpFunctions(null, null, null);
+		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
@@ -90,7 +90,7 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ X () ())");
-		setUpFunctions(null, "(Id Y)", "(Id Z)");
+		setUpFunctions("(Id Y)", "(Id Z)");
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
