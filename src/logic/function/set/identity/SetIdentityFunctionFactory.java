@@ -3,7 +3,6 @@ package logic.function.set.identity;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.ConstructorFromString;
-import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
 import logic.function.factory.validation.WordAtom;
@@ -34,14 +33,14 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		validatorWithoutId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
-				new ConstructorWithoutId<T>(1)
+				new Constructor<T>(1)
 		);
 		Validator validatorWithId = new Validator();
 		validatorWithId.addValidator(new WordAtom(SET_IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
-				new ConstructorWithoutId<T>(2)
+				new Constructor<T>(2)
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
@@ -51,11 +50,11 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		return new SetIdentityFunction<>(parameterName);
 	}
 
-	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
+	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<Function<T, Set<T>>> {
 
 		private final int resultIndex;
 
-		public ConstructorWithoutId(int resultIndex) {
+		public Constructor(int resultIndex) {
 			this.resultIndex = resultIndex;
 		}
 

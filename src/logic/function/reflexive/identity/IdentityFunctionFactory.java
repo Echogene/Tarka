@@ -3,7 +3,6 @@ package logic.function.reflexive.identity;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.ConstructorFromString;
-import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
 import logic.function.factory.validation.WordAtom;
@@ -33,14 +32,14 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 		validatorWithoutId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
-				new ConstructorWithoutId<T>()
+				new Constructor<T>(1)
 		);
 		Validator validatorWithId = new Validator();
 		validatorWithId.addValidator(new WordAtom(IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
 		ValidatorAndConstructor<Function<T, T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
-				new ConstructorWithId<T>()
+				new Constructor<T>(2)
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
@@ -50,24 +49,17 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 		return new IdentityFunction<>(parameterName);
 	}
 
-	private static class ConstructorWithoutId<T extends Nameable> implements Constructor<Function<T, T>> {
-		@Override
-		public Function<T, T> construct(List<ValidationResult> results) {
-			ValidationResult validationResult = results.get(1);
-			if (validationResult instanceof StringResult) {
-				StringResult result = (StringResult) validationResult;
-				return new IdentityFunction<>(result.getString());
-			} else {
-				FunctionResult result = (FunctionResult) validationResult;
-				return new IdentityFunction<>((ReflexiveFunction<T>) result.getFunction());
-			}
-		}
-	}
+	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<Function<T, T>> {
 
-	private static class ConstructorWithId<T extends Nameable> implements Constructor<Function<T, T>> {
+		private final int resultIndex;
+
+		private Constructor(int resultIndex) {
+			this.resultIndex = resultIndex;
+		}
+
 		@Override
 		public Function<T, T> construct(List<ValidationResult> results) {
-			ValidationResult validationResult = results.get(2);
+			ValidationResult validationResult = results.get(resultIndex);
 			if (validationResult instanceof StringResult) {
 				StringResult result = (StringResult) validationResult;
 				return new IdentityFunction<>(result.getString());
