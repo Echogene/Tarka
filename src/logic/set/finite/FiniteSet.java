@@ -74,7 +74,6 @@ public class FiniteSet<T extends Nameable> extends NamedSet<T> implements Modifi
 		return new FiniteSet<>(this, name);
 	}
 
-	@Override
 	public int size() {
 		return hashMap.size();
 	}

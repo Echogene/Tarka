@@ -35,10 +35,5 @@ public interface Set<T> extends Iterable<T>, Nameable {
 	 */
 	Set<T> copy(String name);
 
-	/**
-	 * @return The number of elements contained in this {@code Set}.
-	 */
-	int size();
-
 	void setName(String name);
 }

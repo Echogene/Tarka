@@ -7,6 +7,8 @@ import maths.number.integer.model.universe.IntegerSet;
 import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;
 
+import java.util.HashSet;
+
 import static org.junit.Assert.*;
 
 /**
@@ -23,11 +25,11 @@ public class UniterTest {
 		B.put(new TestClass("y"));
 		B.put(new TestClass("z"));
 
-		FiniteSet<FiniteSet<TestClass>> sets = new FiniteSet<>("sets");
-		sets.put(A);
-		sets.put(B);
+		java.util.Set<FiniteSet<TestClass>> sets = new HashSet<>();
+		sets.add(A);
+		sets.add(B);
 
-		Set<TestClass> union = Uniter.unite(sets);
+		FiniteSet<TestClass> union = (FiniteSet<TestClass>) Uniter.unite(sets);
 		assertEquals("Expect union's size to be 3", union.size(), 3);
 		assertTrue("Expect union's name to be A ∪ B or B ∪ A",
 				"A ∪ B".equals(union.getName()) || "B ∪ A".equals(union.getName()));
@@ -47,9 +49,9 @@ public class UniterTest {
 		assertFalse(ℙ.contains("1"));
 		assertTrue(ℙ.contains("2"));
 
-		FiniteSet<Set<Integer>> sets = new FiniteSet<>("sets");
-		sets.put(X);
-		sets.put(ℙ);
+		java.util.Set<Set<Integer>> sets = new HashSet<>();
+		sets.add(X);
+		sets.add(ℙ);
 
 		Set<Integer> union = Uniter.unite(sets);
 
@@ -67,9 +69,9 @@ public class UniterTest {
 		assertFalse(ℙ.contains("1"));
 		assertTrue(ℙ.contains("2"));
 
-		FiniteSet<Set<Integer>> sets = new FiniteSet<>("sets");
-		sets.put(ℤ);
-		sets.put(ℙ);
+		java.util.Set<Set<Integer>> sets = new HashSet<>();
+		sets.add(ℤ);
+		sets.add(ℙ);
 
 		Set<Integer> union = Uniter.unite(sets);
 

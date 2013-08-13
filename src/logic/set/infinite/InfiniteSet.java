@@ -20,11 +20,6 @@ public abstract class InfiniteSet<T extends Nameable> extends NamedSet<T> {
 	}
 
 	@Override
-	public int size() {
-		throw new InfiniteSetException("Size is infinite.");
-	}
-
-	@Override
 	public Collection<T> values() {
 		throw new InfiniteSetException("Cannot get a finite set of values.");
 	}
