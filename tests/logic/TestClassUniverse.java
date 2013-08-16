@@ -3,7 +3,10 @@ package logic;
 import logic.model.universe.AbstractUniverse;
 import logic.set.ModifiableSet;
 import logic.set.Set;
+import logic.set.Uniter;
 import logic.set.finite.FiniteSet;
+
+import java.util.LinkedHashSet;
 
 /**
  * @author Steven Weston
@@ -14,8 +17,6 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	protected ModifiableSet<Set<TestClass>> universalSetOfSets;
 
 	protected ModifiableSet<TestClass> variableSet;
-
-	protected Set<TestClass> valueSet;
 
 	@Override
 	public ModifiableSet<TestClass> getUniversalSet() {
@@ -34,9 +35,10 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 
 	@Override
 	public Set<TestClass> getValueSet() {
-		valueSet = universalSet.copy("values");
-		valueSet.uniteWith(variableSet);
-		return valueSet;
+		java.util.Set<Set<TestClass>> unitees = new LinkedHashSet<>();
+		unitees.add(universalSet);
+		unitees.add(variableSet);
+		return Uniter.unite(unitees);
 	}
 
 	public TestClassUniverse() {

@@ -2,8 +2,6 @@ package logic.set;
 
 import logic.Nameable;
 
-import java.util.Collection;
-
 /**
  * @author Steven Weston
  */
@@ -18,22 +16,8 @@ public interface Set<T> extends Iterable<T>, Nameable {
 	boolean containsValue(T thing);
 
 	/**
-	 * @return The values of this {@code Set} as a {@code Collection}.
-	 */
-	Collection<T> values();
-
-	/**
 	 * Adds all elements of another {@code Set} to this {@code Set}.
 	 * @param s The {@code Set} to unite with this.
 	 */
 	void uniteWith(Set<T> s);
-
-	/**
-	 * Copies this {@code Set} and gives it a new name.
-	 * @param name the name to give the new {@code Set}.
-	 * @return A copy of this with a new name.
-	 */
-	Set<T> copy(String name);
-
-	void setName(String name);
 }

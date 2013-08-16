@@ -37,11 +37,6 @@ public class IntegerSet extends InfiniteSet<Integer> {
 		throw new NotImplementedException();
 	}
 
-	@Override
-	public Set<Integer> copy(String name) {
-		throw new NotImplementedException();
-	}
-
 	private boolean stringIsNumber(String string) {
 		return string.matches("\\-?[\\d]+");
 	}

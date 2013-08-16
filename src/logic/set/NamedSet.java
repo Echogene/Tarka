@@ -14,11 +14,6 @@ public abstract class NamedSet<T extends Nameable> implements Set<T> {
 	}
 
 	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
 	public String toString() {
 		return name;
 	}

@@ -5,7 +5,6 @@ import logic.set.ModifiableSet;
 import logic.set.NamedSet;
 import logic.set.Set;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -56,22 +55,12 @@ public class FiniteSet<T extends Nameable> extends NamedSet<T> implements Modifi
 	}
 
 	@Override
-	public Collection<T> values() {
-		return hashMap.values();
-	}
-
-	@Override
 	public void uniteWith(Set<T> s) {
 		if (!(s instanceof FiniteSet<?>)) {
 			throw new IllegalArgumentException("Can only unite with FiniteSet");
 		}
 		FiniteSet<T> other = (FiniteSet<T>) s;
 		hashMap.putAll(other.hashMap);
-	}
-
-	@Override
-	public Set<T> copy(String name) {
-		return new FiniteSet<>(this, name);
 	}
 
 	public int size() {

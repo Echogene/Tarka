@@ -3,7 +3,6 @@ package logic.set.infinite;
 import logic.Nameable;
 import logic.set.NamedSet;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -19,8 +18,4 @@ public abstract class InfiniteSet<T extends Nameable> extends NamedSet<T> {
 		throw new InfiniteSetException("Cannot iterate over infinite set.");
 	}
 
-	@Override
-	public Collection<T> values() {
-		throw new InfiniteSetException("Cannot get a finite set of values.");
-	}
 }

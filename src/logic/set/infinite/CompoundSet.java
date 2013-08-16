@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.set.AmbiguousMemberException;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -88,8 +87,4 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 		}
 	}
 
-	@Override
-	public Set<T> copy(String name) {
-		throw new NotImplementedException();
-	}
 }
