@@ -1,7 +1,7 @@
 package logic.set;
 
 import logic.TestClass;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerSet;
 import maths.number.integer.model.universe.PrimeNumberSet;
@@ -17,19 +17,19 @@ import static org.junit.Assert.*;
 public class UniterTest {
 	@Test
 	public void testUnion() throws Exception {
-		FiniteSet<TestClass> A = new FiniteSet<>("A");
+		StandardSet<TestClass> A = new StandardSet<>("A");
 		A.put(new TestClass("x"));
 		A.put(new TestClass("y"));
 
-		FiniteSet<TestClass> B = new FiniteSet<>("B");
+		StandardSet<TestClass> B = new StandardSet<>("B");
 		B.put(new TestClass("y"));
 		B.put(new TestClass("z"));
 
-		java.util.Set<FiniteSet<TestClass>> sets = new HashSet<>();
+		java.util.Set<StandardSet<TestClass>> sets = new HashSet<>();
 		sets.add(A);
 		sets.add(B);
 
-		FiniteSet<TestClass> union = (FiniteSet<TestClass>) Uniter.unite(sets);
+		StandardSet<TestClass> union = (StandardSet<TestClass>) Uniter.unite(sets);
 		assertEquals("Expect union's size to be 3", union.size(), 3);
 		assertTrue("Expect union's name to be A ∪ B or B ∪ A",
 				"A ∪ B".equals(union.getName()) || "B ∪ A".equals(union.getName()));
@@ -40,7 +40,7 @@ public class UniterTest {
 
 	@Test
 	public void testUnionWithInfiniteSet() throws Exception {
-		ModifiableSet<Integer> X = new FiniteSet<>("X");
+		ModifiableSet<Integer> X = new StandardSet<>("X");
 		X.put(new maths.number.integer.Integer(1));
 		assertTrue(X.contains("1"));
 		assertFalse(X.contains("2"));

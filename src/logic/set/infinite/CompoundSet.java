@@ -3,7 +3,7 @@ package logic.set.infinite;
 import logic.Nameable;
 import logic.set.AmbiguousMemberException;
 import logic.set.Set;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,18 +13,18 @@ import java.util.HashSet;
  */
 public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 
-	private FiniteSet<T> finitePart;
+	private StandardSet<T> finitePart;
 	private java.util.Set<InfiniteSet<T>> infinitePart;
 
 	public CompoundSet(String name) {
-		this(name, new FiniteSet<>(null), new HashSet<>());
+		this(name, new StandardSet<>(null), new HashSet<>());
 	}
 
-	public CompoundSet(String name, FiniteSet<T> finitePart, InfiniteSet<T> infiniteSet) {
+	public CompoundSet(String name, StandardSet<T> finitePart, InfiniteSet<T> infiniteSet) {
 		this(name, finitePart, Collections.singleton(infiniteSet));
 	}
 
-	public CompoundSet(String name, FiniteSet<T> finitePart, java.util.Set<InfiniteSet<T>> infinitePart) {
+	public CompoundSet(String name, StandardSet<T> finitePart, java.util.Set<InfiniteSet<T>> infinitePart) {
 		super(name);
 		this.finitePart = finitePart;
 		this.infinitePart = infinitePart;
@@ -80,7 +80,7 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 
 	@Override
 	public void uniteWith(Set<T> s) {
-		if (s instanceof FiniteSet<?>) {
+		if (s instanceof StandardSet<?>) {
 			finitePart.uniteWith(s);
 		} else if (s instanceof InfiniteSet<?>) {
 			infinitePart.add((InfiniteSet<T>) s);

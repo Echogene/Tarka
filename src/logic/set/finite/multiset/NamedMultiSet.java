@@ -1,12 +1,12 @@
 package logic.set.finite.multiset;
 
 import logic.Nameable;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 
 /**
  * @author Steven Weston
  */
-public class NamedMultiSet<T extends Nameable> extends FiniteSet<MultiSetEntry<T>> {
+public class NamedMultiSet<T extends Nameable> extends StandardSet<MultiSetEntry<T>> {
 	public NamedMultiSet(String name) {
 		super(name);
 	}

@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.model.universe.Universe;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.unary.UnaryConnective.UnaryConnectiveType.EMPTY;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class UnaryStatementTest {
 
-	public static final FiniteSet<TestClass> EMPTY_SET = new FiniteSet<>("∅");
+	public static final StandardSet<TestClass> EMPTY_SET = new StandardSet<>("∅");
 	public static final LogicalConstant<TestClass> TAUTOLOGY = new LogicalConstant<>(true);
 	public static final LogicalConstant<TestClass> CONTRADICTION = new LogicalConstant<>(false);
 
@@ -33,7 +33,7 @@ public class UnaryStatementTest {
 		testAllTheThings(TAUTOLOGY, CONTRADICTION, universe);
 
 		MembershipPredicate<TestClass> membershipPredicate = new MembershipPredicate<>("x", "set");
-		FiniteSet<TestClass> set = new FiniteSet<>("set");
+		StandardSet<TestClass> set = new StandardSet<>("set");
 		universe.getUniversalSetOfSets().put(set);
 		TestClass x = new TestClass("x");
 		universe.getUniversalSet().put(x);

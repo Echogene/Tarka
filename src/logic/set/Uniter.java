@@ -2,7 +2,7 @@ package logic.set;
 
 import logic.Nameable;
 import logic.function.set.union.Union;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import logic.set.infinite.CompoundSet;
 import logic.set.infinite.InfiniteSet;
 
@@ -24,7 +24,7 @@ public class Uniter {
 		if (infinite) {
 			output = new CompoundSet<>(getNameForUnion(sets));
 		} else {
-			output = new FiniteSet<>(getNameForUnion(sets));
+			output = new StandardSet<>(getNameForUnion(sets));
 		}
 		for (Set<T> set : sets) {
 			output.uniteWith(set);

@@ -6,7 +6,7 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.model.universe.Universe;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import org.junit.Test;
 
 import static logic.evaluable.statements.binary.BinaryConnective.BinaryConnectiveType.*;
@@ -27,7 +27,7 @@ public class BinaryStatementTest {
 		testAllTheThings(TAUTOLOGY, CONTRADICTION, universe);
 
 		MembershipPredicate<TestClass> membershipPredicate = new MembershipPredicate<>("x", "set");
-		FiniteSet<TestClass> set = new FiniteSet<>("set");
+		StandardSet<TestClass> set = new StandardSet<>("set");
 		universe.getUniversalSetOfSets().put(set);
 		TestClass x = new TestClass("x");
 		universe.getUniversalSet().put(x);

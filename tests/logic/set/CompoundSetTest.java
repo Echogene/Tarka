@@ -1,6 +1,6 @@
 package logic.set;
 
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import logic.set.infinite.CompoundSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.PrimeNumberSet;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class CompoundSetTest {
 	@Test
 	public void testContains() throws Exception {
-		FiniteSet<Integer> X = new FiniteSet<>("X");
+		StandardSet<Integer> X = new StandardSet<>("X");
 		X.put(new Integer(1));
 		assertTrue(X.contains("1"));
 		assertFalse(X.contains("2"));

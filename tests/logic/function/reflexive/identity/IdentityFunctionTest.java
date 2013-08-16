@@ -2,7 +2,7 @@ package logic.function.reflexive.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class IdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
-		FiniteSet<TestClass> variables = new FiniteSet<>("variables");
+		StandardSet<TestClass> variables = new StandardSet<>("variables");
 		TestClass x = new TestClass("x");
 		variables.put(x);
 

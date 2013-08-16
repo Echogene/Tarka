@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.evaluable.predicate.equality.EqualityPredicate;
 import logic.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -26,7 +26,7 @@ public class EqualityPredicateTest {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 
-		FiniteSet<TestClass> variables = new FiniteSet<>("variables");
+		StandardSet<TestClass> variables = new StandardSet<>("variables");
 		variables.put(x);
 		variables.put(y);
 
@@ -42,14 +42,14 @@ public class EqualityPredicateTest {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
-		FiniteSet<TestClass> variables;
+		StandardSet<TestClass> variables;
 
 		TestClassUniverse universe = new TestClassUniverse();
-		variables = new FiniteSet<>("variables");
+		variables = new StandardSet<>("variables");
 		variables.put("y", x);
 		universe.setVariables(variables);
 
-		FiniteSet<TestClass> universalSet = new FiniteSet<>("universalSet");
+		StandardSet<TestClass> universalSet = new StandardSet<>("universalSet");
 		universalSet.put(x);
 		universalSet.put(y);
 		universe.setUniversalSet(universalSet);
@@ -63,7 +63,7 @@ public class EqualityPredicateTest {
 
 		TestClassUniverse universe = new TestClassUniverse();
 
-		FiniteSet<TestClass> universalSet = new FiniteSet<>("universalSet");
+		StandardSet<TestClass> universalSet = new StandardSet<>("universalSet");
 		universalSet.put(x);
 		universalSet.put("y", x);
 		universe.setUniversalSet(universalSet);

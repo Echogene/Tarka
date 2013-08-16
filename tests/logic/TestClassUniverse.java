@@ -4,7 +4,7 @@ import logic.model.universe.AbstractUniverse;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.Uniter;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 
 import java.util.LinkedHashSet;
 
@@ -42,17 +42,17 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	}
 
 	public TestClassUniverse() {
-		variableSet        = new FiniteSet<>("variables");
-		universalSet       = new FiniteSet<>("universalSet");
-		universalSetOfSets = new FiniteSet<>("universalSetOfSets");
+		variableSet        = new StandardSet<>("variables");
+		universalSet       = new StandardSet<>("universalSet");
+		universalSetOfSets = new StandardSet<>("universalSetOfSets");
 		universalSetOfSets.put(universalSet);
 	}
 
-	public void setVariables(FiniteSet<TestClass> variables) {
+	public void setVariables(StandardSet<TestClass> variables) {
 		this.variableSet = variables;
 	}
 
-	public void setUniverse(FiniteSet<TestClass> universe) {
+	public void setUniverse(StandardSet<TestClass> universe) {
 		this.universalSet = universe;
 	}
 

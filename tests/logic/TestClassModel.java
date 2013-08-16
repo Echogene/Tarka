@@ -1,7 +1,7 @@
 package logic;
 
 import logic.model.AbstractModelImpl;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 
 /**
  * @author Steven Weston
@@ -9,7 +9,7 @@ import logic.set.finite.FiniteSet;
 public class TestClassModel extends AbstractModelImpl<TestClass> {
 	public TestClassModel() {
 		this.universe   = new TestClassUniverse();
-		this.functions  = new FiniteSet<>("functions");
-		this.evaluables = new FiniteSet<>("evaluables");
+		this.functions  = new StandardSet<>("functions");
+		this.evaluables = new StandardSet<>("evaluables");
 	}
 }

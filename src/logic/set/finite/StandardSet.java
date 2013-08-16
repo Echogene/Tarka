@@ -11,16 +11,16 @@ import java.util.Iterator;
 /**
  * @author Steven Weston
  */
-public class FiniteSet<T extends Nameable> extends NamedSet<T> implements ModifiableSet<T> {
+public class StandardSet<T extends Nameable> extends NamedSet<T> implements ModifiableSet<T> {
 
 	protected HashMap<String, T> hashMap;
 
-	public FiniteSet(String name) {
+	public StandardSet(String name) {
 		super(name);
 		this.hashMap = new HashMap<>();
 	}
 
-	public FiniteSet(FiniteSet<T> toCopy, String name) {
+	public StandardSet(StandardSet<T> toCopy, String name) {
 		super(name);
 		this.hashMap = new HashMap<>(toCopy.hashMap);
 	}
@@ -56,10 +56,10 @@ public class FiniteSet<T extends Nameable> extends NamedSet<T> implements Modifi
 
 	@Override
 	public void uniteWith(Set<T> s) {
-		if (!(s instanceof FiniteSet<?>)) {
-			throw new IllegalArgumentException("Can only unite with FiniteSet");
+		if (!(s instanceof StandardSet<?>)) {
+			throw new IllegalArgumentException("Can only unite with StandardSet");
 		}
-		FiniteSet<T> other = (FiniteSet<T>) s;
+		StandardSet<T> other = (StandardSet<T>) s;
 		hashMap.putAll(other.hashMap);
 	}
 
@@ -79,10 +79,10 @@ public class FiniteSet<T extends Nameable> extends NamedSet<T> implements Modifi
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof FiniteSet<?>)) {
+		if (!(o instanceof StandardSet<?>)) {
 			return false;
 		}
-		FiniteSet other = (FiniteSet) o;
+		StandardSet other = (StandardSet) o;
 		return getName().equals(other.getName()) && hashMap.equals(other.hashMap);
 	}
 

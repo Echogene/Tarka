@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.set.ModifiableSet;
 import logic.set.Set;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -17,15 +17,15 @@ public class UnionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		ModifiableSet<Set<TestClass>> sets = new FiniteSet<>("sets");
+		ModifiableSet<Set<TestClass>> sets = new StandardSet<>("sets");
 
-		ModifiableSet<TestClass> A = new FiniteSet<>("A");
+		ModifiableSet<TestClass> A = new StandardSet<>("A");
 		TestClass a = new TestClass("a");
 		A.put(a);
-		ModifiableSet<TestClass> B = new FiniteSet<>("B");
+		ModifiableSet<TestClass> B = new StandardSet<>("B");
 		TestClass b = new TestClass("b");
 		B.put(b);
-		ModifiableSet<TestClass> C = new FiniteSet<>("C");
+		ModifiableSet<TestClass> C = new StandardSet<>("C");
 		TestClass c = new TestClass("c");
 		C.put(c);
 

@@ -6,7 +6,7 @@ import logic.factory.SimpleLogicReaderImpl;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.set.ModifiableSet;
-import logic.set.finite.FiniteSet;
+import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
 import maths.number.integer.model.universe.IntegerUniverse;
@@ -21,7 +21,7 @@ public class ReflexiveAssignmentTest {
 	@Test
 	public void testSimpleEvaluation() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		ModifiableSet<TestClass> universalSet = new FiniteSet<>("universalSet");
+		ModifiableSet<TestClass> universalSet = new StandardSet<>("universalSet");
 		universe.setUniversalSet(universalSet);
 
 		universalSet.put(new TestClass("x"));
