@@ -6,8 +6,8 @@ import logic.set.finite.StandardSet;
 /**
  * @author Steven Weston
  */
-public class NamedMultiSet<T extends Nameable> extends StandardSet<MultiSetEntry<T>> {
-	public NamedMultiSet(String name) {
+public class StandardMultiSet<T extends Nameable> extends StandardSet<MultiSetEntry<T>> {
+	public StandardMultiSet(String name) {
 		super(name);
 	}
 

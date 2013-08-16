@@ -7,7 +7,7 @@ import logic.Nameable;
  * @author Steven Weston
  */
 public abstract class NamedSet<T extends Nameable> implements Set<T> {
-	protected String name;
+	protected final String name;
 
 	public NamedSet(String name) {
 		this.name = name;

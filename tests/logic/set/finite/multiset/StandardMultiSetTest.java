@@ -9,10 +9,10 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Steven Weston
  */
-public class NamedMultiSetTest {
+public class StandardMultiSetTest {
 	@Test
 	public void testStuff() throws Exception {
-		NamedMultiSet<TestClass> multiSet = new NamedMultiSet<>("multiSet");
+		StandardMultiSet<TestClass> multiSet = new StandardMultiSet<>("multiSet");
 
 		assertFalse(multiSet.contains("x"));
 

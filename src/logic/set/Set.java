@@ -5,7 +5,7 @@ import logic.Nameable;
 /**
  * @author Steven Weston
  */
-public interface Set<T> extends Iterable<T>, Nameable {
+public interface Set<T> extends Nameable {
 	/**
 	 * @param string The name of an element to get from the {@code Set}.
 	 * @return The element that is represented by the given {@code String}.

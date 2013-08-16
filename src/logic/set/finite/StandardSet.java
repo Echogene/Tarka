@@ -1,9 +1,10 @@
 package logic.set.finite;
 
 import logic.Nameable;
+import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
-import logic.set.NamedSet;
 import logic.set.Set;
+import maths.number.integer.Integer;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,13 +12,18 @@ import java.util.Iterator;
 /**
  * @author Steven Weston
  */
-public class StandardSet<T extends Nameable> extends NamedSet<T> implements ModifiableSet<T> {
+public class StandardSet<T extends Nameable> extends FiniteSet<T> implements ModifiableSet<T> {
 
-	protected HashMap<String, T> hashMap;
+	protected final HashMap<String, T> hashMap;
 
 	public StandardSet(String name) {
 		super(name);
 		this.hashMap = new HashMap<>();
+	}
+
+	@Override
+	public Integer size() {
+		return new Integer(hashMap.size());
 	}
 
 	public StandardSet(StandardSet<T> toCopy, String name) {
@@ -61,10 +67,6 @@ public class StandardSet<T extends Nameable> extends NamedSet<T> implements Modi
 		}
 		StandardSet<T> other = (StandardSet<T>) s;
 		hashMap.putAll(other.hashMap);
-	}
-
-	public int size() {
-		return hashMap.size();
 	}
 
 	@Override
