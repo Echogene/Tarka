@@ -6,6 +6,10 @@ import logic.Nameable;
  * @author Steven Weston
  */
 public interface Set<T> extends Iterable<T>, Nameable {
+	/**
+	 * @param string The name of an element to get from the {@code Set}.
+	 * @return The element that is represented by the given {@code String}.
+	 */
 	T get(String string);
 
 	/**
@@ -13,6 +17,11 @@ public interface Set<T> extends Iterable<T>, Nameable {
 	 * @return Whether this {@code Set} contains an element represented by the given {@code String}.
 	 */
 	boolean contains(String string);
+
+	/**
+	 * @param thing The element to test whether it is contains within this {@code Set}.
+	 * @return Whether this {@code Set} contains the given element.
+	 */
 	boolean containsValue(T thing);
 
 	/**
