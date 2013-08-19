@@ -82,9 +82,12 @@ public class CompoundSet<T extends Nameable> extends InfiniteSet<T> {
 	public void uniteWith(Set<T> s) {
 		if (s instanceof StandardSet<?>) {
 			finitePart.uniteWith(s);
+		} else if (s instanceof CompoundSet<?>) {
+			CompoundSet<T> compoundSet = (CompoundSet <T>) s;
+			finitePart.uniteWith(compoundSet.finitePart);
+			infinitePart.addAll(compoundSet.infinitePart);
 		} else if (s instanceof InfiniteSet<?>) {
 			infinitePart.add((InfiniteSet<T>) s);
 		}
 	}
-
 }

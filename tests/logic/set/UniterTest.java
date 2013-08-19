@@ -30,7 +30,7 @@ public class UniterTest {
 		sets.add(B);
 
 		StandardSet<TestClass> union = (StandardSet<TestClass>) Uniter.unite(sets);
-		assertEquals("Expect union's size to be 3", union.size(), 3);
+		assertEquals("Expect union's size to be 3", union.size().getValue().intValue(), 3);
 		assertTrue("Expect union's name to be A ∪ B or B ∪ A",
 				"A ∪ B".equals(union.getName()) || "B ∪ A".equals(union.getName()));
 		assertTrue("Expect union to contain x", union.contains("x"));
