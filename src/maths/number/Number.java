@@ -5,5 +5,5 @@ import logic.Nameable;
 /**
  * @author Steven Weston
  */
-public interface Number extends Nameable {
+public interface Number extends Nameable, Comparable<Number> {
 }

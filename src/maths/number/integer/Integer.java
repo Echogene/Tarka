@@ -6,6 +6,8 @@ import java.math.BigInteger;
  * @author Steven Weston
  */
 public class Integer implements maths.number.Number {
+
+	public static final Integer ONE = new Integer(1);
 	BigInteger value;
 
 	public Integer(int value) {
@@ -46,5 +48,14 @@ public class Integer implements maths.number.Number {
 
 	public BigInteger getValue() {
 		return value;
+	}
+
+	@Override
+	public int compareTo(maths.number.Number o) {
+		if (!(o instanceof Integer)) {
+			throw new UnsupportedOperationException("Cannot compare an integer to an arbitrary Number.");
+		}
+		Integer other = (Integer) o;
+		return this.value.compareTo(other.value);
 	}
 }
