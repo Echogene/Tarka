@@ -4,6 +4,7 @@ import logic.Nameable;
 import logic.function.ParameterNotFoundException;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
+import logic.set.Dictionary;
 import logic.set.Set;
 
 /**
@@ -26,7 +27,7 @@ public class SetIdentityFunction<T extends Nameable> implements SetFunction<T> {
 
 	@Override
 	public Set<T> evaluate(Universe<T> universe) throws Exception {
-		Set<Set<T>> universalSetOfSets = universe.getUniversalSetOfSets();
+		Dictionary<Set<T>> universalSetOfSets = universe.getUniversalSetOfSets();
 		if (universalSetOfSets == null || !universalSetOfSets.contains(getParameter())) {
 			throw new ParameterNotFoundException();
 		}

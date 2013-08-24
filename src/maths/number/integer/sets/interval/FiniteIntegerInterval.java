@@ -72,16 +72,6 @@ public class FiniteIntegerInterval extends FiniteSet<Integer> implements Interva
 	}
 
 	@Override
-	public Integer get(String string) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public boolean contains(String string) {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public boolean containsValue(Integer thing) {
 		int lowerComparison = lowerBound.getBound().compareTo(thing);
 		int upperComparison = upperBound.getBound().compareTo(thing);

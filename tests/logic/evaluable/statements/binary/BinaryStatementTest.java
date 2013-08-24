@@ -6,6 +6,8 @@ import logic.evaluable.Evaluable;
 import logic.evaluable.constants.LogicalConstant;
 import logic.evaluable.predicate.membership.MembershipPredicate;
 import logic.model.universe.Universe;
+import logic.set.ModifiableSet;
+import logic.set.Set;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
 
@@ -28,9 +30,9 @@ public class BinaryStatementTest {
 
 		MembershipPredicate<TestClass> membershipPredicate = new MembershipPredicate<>("x", "set");
 		StandardSet<TestClass> set = new StandardSet<>("set");
-		universe.getUniversalSetOfSets().put(set);
+		((ModifiableSet<Set<TestClass>>) universe.getUniversalSetOfSets()).put(set);
 		TestClass x = new TestClass("x");
-		universe.getUniversalSet().put(x);
+		((ModifiableSet<TestClass>) universe.getUniversalSet()).put(x);
 		testAllTheThings(TAUTOLOGY, membershipPredicate, universe);
 
 		set.put(x);

@@ -42,12 +42,12 @@ public class UniterTest {
 	public void testUnionWithInfiniteSet() throws Exception {
 		ModifiableSet<Integer> X = new StandardSet<>("X");
 		X.put(new maths.number.integer.Integer(1));
-		assertTrue(X.contains("1"));
-		assertFalse(X.contains("2"));
+		assertTrue(X.containsValue(new Integer(1)));
+		assertFalse(X.containsValue(new Integer(2)));
 
 		Set<Integer> ℙ = new PrimeNumberSet("ℙ");
-		assertFalse(ℙ.contains("1"));
-		assertTrue(ℙ.contains("2"));
+		assertFalse(ℙ.containsValue(new Integer(1)));
+		assertTrue(ℙ.containsValue(new Integer(2)));
 
 		java.util.Set<Set<Integer>> sets = new HashSet<>();
 		sets.add(X);
@@ -55,19 +55,19 @@ public class UniterTest {
 
 		Set<Integer> union = Uniter.unite(sets);
 
-		assertTrue(union.contains("1"));
-		assertTrue(union.contains("2"));
+		assertTrue(union.containsValue(new Integer(1)));
+		assertTrue(union.containsValue(new Integer(2)));
 	}
 
 	@Test
 	public void testUnionOfInfiniteSets() throws Exception {
 		Set<Integer> ℤ = new IntegerSet("ℤ");
-		assertTrue(ℤ.contains("1"));
-		assertTrue(ℤ.contains("2"));
+		assertTrue(ℤ.containsValue(new Integer(1)));
+		assertTrue(ℤ.containsValue(new Integer(2)));
 
 		Set<Integer> ℙ = new PrimeNumberSet("ℙ");
-		assertFalse(ℙ.contains("1"));
-		assertTrue(ℙ.contains("2"));
+		assertFalse(ℙ.containsValue(new Integer(1)));
+		assertTrue(ℙ.containsValue(new Integer(2)));
 
 		java.util.Set<Set<Integer>> sets = new HashSet<>();
 		sets.add(ℤ);
@@ -75,7 +75,7 @@ public class UniterTest {
 
 		Set<Integer> union = Uniter.unite(sets);
 
-		assertTrue(union.contains("1"));
-		assertTrue(union.contains("2"));
+		assertTrue(union.containsValue(new Integer(1)));
+		assertTrue(union.containsValue(new Integer(2)));
 	}
 }

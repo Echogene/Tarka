@@ -2,7 +2,6 @@ package logic.function.set.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class SetIdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		ModifiableSet<Set<TestClass>> sets = new StandardSet<>("sets");
+		StandardSet<Set<TestClass>> sets = new StandardSet<>("sets");
 		StandardSet<TestClass> X = new StandardSet<>("X");
 		sets.put(X);
 

@@ -17,7 +17,7 @@ public class UnionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
-		ModifiableSet<Set<TestClass>> sets = new StandardSet<>("sets");
+		StandardSet<Set<TestClass>> sets = new StandardSet<>("sets");
 
 		ModifiableSet<TestClass> A = new StandardSet<>("A");
 		TestClass a = new TestClass("a");

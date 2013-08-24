@@ -1,6 +1,7 @@
 package logic.set.finite;
 
 import logic.Nameable;
+import logic.set.Dictionary;
 import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import logic.set.Set;
@@ -12,7 +13,7 @@ import java.util.Iterator;
 /**
  * @author Steven Weston
  */
-public class StandardSet<T extends Nameable> extends FiniteSet<T> implements ModifiableSet<T> {
+public class StandardSet<T extends Nameable> extends FiniteSet<T> implements ModifiableSet<T>, Dictionary<T> {
 
 	protected final HashMap<String, T> hashMap;
 

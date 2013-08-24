@@ -1,18 +1,19 @@
 package logic.model.universe;
 
 import logic.Nameable;
-import logic.set.ModifiableSet;
+import logic.set.Dictionary;
 import logic.set.Set;
+import logic.set.finite.StandardSet;
 
 /**
  * @author Steven Weston
  */
 public interface Universe<T extends Nameable> {
-	Set<T> getUniversalSet();
+	Dictionary<T> getUniversalSet();
 
-	Set<Set<T>> getUniversalSetOfSets();
+	Dictionary<Set<T>> getUniversalSetOfSets();
 
-	ModifiableSet<T> getVariables();
+	StandardSet<T> getVariables();
 
 	Set<T> getValueSet();
 

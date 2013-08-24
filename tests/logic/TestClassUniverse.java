@@ -1,7 +1,7 @@
 package logic;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.ModifiableSet;
+import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.Uniter;
 import logic.set.finite.StandardSet;
@@ -12,24 +12,24 @@ import java.util.LinkedHashSet;
  * @author Steven Weston
  */
 public class TestClassUniverse extends AbstractUniverse<TestClass> {
-	protected ModifiableSet<TestClass> universalSet;
+	protected Dictionary<TestClass> universalSet;
 
-	protected ModifiableSet<Set<TestClass>> universalSetOfSets;
+	protected StandardSet<Set<TestClass>> universalSetOfSets;
 
-	protected ModifiableSet<TestClass> variableSet;
+	protected StandardSet<TestClass> variableSet;
 
 	@Override
-	public ModifiableSet<TestClass> getUniversalSet() {
+	public Dictionary<TestClass> getUniversalSet() {
 		return universalSet;
 	}
 
 	@Override
-	public ModifiableSet<Set<TestClass>> getUniversalSetOfSets() {
+	public Dictionary<Set<TestClass>> getUniversalSetOfSets() {
 		return universalSetOfSets;
 	}
 
 	@Override
-	public ModifiableSet<TestClass> getVariables() {
+	public StandardSet<TestClass> getVariables() {
 		return variableSet;
 	}
 
@@ -56,11 +56,11 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		this.universalSet = universe;
 	}
 
-	public void setUniversalSetOfSets(ModifiableSet<Set<TestClass>> universalSetOfSets) {
+	public void setUniversalSetOfSets(StandardSet<Set<TestClass>> universalSetOfSets) {
 		this.universalSetOfSets = universalSetOfSets;
 	}
 
-	public void setUniversalSet(ModifiableSet<TestClass> universalSet) {
+	public void setUniversalSet(Dictionary<TestClass> universalSet) {
 		universalSetOfSets.remove(universalSet.getName());
 		this.universalSet = universalSet;
 		universalSetOfSets.put(universalSet);

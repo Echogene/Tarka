@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.ParameterNotFoundException;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
-import logic.set.Set;
+import logic.set.Dictionary;
 
 /**
  * @author Steven Weston
@@ -29,8 +29,8 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 		if (function != null) {
 			return function.evaluate(universe);
 		}
-		Set<T> variables = universe.getVariables();
-		Set<T> universalSet = universe.getUniversalSet();
+		Dictionary<T> variables = universe.getVariables();
+		Dictionary<T> universalSet = universe.getUniversalSet();
 		boolean variablesContainsParameter    = variables    != null && variables.contains(getParameter());
 		boolean universalSetContainsParameter = universalSet != null && universalSet.contains(getParameter());
 		if (!variablesContainsParameter && !universalSetContainsParameter) {

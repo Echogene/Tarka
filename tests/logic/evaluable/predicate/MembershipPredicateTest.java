@@ -27,7 +27,7 @@ public class MembershipPredicateTest {
 		X.put(x);
 		ModifiableSet<TestClass> Y = new StandardSet<>("Y");
 		Y.put(y);
-		ModifiableSet<Set<TestClass>> sets = new StandardSet<>("sets");
+		StandardSet<Set<TestClass>> sets = new StandardSet<>("sets");
 		sets.put(X);
 		sets.put(Y);
 

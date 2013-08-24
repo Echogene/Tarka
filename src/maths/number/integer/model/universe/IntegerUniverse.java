@@ -1,7 +1,7 @@
 package maths.number.integer.model.universe;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.ModifiableSet;
+import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
@@ -15,7 +15,7 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	IntegerSet ℤ;
 	StandardSet<Integer> variables;
 
-	ModifiableSet<Set<Integer>> universalSetOfSets;
+	StandardSet<Set<Integer>> universalSetOfSets;
 
 	public IntegerUniverse() {
 		ℤ = new IntegerSet("ℤ");
@@ -29,17 +29,17 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	}
 
 	@Override
-	public Set<Integer> getUniversalSet() {
+	public Dictionary<Integer> getUniversalSet() {
 		return ℤ;
 	}
 
 	@Override
-	public Set<Set<Integer>> getUniversalSetOfSets() {
+	public Dictionary<Set<Integer>> getUniversalSetOfSets() {
 		return universalSetOfSets;
 	}
 
 	@Override
-	public ModifiableSet<Integer> getVariables() {
+	public StandardSet<Integer> getVariables() {
 		return variables;
 	}
 
