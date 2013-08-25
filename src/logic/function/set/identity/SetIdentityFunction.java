@@ -29,7 +29,7 @@ public class SetIdentityFunction<T extends Nameable> implements SetFunction<T> {
 	public Set<T> evaluate(Universe<T> universe) throws Exception {
 		Dictionary<Set<T>> universalSetOfSets = universe.getUniversalSetOfSets();
 		if (universalSetOfSets == null || !universalSetOfSets.contains(getParameter())) {
-			throw new ParameterNotFoundException();
+			throw new ParameterNotFoundException("The parameter \"" + getParameter() + "\" was not found");
 		}
 		return getFunction() == null ? universalSetOfSets.get(getParameter()) : getFunction().evaluate(universe);
 	}
