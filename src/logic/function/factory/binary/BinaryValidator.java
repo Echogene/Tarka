@@ -22,7 +22,9 @@ public class BinaryValidator extends Validator {
 			List<String> acceptedClosingBrackets) {
 		super(acceptedOpeningBrackets, acceptedClosingBrackets);
 		addValidator(new FunctionOrVariableValidator(firstClass), ONE);
-		addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+		if (acceptedOperatorSymbols != null) {
+			addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+		}
 		addValidator(new FunctionOrVariableValidator(secondClass), ONE);
 	}
 

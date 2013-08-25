@@ -24,6 +24,25 @@ public class IntervalBound<N extends Number> {
 	}
 
 	public enum BoundType {
-		CLOSED, OPEN
+		CLOSED, OPEN;
+
+		public String toLowerString() {
+			return toString(true);
+		}
+
+		public String toUpperString() {
+			return toString(false);
+		}
+
+		private String toString(boolean lower) {
+			switch(this) {
+				case CLOSED:
+					return lower ? "[" : "]";
+				case OPEN:
+					return lower ? "(" : ")";
+				default:
+					throw new IllegalStateException();
+			}
+		}
 	}
 }

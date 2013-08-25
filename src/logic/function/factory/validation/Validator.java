@@ -110,21 +110,39 @@ public class Validator {
 		if (!lastToken.isOfType(CLOSE_BRACKET)) {
 			throw new ValidationException("The last token—" + lastToken.toString() + "—was not an opening bracket.");
 		}
-		int openingIndex = 0;
+		List<Integer> openingIndices = new ArrayList<>();
 		if (acceptedOpeningBrackets != null) {
-			openingIndex = acceptedOpeningBrackets.indexOf(firstToken.getValue());
-			if (openingIndex == -1) {
+			int index = 0;
+			for (String openingBracket : acceptedOpeningBrackets) {
+				if (openingBracket.equals(firstToken.getValue())) {
+					openingIndices.add(index);
+				}
+				index++;
+			}
+			if (openingIndices.isEmpty()) {
 				throw new ValidationException("The first token—" + firstToken.toString() + "—was not in " + acceptedOpeningBrackets.toString() + ".");
 			}
 		}
-		int closingIndex = 0;
+		List<Integer> closingIndices = new ArrayList<>();
 		if (acceptedClosingBrackets !=  null) {
-			closingIndex = acceptedClosingBrackets.indexOf(lastToken.getValue());
-			if (closingIndex == -1) {
+			int index = 0;
+			for (String closing : acceptedClosingBrackets) {
+				if (closing.equals(lastToken.getValue())) {
+					closingIndices.add(index);
+				}
+				index++;
+			}
+			if (closingIndices.isEmpty()) {
 				throw new ValidationException("The first token—" + lastToken.toString() + "—was not in " + acceptedClosingBrackets.toString() + ".");
 			}
 		}
-		if (openingIndex != closingIndex) {
+		boolean intersection = false;
+		for (Integer index : openingIndices) {
+			if (closingIndices.contains(index)) {
+				intersection = true;
+			}
+		}
+		if (!intersection) {
 			throw new ValidationException("The opening−closing pair was not accepted.");
 		}
 	}

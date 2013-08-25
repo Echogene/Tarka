@@ -8,14 +8,16 @@ import static maths.number.integer.sets.interval.IntervalBound.BoundType.OPEN;
 /**
  * @author Steven Weston
  */
-public class FiniteIntegerIntervalFactory {
+public class FiniteIntegerIntervalFactory implements IntervalFactory<Integer> {
 
-	public static FiniteIntegerInterval createElement(
+	public FiniteIntegerInterval createElement(
 			BoundType lowerType, int lowerBound, int upperBound, BoundType upperType
 	) {
 		return createElement(lowerType, new Integer(lowerBound), new Integer(upperBound), upperType);
 	}
-	public static FiniteIntegerInterval createElement(
+
+	@Override
+	public FiniteIntegerInterval createElement(
 			BoundType lowerType, Integer lowerBound, Integer upperBound, BoundType upperType
 	) {
 		return new FiniteIntegerInterval(
