@@ -61,7 +61,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 		public Function<N, Set<N>> construct(List<ValidationResult> results) throws FactoryException {
 			StringResult openingBracket = (StringResult) results.get(0);
 			BoundType lowerType;
-			if (openingBracket.getString().equals("[")) {
+			if ("[".equals(openingBracket.getString())) {
 				lowerType = CLOSED;
 			} else {
 				lowerType = OPEN;
@@ -70,7 +70,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 			ReflexiveFunction<N> upperBound = convertor.convert(results.get(2));
 			StringResult closingBracket = (StringResult) results.get(3);
 			BoundType upperType;
-			if (closingBracket.getString().equals("]")) {
+			if ("]".equals(closingBracket.getString())) {
 				upperType = CLOSED;
 			} else {
 				upperType = OPEN;
