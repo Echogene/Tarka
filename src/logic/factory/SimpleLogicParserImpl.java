@@ -15,6 +15,9 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 public class SimpleLogicParserImpl implements Parser {
 	@Override
 	public ParseTree parseTokens(List<Token> tokens) {
+		if (tokens == null || tokens.isEmpty()) {
+			return null;
+		}
 		SimpleLogicParseTree output = new SimpleLogicParseTree();
 		SimpleLogicParseTreeNode currentMother = new SimpleLogicParseTreeNode(tokens.get(0));
 		output.getNodes().add(currentMother);

@@ -27,6 +27,9 @@ public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
 
 	@Override
 	public Function<?, ?> evaluate(ParseTree tree) throws EvaluatorException {
+		if (tree == null) {
+			return null;
+		}
 		return evaluate(tree.getNodes().get(0).getChildren());
 	}
 

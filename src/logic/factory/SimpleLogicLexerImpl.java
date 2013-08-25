@@ -54,6 +54,9 @@ public class SimpleLogicLexerImpl implements Lexer {
 
 	@Override
 	public List<Token> tokeniseString(String string) throws LexerException {
+		if (string == null || string.isEmpty()) {
+			return null;
+		}
 		ArrayList<Token> output = new ArrayList<>();
 		String[] splitArray = string.split(
 				"(\\s)"
