@@ -4,10 +4,14 @@ import logic.Nameable;
 import logic.set.finite.StandardSet;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
+import maths.number.integer.IntegerSubtractor;
+import maths.number.integer.IntegerSummor;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashSet;
 import java.util.Iterator;
+
+import static maths.number.integer.Integer.ZERO;
 
 /**
  * @author Steven Weston
@@ -28,10 +32,14 @@ public class FiniteCompoundSet<T extends Nameable> extends FiniteSet<T> implemen
 
 	@Override
 	public Integer size() {
-		if (components.size() == 1) {
-			return components.iterator().next().size();
+		FiniteIntersection<T> intersection = new FiniteIntersection<>(components);
+		Integer totalSize = ZERO;
+		IntegerSummor summor = new IntegerSummor();
+		for (FiniteSet<T> component : components) {
+			totalSize = summor.add(totalSize, component.size());
 		}
-		throw new NotImplementedException();
+		IntegerSubtractor subtractor = new IntegerSubtractor();
+		return subtractor.subtract(totalSize, intersection.size());
 	}
 
 	@Override

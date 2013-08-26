@@ -9,8 +9,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
@@ -34,8 +33,7 @@ public class UniterTest {
 		sets.add(B);
 
 		FiniteCompoundSet<TestClass> union = (FiniteCompoundSet<TestClass>) Uniter.unite(sets);
-//		todo: ignored
-//		assertEquals("Expect union's size to be 3", union.size().getValue().intValue(), 3);
+		assertEquals("Expect union's size to be 3", union.size().getValue().intValue(), 3);
 		assertTrue("Expect union's name to be A ∪ B or B ∪ A",
 				"A ∪ B".equals(union.getName()) || "B ∪ A".equals(union.getName()));
 		assertTrue("Expect union to contain x", union.containsValue(x));

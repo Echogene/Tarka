@@ -8,6 +8,7 @@ import java.math.BigInteger;
 public class Integer implements maths.number.Number {
 
 	public static final Integer ONE = new Integer(1);
+	public static final Integer ZERO = new Integer(0);
 	BigInteger value;
 
 	public Integer(int value) {
@@ -50,6 +51,11 @@ public class Integer implements maths.number.Number {
 		return value;
 	}
 
+	/**
+	 * See {@link java.math.BigInteger#compareTo(Object)}
+	 * @param o
+	 * @return
+	 */
 	@Override
 	public int compareTo(maths.number.Number o) {
 		if (!(o instanceof Integer)) {
