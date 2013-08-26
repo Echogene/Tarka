@@ -1,10 +1,8 @@
 package maths.number.integer.model.universe;
 
 import logic.set.Dictionary;
-import logic.set.Set;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Steven Weston
@@ -31,11 +29,6 @@ public class IntegerSet extends InfiniteSet<Integer> implements Dictionary<Integ
 	@Override
 	public boolean containsValue(Integer thing) {
 		return true;
-	}
-
-	@Override
-	public void uniteWith(Set<Integer> s) {
-		throw new NotImplementedException();
 	}
 
 	private boolean stringIsNumber(String string) {

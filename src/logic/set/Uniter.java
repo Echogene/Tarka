@@ -2,8 +2,7 @@ package logic.set;
 
 import logic.Nameable;
 import logic.function.set.union.Union;
-import logic.set.finite.StandardSet;
-import logic.set.infinite.CompoundSet;
+import logic.set.infinite.InfiniteCompoundSet;
 import logic.set.infinite.InfiniteSet;
 
 import java.util.Iterator;
@@ -20,11 +19,11 @@ public class Uniter {
 				infinite = true;
 			}
 		}
-		Set<T> output;
+		CompoundSet<T> output;
 		if (infinite) {
-			output = new CompoundSet<>(getNameForUnion(sets));
+			output = new InfiniteCompoundSet<>(getNameForUnion(sets));
 		} else {
-			output = new StandardSet<>(getNameForUnion(sets));
+			output = new FiniteCompoundSet<>(getNameForUnion(sets));
 		}
 		for (Set<T> set : sets) {
 			output.uniteWith(set);

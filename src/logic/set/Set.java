@@ -12,10 +12,4 @@ public interface Set<T> extends Nameable {
 	 * @return Whether this {@code Set} contains the given element.
 	 */
 	boolean containsValue(T thing);
-
-	/**
-	 * Adds all elements of another {@code Set} to this {@code Set}.
-	 * @param s The {@code Set} to unite with this.
-	 */
-	void uniteWith(Set<T> s);
 }

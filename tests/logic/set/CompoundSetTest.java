@@ -1,7 +1,7 @@
 package logic.set;
 
 import logic.set.finite.StandardSet;
-import logic.set.infinite.CompoundSet;
+import logic.set.infinite.InfiniteCompoundSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.PrimeNumberSet;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class CompoundSetTest {
 		assertTrue(ℙ.contains("2"));
 		assertFalse(ℙ.contains("4"));
 
-		CompoundSet<Integer> Y = new CompoundSet<>("Y", X, ℙ);
+		InfiniteCompoundSet<Integer> Y = new InfiniteCompoundSet<>("Y", X, ℙ);
 		assertTrue(Y.containsValue(new Integer(1)));
 		assertTrue(Y.containsValue(new Integer(2)));
 		assertFalse(Y.containsValue(new Integer(4)));

@@ -1,13 +1,11 @@
 package maths.number.integer.sets.interval;
 
 import logic.set.FiniteSet;
-import logic.set.Set;
 import maths.number.Subtractor;
 import maths.number.Summor;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Iterator;
 
@@ -77,11 +75,6 @@ public class FiniteIntegerInterval extends FiniteSet<Integer> implements Interva
 		int upperComparison = upperBound.getBound().compareTo(thing);
 		return (lowerBound.getBoundType() == CLOSED ? lowerComparison <= 0 : lowerComparison < 0)
 				&& (upperBound.getBoundType() == CLOSED ? upperComparison >= 0 : upperComparison > 0);
-	}
-
-	@Override
-	public void uniteWith(Set<Integer> s) {
-		throw new NotImplementedException();
 	}
 
 	@Override

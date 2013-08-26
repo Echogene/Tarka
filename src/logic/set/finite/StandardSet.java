@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.set.Dictionary;
 import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
-import logic.set.Set;
 import maths.number.integer.Integer;
 
 import java.util.HashMap;
@@ -59,15 +58,6 @@ public class StandardSet<T extends Nameable> extends FiniteSet<T> implements Mod
 	@Override
 	public boolean containsValue(T thing) {
 		return hashMap.containsValue(thing);
-	}
-
-	@Override
-	public void uniteWith(Set<T> s) {
-		if (!(s instanceof StandardSet<?>)) {
-			throw new IllegalArgumentException("Can only unite with StandardSet");
-		}
-		StandardSet<T> other = (StandardSet<T>) s;
-		hashMap.putAll(other.hashMap);
 	}
 
 	@Override
