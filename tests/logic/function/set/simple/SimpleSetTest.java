@@ -25,7 +25,7 @@ public class SimpleSetTest {
 		universe.assignVariable("x");
 		universe.setVariable("x", new Integer(1));
 
-		expected = new StandardSet<>(set.getName());
+		expected = new StandardSet<>(set.toString());
 		expected.put(new Integer(1));
 		expected.put(new Integer(2));
 
@@ -34,7 +34,7 @@ public class SimpleSetTest {
 
 		universe.setVariable("x", new Integer(2));
 
-		expected = new StandardSet<>(set.getName());
+		expected = new StandardSet<>(set.toString());
 		expected.put(new Integer(2));
 
 		actual = set.evaluate(universe);

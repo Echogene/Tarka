@@ -34,11 +34,6 @@ public class ReflexiveAssignment<T extends Nameable> implements ReflexiveFunctio
 	}
 
 	@Override
-	public String getName() {
-		return toString();
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ReflexiveAssignment)) {
 			return false;

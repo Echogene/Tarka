@@ -38,11 +38,6 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
-	public String getName() {
-		return parameters.size() == 2 ? BINARY_SYMBOL : MULTARY_SYMBOL;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Union<?>)) {
 			return false;

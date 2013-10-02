@@ -47,11 +47,6 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public String getName() {
-		return toString();
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Addition<?>)) {
 			return false;

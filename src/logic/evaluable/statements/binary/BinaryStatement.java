@@ -28,11 +28,6 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 		return "(" + firstEvaluable.toString() + " " + connective.toString() + " " + secondEvaluable.toString() + ")";
 	}
 
-	@Override
-	public String getName() {
-		return toString();
-	}
-
 	public Evaluable<T> getFirstEvaluable() {
 		return firstEvaluable;
 	}

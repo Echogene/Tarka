@@ -29,11 +29,6 @@ public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
 		return "(" + quantifier.toString() + variableSymbol + " " + evaluable.toString()  + ")";
 	}
 
-	@Override
-	public String getName() {
-		return toString();
-	}
-
 	public Quantifier getQuantifier() {
 		return quantifier;
 	}

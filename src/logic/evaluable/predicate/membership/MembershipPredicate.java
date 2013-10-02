@@ -65,9 +65,4 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 		MembershipPredicate<?> other = (MembershipPredicate<?>) o;
 		return getMemberFunction().equals(other.getMemberFunction()) && getSetFunction().equals(other.getSetFunction());
 	}
-
-	@Override
-	public String getName() {
-		return toString();
-	}
 }

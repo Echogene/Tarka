@@ -40,11 +40,6 @@ public class IntervalFunction<N extends Number> implements SetFunction<N> {
 	}
 
 	@Override
-	public String getName() {
-		return toString();
-	}
-
-	@Override
 	public String toString() {
 		return lowerType.toLowerString() + lowerBound.toString() + " " + upperBound.toString() + upperType.toUpperString();
 	}

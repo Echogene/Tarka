@@ -32,11 +32,6 @@ public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public String getName() {
-		return toString();
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof UnaryStatement<?>)) {
 			return false;

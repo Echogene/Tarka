@@ -5,15 +5,14 @@ import logic.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
-import logic.set.finite.StandardSet;
 
 /**
  * @author Steven Weston
  */
 public abstract class AbstractModelImpl<T extends Nameable> implements Model<T> {
 	protected Universe<T> universe;
-	protected StandardSet<ReflexiveFunction<T>> functions;
-	protected StandardSet<Evaluable<T>> evaluables;
+	protected Set<ReflexiveFunction<T>> functions;
+	protected Set<Evaluable<T>> evaluables;
 
 	@Override
 	public Universe<T> getUniverse() {

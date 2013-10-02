@@ -34,11 +34,6 @@ public class Subtraction<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public String getName() {
-		return toString();
-	}
-
-	@Override
 	public String toString() {
 		return "(" + minuend.toString() + " " + MINUS + " " + subtrahend.toString() + ")";
 	}

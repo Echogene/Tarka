@@ -67,9 +67,4 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 		return getEquorFunction().equals(other.getEquorFunction())
 				&& getEquandFunction().equals(other.getEquandFunction());
 	}
-
-	@Override
-	public String getName() {
-		return toString();
-	}
 }

@@ -12,7 +12,7 @@ import java.util.Iterator;
 /**
  * @author Steven Weston
  */
-public class StandardSet<T extends Nameable> extends FiniteSet<T> implements ModifiableSet<T>, Dictionary<T> {
+public class StandardSet<T> extends FiniteSet<T> implements ModifiableSet<T>, Dictionary<T> {
 
 	protected final HashMap<String, T> hashMap;
 
@@ -39,7 +39,11 @@ public class StandardSet<T extends Nameable> extends FiniteSet<T> implements Mod
 	@Override
 	public void put(T thing) {
 		if (thing != null) {
-			hashMap.put(thing.getName(), thing);
+			if (thing instanceof Nameable) {
+				hashMap.put(((Nameable) thing).getName(), thing);
+			} else {
+				hashMap.put(thing.toString(), thing);
+			}
 		} else {
 			hashMap.put("null", thing);
 		}

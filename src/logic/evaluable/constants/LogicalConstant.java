@@ -51,13 +51,8 @@ public class LogicalConstant<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public String getName() {
-		return value ? TAUTOLOGY_SYMBOL : CONTRADICTION_SYMBOL;
-	}
-
-	@Override
 	public String toString() {
-		return "(" + getName() + ")";
+		return "(" + (value ? TAUTOLOGY_SYMBOL : CONTRADICTION_SYMBOL) + ")";
 	}
 
 	@Override

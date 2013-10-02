@@ -34,11 +34,6 @@ public class SetIdentityFunction<T extends Nameable> implements SetFunction<T> {
 		return getFunction() == null ? universalSetOfSets.get(getParameter()) : getFunction().evaluate(universe);
 	}
 
-	@Override
-	public String getName() {
-		return SET_IDENTITY_NAME;
-	}
-
 	public String getParameter() {
 		return parameter;
 	}

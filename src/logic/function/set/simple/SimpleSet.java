@@ -19,16 +19,11 @@ public class SimpleSet<T extends Nameable> implements SetFunction<T> {
 	}
 
 	public Set<T> evaluate(Universe<T> universe) throws Exception {
-		StandardSet<T> output = new StandardSet<>(getName());
+		StandardSet<T> output = new StandardSet<>(toString());
 		for (ReflexiveFunction<T> member : members) {
 			output.put(member.evaluate(universe));
 		}
 		return output;
-	}
-
-	@Override
-	public String getName() {
-		return toString();
 	}
 
 	@Override

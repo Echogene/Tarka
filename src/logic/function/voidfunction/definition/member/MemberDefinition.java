@@ -28,16 +28,6 @@ public class MemberDefinition<T extends Nameable> implements VoidFunction<T> {
 	}
 
 	@Override
-	public String getName() {
-		return "(" + variableName + " " + DEFINITION_SYMBOL + " " + definition.toString() + ")";
-	}
-
-	@Override
-	public String toString() {
-		return getName();
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof MemberDefinition)) {
 			return false;

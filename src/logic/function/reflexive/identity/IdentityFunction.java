@@ -44,11 +44,6 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 
 	}
 
-	@Override
-	public String getName() {
-		return IDENTITY_NAME;
-	}
-
 	public String getParameter() {
 		return parameter;
 	}
