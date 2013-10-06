@@ -12,7 +12,7 @@ import java.util.LinkedHashSet;
  * @author Steven Weston
  */
 public class TestClassUniverse extends AbstractUniverse<TestClass> {
-	protected Dictionary<TestClass> universalSet;
+	protected StandardSet<TestClass> universalSet;
 
 	protected StandardSet<Set<TestClass>> universalSetOfSets;
 
@@ -60,9 +60,13 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		this.universalSetOfSets = universalSetOfSets;
 	}
 
-	public void setUniversalSet(Dictionary<TestClass> universalSet) {
+	public void setUniversalSet(StandardSet<TestClass> universalSet) {
 		universalSetOfSets.remove(universalSet.getName());
 		this.universalSet = universalSet;
 		universalSetOfSets.put(universalSet);
+	}
+
+	public void put(String s) {
+		universalSet.put(s, new TestClass(s));
 	}
 }

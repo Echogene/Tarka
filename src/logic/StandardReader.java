@@ -1,13 +1,13 @@
 package logic;
 
-import logic.evaluable.constants.LogicalConstantFactory;
-import logic.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.evaluable.predicate.membership.MembershipPredicateFactory;
-import logic.evaluable.statements.binary.BinaryStatementFactory;
-import logic.evaluable.statements.quantified.restricted.RestrictedQuantifiedStatementFactory;
-import logic.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
-import logic.evaluable.statements.unary.UnaryStatementFactory;
 import logic.factory.SimpleLogicReaderImpl;
+import logic.function.evaluable.constants.LogicalConstantFactory;
+import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
+import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
+import logic.function.evaluable.statements.binary.BinaryStatementFactory;
+import logic.function.evaluable.statements.quantified.restricted.RestrictedQuantifiedStatementFactory;
+import logic.function.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
+import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;

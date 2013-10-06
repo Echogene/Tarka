@@ -1,9 +1,9 @@
 package logic.factory;
 
-import logic.evaluable.constants.LogicalConstant;
-import logic.evaluable.statements.binary.BinaryConnective;
-import logic.evaluable.statements.quantified.standard.Quantifier;
-import logic.evaluable.statements.unary.UnaryConnective;
+import logic.function.evaluable.constants.LogicalConstant;
+import logic.function.evaluable.statements.binary.BinaryConnective;
+import logic.function.evaluable.statements.quantified.standard.Quantifier;
+import logic.function.evaluable.statements.unary.UnaryConnective;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;

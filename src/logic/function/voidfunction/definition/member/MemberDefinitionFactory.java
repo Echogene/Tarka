@@ -1,7 +1,6 @@
 package logic.function.voidfunction.definition.member;
 
 import logic.Nameable;
-import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
@@ -24,18 +23,18 @@ import static logic.function.voidfunction.definition.member.MemberDefinition.DEF
 /**
  * @author Steven Weston
  */
-public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void> {
+public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, MemberDefinition<T>> {
 
 	public MemberDefinitionFactory() {
 		super(getConstructors());
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Void>>> getConstructors() {
+	private static <T extends Nameable> List<ValidatorAndConstructor<MemberDefinition<T>>> getConstructors() {
 		Validator validator = new Validator();
 		validator.addValidator(new VariableAtom(), ONE);
 		validator.addValidator(new OperatorAtom(DEFINITION_SYMBOL), ONE);
 		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
-		ValidatorAndConstructor<Function<T, Void>> constructor = new ValidatorAndConstructor<>(
+		ValidatorAndConstructor<MemberDefinition<T>> constructor = new ValidatorAndConstructor<>(
 				validator,
 				new MemberDefinitionConstructor<T>()
 		);
@@ -44,9 +43,9 @@ public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory
 		);
 	}
 
-	private static class MemberDefinitionConstructor<T extends Nameable> implements Constructor<Function<T, Void>> {
+	private static class MemberDefinitionConstructor<T extends Nameable> implements Constructor<MemberDefinition<T>> {
 		@Override
-		public Function<T, Void> construct(List<ValidationResult> results) {
+		public MemberDefinition<T> construct(List<ValidationResult> results) {
 			StringResult variable = (StringResult) results.get(1);
 			ValidationResult result = results.get(3);
 			ReflexiveFunction<T> function;

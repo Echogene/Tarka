@@ -1,7 +1,7 @@
 package logic.model;
 
 import logic.Nameable;
-import logic.evaluable.Evaluable;
+import logic.function.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;

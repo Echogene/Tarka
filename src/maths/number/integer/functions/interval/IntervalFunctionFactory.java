@@ -1,7 +1,6 @@
 package maths.number.integer.functions.interval;
 
 import logic.factory.FactoryException;
-import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
@@ -13,7 +12,6 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.SetFunctionFactory;
-import logic.set.Set;
 import maths.number.Number;
 import maths.number.integer.sets.interval.IntervalFactory;
 
@@ -27,13 +25,13 @@ import static maths.number.integer.sets.interval.IntervalBound.BoundType.OPEN;
 /**
  * @author Steven Weston
  */
-public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactory<N> {
+public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactory<N, IntervalFunction<N>> {
 
 	public IntervalFunctionFactory(IntervalFactory<N> factory) {
 		super(getConstructors(factory));
 	}
 
-	private static <N extends Number> List<ValidatorAndConstructor<Function<N, Set<N>>>> getConstructors(IntervalFactory<N> factory) {
+	private static <N extends Number> List<ValidatorAndConstructor<IntervalFunction<N>>> getConstructors(IntervalFactory<N> factory) {
 		Validator validator = new BinaryValidator(
 				asList("[", "[", "(", "("),
 				ReflexiveFunction.class,
@@ -43,11 +41,11 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 		);
 		return asList(new ValidatorAndConstructor<>(
 				validator,
-				new IntervalFunctionConstructor<N>(factory)
+				new IntervalFunctionConstructor<>(factory)
 		));
 	}
 
-	private static class IntervalFunctionConstructor<N extends Number> implements Constructor<Function<N, Set<N>>> {
+	private static class IntervalFunctionConstructor<N extends Number> implements Constructor<IntervalFunction<N>> {
 
 		private final FunctionConvertor<IdentityFunction<N>, N> convertor;
 		private final IntervalFactory<N> factory;
@@ -58,7 +56,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 		}
 
 		@Override
-		public Function<N, Set<N>> construct(List<ValidationResult> results) throws FactoryException {
+		public IntervalFunction<N> construct(List<ValidationResult> results) throws FactoryException {
 			StringResult openingBracket = (StringResult) results.get(0);
 			BoundType lowerType;
 			if ("[".equals(openingBracket.getString())) {

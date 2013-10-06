@@ -1,7 +1,6 @@
 package maths.number.integer.functions.addition;
 
 import logic.factory.FactoryException;
-import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
@@ -26,13 +25,13 @@ import static maths.number.integer.functions.addition.Addition.SUM_SYMBOL;
 /**
  * @author Steven Weston
  */
-public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<N> {
+public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<N, Addition<N>> {
 
 	public AdditionFactory(Summor<N> summor) {
 		super(getConstructors(summor));
 	}
 
-	private static <N extends Number> List<ValidatorAndConstructor<Function<N, N>>> getConstructors(Summor<N> summor) {
+	private static <N extends Number> List<ValidatorAndConstructor<Addition<N>>> getConstructors(Summor<N> summor) {
 		Validator binaryValidator = new BinaryValidator(asList(PLUS_SYMBOL));
 		Validator multaryValidator = new MultaryValidator(asList(SUM_SYMBOL));
 		return asList(
@@ -47,7 +46,7 @@ public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<
 		);
 	}
 
-	private static class BinaryAdditionConstructor<N extends Number> implements Constructor<Function<N, N>> {
+	private static class BinaryAdditionConstructor<N extends Number> implements Constructor<Addition<N>> {
 
 		private final Summor<N> summor;
 		private final FunctionConvertor<IdentityFunction<N>, N> convertor;
@@ -58,14 +57,14 @@ public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<
 		}
 
 		@Override
-		public Function<N, N> construct(List<ValidationResult> results) throws FactoryException {
+		public Addition<N> construct(List<ValidationResult> results) throws FactoryException {
 			ReflexiveFunction<N> firstFunction = convertor.convert(results.get(1));
 			ReflexiveFunction<N> secondFunction = convertor.convert(results.get(3));
 			return new Addition<>(asList(firstFunction, secondFunction), summor);
 		}
 	}
 
-	private static class MultaryAdditionConstructor<N extends Number> implements Constructor<Function<N, N>> {
+	private static class MultaryAdditionConstructor<N extends Number> implements Constructor<Addition<N>> {
 
 		private final Summor<N> summor;
 		private final FunctionConvertor<IdentityFunction<N>, N> convertor;
@@ -76,7 +75,7 @@ public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<
 		}
 
 		@Override
-		public Function<N, N> construct(List<ValidationResult> results) throws FactoryException {
+		public Addition<N> construct(List<ValidationResult> results) throws FactoryException {
 			List<ReflexiveFunction<N>> parameters = new ArrayList<>();
 			for (int i = 2; i < results.size() - 1; i++) {
 				parameters.add(convertor.convert(results.get(i)));

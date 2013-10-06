@@ -15,22 +15,22 @@ import static util.CollectionUtils.join;
 /**
  * @author Steven Weston
  */
-public abstract class FunctionFactory<D extends Nameable, C> implements Factory<Function<D, C>> {
+public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, C>> implements Factory<F> {
 
-	protected final List<ValidatorAndConstructor<Function<D, C>>> constructors;
+	protected final List<ValidatorAndConstructor<F>> constructors;
 
-	protected FunctionFactory(List<ValidatorAndConstructor<Function<D, C>>> constructors) {
+	protected FunctionFactory(List<ValidatorAndConstructor<F>> constructors) {
 		this.constructors = constructors;
 	}
 
 	@Override
-	public final Function<D, C> createElement(List<Token> tokens) throws FactoryException {
+	public final F createElement(List<Token> tokens) throws FactoryException {
 		return createElement(tokens, null);
 	}
 
-	public final Function<D, C> createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public final F createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		List<String> failureMessages = new ArrayList<>();
-		for (ValidatorAndConstructor<Function<D, C>> constructor : constructors) {
+		for (ValidatorAndConstructor<F> constructor : constructors) {
 			try {
 				return constructor.construct(tokens, functions);
 			} catch (ValidationException e) {

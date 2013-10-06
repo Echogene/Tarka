@@ -1,7 +1,6 @@
 package logic.function.set.identity;
 
 import logic.Nameable;
-import logic.function.Function;
 import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
@@ -12,7 +11,6 @@ import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.set.Set;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,24 +21,27 @@ import static logic.function.set.identity.SetIdentityFunction.SET_IDENTITY_NAME;
 /**
  * @author Steven Weston
  */
-public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionFactory<T> implements ConstructorFromString<SetIdentityFunction<T>> {
+public class SetIdentityFunctionFactory<T extends Nameable>
+		extends SetFunctionFactory<T, SetIdentityFunction<T>>
+		implements ConstructorFromString<SetIdentityFunction<T>> {
+
 	public SetIdentityFunctionFactory() {
 		super(getConstructors());
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Set<T>>>> getConstructors() {
+	private static <T extends Nameable> List<ValidatorAndConstructor<SetIdentityFunction<T>>> getConstructors() {
 		Validator validatorWithoutId = new Validator();
 		validatorWithoutId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
-		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithoutId = new ValidatorAndConstructor<>(
+		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
-				new Constructor<T>(1)
+				new Constructor<>(1)
 		);
 		Validator validatorWithId = new Validator();
 		validatorWithId.addValidator(new WordAtom(SET_IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
-		ValidatorAndConstructor<Function<T, Set<T>>> constructorWithId = new ValidatorAndConstructor<>(
+		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
-				new Constructor<T>(2)
+				new Constructor<>(2)
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
@@ -50,7 +51,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		return new SetIdentityFunction<>(parameterName);
 	}
 
-	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<Function<T, Set<T>>> {
+	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<SetIdentityFunction<T>> {
 
 		private final int resultIndex;
 
@@ -59,7 +60,7 @@ public class SetIdentityFunctionFactory<T extends Nameable> extends SetFunctionF
 		}
 
 		@Override
-		public Function<T, Set<T>> construct(List<ValidationResult> results) {
+		public SetIdentityFunction<T> construct(List<ValidationResult> results) {
 			ValidationResult validationResult = results.get(resultIndex);
 			if (validationResult instanceof StringResult) {
 				StringResult result = (StringResult) validationResult;

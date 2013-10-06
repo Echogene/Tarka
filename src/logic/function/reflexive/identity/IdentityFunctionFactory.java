@@ -1,8 +1,8 @@
 package logic.function.reflexive.identity;
 
 import logic.Nameable;
-import logic.function.Function;
 import logic.function.factory.ConstructorFromString;
+import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.validation.Validator;
 import logic.function.factory.validation.WordAtom;
@@ -22,24 +22,27 @@ import static logic.function.reflexive.identity.IdentityFunction.IDENTITY_NAME;
 /**
  * @author Steven Weston
  */
-public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> implements ConstructorFromString<IdentityFunction<T>> {
+public class IdentityFunctionFactory<T extends Nameable>
+		extends ReflexiveFunctionFactory<T, IdentityFunction<T>>
+		implements ConstructorFromString<IdentityFunction<T>> {
+
 	public IdentityFunctionFactory() {
 		super(getConstructors());
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, T>>> getConstructors() {
+	private static <T extends Nameable> List<ValidatorAndConstructor<IdentityFunction<T>>> getConstructors() {
 		Validator validatorWithoutId = new Validator();
 		validatorWithoutId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
-		ValidatorAndConstructor<Function<T, T>> constructorWithoutId = new ValidatorAndConstructor<>(
+		ValidatorAndConstructor<IdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
-				new Constructor<T>(1)
+				new IdentityFunctionConstructor<>(1)
 		);
 		Validator validatorWithId = new Validator();
 		validatorWithId.addValidator(new WordAtom(IDENTITY_NAME), ONE);
 		validatorWithId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
-		ValidatorAndConstructor<Function<T, T>> constructorWithId = new ValidatorAndConstructor<>(
+		ValidatorAndConstructor<IdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
-				new Constructor<T>(2)
+				new IdentityFunctionConstructor<>(2)
 		);
 		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
@@ -49,16 +52,16 @@ public class IdentityFunctionFactory<T extends Nameable> extends ReflexiveFuncti
 		return new IdentityFunction<>(parameterName);
 	}
 
-	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<Function<T, T>> {
+	private static class IdentityFunctionConstructor<T extends Nameable> implements Constructor<IdentityFunction<T>> {
 
 		private final int resultIndex;
 
-		private Constructor(int resultIndex) {
+		private IdentityFunctionConstructor(int resultIndex) {
 			this.resultIndex = resultIndex;
 		}
 
 		@Override
-		public Function<T, T> construct(List<ValidationResult> results) {
+		public IdentityFunction<T> construct(List<ValidationResult> results) {
 			ValidationResult validationResult = results.get(resultIndex);
 			if (validationResult instanceof StringResult) {
 				StringResult result = (StringResult) validationResult;

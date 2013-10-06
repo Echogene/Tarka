@@ -1,8 +1,8 @@
 package maths.number.integer.model;
 
-import logic.evaluable.Evaluable;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.Function;
+import logic.function.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
@@ -31,6 +31,9 @@ public class IntegerReaderRepl {
 			in =  br.readLine();
 			if ("exit".equals(in)) {
 				return;
+			}
+			if (in.isEmpty()) {
+				continue;
 			}
 			evaluateInput(in);
 		}

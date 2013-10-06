@@ -2,7 +2,6 @@ package logic.function.reflexive.assignment;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
-import logic.function.Function;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
@@ -24,7 +23,7 @@ import static logic.function.factory.validation.GroupValidatorWithNumber.Number.
 /**
  * @author Steven Weston
  */
-public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFunctionFactory<T> {
+public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFunctionFactory<T, ReflexiveAssignment<T>> {
 	public static final String WHERE = "where";
 	public static final String IS = "is";
 
@@ -32,7 +31,7 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFun
 		super(getConstructors());
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, T>>> getConstructors() {
+	private static <T extends Nameable> List<ValidatorAndConstructor<ReflexiveAssignment<T>>> getConstructors() {
 		Validator validator = new Validator();
 		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
 		validator.addValidator(new WordAtom(WHERE), ONE);
@@ -47,7 +46,7 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFun
 		);
 	}
 
-	private static class ReflexiveAssignmentConstructor<T extends Nameable> implements Constructor<Function<T, T>> {
+	private static class ReflexiveAssignmentConstructor<T extends Nameable> implements Constructor<ReflexiveAssignment<T>> {
 
 		private final FunctionConvertor<ReflexiveFunction<T>, T> convertor;
 
@@ -56,7 +55,7 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFun
 		}
 
 		@Override
-		public Function<T, T> construct(List<ValidationResult> results) throws FactoryException {
+		public ReflexiveAssignment<T> construct(List<ValidationResult> results) throws FactoryException {
 			ReflexiveFunction<T> evaluee = convertor.convert(results.get(1));
 			String asignee = ((StringResult) results.get(3)).getString();
 			ReflexiveFunction<T> assignment = convertor.convert(results.get(5));

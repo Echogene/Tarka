@@ -1,7 +1,7 @@
 package maths.number.integer.model.universe;
 
-import logic.evaluable.Evaluable;
 import logic.factory.SimpleLogicReaderImpl;
+import logic.function.evaluable.Evaluable;
 import maths.number.integer.Integer;
 import org.junit.Test;
 

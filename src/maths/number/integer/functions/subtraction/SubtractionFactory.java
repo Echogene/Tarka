@@ -1,7 +1,6 @@
 package maths.number.integer.functions.subtraction;
 
 import logic.factory.FactoryException;
-import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
@@ -23,13 +22,13 @@ import static maths.number.integer.functions.subtraction.Subtraction.MINUS;
 /**
  * @author Steven Weston
  */
-public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFactory<N> {
+public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFactory<N, Subtraction<N>> {
 
 	public SubtractionFactory(Subtractor<N> subtractor) {
 		super(getConstructors(subtractor));
 	}
 
-	private static <N extends Number> List<ValidatorAndConstructor<Function<N, N>>> getConstructors(Subtractor<N> subtractor) {
+	private static <N extends Number> List<ValidatorAndConstructor<Subtraction<N>>> getConstructors(Subtractor<N> subtractor) {
 		Validator binaryValidator = new BinaryValidator(asList(MINUS));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
@@ -39,7 +38,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 		);
 	}
 
-	private static class SubtractionConstructor<N extends Number> implements Constructor<Function<N, N>> {
+	private static class SubtractionConstructor<N extends Number> implements Constructor<Subtraction<N>> {
 
 		private final Subtractor<N> subtractor;
 		private final FunctionConvertor<ReflexiveFunction<N>, N> convertor;
@@ -50,7 +49,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 		}
 
 		@Override
-		public Function<N, N> construct(List<ValidationResult> results) throws FactoryException {
+		public Subtraction<N> construct(List<ValidationResult> results) throws FactoryException {
 			return new Subtraction<>(convertor.convert(results.get(1)), convertor.convert(results.get(3)), subtractor);
 		}
 	}

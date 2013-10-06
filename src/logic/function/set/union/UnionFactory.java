@@ -2,7 +2,6 @@ package logic.function.set.union;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
-import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
@@ -14,7 +13,6 @@ import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
 import logic.function.set.identity.SetIdentityFunction;
 import logic.function.set.identity.SetIdentityFunctionFactory;
-import logic.set.Set;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,13 +24,13 @@ import static logic.function.set.union.Union.MULTARY_SYMBOL;
 /**
  * @author Steven Weston
  */
-public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
+public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T, Union<T>> {
 
 	public UnionFactory() {
 		super(getConstructors());
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<Function<T, Set<T>>>> getConstructors() {
+	private static <T extends Nameable> List<ValidatorAndConstructor<Union<T>>> getConstructors() {
 		Validator binaryValidator = new BinaryValidator(SetFunction.class, asList(BINARY_SYMBOL), SetFunction.class);
 		Validator multaryValidator = new MultaryValidator(asList(MULTARY_SYMBOL), SetFunction.class);
 		return asList(
@@ -56,7 +54,7 @@ public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 		return new Union<>(functions);
 	}
 
-	private static class BinaryUnionConstructor<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
+	private static class BinaryUnionConstructor<T extends Nameable> implements Constructor<Union<T>> {
 
 		private final FunctionConvertor<SetFunction<T>, T> convertor;
 
@@ -65,7 +63,7 @@ public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 		}
 
 		@Override
-		public Function<T, Set<T>> construct(List<ValidationResult> results) throws FactoryException {
+		public Union<T> construct(List<ValidationResult> results) throws FactoryException {
 			SetFunction<T> firstFunction = convertor.convert(results.get(1));
 			SetFunction<T> secondFunction = convertor.convert(results.get(3));
 			java.util.Set<SetFunction<T>> parameters = new HashSet<>();
@@ -75,7 +73,7 @@ public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 		}
 	}
 
-	private static class MultaryUnionConstructor<T extends Nameable> implements Constructor<Function<T, Set<T>>> {
+	private static class MultaryUnionConstructor<T extends Nameable> implements Constructor<Union<T>> {
 
 		private final FunctionConvertor<SetFunction<T>, T> convertor;
 
@@ -84,7 +82,7 @@ public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T> {
 		}
 
 		@Override
-		public Function<T, Set<T>> construct(List<ValidationResult> results) throws FactoryException {
+		public Union<T> construct(List<ValidationResult> results) throws FactoryException {
 			java.util.Set<SetFunction<T>> parameters = new HashSet<>();
 			for (int i = 2; i < results.size() - 1; i++) {
 				parameters.add(convertor.convert(results.get(i)));
