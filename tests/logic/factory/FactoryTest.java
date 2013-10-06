@@ -16,13 +16,13 @@ import static org.junit.Assert.fail;
 /**
  * @author Steven Weston
  */
-public abstract class FactoryTest<F extends FunctionFactory<?, ?>> {
+public abstract class FactoryTest<F extends FunctionFactory<?, ?, ?>> {
 
 	protected List<Token> tokens;
 	protected List<Function<?, ?>> functions;
 	protected F factory;
 	protected SimpleLogicLexerImpl lexer;
-	protected FunctionFactory<?, ?> functionFactory;
+	protected FunctionFactory<?, ?, ?> functionFactory;
 
 	public FactoryTest() {
 		lexer = new SimpleLogicLexerImpl();

@@ -44,14 +44,14 @@ public class SimpleLogicEvaluatorImplTest {
 	private static UnaryConnectiveFactory unaryConnectiveFactory;
 	private static QuantifierFactory quantifierFactory;
 
-	private static List<FunctionFactory<?, ?>> factories;
+	private static List<FunctionFactory<?, ?, ?>> factories;
 
 	@BeforeClass
 	public static void setUp() {
 		factories = new ArrayList<>();
 		factories.add(new EqualityPredicateFactory<>());
 		factories.add(new MembershipPredicateFactory<>());
-		factories.add(new SetIdentityFunctionFactory<TestClass>());
+		factories.add(new SetIdentityFunctionFactory<>());
 		factories.add(new IdentityFunctionFactory<TestClass>());
 		factories.add(new BinaryStatementFactory<>());
 		factories.add(new LogicalConstantFactory<>());

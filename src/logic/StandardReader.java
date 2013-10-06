@@ -24,12 +24,12 @@ import java.util.List;
  */
 public class StandardReader {
 	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader() {
-		List<FunctionFactory<?, ?>> factories = getStandardFunctionFactories();
+		List<FunctionFactory<?, ?, ?>> factories = getStandardFunctionFactories();
 		return new SimpleLogicReaderImpl<>(factories);
 	}
 
-	public static <T extends Nameable> List<FunctionFactory<?, ?>> getStandardFunctionFactories() {
-		List<FunctionFactory<?, ?>> output = new ArrayList<>();
+	public static <T extends Nameable> List<FunctionFactory<?, ?, ?>> getStandardFunctionFactories() {
+		List<FunctionFactory<?, ?, ?>> output = new ArrayList<>();
 		output.add(new EqualityPredicateFactory<>());
 		output.add(new MembershipPredicateFactory<>());
 		output.add(new SetIdentityFunctionFactory<>());

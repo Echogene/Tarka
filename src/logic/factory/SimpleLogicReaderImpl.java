@@ -16,7 +16,7 @@ public class SimpleLogicReaderImpl<T extends Nameable> implements Reader<Functio
 	protected SimpleLogicParserImpl parser;
 	protected SimpleLogicEvaluatorImpl evaluator;
 
-	public SimpleLogicReaderImpl(List<FunctionFactory<?, ?>> factories) {
+	public SimpleLogicReaderImpl(List<FunctionFactory<?, ?, ?>> factories) {
 		lexer = new SimpleLogicLexerImpl();
 		parser = new SimpleLogicParserImpl();
 		evaluator = new SimpleLogicEvaluatorImpl(factories);

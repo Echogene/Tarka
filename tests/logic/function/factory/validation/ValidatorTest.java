@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 /**
  * @author Steven Weston
  */
-public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?>> {
+public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
 	public ValidatorTest() {
 		functionFactory = new IdentityFunctionFactory<TestClass>();
