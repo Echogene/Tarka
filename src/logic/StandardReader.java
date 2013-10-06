@@ -9,6 +9,7 @@ import logic.function.evaluable.statements.quantified.restricted.RestrictedQuant
 import logic.function.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
 import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
+import logic.function.ifelse.IfElseFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.identity.SetIdentityFunctionFactory;
@@ -30,10 +31,10 @@ public class StandardReader {
 
 	public static <T extends Nameable> List<FunctionFactory<?, ?, ?>> getStandardFunctionFactories() {
 		List<FunctionFactory<?, ?, ?>> output = new ArrayList<>();
+		output.add(new IdentityFunctionFactory<T>());
 		output.add(new EqualityPredicateFactory<>());
 		output.add(new MembershipPredicateFactory<>());
 		output.add(new SetIdentityFunctionFactory<>());
-		output.add(new IdentityFunctionFactory<T>());
 		output.add(new BinaryStatementFactory<>());
 		output.add(new LogicalConstantFactory<>());
 		output.add(new UnaryStatementFactory<>());
@@ -43,6 +44,7 @@ public class StandardReader {
 		output.add(new RestrictedQuantifiedStatementFactory<>());
 		output.add(new MemberDefinitionFactory<>());
 		output.add(new SimpleSetFactory<>());
+		output.add(new IfElseFactory<>());
 		return output;
 	}
 }

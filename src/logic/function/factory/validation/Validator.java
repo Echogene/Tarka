@@ -42,7 +42,7 @@ public class Validator {
 		this(asList("("), asList(")"));
 	}
 
-	public void addValidator(GroupValidator validator, Number number) {
+	public void addValidator(Number number, GroupValidator validator) {
 		groupValidators.add(new GroupValidatorWithNumber(validator, number));
 	}
 
@@ -93,6 +93,9 @@ public class Validator {
 			if (getNextFunctionAtEndOfLoop) {
 				currentFunction = safeNext(functionIterator);
 			}
+		}
+		if (validatorIterator.hasNext()) {
+			throw new ValidationException("There were not enough tokens");
 		}
 		output.add(new StringResult(tokens.get(tokens.size() - 1).getValue()));
 		return output;
