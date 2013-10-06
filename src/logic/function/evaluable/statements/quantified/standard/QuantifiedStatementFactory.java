@@ -32,9 +32,9 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<QuantifiedStatement<T>>> getConstructors() {
 		Validator validator = new Validator();
-		validator.addValidator(new QuantifierAtom(QUANTIFIER_SYMBOL_LIST), ONE);
-		validator.addValidator(new VariableAtom(), ONE);
-		validator.addValidator(new FunctionOrVariableValidator(Evaluable.class), ONE);
+		validator.addValidator(ONE, new QuantifierAtom(QUANTIFIER_SYMBOL_LIST));
+		validator.addValidator(ONE, new VariableAtom());
+		validator.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(

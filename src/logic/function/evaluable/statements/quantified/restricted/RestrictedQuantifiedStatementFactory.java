@@ -38,11 +38,11 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Ev
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<RestrictedQuantifiedStatement<T>>> getConstructors() {
 		Validator validator = new Validator();
-		validator.addValidator(new QuantifierAtom(QUANTIFIER_SYMBOL_LIST), ONE);
-		validator.addValidator(new VariableAtom(), ONE);
-		validator.addValidator(new OperatorAtom(Arrays.asList(MEMBERSHIP_SYMBOL)), ONE);
-		validator.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
-		validator.addValidator(new FunctionOrVariableValidator(Evaluable.class), ONE);
+		validator.addValidator(ONE, new QuantifierAtom(QUANTIFIER_SYMBOL_LIST));
+		validator.addValidator(ONE, new VariableAtom());
+		validator.addValidator(ONE, new OperatorAtom(Arrays.asList(MEMBERSHIP_SYMBOL)));
+		validator.addValidator(ONE, new FunctionOrVariableValidator(SetFunction.class));
+		validator.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

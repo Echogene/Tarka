@@ -15,7 +15,7 @@ import static util.CollectionUtils.join;
 /**
  * @author Steven Weston
  */
-public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, C>> implements Factory<F> {
+public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, ?>> implements Factory<F> {
 
 	protected final List<ValidatorAndConstructor<F>> constructors;
 

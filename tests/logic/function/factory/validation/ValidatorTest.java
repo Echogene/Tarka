@@ -41,9 +41,9 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 				asList(")")
 		);
 
-		validator.addValidator(new VariableAtom(), ONE);
-		validator.addValidator(new OperatorAtom(asList("+")), ONE);
-		validator.addValidator(new VariableAtom(), ONE);
+		validator.addValidator(ONE, new VariableAtom());
+		validator.addValidator(ONE, new OperatorAtom(asList("+")));
+		validator.addValidator(ONE, new VariableAtom());
 
 		setUpTokens("(2 + 3)");
 		functions = new ArrayList<>();
@@ -70,9 +70,9 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 				asList(")")
 		);
 
-		validator.addValidator(new FunctionAtom(asList("("), Arrays.<Class>asList(ReflexiveFunction.class), asList(")")), ONE);
-		validator.addValidator(new OperatorAtom(asList("+")), ONE);
-		validator.addValidator(new VariableAtom(), ONE);
+		validator.addValidator(ONE, new FunctionAtom(asList("("), Arrays.<Class>asList(ReflexiveFunction.class), asList(")")));
+		validator.addValidator(ONE, new OperatorAtom(asList("+")));
+		validator.addValidator(ONE, new VariableAtom());
 
 		setUpTokens("(() + 3)");
 		setUpFunctions("(2)");
@@ -100,21 +100,19 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 		);
 
 		validator.addValidator(
-				new FunctionAtom(
+				ONE, new FunctionAtom(
 						asList("("),
 						Arrays.<Class>asList(ReflexiveFunction.class),
 						asList(")")
-				),
-				ONE
+				)
 		);
-		validator.addValidator(new OperatorAtom(asList("+")), ONE);
+		validator.addValidator(ONE, new OperatorAtom(asList("+")));
 		validator.addValidator(
-				new FunctionAtom(
+				ONE, new FunctionAtom(
 						asList("("),
 						Arrays.<Class>asList(ReflexiveFunction.class),
 						asList(")")
-				),
-				ONE
+				)
 		);
 
 		setUpTokens("(() + ())");
@@ -140,9 +138,9 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 				asList(")")
 		);
 
-		validator.addValidator(new OperatorAtom(asList("Σ")), ONE);
+		validator.addValidator(ONE, new OperatorAtom(asList("Σ")));
 		validator.addValidator(
-				new DisjunctiveValidator(
+				MANY, new DisjunctiveValidator(
 						Arrays.<GroupValidator>asList(
 								new VariableAtom(),
 								new FunctionAtom(
@@ -151,8 +149,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 										asList(")")
 								)
 						)
-				),
-				MANY
+				)
 		);
 
 		setUpTokens("(Σ 1 2 3 () 5 ())");

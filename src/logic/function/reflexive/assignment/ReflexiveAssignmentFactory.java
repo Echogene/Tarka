@@ -33,11 +33,11 @@ public class ReflexiveAssignmentFactory<T extends Nameable> extends ReflexiveFun
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<ReflexiveAssignment<T>>> getConstructors() {
 		Validator validator = new Validator();
-		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
-		validator.addValidator(new WordAtom(WHERE), ONE);
-		validator.addValidator(new VariableAtom(), ONE);
-		validator.addValidator(new WordAtom(IS), ONE);
-		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
+		validator.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
+		validator.addValidator(ONE, new WordAtom(WHERE));
+		validator.addValidator(ONE, new VariableAtom());
+		validator.addValidator(ONE, new WordAtom(IS));
+		validator.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

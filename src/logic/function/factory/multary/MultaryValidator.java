@@ -18,9 +18,9 @@ public class MultaryValidator extends Validator {
 	public MultaryValidator(List<String> acceptedOpeningBrackets, List<String> acceptedOperatorSymbols, Class parameterClass, List<String> acceptedClosingBrackets) {
 		super(acceptedOpeningBrackets, acceptedClosingBrackets);
 		if (acceptedOperatorSymbols != null) {
-			addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+			addValidator(ONE, new OperatorAtom(acceptedOperatorSymbols));
 		}
-		addValidator(new FunctionOrVariableValidator(parameterClass), MANY);
+		addValidator(MANY, new FunctionOrVariableValidator(parameterClass));
 	}
 
 	public MultaryValidator(List<String> acceptedOperatorSymbols, Class parameterClass) {

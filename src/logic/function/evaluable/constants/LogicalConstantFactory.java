@@ -31,7 +31,7 @@ public class LogicalConstantFactory<T extends Nameable>
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<LogicalConstant<T>>> getConstructors() {
 		Validator validator = new Validator();
-		validator.addValidator(new OperatorAtom(CONSTANT_SYMBOL_LIST), ONE);
+		validator.addValidator(ONE, new OperatorAtom(CONSTANT_SYMBOL_LIST));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

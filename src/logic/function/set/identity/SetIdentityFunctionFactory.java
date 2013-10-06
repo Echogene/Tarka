@@ -31,14 +31,14 @@ public class SetIdentityFunctionFactory<T extends Nameable>
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<SetIdentityFunction<T>>> getConstructors() {
 		Validator validatorWithoutId = new Validator();
-		validatorWithoutId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
+		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(SetFunction.class));
 		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
 				new Constructor<>(1)
 		);
 		Validator validatorWithId = new Validator();
-		validatorWithId.addValidator(new WordAtom(SET_IDENTITY_NAME), ONE);
-		validatorWithId.addValidator(new FunctionOrVariableValidator(SetFunction.class), ONE);
+		validatorWithId.addValidator(ONE, new WordAtom(SET_IDENTITY_NAME));
+		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(SetFunction.class));
 		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
 				new Constructor<>(2)

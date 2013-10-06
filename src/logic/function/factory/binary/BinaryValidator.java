@@ -21,11 +21,11 @@ public class BinaryValidator extends Validator {
 			Class secondClass,
 			List<String> acceptedClosingBrackets) {
 		super(acceptedOpeningBrackets, acceptedClosingBrackets);
-		addValidator(new FunctionOrVariableValidator(firstClass), ONE);
+		addValidator(ONE, new FunctionOrVariableValidator(firstClass));
 		if (acceptedOperatorSymbols != null) {
-			addValidator(new OperatorAtom(acceptedOperatorSymbols), ONE);
+			addValidator(ONE, new OperatorAtom(acceptedOperatorSymbols));
 		}
-		addValidator(new FunctionOrVariableValidator(secondClass), ONE);
+		addValidator(ONE, new FunctionOrVariableValidator(secondClass));
 	}
 
 	public BinaryValidator(Class firstClass, List<String> acceptedOperatorSymbols, Class secondClass) {

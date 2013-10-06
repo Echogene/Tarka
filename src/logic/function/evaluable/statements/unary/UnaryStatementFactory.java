@@ -30,14 +30,14 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<UnaryStatement<T>>> getConstructors() {
 		Validator validatorWithoutId = new Validator();
-		validatorWithoutId.addValidator(new FunctionOrVariableValidator(Evaluable.class), ONE);
+		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 		ValidatorAndConstructor<UnaryStatement<T>> constructorWithoutSymbol = new ValidatorAndConstructor<>(
 				validatorWithoutId,
 				new Constructor<>(1)
 		);
 		Validator validatorWithId = new Validator();
-		validatorWithId.addValidator(new OperatorAtom(UNARY_CONNECTIVE_SYMBOL_LIST), ONE);
-		validatorWithId.addValidator(new FunctionOrVariableValidator(Evaluable.class), ONE);
+		validatorWithId.addValidator(ONE, new OperatorAtom(UNARY_CONNECTIVE_SYMBOL_LIST));
+		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 		ValidatorAndConstructor<UnaryStatement<T>> constructorWithSymbol = new ValidatorAndConstructor<>(
 				validatorWithId,
 				new Constructor<>(2)

@@ -31,9 +31,9 @@ public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<MemberDefinition<T>>> getConstructors() {
 		Validator validator = new Validator();
-		validator.addValidator(new VariableAtom(), ONE);
-		validator.addValidator(new OperatorAtom(DEFINITION_SYMBOL), ONE);
-		validator.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
+		validator.addValidator(ONE, new VariableAtom());
+		validator.addValidator(ONE, new OperatorAtom(DEFINITION_SYMBOL));
+		validator.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
 		ValidatorAndConstructor<MemberDefinition<T>> constructor = new ValidatorAndConstructor<>(
 				validator,
 				new MemberDefinitionConstructor<T>()

@@ -32,14 +32,14 @@ public class IdentityFunctionFactory<T extends Nameable>
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<IdentityFunction<T>>> getConstructors() {
 		Validator validatorWithoutId = new Validator();
-		validatorWithoutId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
+		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
 		ValidatorAndConstructor<IdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
 				new IdentityFunctionConstructor<>(1)
 		);
 		Validator validatorWithId = new Validator();
-		validatorWithId.addValidator(new WordAtom(IDENTITY_NAME), ONE);
-		validatorWithId.addValidator(new FunctionOrVariableValidator(ReflexiveFunction.class), ONE);
+		validatorWithId.addValidator(ONE, new WordAtom(IDENTITY_NAME));
+		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
 		ValidatorAndConstructor<IdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(
 				validatorWithId,
 				new IdentityFunctionConstructor<>(2)
