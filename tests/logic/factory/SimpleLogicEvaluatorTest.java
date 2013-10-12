@@ -32,10 +32,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicEvaluatorImplTest {
+public class SimpleLogicEvaluatorTest {
 	private static SimpleLogicLexer lexer;
 	private static SimpleLogicParser parser;
-	private static SimpleLogicEvaluatorImpl evaluator;
+	private static SimpleLogicEvaluator evaluator;
 
 	private static ParseTree tree;
 	private static List<Token> tokens;
@@ -60,7 +60,7 @@ public class SimpleLogicEvaluatorImplTest {
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluatorImpl(factories);
+		evaluator = new SimpleLogicEvaluator(factories);
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();

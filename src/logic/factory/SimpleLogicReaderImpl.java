@@ -14,12 +14,12 @@ import java.util.List;
 public class SimpleLogicReaderImpl<T extends Nameable> implements Reader<Function<?, ?>> {
 	protected SimpleLogicLexer lexer;
 	protected SimpleLogicParser parser;
-	protected SimpleLogicEvaluatorImpl evaluator;
+	protected SimpleLogicEvaluator evaluator;
 
 	public SimpleLogicReaderImpl(List<FunctionFactory<?, ?, ?>> factories) {
 		lexer = new SimpleLogicLexer();
 		parser = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluatorImpl(factories);
+		evaluator = new SimpleLogicEvaluator(factories);
 	}
 
 	@Override

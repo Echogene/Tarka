@@ -17,11 +17,11 @@ import static util.CollectionUtils.join;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicEvaluatorImpl implements Evaluator<Function<?, ?>> {
+public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
 	protected List<FunctionFactory<?, ?, ?>> factories;
 	private static final boolean LOG_FACTORY_FAILURES = false;
 
-	public SimpleLogicEvaluatorImpl(List<FunctionFactory<?, ?, ?>> factories) {
+	public SimpleLogicEvaluator(List<FunctionFactory<?, ?, ?>> factories) {
 		this.factories = factories;
 	}
 
