@@ -33,12 +33,14 @@ public class SimpleLogicParseTree implements ParseTree {
 		return output;
 	}
 
+	@Override
 	public ParseTree getSubtreeAt(ParseTreeNode node) {
 		ParseTree output = new SimpleLogicParseTree();
 		output.getNodes().addAll(node.getAllDescendants());
 		return output;
 	}
 
+	@Override
 	public String getSubstringAt(ParseTreeNode node) {
 		String output = node.getToken().getValue();
 		for(ParseTreeNode c : node.getAllDescendants()) {
@@ -49,5 +51,4 @@ public class SimpleLogicParseTree implements ParseTree {
 		}
 		return output;
 	}
-
 }
