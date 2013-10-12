@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class SimpleLogicEvaluatorImplTest {
 	private static SimpleLogicLexerImpl lexer;
-	private static SimpleLogicParserImpl parser;
+	private static SimpleLogicParser parser;
 	private static SimpleLogicEvaluatorImpl evaluator;
 
 	private static ParseTree tree;
@@ -59,7 +59,7 @@ public class SimpleLogicEvaluatorImplTest {
 		factories.add(new QuantifiedStatementFactory<>());
 
 		lexer     = new SimpleLogicLexerImpl();
-		parser    = new SimpleLogicParserImpl();
+		parser    = new SimpleLogicParser();
 		evaluator = new SimpleLogicEvaluatorImpl(factories);
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();

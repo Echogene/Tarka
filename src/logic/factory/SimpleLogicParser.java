@@ -12,7 +12,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 /**
  * @author Steven Weston
  */
-public class SimpleLogicParserImpl implements Parser {
+public class SimpleLogicParser implements Parser {
 	@Override
 	public ParseTree parseTokens(List<Token> tokens) {
 		if (tokens == null || tokens.isEmpty()) {
