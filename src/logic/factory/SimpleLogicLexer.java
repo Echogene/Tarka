@@ -22,7 +22,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicLexerImpl implements Lexer {
+public class SimpleLogicLexer implements Lexer {
 	private static final String OPERATOR_GROUP =
 			"∊∈∉∍∋∌="
 			+ BinaryConnective.BINARY_CONNECTIVE_SYMBOLS

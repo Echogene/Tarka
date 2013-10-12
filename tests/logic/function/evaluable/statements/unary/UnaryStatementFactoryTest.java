@@ -2,7 +2,7 @@ package logic.function.evaluable.statements.unary;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
-import logic.factory.SimpleLogicLexerImpl;
+import logic.factory.SimpleLogicLexer;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
@@ -17,7 +17,7 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 	private static UnaryConnectiveFactory connectiveFactory;
 
 	public UnaryStatementFactoryTest() {
-		lexer   = new SimpleLogicLexerImpl();
+		lexer   = new SimpleLogicLexer();
 		factory = new UnaryStatementFactory<>();
 		connectiveFactory = new UnaryConnectiveFactory();
 		functionFactory = new EqualityPredicateFactory<>();

@@ -14,14 +14,14 @@ import static org.junit.Assert.assertEquals;
  * @author Steven Weston
  */
 public class SimpleLogicParserTest {
-	private static SimpleLogicLexerImpl lexer;
+	private static SimpleLogicLexer lexer;
 	private static List<Token> tokens;
 	private static SimpleLogicParser parser;
 	private static ParseTree tree;
 
 	@BeforeClass
 	public static void setUp() {
-		lexer = new SimpleLogicLexerImpl();
+		lexer = new SimpleLogicLexer();
 		parser = new SimpleLogicParser();
 	}
 

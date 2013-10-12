@@ -21,11 +21,11 @@ public abstract class FactoryTest<F extends FunctionFactory<?, ?, ?>> {
 	protected List<Token> tokens;
 	protected List<Function<?, ?>> functions;
 	protected F factory;
-	protected SimpleLogicLexerImpl lexer;
+	protected SimpleLogicLexer lexer;
 	protected FunctionFactory<?, ?, ?> functionFactory;
 
 	public FactoryTest() {
-		lexer = new SimpleLogicLexerImpl();
+		lexer = new SimpleLogicLexer();
 	}
 
 	protected void setUpFunctions(String... functions) throws LexerException, FactoryException {

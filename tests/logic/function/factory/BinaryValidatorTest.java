@@ -1,7 +1,7 @@
 package logic.function.factory;
 
 import logic.TestClass;
-import logic.factory.SimpleLogicLexerImpl;
+import logic.factory.SimpleLogicLexer;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.reflexive.identity.IdentityFunction;
@@ -21,12 +21,12 @@ import static org.junit.Assert.*;
 public class BinaryValidatorTest {
 	private static List<Token> tokens;
 	private static List<Function<?, ?>> functions;
-	private static SimpleLogicLexerImpl lexer;
+	private static SimpleLogicLexer lexer;
 	private static BinaryValidator validator;
 
 	@BeforeClass
 	public static void setUp() {
-		lexer     = new SimpleLogicLexerImpl();
+		lexer     = new SimpleLogicLexer();
 		validator = new BinaryValidator(Arrays.asList("+"));
 	}
 

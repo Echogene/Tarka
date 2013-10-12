@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
  * @author Steven Weston
  */
 public class SimpleLogicEvaluatorImplTest {
-	private static SimpleLogicLexerImpl lexer;
+	private static SimpleLogicLexer lexer;
 	private static SimpleLogicParser parser;
 	private static SimpleLogicEvaluatorImpl evaluator;
 
@@ -58,7 +58,7 @@ public class SimpleLogicEvaluatorImplTest {
 		factories.add(new UnaryStatementFactory<>());
 		factories.add(new QuantifiedStatementFactory<>());
 
-		lexer     = new SimpleLogicLexerImpl();
+		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
 		evaluator = new SimpleLogicEvaluatorImpl(factories);
 

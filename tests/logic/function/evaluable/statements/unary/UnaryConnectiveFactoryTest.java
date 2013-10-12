@@ -1,7 +1,7 @@
 package logic.function.evaluable.statements.unary;
 
 import logic.Connective;
-import logic.factory.SimpleLogicLexerImpl;
+import logic.factory.SimpleLogicLexer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -15,12 +15,12 @@ import static org.junit.Assert.*;
  */
 public class UnaryConnectiveFactoryTest {
 	private static List<Token> tokens;
-	private static SimpleLogicLexerImpl lexer;
+	private static SimpleLogicLexer lexer;
 	private static UnaryConnectiveFactory factory;
 
 	@BeforeClass
 	public static void setUp() {
-		lexer   = new SimpleLogicLexerImpl();
+		lexer   = new SimpleLogicLexer();
 		factory = new UnaryConnectiveFactory();
 	}
 

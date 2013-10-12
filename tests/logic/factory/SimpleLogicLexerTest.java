@@ -7,19 +7,19 @@ import reading.lexing.Token;
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.factory.SimpleLogicLexerImpl.lexAtom;
+import static logic.factory.SimpleLogicLexer.lexAtom;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 import static org.junit.Assert.assertEquals;
 
 /**
  * @author Steven Weston
  */
-public class SimpleLogicLexerImplTest {
-	private static SimpleLogicLexerImpl lexer;
+public class SimpleLogicLexerTest {
+	private static SimpleLogicLexer lexer;
 
 	@BeforeClass
 	public static void setUp() {
-		lexer = new SimpleLogicLexerImpl();
+		lexer = new SimpleLogicLexer();
 	}
 
 	@Test
