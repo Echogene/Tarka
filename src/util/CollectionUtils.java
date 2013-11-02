@@ -48,16 +48,16 @@ public class CollectionUtils {
 	 * @return
 	 */
 	public static String join(Collection<String> list, String joiner) {
-		String output = "";
+		StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for (String string : list) {
 			if (!first) {
-				output += joiner;
+				sb.append(joiner);
 			}
-			output += string;
+			sb.append(string);
 			first = false;
 		}
-		return output;
+		return sb.toString();
 	}
 
 	public static String simpleNames(List<Class> classes) {
