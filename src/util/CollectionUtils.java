@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class CollectionUtils {
 	 * @param joiner
 	 * @return
 	 */
-	public static String join(List<String> list, String joiner) {
+	public static String join(Collection<String> list, String joiner) {
 		String output = "";
 		boolean first = true;
 		for (String string : list) {
