@@ -31,7 +31,7 @@ public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
 		if (tree == null) {
 			return null;
 		}
-		return evaluate(tree.getNodes().get(0).getChildren());
+		return evaluate(tree.getFirstNode().getChildren());
 	}
 
 	Function<?, ?> evaluate(List<ParseTreeNode> nodes) throws EvaluatorException {

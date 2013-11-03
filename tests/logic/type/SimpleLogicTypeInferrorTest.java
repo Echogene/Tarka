@@ -71,70 +71,70 @@ public class SimpleLogicTypeInferrorTest {
 	public void testSimpleTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is 2)");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 3, 5));
+		checkNodes(tree, map, asList(0, 1, 3, 5));
 	}
 
 	@Test
 	public void testIgnoredVariableTypeInference() throws Exception {
 		ParseTree tree = parse("(2 where x is 2)");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 3, 5));
+		checkNodes(tree, map, asList(0, 1, 3, 5));
 	}
 
 	@Test
 	public void testHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((y where y is x) where x is 2)");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 2, 4, 6, 9, 11));
+		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 9, 11));
 	}
 
 	@Test
 	public void testHeadNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(((z where z is y) where y is x) where x is 2)");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 2, 3, 5, 7, 10, 12, 15 ,17));
+		checkNodes(tree, map, asList(0, 1, 2, 3, 5, 7, 10, 12, 15 ,17));
 	}
 
 	@Test
 	public void testTailNestedTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is (y where y is 2))");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 3, 5, 6, 8, 10));
+		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 8, 10));
 	}
 
 	@Test
 	public void testTailNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is (y where y is (z where z is 2)))");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 3, 5, 6, 8, 10, 11, 13, 15));
+		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 8, 10, 11, 13, 15));
 	}
 
 	@Test
 	public void testTailAndHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((x where x is y) where y is (z where z is 2))");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 2, 4, 6, 9, 11, 12, 14, 16));
+		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 9, 11, 12, 14, 16));
 	}
 
 	@Test
 	public void testHeadThenTailNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((x where x is (y where y is z)) where z is 2)");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 2, 4, 6, 7, 9, 11, 15, 17));
+		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 7, 9, 11, 15, 17));
 	}
 
 	@Test
 	public void testTailThenHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is ((z where z is y) where y is 2))");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 3, 5, 6, 7, 9, 11, 14, 16));
+		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 7, 9, 11, 14, 16));
 	}
 
 	@Test
 	public void testTailAndHeadNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(((a where a is b) where b is (c where c is d)) where d is ((e where e is f) where f is (g where g is 2)))");
 		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree);
-		checkNodes(tree, map, asList(1, 2, 3, 5, 7, 10, 12, 13, 15, 17, 21, 23, 24, 25, 27, 29, 32, 34, 35, 37, 39));
+		checkNodes(tree, map, asList(0, 1, 2, 3, 5, 7, 10, 12, 13, 15, 17, 21, 23, 24, 25, 27, 29, 32, 34, 35, 37, 39));
 	}
 
 	private void checkNodes(ParseTree tree, Map<ParseTreeNode, Type> map, List<Integer> notNull) {

@@ -21,6 +21,11 @@ public class SimpleLogicParseTree implements ParseTree {
 	}
 
 	@Override
+	public ParseTreeNode getFirstNode() {
+		return nodes.get(0);
+	}
+
+	@Override
 	public String toString() {
 		String output = "";
 		for (ParseTreeNode n : nodes) {

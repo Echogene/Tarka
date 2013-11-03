@@ -42,7 +42,9 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			return null;
 		}
 		HashMap<ParseTreeNode, Type> typeMap = new HashMap<>();
-		inferType(tree.getNodes().get(0).getChildren(), new HashMap<>(), typeMap);
+		ParseTreeNode firstNode = tree.getFirstNode();
+		Type type = inferType(firstNode.getChildren(), new HashMap<>(), typeMap);
+		typeMap.put(firstNode, type);
 		return typeMap;
 	}
 

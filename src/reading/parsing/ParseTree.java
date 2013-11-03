@@ -8,6 +8,8 @@ import java.util.List;
 public interface ParseTree {
 	public List<ParseTreeNode> getNodes();
 
+	public ParseTreeNode getFirstNode();
+
 	public ParseTree getSubtreeAt(ParseTreeNode node);
 
 	public String getSubstringAt(ParseTreeNode node);
