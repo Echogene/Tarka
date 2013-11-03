@@ -3,7 +3,10 @@ package logic.factory;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
+import logic.type.TypeMatcher;
+import logic.type.VariableAssignerFactory;
 import reading.evaluating.Evaluator;
 import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
@@ -12,6 +15,8 @@ import reading.parsing.ParseTreeNode;
 import util.TreeUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
@@ -27,10 +32,20 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	private final List<FunctionFactory<T, ?, ?>> factories;
 	private final SimpleLogicTypeInferror<T> typeInferror;
 
-	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories) {
+	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
 		this.factories = factories;
 
-		typeInferror = null;
+		Collection<VariableAssignerFactory> variableAssignerFactories = new HashSet<>();
+		Collection<TypeMatcher> matchers = new HashSet<>();
+		for (FunctionFactory<T, ?, ?> factory : factories) {
+			if (factory instanceof VariableAssignerFactory) {
+				variableAssignerFactories.add((VariableAssignerFactory) factory);
+			}
+			if (factory instanceof TypeMatcher) {
+				matchers.add((TypeMatcher) factory);
+			}
+		}
+		typeInferror = new SimpleLogicTypeInferror<>(matchers, variableAssignerFactories, universe);
 	}
 
 	@Override

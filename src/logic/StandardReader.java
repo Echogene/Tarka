@@ -16,6 +16,7 @@ import logic.function.set.identity.SetIdentityFunctionFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.UnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
+import logic.model.universe.Universe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,9 @@ import java.util.List;
  * @author Steven Weston
  */
 public class StandardReader {
-	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader() {
+	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader(Universe<T> universe) {
 		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories();
-		return new SimpleLogicReaderImpl<>(factories);
+		return new SimpleLogicReaderImpl<>(factories, universe);
 	}
 
 	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories() {

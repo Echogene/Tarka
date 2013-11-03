@@ -60,7 +60,7 @@ public class SimpleLogicEvaluatorTest {
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator<>(factories);
+		evaluator = new SimpleLogicEvaluator<>(factories, null);
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();

@@ -3,6 +3,7 @@ package logic.factory;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.model.universe.Universe;
 import reading.reading.Reader;
 import reading.reading.ReadingException;
 
@@ -16,10 +17,10 @@ public class SimpleLogicReaderImpl<T extends Nameable> implements Reader<Functio
 	protected SimpleLogicParser parser;
 	protected SimpleLogicEvaluator evaluator;
 
-	public SimpleLogicReaderImpl(List<FunctionFactory<T, ?, ?>> factories) {
+	public SimpleLogicReaderImpl(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
 		lexer = new SimpleLogicLexer();
 		parser = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator<>(factories);
+		evaluator = new SimpleLogicEvaluator<>(factories, universe);
 	}
 
 	@Override
