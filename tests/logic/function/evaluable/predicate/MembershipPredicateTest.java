@@ -43,7 +43,7 @@ public class MembershipPredicateTest {
 		predicate = new MembershipPredicate<>("x", "Y");
 		assertFalse("Expect x to not be in Y", predicate.evaluate(universe));
 
-		StandardSet<TestClass> variables = new StandardSet<>("variables");
+		StandardSet<Object> variables = new StandardSet<>("variables");
 		variables.put("x", y);
 		universe.setVariables(variables);
 		predicate = new MembershipPredicate<>("x", "X");

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class IdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
-		StandardSet<TestClass> variables = new StandardSet<>("variables");
+		StandardSet<Object> variables = new StandardSet<>("variables");
 		TestClass x = new TestClass("x");
 		variables.put(x);
 
@@ -23,8 +23,11 @@ public class IdentityFunctionTest {
 		universe.setVariables(variables);
 		assertEquals("Expect evaluation of function with variables to be equal to " + x.toString(), x, function.evaluate(universe));
 
+
+		StandardSet<TestClass> universalSet = new StandardSet<>("universe");
+		universalSet.put(x);
 		universe = new TestClassUniverse();
-		universe.setUniverse(variables);
+		universe.setUniverse(universalSet);
 		assertEquals("Expect evaluation of function with no variables to be equal to " + x.toString(), x, function.evaluate(universe));
 	}
 }

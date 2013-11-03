@@ -7,13 +7,15 @@ import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.lang.reflect.Type;
+
 /**
  * @author Steven Weston
  */
 public class IntegerUniverse extends AbstractUniverse<Integer> {
 	PrimeNumberSet ℙ;
 	IntegerSet ℤ;
-	StandardSet<Integer> variables;
+	StandardSet<Object> variables;
 
 	StandardSet<Set<Integer>> universalSetOfSets;
 
@@ -25,7 +27,7 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 		universalSetOfSets = new StandardSet<>("sets");
 		universalSetOfSets.put(ℤ);
 		universalSetOfSets.put(ℙ);
-		universalSetOfSets.put(variables);
+//		universalSetOfSets.put(variables);
 	}
 
 	@Override
@@ -39,12 +41,27 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	}
 
 	@Override
-	public StandardSet<Integer> getVariables() {
+	public StandardSet<Object> getVariables() {
 		return variables;
 	}
 
 	@Override
 	public Set<Integer> getValueSet() {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Class<Integer> getTypeOfUniverse() {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public boolean contains(String value) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Type getTypeOfElement(String value) {
 		throw new NotImplementedException();
 	}
 }

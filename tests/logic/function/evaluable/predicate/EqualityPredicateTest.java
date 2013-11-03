@@ -26,7 +26,7 @@ public class EqualityPredicateTest {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 
-		StandardSet<TestClass> variables = new StandardSet<>("variables");
+		StandardSet<Object> variables = new StandardSet<>("variables");
 		variables.put(x);
 		variables.put(y);
 
@@ -42,7 +42,7 @@ public class EqualityPredicateTest {
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
-		StandardSet<TestClass> variables;
+		StandardSet<Object> variables;
 
 		TestClassUniverse universe = new TestClassUniverse();
 		variables = new StandardSet<>("variables");

@@ -5,6 +5,8 @@ import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 
+import java.lang.reflect.Type;
+
 /**
  * @author Steven Weston
  */
@@ -13,23 +15,40 @@ public interface Universe<T extends Nameable> {
 
 	Dictionary<Set<T>> getUniversalSetOfSets();
 
-	StandardSet<T> getVariables();
+	StandardSet<Object> getVariables();
 
 	Set<T> getValueSet();
 
+	Class<T> getTypeOfUniverse();
+
 	/**
+	 *
 	 * @param variableSymbol
 	 * @return The value to which the variable was assigned previously.
 	 */
-	T unassignVariable(String variableSymbol);
+	Object unassignVariable(String variableSymbol);
 
 	void assignVariable(String variableSymbol) throws VariableAlreadyExistsException;
 
 	/**
+	 *
 	 * @param variableSymbol
 	 * @param t
 	 * @return The value to which the variable was assigned previously.
 	 * @throws VariableNotAssignedException
 	 */
-	T setVariable(String variableSymbol, T t) throws VariableNotAssignedException;
+	Object setVariable(String variableSymbol, T t) throws VariableNotAssignedException;
+
+	/**
+	 * @param value
+	 * @return whether the universe contains an object with the given name
+	 */
+	boolean contains(String value);
+
+	/**
+	 * Get the type assigned to an element of the universe (including variables).
+	 * @param value
+	 * @return
+	 */
+	Type getTypeOfElement(String value);
 }

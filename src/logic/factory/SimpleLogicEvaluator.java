@@ -7,6 +7,7 @@ import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
+import util.TreeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
 				functions.add(evaluate(n.getChildren()));
 			}
 		}
-		List<Token> tokens = extractTokens(nodes);
+		List<Token> tokens = TreeUtils.extractTokens(nodes);
 		List<String> errorMessages = new ArrayList<>();
 		for (FunctionFactory<?, ?, ?> factory : factories) {
 			try {
@@ -54,17 +55,5 @@ public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
 			}
 		}
 		throw new EvaluatorException(join(errorMessages, "\n"));
-	}
-
-	List<Token> extractTokens(List<ParseTreeNode> nodes) {
-		List<Token> output = new ArrayList<>(nodes.size());
-		if (!nodes.isEmpty()) {
-			output.add(nodes.get(0).getMother().getToken());
-			for (ParseTreeNode n : nodes) {
-				output.add(n.getToken());
-			}
-			output.add(nodes.get(0).getFather().getToken());
-		}
-		return output;
 	}
 }

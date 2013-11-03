@@ -29,7 +29,7 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 		if (function != null) {
 			return function.evaluate(universe);
 		}
-		Dictionary<T> variables = universe.getVariables();
+		Dictionary<Object> variables = universe.getVariables();
 		Dictionary<T> universalSet = universe.getUniversalSet();
 		boolean variablesContainsParameter    = variables    != null && variables.contains(getParameter());
 		boolean universalSetContainsParameter = universalSet != null && universalSet.contains(getParameter());
@@ -37,7 +37,7 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 			throw new ParameterNotFoundException("Identity function could not find the parameter " + getParameter());
 		}
 		if (variablesContainsParameter) {
-			return variables.get(getParameter());
+			return (T) variables.get(getParameter()); //todo
 		} else {
 			return universalSet.get(getParameter());
 		}

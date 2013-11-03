@@ -7,7 +7,7 @@ import logic.Nameable;
  */
 public abstract class AbstractUniverse<T extends Nameable> implements Universe<T> {
 	@Override
-	public T unassignVariable(String variableSymbol) {
+	public Object unassignVariable(String variableSymbol) {
 		return getVariables().remove(variableSymbol);
 	}
 
@@ -20,7 +20,7 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 	}
 
 	@Override
-	public T setVariable(String variableSymbol, T t) throws VariableNotAssignedException {
+	public Object setVariable(String variableSymbol, T t) throws VariableNotAssignedException {
 		if (!getVariables().contains(variableSymbol)) {
 			throw new VariableNotAssignedException("The variable " + variableSymbol + " has not yet been assigned.");
 		}

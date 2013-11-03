@@ -6,6 +6,7 @@ import logic.set.Set;
 import logic.set.Uniter;
 import logic.set.finite.StandardSet;
 
+import java.lang.reflect.Type;
 import java.util.LinkedHashSet;
 
 /**
@@ -16,7 +17,7 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 
 	protected StandardSet<Set<TestClass>> universalSetOfSets;
 
-	protected StandardSet<TestClass> variableSet;
+	protected StandardSet<Object> variableSet;
 
 	@Override
 	public Dictionary<TestClass> getUniversalSet() {
@@ -29,7 +30,7 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	}
 
 	@Override
-	public StandardSet<TestClass> getVariables() {
+	public StandardSet<Object> getVariables() {
 		return variableSet;
 	}
 
@@ -37,8 +38,39 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	public Set<TestClass> getValueSet() {
 		java.util.Set<Set<TestClass>> unitees = new LinkedHashSet<>();
 		unitees.add(universalSet);
-		unitees.add(variableSet);
+		unitees.add(getVariableSetInUniverse());
 		return Uniter.unite(unitees);
+	}
+
+	private StandardSet<TestClass> getVariableSetInUniverse() {
+		StandardSet<TestClass> output = new StandardSet<>("variablesInUniverse");
+		for (Object o : variableSet) {
+			if (o instanceof TestClass) {
+				output.put(o.toString(), (TestClass) o);
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public Class<TestClass> getTypeOfUniverse() {
+		return TestClass.class;
+	}
+
+	@Override
+	public boolean contains(String value) {
+		return variableSet.contains(value)
+				|| universalSet.contains(value)
+				|| universalSetOfSets.contains(value);
+	}
+
+	@Override
+	public Type getTypeOfElement(String value) {
+		if (variableSet.contains(value)) {
+			return variableSet.get(value).getClass();
+		} else {
+			return TestClass.class;
+		}
 	}
 
 	public TestClassUniverse() {
@@ -48,7 +80,7 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		universalSetOfSets.put(universalSet);
 	}
 
-	public void setVariables(StandardSet<TestClass> variables) {
+	public void setVariables(StandardSet<Object> variables) {
 		this.variableSet = variables;
 	}
 
