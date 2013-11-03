@@ -1,7 +1,9 @@
 package logic.factory;
 
 import logic.StandardReader;
+import logic.TestClass;
 import logic.function.Function;
+import logic.model.universe.empty.EmptyUniverse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ public class SimpleLogicReaderImplTest {
 
 	@BeforeClass
 	public static void setUp() {
-		reader = StandardReader.createStandardReader();
+		reader = StandardReader.createStandardReader(new EmptyUniverse<>(TestClass.class));
 	}
 
 	@Test

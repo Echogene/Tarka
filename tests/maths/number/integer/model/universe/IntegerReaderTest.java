@@ -14,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 public class IntegerReaderTest {
 	@Test
 	public void testReader() throws Exception {
-		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader();
 		IntegerUniverse universe = new IntegerUniverse();
+		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader(universe);
 
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> twoPlusTwoIsFour = (Evaluable<Integer>) reader.read("((2 + 2) = 4)");

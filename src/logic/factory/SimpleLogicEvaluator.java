@@ -5,6 +5,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
+import logic.type.TypeInferrorException;
 import logic.type.TypeMatcher;
 import logic.type.VariableAssignerFactory;
 import reading.evaluating.Evaluator;
@@ -14,10 +15,8 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import util.TreeUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.StringUtils.join;
@@ -49,10 +48,13 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	}
 
 	@Override
-	public Function<T, ?> evaluate(ParseTree tree) throws EvaluatorException {
+	public Function<T, ?> evaluate(ParseTree tree) throws EvaluatorException, TypeInferrorException {
 		if (tree == null) {
 			return null;
 		}
+
+		Map<ParseTreeNode,Type> types = typeInferror.inferTypes(tree);
+
 		return evaluate(tree.getFirstNode().getChildren());
 	}
 

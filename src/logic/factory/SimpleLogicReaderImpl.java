@@ -4,6 +4,7 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.model.universe.Universe;
+import logic.type.TypeInferrorException;
 import reading.reading.Reader;
 import reading.reading.ReadingException;
 
@@ -24,7 +25,7 @@ public class SimpleLogicReaderImpl<T extends Nameable> implements Reader<Functio
 	}
 
 	@Override
-	public Function<?, ?> read(String string) throws ReadingException {
+	public Function<?, ?> read(String string) throws ReadingException, TypeInferrorException {
 		return evaluator.evaluate(parser.parseTokens(lexer.tokeniseString(string)));
 	}
 }

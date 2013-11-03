@@ -25,7 +25,7 @@ public class IntegerReaderRepl {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		universe = new IntegerUniverse();
-		reader = IntegerReader.createStandardReader();
+		reader = IntegerReader.createStandardReader(universe);
 		String in;
 		while (true) {
 			in =  br.readLine();

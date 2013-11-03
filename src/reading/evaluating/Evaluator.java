@@ -1,5 +1,6 @@
 package reading.evaluating;
 
+import logic.type.TypeInferrorException;
 import reading.parsing.ParseTree;
 
 /**
@@ -12,5 +13,5 @@ public interface Evaluator<T> {
 	 * @param tree the parse tree to evaluate
 	 * @return a list of {@code T}s represented by the parse tree
 	 */
-	public T evaluate(ParseTree tree) throws EvaluatorException;
+	public T evaluate(ParseTree tree) throws EvaluatorException, TypeInferrorException;
 }

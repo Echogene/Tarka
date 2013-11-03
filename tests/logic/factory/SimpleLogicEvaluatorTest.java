@@ -19,6 +19,7 @@ import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.identity.SetIdentityFunctionFactory;
+import logic.model.universe.empty.EmptyUniverse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -60,7 +61,7 @@ public class SimpleLogicEvaluatorTest {
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator<>(factories, null);
+		evaluator = new SimpleLogicEvaluator<>(factories, new EmptyUniverse<>(TestClass.class));
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();
