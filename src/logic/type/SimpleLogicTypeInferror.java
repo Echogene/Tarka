@@ -9,7 +9,6 @@ import logic.type.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import util.StringUtils;
-import util.TreeUtils;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
+import static util.TreeUtils.surroundWithParentNodes;
 
 /**
  * @author Steven Weston
@@ -56,13 +56,13 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				= inferChildTypes(nodes, variablesTypes, typeMap);
 
 		final MapWithErrors<VariableAssignerFactory, Map<String, Type>> variableAssignments
-				= assignVariableTypes(nodes, functionTypes);
+				= assignVariableTypes(surroundWithParentNodes(nodes), functionTypes);
 
 		final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment
 				= inferChildTypesAfterVariableAssignment(nodes, variablesTypes, typeMap, functionTypes, variableAssignments);
 
 		final MapWithErrors<TypeMatcher, Type> matchedTypes
-				= matchTypes(nodes, typeMap, functionTypesAfterAssignment);
+				= matchTypes(surroundWithParentNodes(nodes), typeMap, functionTypesAfterAssignment);
 
 		return matchedTypes.getUniquePassedValue();
 	}
@@ -94,19 +94,19 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	}
 
 	private MapWithErrors<VariableAssignerFactory, Map<String, Type>> assignVariableTypes(
-			final List<ParseTreeNode> nodes,
+			final List<ParseTreeNode> surroundedNodes,
 			final MapWithErrors<ParseTreeNode, Type> functionTypes
 	) throws TypeInferrorException {
 
 		final MapWithErrors<
 				VariableAssignerFactory,
 				Map<String, Type>
-				> variableAssignments = new MapWithErrors<>(
+		> variableAssignments = new MapWithErrors<>(
 				factories,
-				(VariableAssignerFactory factory) -> factory.assignVariableTypes(TreeUtils.surroundWithParentNodes(nodes), functionTypes)
+				(VariableAssignerFactory factory) -> factory.assignVariableTypes(surroundedNodes, functionTypes)
 		);
 		if (variableAssignments.hasAmbiguousPasses()) {
-			throw new TypeInferrorException("Ambiguous assignment for " + nodes.toString() + ".");
+			throw new TypeInferrorException("Ambiguous assignment for " + surroundedNodes.toString() + ".");
 		}
 		return variableAssignments;
 	}
@@ -140,20 +140,20 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	}
 
 	private MapWithErrors<TypeMatcher, Type> matchTypes(
-			final List<ParseTreeNode> nodes,
+			final List<ParseTreeNode> surroundedNodes,
 			Map<ParseTreeNode, Type> typeMap,
 			final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment
 	) throws TypeInferrorException {
 
 		final MapWithErrors<TypeMatcher, Type> matchedTypes = new MapWithErrors<>(
 				matchers,
-				(TypeMatcher matcher) -> matcher.getType(TreeUtils.surroundWithParentNodes(nodes), functionTypesAfterAssignment)
+				(TypeMatcher matcher) -> matcher.getType(surroundedNodes, functionTypesAfterAssignment)
 		);
 		if (matchedTypes.allFailed()) {
-			throw new TypeInferrorException("There were no types matched with " + nodes.toString() + ".");
+			throw new TypeInferrorException("There were no types matched with " + surroundedNodes.toString() + ".");
 		}
 		if (matchedTypes.hasAmbiguousPasses()) {
-			throw new TypeInferrorException(nodes.toString() + " resolved to more than one type.");
+			throw new TypeInferrorException(surroundedNodes.toString() + " resolved to more than one type.");
 		}
 
 		typeMap.putAll(functionTypesAfterAssignment.getPassedValues());
