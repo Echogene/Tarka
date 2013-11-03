@@ -1,7 +1,7 @@
 package logic.type.map;
 
 import javafx.util.Pair;
-import util.CollectionUtils;
+import util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -85,6 +85,6 @@ public class MapWithErrors<K, V> {
 	}
 
 	public String concatenateErrorMessages() {
-		return CollectionUtils.join(failedValues.values(), "\n");
+		return StringUtils.join(failedValues.values(), "\n");
 	}
 }

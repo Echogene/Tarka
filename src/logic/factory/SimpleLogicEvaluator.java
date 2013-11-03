@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static util.CollectionUtils.join;
+import static util.StringUtils.join;
 
 /**
  * @author Steven Weston

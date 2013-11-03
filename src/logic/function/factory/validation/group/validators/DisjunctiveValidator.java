@@ -9,7 +9,7 @@ import logic.function.factory.validation.results.ValidationResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.CollectionUtils.join;
+import static util.StringUtils.join;
 
 /**
  * @author Steven Weston

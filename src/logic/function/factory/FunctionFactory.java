@@ -10,7 +10,7 @@ import reading.lexing.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.CollectionUtils.join;
+import static util.StringUtils.join;
 
 /**
  * @author Steven Weston

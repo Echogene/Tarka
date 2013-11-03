@@ -1,7 +1,6 @@
 package util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,30 +40,11 @@ public class CollectionUtils {
 		return list.subList(1, list.size() - 1);
 	}
 
-	/**
-	 * Join a list of strings using another string.
-	 * @param list
-	 * @param joiner
-	 * @return
-	 */
-	public static String join(Collection<String> list, String joiner) {
-		StringBuilder sb = new StringBuilder();
-		boolean first = true;
-		for (String string : list) {
-			if (!first) {
-				sb.append(joiner);
-			}
-			sb.append(string);
-			first = false;
-		}
-		return sb.toString();
-	}
-
 	public static String simpleNames(List<Class> classes) {
 		List<String> output = new ArrayList<>();
 		for (Class clazz : classes) {
 			output.add(clazz.getSimpleName());
 		}
-		return "[" + join(output, ", ") + "]";
+		return "[" + StringUtils.join(output, ", ") + "]";
 	}
 }
