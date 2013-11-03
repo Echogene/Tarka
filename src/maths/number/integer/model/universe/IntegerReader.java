@@ -17,8 +17,8 @@ import java.util.List;
  * @author Steven Weston
  */
 public class IntegerReader {
-	public static <T extends Integer> SimpleLogicReaderImpl<T> createStandardReader() {
-		List<FunctionFactory<?, ?, ?>> factories = StandardReader.getStandardFunctionFactories();
+	public static SimpleLogicReaderImpl<Integer> createStandardReader() {
+		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories();
 		factories.add(new AdditionFactory<>(new IntegerSummor()));
 		factories.add(new SubtractionFactory<>(new IntegerSubtractor()));
 		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory()));

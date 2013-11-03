@@ -44,7 +44,7 @@ public class SimpleLogicEvaluatorTest {
 	private static UnaryConnectiveFactory unaryConnectiveFactory;
 	private static QuantifierFactory quantifierFactory;
 
-	private static List<FunctionFactory<?, ?, ?>> factories;
+	private static List<FunctionFactory<TestClass, ?, ?>> factories;
 
 	@BeforeClass
 	public static void setUp() {
@@ -52,7 +52,7 @@ public class SimpleLogicEvaluatorTest {
 		factories.add(new EqualityPredicateFactory<>());
 		factories.add(new MembershipPredicateFactory<>());
 		factories.add(new SetIdentityFunctionFactory<>());
-		factories.add(new IdentityFunctionFactory<TestClass>());
+		factories.add(new IdentityFunctionFactory<>());
 		factories.add(new BinaryStatementFactory<>());
 		factories.add(new LogicalConstantFactory<>());
 		factories.add(new UnaryStatementFactory<>());
@@ -60,7 +60,7 @@ public class SimpleLogicEvaluatorTest {
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator(factories);
+		evaluator = new SimpleLogicEvaluator<>(factories);
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();

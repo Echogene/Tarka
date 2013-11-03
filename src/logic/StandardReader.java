@@ -25,13 +25,13 @@ import java.util.List;
  */
 public class StandardReader {
 	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader() {
-		List<FunctionFactory<?, ?, ?>> factories = getStandardFunctionFactories();
+		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories();
 		return new SimpleLogicReaderImpl<>(factories);
 	}
 
-	public static <T extends Nameable> List<FunctionFactory<?, ?, ?>> getStandardFunctionFactories() {
-		List<FunctionFactory<?, ?, ?>> output = new ArrayList<>();
-		output.add(new IdentityFunctionFactory<T>());
+	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories() {
+		List<FunctionFactory<T, ?, ?>> output = new ArrayList<>();
+		output.add(new IdentityFunctionFactory<>());
 		output.add(new EqualityPredicateFactory<>());
 		output.add(new MembershipPredicateFactory<>());
 		output.add(new SetIdentityFunctionFactory<>());
@@ -40,7 +40,7 @@ public class StandardReader {
 		output.add(new UnaryStatementFactory<>());
 		output.add(new QuantifiedStatementFactory<>());
 		output.add(new UnionFactory<>());
-		output.add(new ReflexiveAssignmentFactory<T>());
+		output.add(new ReflexiveAssignmentFactory<>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
 		output.add(new MemberDefinitionFactory<>());
 		output.add(new SimpleSetFactory<>());

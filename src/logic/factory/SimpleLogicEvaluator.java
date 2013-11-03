@@ -1,7 +1,9 @@
 package logic.factory;
 
+import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.type.SimpleLogicTypeInferror;
 import reading.evaluating.Evaluator;
 import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
@@ -18,23 +20,28 @@ import static util.StringUtils.join;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
-	protected List<FunctionFactory<?, ?, ?>> factories;
+public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Function<T, ?>> {
+
 	private static final boolean LOG_FACTORY_FAILURES = false;
 
-	public SimpleLogicEvaluator(List<FunctionFactory<?, ?, ?>> factories) {
+	private final List<FunctionFactory<T, ?, ?>> factories;
+	private final SimpleLogicTypeInferror<T> typeInferror;
+
+	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories) {
 		this.factories = factories;
+
+		typeInferror = null;
 	}
 
 	@Override
-	public Function<?, ?> evaluate(ParseTree tree) throws EvaluatorException {
+	public Function<T, ?> evaluate(ParseTree tree) throws EvaluatorException {
 		if (tree == null) {
 			return null;
 		}
 		return evaluate(tree.getFirstNode().getChildren());
 	}
 
-	Function<?, ?> evaluate(List<ParseTreeNode> nodes) throws EvaluatorException {
+	private Function<T, ?> evaluate(List<ParseTreeNode> nodes) throws EvaluatorException {
 		List<Function<?, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
 			if (n.getToken().isOfType(OPEN_BRACKET)) {
@@ -43,7 +50,7 @@ public class SimpleLogicEvaluator implements Evaluator<Function<?, ?>> {
 		}
 		List<Token> tokens = TreeUtils.extractTokens(nodes);
 		List<String> errorMessages = new ArrayList<>();
-		for (FunctionFactory<?, ?, ?> factory : factories) {
+		for (FunctionFactory<T, ?, ?> factory : factories) {
 			try {
 				return factory.createElement(tokens, functions);
 			} catch (FactoryException e) {

@@ -16,10 +16,10 @@ public class SimpleLogicReaderImpl<T extends Nameable> implements Reader<Functio
 	protected SimpleLogicParser parser;
 	protected SimpleLogicEvaluator evaluator;
 
-	public SimpleLogicReaderImpl(List<FunctionFactory<?, ?, ?>> factories) {
+	public SimpleLogicReaderImpl(List<FunctionFactory<T, ?, ?>> factories) {
 		lexer = new SimpleLogicLexer();
 		parser = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator(factories);
+		evaluator = new SimpleLogicEvaluator<>(factories);
 	}
 
 	@Override
