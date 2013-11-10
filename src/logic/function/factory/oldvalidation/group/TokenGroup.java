@@ -9,7 +9,6 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 
 /**
  * @author Steven Weston
- * @deprecated
  */
 public class TokenGroup {
 	private List<Token> group;
