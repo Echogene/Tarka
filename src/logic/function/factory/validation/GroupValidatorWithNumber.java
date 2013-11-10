@@ -7,8 +7,8 @@ import logic.function.factory.validation.group.TokenGroup;
 import logic.function.factory.validation.results.ValidationResult;
 
 /**
-* @author Steven Weston
-*/
+ * @author Steven Weston
+ */
 public class GroupValidatorWithNumber implements GroupValidator {
 	private final GroupValidator validator;
 	private final Number number;
