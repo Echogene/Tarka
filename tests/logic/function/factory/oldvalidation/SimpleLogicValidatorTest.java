@@ -1,17 +1,17 @@
-package logic.function.factory.validation;
+package logic.function.factory.oldvalidation;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.group.GroupValidator;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.group.validators.DisjunctiveValidator;
-import logic.function.factory.validation.group.validators.FunctionAtom;
-import logic.function.factory.validation.group.validators.OperatorAtom;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.group.GroupValidator;
+import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.oldvalidation.group.validators.DisjunctiveValidator;
+import logic.function.factory.oldvalidation.group.validators.FunctionAtom;
+import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
+import logic.function.factory.oldvalidation.results.FunctionResult;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import org.junit.Test;
@@ -21,8 +21,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.MANY;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.MANY;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 import static org.junit.Assert.*;
 
 /**

@@ -3,19 +3,19 @@ package logic.function.set.identity;
 import logic.Nameable;
 import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.SimpleLogicValidator;
-import logic.function.factory.validation.WordAtom;
-import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.SimpleLogicValidator;
+import logic.function.factory.oldvalidation.WordAtom;
+import logic.function.factory.oldvalidation.group.validators.FunctionOrVariableValidator;
+import logic.function.factory.oldvalidation.results.FunctionResult;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 import static logic.function.set.identity.SetIdentityFunction.SET_IDENTITY_NAME;
 
 /**

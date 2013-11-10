@@ -30,7 +30,7 @@ public class BinaryValidatorTest {
 		validator = new BinaryValidator(Arrays.asList("+"));
 	}
 
-	private List<logic.function.factory.validation.results.ValidationResult> getResult() throws ValidationException {
+	private List<logic.function.factory.oldvalidation.results.ValidationResult> getResult() throws ValidationException {
 		return validator.validate(tokens, functions);
 	}
 

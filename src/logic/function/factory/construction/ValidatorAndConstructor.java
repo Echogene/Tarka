@@ -3,7 +3,7 @@ package logic.function.factory.construction;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.SimpleLogicValidator;
+import logic.function.factory.oldvalidation.SimpleLogicValidator;
 import reading.lexing.Token;
 
 import java.util.List;

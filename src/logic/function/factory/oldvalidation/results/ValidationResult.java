@@ -1,4 +1,4 @@
-package logic.function.factory.validation.results;
+package logic.function.factory.oldvalidation.results;
 
 /**
  * @author Steven Weston

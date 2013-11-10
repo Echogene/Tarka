@@ -3,9 +3,9 @@ package logic.function.factory.construction;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.ConstructorFromString;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.results.FunctionResult;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 
 /**
  * @author Steven Weston

@@ -30,7 +30,7 @@ public class MultaryValidatorTest {
 		validator = new MultaryValidator(Arrays.asList("⋃"), SetIdentityFunction.class);
 	}
 
-	private List<logic.function.factory.validation.results.ValidationResult> getResult() throws ValidationException {
+	private List<logic.function.factory.oldvalidation.results.ValidationResult> getResult() throws ValidationException {
 		return validator.validate(tokens, functions);
 	}
 

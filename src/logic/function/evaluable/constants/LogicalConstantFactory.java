@@ -5,17 +5,17 @@ import logic.function.evaluable.EvaluableFactory;
 import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.SimpleLogicValidator;
-import logic.function.factory.validation.group.validators.OperatorAtom;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.SimpleLogicValidator;
+import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static logic.function.evaluable.constants.LogicalConstant.CONSTANT_SYMBOL_LIST;
 import static logic.function.evaluable.constants.LogicalConstant.TAUTOLOGY_SYMBOL;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 
 /**
  * A {@code Factory} for creating {@code LogicalConstant}s.

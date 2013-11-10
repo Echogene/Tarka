@@ -5,12 +5,12 @@ import logic.factory.FactoryException;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.SimpleLogicValidator;
-import logic.function.factory.validation.VariableAtom;
-import logic.function.factory.validation.WordAtom;
-import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.SimpleLogicValidator;
+import logic.function.factory.oldvalidation.VariableAtom;
+import logic.function.factory.oldvalidation.WordAtom;
+import logic.function.factory.oldvalidation.group.validators.FunctionOrVariableValidator;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
@@ -18,7 +18,7 @@ import logic.function.reflexive.identity.IdentityFunctionFactory;
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston

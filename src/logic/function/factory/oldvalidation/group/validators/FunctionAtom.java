@@ -1,10 +1,10 @@
-package logic.function.factory.validation.group.validators;
+package logic.function.factory.oldvalidation.group.validators;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.oldvalidation.results.FunctionResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 
 import java.util.Arrays;
 import java.util.List;

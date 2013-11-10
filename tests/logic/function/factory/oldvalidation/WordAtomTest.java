@@ -1,6 +1,6 @@
-package logic.function.factory.validation;
+package logic.function.factory.oldvalidation;
 
-import logic.function.factory.validation.group.GroupValidatorTest;
+import logic.function.factory.oldvalidation.group.GroupValidatorTest;
 import org.junit.Test;
 
 /**

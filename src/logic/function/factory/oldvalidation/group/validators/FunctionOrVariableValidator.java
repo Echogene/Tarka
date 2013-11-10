@@ -1,7 +1,7 @@
-package logic.function.factory.validation.group.validators;
+package logic.function.factory.oldvalidation.group.validators;
 
-import logic.function.factory.validation.VariableAtom;
-import logic.function.factory.validation.group.GroupValidator;
+import logic.function.factory.oldvalidation.VariableAtom;
+import logic.function.factory.oldvalidation.group.GroupValidator;
 
 import java.util.Arrays;
 import java.util.List;

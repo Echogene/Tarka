@@ -1,10 +1,10 @@
-package logic.function.factory.validation.group.validators;
+package logic.function.factory.oldvalidation.group.validators;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.group.GroupValidator;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.group.GroupValidator;
+import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class DisjunctiveValidator implements GroupValidator {
 	}
 
 	@Override
-	public logic.function.factory.validation.results.ValidationResult validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
+	public logic.function.factory.oldvalidation.results.ValidationResult validate(TokenGroup group, Function<?, ?> function) throws ValidationException {
 		List<ValidationResult> passedResults = new ArrayList<>();
 		List<String> failedValidatorMessages = new ArrayList<>();
 		for (GroupValidator validator : validators) {

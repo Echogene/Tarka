@@ -1,12 +1,12 @@
-package logic.function.factory.validation;
+package logic.function.factory.oldvalidation;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.group.GroupValidator;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.results.FunctionResult;
-import logic.function.factory.validation.results.StringResult;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.group.GroupValidator;
+import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.oldvalidation.results.FunctionResult;
+import logic.function.factory.oldvalidation.results.StringResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.MANY;
-import static logic.function.factory.validation.GroupValidatorWithNumber.Number.ONE;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.MANY;
+import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 import static util.CollectionUtils.safeNext;
 import static util.CollectionUtils.stripFirstAndLast;
 

@@ -1,8 +1,8 @@
-package logic.function.factory.validation.group;
+package logic.function.factory.oldvalidation.group;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.validation.results.ValidationResult;
+import logic.function.factory.oldvalidation.results.ValidationResult;
 
 /**
  * @author Steven Weston
