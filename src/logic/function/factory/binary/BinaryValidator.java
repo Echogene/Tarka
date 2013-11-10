@@ -1,6 +1,6 @@
 package logic.function.factory.binary;
 
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
 import logic.function.reflexive.ReflexiveFunction;
@@ -13,7 +13,7 @@ import static logic.function.factory.validation.GroupValidatorWithNumber.Number.
 /**
  * @author Steven Weston
  */
-public class BinaryValidator extends Validator {
+public class BinaryValidator extends SimpleLogicValidator {
 	public BinaryValidator(
 			List<String> acceptedOpeningBrackets,
 			Class firstClass,

@@ -5,7 +5,7 @@ import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
@@ -32,7 +32,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 	}
 
 	private static <N extends Number> List<ValidatorAndConstructor<IntervalFunction<N>>> getConstructors(IntervalFactory<N> factory) {
-		Validator validator = new BinaryValidator(
+		SimpleLogicValidator validator = new BinaryValidator(
 				asList("[", "[", "(", "("),
 				ReflexiveFunction.class,
 				null,

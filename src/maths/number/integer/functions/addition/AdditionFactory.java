@@ -6,7 +6,7 @@ import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.multary.MultaryValidator;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
@@ -32,8 +32,8 @@ public class AdditionFactory<N extends Number> extends ReflexiveFunctionFactory<
 	}
 
 	private static <N extends Number> List<ValidatorAndConstructor<Addition<N>>> getConstructors(Summor<N> summor) {
-		Validator binaryValidator = new BinaryValidator(asList(PLUS_SYMBOL));
-		Validator multaryValidator = new MultaryValidator(asList(SUM_SYMBOL));
+		SimpleLogicValidator binaryValidator = new BinaryValidator(asList(PLUS_SYMBOL));
+		SimpleLogicValidator multaryValidator = new MultaryValidator(asList(SUM_SYMBOL));
 		return asList(
 				new ValidatorAndConstructor<>(
 						binaryValidator,

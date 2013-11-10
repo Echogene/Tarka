@@ -25,20 +25,20 @@ import static util.CollectionUtils.stripFirstAndLast;
 /**
  * @author Steven Weston
  */
-public class Validator {
+public class SimpleLogicValidator {
 	private final List<String> acceptedOpeningBrackets;
 	private final List<String> acceptedClosingBrackets;
 	private List<TokenGroup> tokenGroups;
 
 	private List<GroupValidatorWithNumber> groupValidators;
 
-	public Validator(List<String> acceptedOpeningBrackets, List<String> acceptedClosingBrackets) {
+	public SimpleLogicValidator(List<String> acceptedOpeningBrackets, List<String> acceptedClosingBrackets) {
 		this.acceptedOpeningBrackets = acceptedOpeningBrackets;
 		this.acceptedClosingBrackets = acceptedClosingBrackets;
 		this.groupValidators = new ArrayList<>();
 	}
 
-	public Validator() {
+	public SimpleLogicValidator() {
 		this(asList("("), asList(")"));
 	}
 

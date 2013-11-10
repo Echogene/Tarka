@@ -5,7 +5,7 @@ import logic.function.evaluable.EvaluableFactory;
 import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
@@ -30,7 +30,7 @@ public class LogicalConstantFactory<T extends Nameable>
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<LogicalConstant<T>>> getConstructors() {
-		Validator validator = new Validator();
+		SimpleLogicValidator validator = new SimpleLogicValidator();
 		validator.addValidator(ONE, new OperatorAtom(CONSTANT_SYMBOL_LIST));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(

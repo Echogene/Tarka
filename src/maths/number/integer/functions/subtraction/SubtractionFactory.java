@@ -5,7 +5,7 @@ import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
@@ -29,7 +29,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	}
 
 	private static <N extends Number> List<ValidatorAndConstructor<Subtraction<N>>> getConstructors(Subtractor<N> subtractor) {
-		Validator binaryValidator = new BinaryValidator(asList(MINUS));
+		SimpleLogicValidator binaryValidator = new BinaryValidator(asList(MINUS));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						binaryValidator,

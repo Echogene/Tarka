@@ -28,15 +28,15 @@ import static org.junit.Assert.*;
 /**
  * @author Steven Weston
  */
-public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
+public class SimpleLogicValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
-	public ValidatorTest() {
+	public SimpleLogicValidatorTest() {
 		functionFactory = new IdentityFunctionFactory<TestClass>();
 	}
 
 	@Test
 	public void testValidate() throws Exception {
-		Validator validator = new Validator(
+		SimpleLogicValidator validator = new SimpleLogicValidator(
 				asList("("),
 				asList(")")
 		);
@@ -65,7 +65,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
 	@Test
 	public void testValidateWithFunction() throws Exception {
-		Validator validator = new Validator(
+		SimpleLogicValidator validator = new SimpleLogicValidator(
 				asList("("),
 				asList(")")
 		);
@@ -94,7 +94,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
 	@Test
 	public void testValidateWithFunctions() throws Exception {
-		Validator validator = new Validator(
+		SimpleLogicValidator validator = new SimpleLogicValidator(
 				asList("("),
 				asList(")")
 		);
@@ -133,7 +133,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 		assertEquals(")", close.getString());
 	}@Test
 	public void testValidateWithManyFunctions() throws Exception {
-		Validator validator = new Validator(
+		SimpleLogicValidator validator = new SimpleLogicValidator(
 				asList("("),
 				asList(")")
 		);
@@ -180,7 +180,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
 	@Test
 	public void testValidateOpeningAndClosingBrackets() throws Exception {
-		Validator validator = new Validator(
+		SimpleLogicValidator validator = new SimpleLogicValidator(
 				asList("(", "["),
 				asList(")", "]")
 		);
@@ -200,7 +200,7 @@ public class ValidatorTest extends FactoryTest<FunctionFactory<?, ?, ?>> {
 
 		@Test
 	public void testGroupTokens() throws Exception {
-		Validator validator = new Validator(null, null);
+		SimpleLogicValidator validator = new SimpleLogicValidator(null, null);
 		List<TokenGroup> groups;
 
 		setUpTokens("x () ∨ ∀");

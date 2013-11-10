@@ -3,7 +3,7 @@ package logic.function.set.identity;
 import logic.Nameable;
 import logic.function.factory.ConstructorFromString;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.WordAtom;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.results.FunctionResult;
@@ -30,13 +30,13 @@ public class SetIdentityFunctionFactory<T extends Nameable>
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<SetIdentityFunction<T>>> getConstructors() {
-		Validator validatorWithoutId = new Validator();
+		SimpleLogicValidator validatorWithoutId = new SimpleLogicValidator();
 		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(SetFunction.class));
 		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
 				validatorWithoutId,
 				new Constructor<>(1)
 		);
-		Validator validatorWithId = new Validator();
+		SimpleLogicValidator validatorWithId = new SimpleLogicValidator();
 		validatorWithId.addValidator(ONE, new WordAtom(SET_IDENTITY_NAME));
 		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(SetFunction.class));
 		ValidatorAndConstructor<SetIdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(

@@ -6,7 +6,7 @@ import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
@@ -39,7 +39,7 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<EqualityPredicate<T>>> getConstructors() {
-		Validator validator = new BinaryValidator(Arrays.asList(EQUALITY_SYMBOL));
+		SimpleLogicValidator validator = new BinaryValidator(Arrays.asList(EQUALITY_SYMBOL));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

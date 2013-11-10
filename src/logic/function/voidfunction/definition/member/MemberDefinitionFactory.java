@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.VariableAtom;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
@@ -30,7 +30,7 @@ public class MemberDefinitionFactory<T extends Nameable> extends FunctionFactory
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<MemberDefinition<T>>> getConstructors() {
-		Validator validator = new Validator();
+		SimpleLogicValidator validator = new SimpleLogicValidator();
 		validator.addValidator(ONE, new VariableAtom());
 		validator.addValidator(ONE, new OperatorAtom(DEFINITION_SYMBOL));
 		validator.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));

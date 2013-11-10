@@ -6,7 +6,7 @@ import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.multary.MultaryValidator;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
@@ -29,7 +29,7 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<SimpleSet<T>>> getConstructors() {
-		Validator validator = new MultaryValidator(asList("{"), null, ReflexiveFunction.class, asList("}"));
+		SimpleLogicValidator validator = new MultaryValidator(asList("{"), null, ReflexiveFunction.class, asList("}"));
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

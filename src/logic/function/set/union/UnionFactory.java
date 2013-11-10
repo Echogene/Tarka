@@ -7,7 +7,7 @@ import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.multary.MultaryValidator;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
@@ -31,8 +31,8 @@ public class UnionFactory<T extends Nameable> extends SetFunctionFactory<T, Unio
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<Union<T>>> getConstructors() {
-		Validator binaryValidator = new BinaryValidator(SetFunction.class, asList(BINARY_SYMBOL), SetFunction.class);
-		Validator multaryValidator = new MultaryValidator(asList(MULTARY_SYMBOL), SetFunction.class);
+		SimpleLogicValidator binaryValidator = new BinaryValidator(SetFunction.class, asList(BINARY_SYMBOL), SetFunction.class);
+		SimpleLogicValidator multaryValidator = new MultaryValidator(asList(MULTARY_SYMBOL), SetFunction.class);
 		return asList(
 				new ValidatorAndConstructor<>(
 						binaryValidator,

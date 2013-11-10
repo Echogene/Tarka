@@ -8,7 +8,7 @@ import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.VariableAtom;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.QuantifierAtom;
@@ -31,7 +31,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<QuantifiedStatement<T>>> getConstructors() {
-		Validator validator = new Validator();
+		SimpleLogicValidator validator = new SimpleLogicValidator();
 		validator.addValidator(ONE, new QuantifierAtom(QUANTIFIER_SYMBOL_LIST));
 		validator.addValidator(ONE, new VariableAtom());
 		validator.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));

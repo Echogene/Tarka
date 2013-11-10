@@ -9,7 +9,7 @@ import logic.function.factory.FunctionFactory;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.WordAtom;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.results.FunctionResult;
@@ -38,7 +38,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<IfElse<T, ?>>> getValidatorAndConstructors() {
-		Validator validator = new Validator();
+		SimpleLogicValidator validator = new SimpleLogicValidator();
 		validator.addValidator(ONE, new FunctionOrVariableValidator(Function.class));
 		validator.addValidator(ONE, new WordAtom(IF));
 		validator.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));

@@ -9,7 +9,7 @@ import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.StringResult;
 import logic.function.factory.validation.results.ValidationResult;
 
@@ -28,7 +28,7 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<BinaryStatement<T>>> getConstructors() {
-		Validator validator = new BinaryValidator(Evaluable.class, BINARY_CONNECTIVE_SYMBOL_LIST, Evaluable.class);
+		SimpleLogicValidator validator = new BinaryValidator(Evaluable.class, BINARY_CONNECTIVE_SYMBOL_LIST, Evaluable.class);
 		return Arrays.asList(
 				new ValidatorAndConstructor<>(
 						validator,

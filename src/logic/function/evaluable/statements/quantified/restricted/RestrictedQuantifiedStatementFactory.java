@@ -10,7 +10,7 @@ import logic.function.evaluable.statements.quantified.standard.QuantifierFactory
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.VariableAtom;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
@@ -37,7 +37,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable> extends Ev
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<RestrictedQuantifiedStatement<T>>> getConstructors() {
-		Validator validator = new Validator();
+		SimpleLogicValidator validator = new SimpleLogicValidator();
 		validator.addValidator(ONE, new QuantifierAtom(QUANTIFIER_SYMBOL_LIST));
 		validator.addValidator(ONE, new VariableAtom());
 		validator.addValidator(ONE, new OperatorAtom(Arrays.asList(MEMBERSHIP_SYMBOL)));

@@ -7,7 +7,7 @@ import logic.function.evaluable.EvaluableFactory;
 import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.group.validators.FunctionOrVariableValidator;
 import logic.function.factory.validation.group.validators.OperatorAtom;
 import logic.function.factory.validation.results.StringResult;
@@ -29,13 +29,13 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<UnaryStatement<T>>> getConstructors() {
-		Validator validatorWithoutId = new Validator();
+		SimpleLogicValidator validatorWithoutId = new SimpleLogicValidator();
 		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 		ValidatorAndConstructor<UnaryStatement<T>> constructorWithoutSymbol = new ValidatorAndConstructor<>(
 				validatorWithoutId,
 				new Constructor<>(1)
 		);
-		Validator validatorWithId = new Validator();
+		SimpleLogicValidator validatorWithId = new SimpleLogicValidator();
 		validatorWithId.addValidator(ONE, new OperatorAtom(UNARY_CONNECTIVE_SYMBOL_LIST));
 		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
 		ValidatorAndConstructor<UnaryStatement<T>> constructorWithSymbol = new ValidatorAndConstructor<>(

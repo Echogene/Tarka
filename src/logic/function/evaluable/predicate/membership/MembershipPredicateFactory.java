@@ -6,7 +6,7 @@ import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.Validator;
+import logic.function.factory.validation.SimpleLogicValidator;
 import logic.function.factory.validation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
@@ -28,7 +28,7 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 	}
 
 	private static <T extends Nameable> List<ValidatorAndConstructor<MembershipPredicate<T>>> getConstructors() {
-		Validator validator = new BinaryValidator(
+		SimpleLogicValidator validator = new BinaryValidator(
 				ReflexiveFunction.class,
 				Arrays.asList(MembershipPredicate.MEMBERSHIP_SYMBOL),
 				SetFunction.class
