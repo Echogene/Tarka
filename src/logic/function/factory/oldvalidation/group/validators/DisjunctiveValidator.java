@@ -13,6 +13,7 @@ import static util.StringUtils.join;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class DisjunctiveValidator implements GroupValidator {
 

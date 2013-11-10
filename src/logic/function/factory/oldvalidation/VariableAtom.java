@@ -8,6 +8,7 @@ import logic.function.factory.oldvalidation.results.ValidationResult;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class VariableAtom extends NameAtom {
 	@Override

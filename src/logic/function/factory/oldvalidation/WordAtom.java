@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class WordAtom extends NameAtom {
 	private final List<String> acceptedWords;

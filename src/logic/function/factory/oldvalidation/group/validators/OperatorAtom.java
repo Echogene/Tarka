@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class OperatorAtom extends FunctionlessAtom {
 	private final List<String> acceptedOperatorSymbols;

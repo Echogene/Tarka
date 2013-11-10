@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class FunctionOrVariableValidator extends DisjunctiveValidator {
 	public FunctionOrVariableValidator(

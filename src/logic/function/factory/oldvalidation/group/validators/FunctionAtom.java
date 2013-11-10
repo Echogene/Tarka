@@ -13,6 +13,7 @@ import static util.CollectionUtils.simpleNames;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class FunctionAtom implements AtomicValidator {
 	/**

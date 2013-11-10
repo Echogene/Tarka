@@ -4,6 +4,7 @@ import logic.function.Function;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class FunctionResult implements ValidationResult {
 	private final Function<?, ?> function;

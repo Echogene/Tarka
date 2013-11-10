@@ -24,6 +24,7 @@ import static util.CollectionUtils.stripFirstAndLast;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class SimpleLogicValidator {
 	private final List<String> acceptedOpeningBrackets;

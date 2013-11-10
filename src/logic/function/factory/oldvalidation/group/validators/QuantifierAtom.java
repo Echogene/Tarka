@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class QuantifierAtom extends FunctionlessAtom {
 	private final List<String> acceptedQuantifierSymbols;
