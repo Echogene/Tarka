@@ -5,8 +5,6 @@ import logic.factory.Factory;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.validation.token.TokenValidator;
-import logic.type.TypeMatcher;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
@@ -17,12 +15,7 @@ import static util.StringUtils.join;
 /**
  * @author Steven Weston
  */
-public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, ?>>
-		implements
-				Factory<F>,
-				TokenValidator,
-				TypeMatcher
-{
+public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, ?>> implements Factory<F> {
 
 	protected final List<ValidatorAndConstructor<F>> constructors;
 
