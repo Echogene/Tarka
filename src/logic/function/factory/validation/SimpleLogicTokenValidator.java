@@ -21,20 +21,20 @@ import static logic.function.factory.validation.group.TokenGroupCheckerWithNumbe
  */
 public class SimpleLogicTokenValidator implements TokenValidator {
 
-	private final CurrentIterator<TokenGroupCheckerWithNumber> currentChecker;
+	private final List<TokenGroupCheckerWithNumber> checkers;
 	private final List<Pair<String,String>> acceptedBracketPairs;
+	private CurrentIterator<TokenGroupCheckerWithNumber> currentChecker;
 
 	public SimpleLogicTokenValidator(
 			List<TokenGroupCheckerWithNumber> checkers,
 			List<Pair<String, String>> acceptedBracketPairs
 	) {
-		List<TokenGroupCheckerWithNumber> extendedCheckers = new ArrayList<>(checkers);
+		this.checkers = new ArrayList<>(checkers);
 		this.acceptedBracketPairs = acceptedBracketPairs;
 		if (!this.acceptedBracketPairs.isEmpty()) {
 			FunctionChecker outerBracketChecker = new FunctionChecker(acceptedBracketPairs);
-			extendedCheckers.add(0, outerBracketChecker);
+			this.checkers.add(0, outerBracketChecker);
 		}
-		currentChecker = new CurrentIterator<>(extendedCheckers.iterator());
 	}
 
 	public SimpleLogicTokenValidator(List<TokenGroupCheckerWithNumber> checkers) {
@@ -43,6 +43,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 
 	@Override
 	public MapToErrors<TokenGroup> validate(List<Token> tokens) throws TokenValidationException {
+		resetIterator();
 		List<TokenGroup> groups = new ArrayList<>();
 		if (!this.acceptedBracketPairs.isEmpty()) {
 			groups.add(new TokenGroup(tokens.get(0), tokens.get(tokens.size() - 1)));
@@ -50,6 +51,10 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		groups.addAll(groupTokens(CollectionUtils.stripFirstAndLast(tokens)));
 		MapToErrors<TokenGroup> errors = new MapToErrors<>(groups, this::checkToken);
 		return errors;
+	}
+
+	private void resetIterator() {
+		currentChecker = new CurrentIterator<>(checkers.iterator());
 	}
 
 	private void checkToken(TokenGroup group) throws TokenValidationException {
