@@ -5,7 +5,7 @@ import logic.function.factory.ValidationException;
 import logic.function.factory.oldvalidation.group.validators.NameAtom;
 import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
-import logic.function.factory.validation.group.TokenGroup;
+import logic.function.factory.validation.token.group.TokenGroup;
 
 import java.util.Collections;
 import java.util.List;

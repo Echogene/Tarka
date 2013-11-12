@@ -11,7 +11,7 @@ import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
 import logic.function.factory.oldvalidation.results.FunctionResult;
 import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
-import logic.function.factory.validation.group.TokenGroup;
+import logic.function.factory.validation.token.group.TokenGroup;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import org.junit.Test;

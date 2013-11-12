@@ -1,7 +1,7 @@
-package logic.function.factory.validation.group.checkers;
+package logic.function.factory.validation.token.group.checkers;
 
-import logic.function.factory.validation.TokenValidationException;
-import logic.function.factory.validation.group.TokenGroup;
+import logic.function.factory.validation.token.TokenValidationException;
+import logic.function.factory.validation.token.group.TokenGroup;
 
 import java.util.List;
 

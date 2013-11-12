@@ -1,9 +1,9 @@
-package logic.function.factory.validation;
+package logic.function.factory.validation.token;
 
 import javafx.util.Pair;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.group.TokenGroupCheckerWithNumber;
-import logic.function.factory.validation.group.checkers.FunctionChecker;
+import logic.function.factory.validation.token.group.TokenGroup;
+import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
+import logic.function.factory.validation.token.group.checkers.FunctionChecker;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
 import util.CollectionUtils;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static logic.function.factory.validation.group.TokenGroupCheckerWithNumber.Number.ONE;
+import static logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston

@@ -1,6 +1,6 @@
-package logic.function.factory.validation.group.checkers;
+package logic.function.factory.validation.token.group.checkers;
 
-import logic.function.factory.validation.group.TokenGroupCheckerWithNumber;
+import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
 
 /**
  * @author Steven Weston

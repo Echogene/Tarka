@@ -2,18 +2,19 @@ package logic.function.factory.validation;
 
 import javafx.util.Pair;
 import logic.factory.SimpleLogicLexer;
-import logic.function.factory.validation.group.NumberedTokenGroupChecker;
-import logic.function.factory.validation.group.TokenGroup;
-import logic.function.factory.validation.group.TokenGroupCheckerWithNumber;
-import logic.function.factory.validation.group.checkers.FunctionOrVariableChecker;
-import logic.function.factory.validation.group.checkers.OperatorChecker;
-import logic.function.factory.validation.group.checkers.VariableChecker;
+import logic.function.factory.validation.token.SimpleLogicTokenValidator;
+import logic.function.factory.validation.token.group.NumberedTokenGroupChecker;
+import logic.function.factory.validation.token.group.TokenGroup;
+import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
+import logic.function.factory.validation.token.group.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.token.group.checkers.OperatorChecker;
+import logic.function.factory.validation.token.group.checkers.VariableChecker;
 import logic.type.map.MapToErrors;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static logic.function.factory.validation.group.TokenGroupCheckerWithNumber.Number.MANY;
+import static logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber.Number.MANY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

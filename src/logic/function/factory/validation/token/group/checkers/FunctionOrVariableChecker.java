@@ -1,4 +1,4 @@
-package logic.function.factory.validation.group.checkers;
+package logic.function.factory.validation.token.group.checkers;
 
 import javafx.util.Pair;
 

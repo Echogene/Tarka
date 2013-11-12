@@ -1,4 +1,4 @@
-package logic.function.factory.validation;
+package logic.function.factory.validation.token;
 
 import logic.type.map.CheckorException;
 
