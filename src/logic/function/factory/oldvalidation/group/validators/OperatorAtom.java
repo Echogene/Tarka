@@ -2,9 +2,9 @@ package logic.function.factory.oldvalidation.group.validators;
 
 import logic.function.Function;
 import logic.function.factory.ValidationException;
-import logic.function.factory.oldvalidation.group.TokenGroup;
 import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.group.TokenGroup;
 
 import java.util.Arrays;
 import java.util.List;

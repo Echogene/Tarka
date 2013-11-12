@@ -1,6 +1,5 @@
 package logic.function.factory.validation.group;
 
-import logic.function.factory.oldvalidation.group.TokenGroup;
 import logic.function.factory.validation.TokenValidationException;
 import logic.type.map.Checkor;
 

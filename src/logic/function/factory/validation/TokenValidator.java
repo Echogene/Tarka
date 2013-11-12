@@ -1,6 +1,6 @@
 package logic.function.factory.validation;
 
-import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.validation.group.TokenGroup;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
 

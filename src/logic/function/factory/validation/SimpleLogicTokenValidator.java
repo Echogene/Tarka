@@ -1,7 +1,7 @@
 package logic.function.factory.validation;
 
 import javafx.util.Pair;
-import logic.function.factory.oldvalidation.group.TokenGroup;
+import logic.function.factory.validation.group.TokenGroup;
 import logic.function.factory.validation.group.TokenGroupCheckerWithNumber;
 import logic.function.factory.validation.group.checkers.FunctionChecker;
 import logic.type.map.MapToErrors;

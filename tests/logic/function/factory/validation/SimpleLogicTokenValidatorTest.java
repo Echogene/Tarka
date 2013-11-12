@@ -2,8 +2,8 @@ package logic.function.factory.validation;
 
 import javafx.util.Pair;
 import logic.factory.SimpleLogicLexer;
-import logic.function.factory.oldvalidation.group.TokenGroup;
 import logic.function.factory.validation.group.NumberedTokenGroupChecker;
+import logic.function.factory.validation.group.TokenGroup;
 import logic.function.factory.validation.group.TokenGroupCheckerWithNumber;
 import logic.function.factory.validation.group.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.group.checkers.OperatorChecker;

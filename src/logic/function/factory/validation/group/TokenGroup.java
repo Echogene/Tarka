@@ -1,4 +1,4 @@
-package logic.function.factory.oldvalidation.group;
+package logic.function.factory.validation.group;
 
 import reading.lexing.Token;
 

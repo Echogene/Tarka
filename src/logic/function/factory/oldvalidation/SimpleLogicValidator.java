@@ -3,10 +3,10 @@ package logic.function.factory.oldvalidation;
 import logic.function.Function;
 import logic.function.factory.ValidationException;
 import logic.function.factory.oldvalidation.group.GroupValidator;
-import logic.function.factory.oldvalidation.group.TokenGroup;
 import logic.function.factory.oldvalidation.results.FunctionResult;
 import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.group.TokenGroup;
 import reading.lexing.Token;
 
 import java.util.ArrayList;
