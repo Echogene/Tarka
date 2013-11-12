@@ -5,12 +5,13 @@ import util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
  * @author Steven Weston
  */
-public class MapWithErrors<K, V> {
+public class MapWithErrors<K, V> implements ErrorMap {
 
 	private final Map<K, V> passedValues;
 
@@ -56,18 +57,44 @@ public class MapWithErrors<K, V> {
 		}
 	}
 
+	@Override
 	public boolean allFailed() {
 		return passedValues.isEmpty();
 	}
 
+	@Override
 	public boolean allPassed() {
 		return failedValues.isEmpty();
 	}
 
-	public boolean hasUniquePass() {
+	/**
+	 * @return whether there was exactly one key that passed
+	 */
+	public boolean hasTotallyUniquePass() {
 		return passedValues.size() == 1;
 	}
 
+	/**
+	 * @return whether there was exactly one value mapped to by the passed keys
+	 */
+	public boolean hasUniquePass() {
+		HashSet<Object> passedValueSet = new HashSet<>();
+		passedValueSet.addAll(passedValues.values());
+		return passedValueSet.size() == 1;
+	}
+
+	/**
+	 * @return whether there was more than one value mapped to by the passed keys
+	 */
+	public boolean hasTotallyAmbiguousPasses() {
+		HashSet<Object> passedValueSet = new HashSet<>();
+		passedValueSet.addAll(passedValues.values());
+		return passedValueSet.size() > 1;
+	}
+
+	/**
+	 * @return whether there was more than one key that passed
+	 */
 	public boolean hasAmbiguousPasses() {
 		return passedValues.size() > 1;
 	}
@@ -84,7 +111,13 @@ public class MapWithErrors<K, V> {
 		return passedValues;
 	}
 
+	@Override
 	public String concatenateErrorMessages() {
 		return StringUtils.join(failedValues.values(), "\n");
+	}
+
+	@Override
+	public Collection<String> getErrorMessages() {
+		return failedValues.values();
 	}
 }

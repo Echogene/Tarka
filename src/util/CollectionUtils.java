@@ -36,7 +36,7 @@ public class CollectionUtils {
 	 * @param <T>
 	 * @return
 	 */
-	public static <T> List<T> stripFirstAndLast(List<T> list) {
+	public static <T> List<T> stripFirstAndLast(final List<T> list) {
 		return list.subList(1, list.size() - 1);
 	}
 

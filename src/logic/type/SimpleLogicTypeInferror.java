@@ -122,7 +122,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	) throws TypeInferrorException {
 
 		final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment;
-		if (variableAssignments.hasUniquePass()) {
+		if (variableAssignments.hasTotallyUniquePass()) {
 			Map<String, Type> assignedVariableTypes = variableAssignments.getUniquePassedValue();
 			assignedVariableTypes.putAll(variablesTypes);
 			functionTypesAfterAssignment = inferChildTypes(nodes, assignedVariableTypes, typeMap);
