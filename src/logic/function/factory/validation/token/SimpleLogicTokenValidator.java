@@ -32,7 +32,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		this.checkers = new ArrayList<>(checkers);
 		this.acceptedBracketPairs = acceptedBracketPairs;
 		if (!this.acceptedBracketPairs.isEmpty()) {
-			FunctionChecker outerBracketChecker = new FunctionChecker(acceptedBracketPairs);
+			FunctionChecker outerBracketChecker = new FunctionChecker(acceptedBracketPairs, new ArrayList<>());
 			this.checkers.add(0, outerBracketChecker);
 		}
 	}
