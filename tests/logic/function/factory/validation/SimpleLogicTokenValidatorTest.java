@@ -2,19 +2,19 @@ package logic.function.factory.validation;
 
 import javafx.util.Pair;
 import logic.factory.SimpleLogicLexer;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.NumberedChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
+import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.factory.validation.token.SimpleLogicTokenValidator;
-import logic.function.factory.validation.token.group.NumberedTokenGroupChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
-import logic.function.factory.validation.token.group.checkers.FunctionOrVariableChecker;
-import logic.function.factory.validation.token.group.checkers.OperatorChecker;
-import logic.function.factory.validation.token.group.checkers.VariableChecker;
 import logic.type.map.MapToErrors;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber.Number.MANY;
+import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +32,7 @@ public class SimpleLogicTokenValidatorTest {
 	@Test
 	public void testSimpleValidation() throws Exception {
 		SimpleLogicTokenValidator validator = new SimpleLogicTokenValidator(
-				Arrays.<TokenGroupCheckerWithNumber>asList(
+				Arrays.<CheckerWithNumber>asList(
 						new VariableChecker(),
 						new OperatorChecker("+"),
 						new VariableChecker()
@@ -46,7 +46,7 @@ public class SimpleLogicTokenValidatorTest {
 	@Test
 	public void testSimpleValidationWithDisjunctiveCheckers() throws Exception {
 		SimpleLogicTokenValidator validator = new SimpleLogicTokenValidator(
-				Arrays.<TokenGroupCheckerWithNumber>asList(
+				Arrays.<CheckerWithNumber>asList(
 						new FunctionOrVariableChecker(),
 						new OperatorChecker("+"),
 						new FunctionOrVariableChecker()
@@ -60,7 +60,7 @@ public class SimpleLogicTokenValidatorTest {
 	@Test
 	public void testSimpleValidationFails() throws Exception {
 		SimpleLogicTokenValidator validator = new SimpleLogicTokenValidator(
-				Arrays.<TokenGroupCheckerWithNumber>asList(
+				Arrays.<CheckerWithNumber>asList(
 						new VariableChecker(),
 						new OperatorChecker("+"),
 						new VariableChecker()
@@ -76,9 +76,9 @@ public class SimpleLogicTokenValidatorTest {
 	@Test
 	public void testValidationWithManyChecker() throws Exception {
 		SimpleLogicTokenValidator validator = new SimpleLogicTokenValidator(
-				Arrays.<TokenGroupCheckerWithNumber>asList(
+				Arrays.<CheckerWithNumber>asList(
 						new OperatorChecker("⋃"),
-						new NumberedTokenGroupChecker(MANY, new VariableChecker())
+						new NumberedChecker(MANY, new VariableChecker())
 				)
 		);
 		MapToErrors<TokenGroup> errors;
@@ -89,13 +89,13 @@ public class SimpleLogicTokenValidatorTest {
 	@Test
 	public void testValidationWithCrazyCheckers() throws Exception {
 		SimpleLogicTokenValidator validator = new SimpleLogicTokenValidator(
-				Arrays.<TokenGroupCheckerWithNumber>asList(
+				Arrays.<CheckerWithNumber>asList(
 						new OperatorChecker("⋃"),
-						new NumberedTokenGroupChecker(MANY, new VariableChecker()),
+						new NumberedChecker(MANY, new VariableChecker()),
 						new OperatorChecker("+"),
-						new NumberedTokenGroupChecker(MANY, new VariableChecker()),
+						new NumberedChecker(MANY, new VariableChecker()),
 						new OperatorChecker("−"),
-						new NumberedTokenGroupChecker(MANY, new VariableChecker())
+						new NumberedChecker(MANY, new VariableChecker())
 				)
 		);
 		MapToErrors<TokenGroup> errors;

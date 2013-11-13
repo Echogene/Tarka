@@ -1,9 +1,9 @@
 package logic.function.factory.validation.token;
 
 import javafx.util.Pair;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
-import logic.function.factory.validation.token.group.checkers.FunctionChecker;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
 import util.CollectionUtils;
@@ -14,19 +14,19 @@ import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber.Number.ONE;
+import static logic.function.factory.validation.checking.CheckerWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston
  */
 public class SimpleLogicTokenValidator implements TokenValidator {
 
-	private final List<TokenGroupCheckerWithNumber> checkers;
+	private final List<CheckerWithNumber> checkers;
 	private final List<Pair<String,String>> acceptedBracketPairs;
-	private CurrentIterator<TokenGroupCheckerWithNumber> currentChecker;
+	private CurrentIterator<CheckerWithNumber> currentChecker;
 
 	public SimpleLogicTokenValidator(
-			List<TokenGroupCheckerWithNumber> checkers,
+			List<CheckerWithNumber> checkers,
 			List<Pair<String, String>> acceptedBracketPairs
 	) {
 		this.checkers = new ArrayList<>(checkers);
@@ -37,7 +37,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		}
 	}
 
-	public SimpleLogicTokenValidator(List<TokenGroupCheckerWithNumber> checkers) {
+	public SimpleLogicTokenValidator(List<CheckerWithNumber> checkers) {
 		this(checkers, new ArrayList<>());
 	}
 
@@ -59,7 +59,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 
 	private void checkToken(TokenGroup group) throws TokenValidationException {
 		while (true) {
-			TokenGroupCheckerWithNumber current = currentChecker.current();
+			CheckerWithNumber current = currentChecker.current();
 			if (current == null) {
 				throw new TokenValidationException("There weren't enough checkers.");
 			}

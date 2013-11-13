@@ -1,6 +1,7 @@
-package logic.function.factory.validation.token.group;
+package logic.function.factory.validation.checking;
 
 import logic.function.factory.validation.token.TokenValidationException;
+import logic.function.factory.validation.token.group.TokenGroup;
 import logic.type.map.Checkor;
 
 /**

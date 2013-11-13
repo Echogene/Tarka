@@ -1,9 +1,9 @@
-package logic.function.factory.validation.token.group.checkers;
+package logic.function.factory.validation.checking.checkers;
 
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.TokenGroupChecker;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.function.factory.validation.token.group.TokenGroupChecker;
-import logic.function.factory.validation.token.group.TokenGroupCheckerWithNumber;
 import logic.type.map.MapToErrors;
 import util.StringUtils;
 
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class DisjunctiveChecker extends TokenGroupCheckerWithNumber {
+public class DisjunctiveChecker extends CheckerWithNumber {
 
 	private final List<TokenGroupChecker> subCheckers;
 
