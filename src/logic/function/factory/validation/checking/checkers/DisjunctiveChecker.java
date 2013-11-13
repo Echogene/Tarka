@@ -1,7 +1,10 @@
 package logic.function.factory.validation.checking.checkers;
 
+import logic.function.Function;
+import logic.function.factory.validation.checking.Checker;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.TokenGroupChecker;
+import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.type.map.MapToErrors;
@@ -15,16 +18,16 @@ import java.util.List;
  */
 public class DisjunctiveChecker extends CheckerWithNumber {
 
-	private final List<TokenGroupChecker> subCheckers;
+	private final List<Checker> subCheckers;
 
-	public DisjunctiveChecker(TokenGroupChecker... subCheckers) {
+	public DisjunctiveChecker(Checker... subCheckers) {
 		super(Number.ONE);
 		this.subCheckers = Arrays.asList(subCheckers);
 	}
 
 	@Override
 	public void check(TokenGroup tokenGroup) throws TokenValidationException {
-		MapToErrors<TokenGroupChecker> map = new MapToErrors<>(
+		MapToErrors<Checker> map = new MapToErrors<>(
 				subCheckers,
 				checker -> checker.check(tokenGroup)
 		);
@@ -32,6 +35,22 @@ public class DisjunctiveChecker extends CheckerWithNumber {
 			throw new TokenValidationException(
 					"The group "
 							+ tokenGroup.toString()
+							+ " failed validation because:"
+							+ StringUtils.addCharacterAfterEveryNewline(map.concatenateErrorMessages(), '\t')
+			);
+		}
+	}
+
+	@Override
+	public void check(Function<?, ?> function) throws FunctionValidationException {
+		MapToErrors<Checker> map = new MapToErrors<>(
+				subCheckers,
+				checker -> checker.check(function)
+		);
+		if (map.allFailed()) {
+			throw new FunctionValidationException(
+					"The function "
+							+ function.toString()
 							+ " failed validation because:"
 							+ StringUtils.addCharacterAfterEveryNewline(map.concatenateErrorMessages(), '\t')
 			);

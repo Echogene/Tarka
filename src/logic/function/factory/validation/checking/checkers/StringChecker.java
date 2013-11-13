@@ -6,7 +6,7 @@ import logic.function.factory.validation.token.group.TokenGroup;
 /**
  * @author Steven Weston
  */
-public class StringChecker extends AtomicChecker {
+public class StringChecker extends FunctionlessChecker {
 
 	private final String acceptedString;
 

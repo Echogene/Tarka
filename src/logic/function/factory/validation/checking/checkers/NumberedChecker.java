@@ -1,7 +1,9 @@
 package logic.function.factory.validation.checking.checkers;
 
+import logic.function.Function;
+import logic.function.factory.validation.checking.Checker;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.function.factory.validation.checking.TokenGroupChecker;
+import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
 
@@ -10,14 +12,14 @@ import logic.function.factory.validation.token.group.TokenGroup;
  */
 public class NumberedChecker extends CheckerWithNumber {
 
-	private final TokenGroupChecker checker;
+	private final Checker checker;
 
-	public NumberedChecker(Number number, TokenGroupChecker checker) {
+	public NumberedChecker(Number number, Checker checker) {
 		super(number);
 		this.checker = checker;
 	}
 
-	public NumberedChecker(TokenGroupChecker checker) {
+	public NumberedChecker(Checker checker) {
 		super(Number.ONE);
 		this.checker = checker;
 	}
@@ -25,5 +27,10 @@ public class NumberedChecker extends CheckerWithNumber {
 	@Override
 	public void check(TokenGroup tokenGroup) throws TokenValidationException {
 		checker.check(tokenGroup);
+	}
+
+	@Override
+	public void check(Function<?, ?> function) throws FunctionValidationException {
+		checker.check(function);
 	}
 }

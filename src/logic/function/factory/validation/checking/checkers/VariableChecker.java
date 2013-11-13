@@ -6,7 +6,7 @@ import logic.function.factory.validation.token.group.TokenGroup;
 /**
  * @author Steven Weston
  */
-public class VariableChecker extends AtomicChecker {
+public class VariableChecker extends FunctionlessChecker {
 
 	@Override
 	public void check(TokenGroup tokenGroup) throws TokenValidationException {

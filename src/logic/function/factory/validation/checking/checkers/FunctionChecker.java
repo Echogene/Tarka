@@ -1,6 +1,8 @@
 package logic.function.factory.validation.checking.checkers;
 
 import javafx.util.Pair;
+import logic.function.Function;
+import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
 
@@ -13,13 +15,18 @@ import java.util.List;
 public class FunctionChecker extends AtomicChecker {
 
 	private final List<Pair<String, String>> acceptedBracketPairs;
+	private final List<Class<? extends Function<?, ?>>> acceptedFunctionClasses;
 
-	public FunctionChecker(List<Pair<String, String>> acceptedBracketPairs) {
+	public FunctionChecker(
+			List<Pair<String, String>> acceptedBracketPairs,
+			List<Class<? extends Function<?, ?>>> acceptedFunctionClasses
+	) {
 		this.acceptedBracketPairs = acceptedBracketPairs;
+		this.acceptedFunctionClasses = acceptedFunctionClasses;
 	}
 
 	public FunctionChecker() {
-		this(new ArrayList<>());
+		this(new ArrayList<>(), new ArrayList<>());
 	}
 
 	@Override
@@ -31,6 +38,15 @@ public class FunctionChecker extends AtomicChecker {
 			Pair<String, String> pair = new Pair<>(tokenGroup.getOpeningBracket(), tokenGroup.getClosingBracket());
 			if (!acceptedBracketPairs.contains(pair)) {
 				throw new TokenValidationException(tokenGroup.toString() + " was not in " + acceptedBracketPairs.toString() + ".");
+			}
+		}
+	}
+
+	@Override
+	public void check(Function<?, ?> function) throws FunctionValidationException {
+		if (!acceptedFunctionClasses.isEmpty()) {
+			if (!acceptedFunctionClasses.contains(function.getClass())) {
+				throw new FunctionValidationException(function.toString() + " was not in any of " + acceptedFunctionClasses.toString() + ".");
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package logic.function.factory.validation.checking;
 /**
  * @author Steven Weston
  */
-public abstract class CheckerWithNumber implements TokenGroupChecker, FunctionChecker {
+public abstract class CheckerWithNumber implements Checker {
 
 	protected final Number number;
 

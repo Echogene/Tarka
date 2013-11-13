@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class QuantifierChecker extends AtomicChecker {
+public class QuantifierChecker extends FunctionlessChecker {
 
 	private final List<String> acceptedQuantifiers;
 

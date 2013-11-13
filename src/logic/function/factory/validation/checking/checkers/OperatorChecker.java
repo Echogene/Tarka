@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class OperatorChecker extends AtomicChecker {
+public class OperatorChecker extends FunctionlessChecker {
 
 	private final List<String> acceptedOperators;
 
