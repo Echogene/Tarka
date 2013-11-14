@@ -10,6 +10,6 @@ public abstract class FunctionlessChecker extends AtomicChecker {
 
 	@Override
 	public void check(Function<?, ?> function) throws FunctionValidationException {
-		// Do nothing
+		throw new FunctionValidationException("The function " + function.toString() + " wasn't expected");
 	}
 }
