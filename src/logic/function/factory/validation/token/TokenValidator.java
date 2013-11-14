@@ -17,5 +17,5 @@ public interface TokenValidator {
 	 * @return A map containing error messages for invalid tokens
 	 * @throws TokenValidationException when something very wrong happens (the tokens are not well-formed)
 	 */
-	MapToErrors<TokenGroup> validate(List<Token> tokens) throws TokenValidationException;
+	MapToErrors<TokenGroup> validateTokens(List<Token> tokens) throws TokenValidationException;
 }

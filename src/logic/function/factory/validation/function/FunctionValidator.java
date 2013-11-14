@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface FunctionValidator {
 
-	MapToErrors<Function<?, ?>> validate(List<Function<?, ?>> functions) throws TokenValidationException;
+	MapToErrors<Function<?, ?>> validateFunctions(List<Function<?, ?>> functions) throws TokenValidationException;
 }

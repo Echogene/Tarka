@@ -39,7 +39,7 @@ public class SimpleLogicTokenValidatorTest {
 				)
 		);
 		MapToErrors<TokenGroup> errors;
-		errors = validator.validate(lexer.tokeniseString("(1 + 2)"));
+		errors = validator.validateTokens(lexer.tokeniseString("(1 + 2)"));
 		assertTrue("(1 + 2) should be valid", errors.allPassed());
 	}
 
@@ -53,7 +53,7 @@ public class SimpleLogicTokenValidatorTest {
 				)
 		);
 		MapToErrors<TokenGroup> errors;
-		errors = validator.validate(lexer.tokeniseString("(() + 2)"));
+		errors = validator.validateTokens(lexer.tokeniseString("(() + 2)"));
 		assertTrue("(() + 2) should be valid", errors.allPassed());
 	}
 
@@ -68,7 +68,7 @@ public class SimpleLogicTokenValidatorTest {
 				Arrays.asList(new Pair<>("(", ")"))
 		);
 		MapToErrors<TokenGroup> errors;
-		errors = validator.validate(lexer.tokeniseString("[∀ ∨ +]"));
+		errors = validator.validateTokens(lexer.tokeniseString("[∀ ∨ +]"));
 		assertTrue("[∀ ∨ +] should be totally invalid", errors.allFailed());
 		assertEquals(4, errors.getErrorMessages().size());
 	}
@@ -82,7 +82,7 @@ public class SimpleLogicTokenValidatorTest {
 				)
 		);
 		MapToErrors<TokenGroup> errors;
-		errors = validator.validate(lexer.tokeniseString("(⋃ x y z)"));
+		errors = validator.validateTokens(lexer.tokeniseString("(⋃ x y z)"));
 		assertTrue("(⋃ x y z) should be valid", errors.allPassed());
 	}
 
@@ -99,7 +99,7 @@ public class SimpleLogicTokenValidatorTest {
 				)
 		);
 		MapToErrors<TokenGroup> errors;
-		errors = validator.validate(lexer.tokeniseString("(⋃ x y z + − a b c)"));
+		errors = validator.validateTokens(lexer.tokeniseString("(⋃ x y z + − a b c)"));
 		assertTrue("(⋃ x y z + − a b c) should be valid", errors.allPassed());
 	}
 }

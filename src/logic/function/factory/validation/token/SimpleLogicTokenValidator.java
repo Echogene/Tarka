@@ -42,7 +42,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 	}
 
 	@Override
-	public MapToErrors<TokenGroup> validate(List<Token> tokens) throws TokenValidationException {
+	public MapToErrors<TokenGroup> validateTokens(List<Token> tokens) throws TokenValidationException {
 		resetIterator();
 		List<TokenGroup> groups = new ArrayList<>();
 		if (!this.acceptedBracketPairs.isEmpty()) {
