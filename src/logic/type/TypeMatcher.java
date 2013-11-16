@@ -1,6 +1,5 @@
 package logic.type;
 
-import logic.type.map.ExtractorException;
 import logic.type.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
@@ -19,5 +18,5 @@ public interface TypeMatcher {
 	 * @param types The map of types
 	 * @return The type if the type was found, null otherwise.
 	 */
-	Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws ExtractorException;
+	Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException;
 }
