@@ -1,79 +1,85 @@
 package maths.number.integer.functions.interval;
 
-import logic.factory.FactoryException;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.StringResult;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import javafx.util.Pair;
+import logic.function.Function;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.SetFunctionFactory;
+import logic.type.TypeInferrorException;
+import logic.type.map.MapWithErrors;
 import maths.number.Number;
 import maths.number.integer.sets.interval.IntervalFactory;
+import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType.CLOSED;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType.OPEN;
+import static util.CollectionUtils.first;
+import static util.CollectionUtils.last;
 
 /**
  * @author Steven Weston
  */
 public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactory<N, IntervalFunction<N>> {
 
-	public IntervalFunctionFactory(IntervalFactory<N> factory) {
-		super(getConstructors(factory));
+	private final IntervalFactory<N> factory;
+
+	protected IntervalFunctionFactory(IntervalFactory<N> factory) {
+		super(getCheckers(), getAcceptedBracketPairs());
+		this.factory = factory;
 	}
 
-	private static <N extends Number> List<ValidatorAndConstructor<IntervalFunction<N>>> getConstructors(IntervalFactory<N> factory) {
-		SimpleLogicValidator validator = new BinaryValidator(
-				asList("[", "[", "(", "("),
-				ReflexiveFunction.class,
-				null,
-				ReflexiveFunction.class,
-				asList("]", ")", "]", ")")
+	private static List<CheckerWithNumber> getCheckers() {
+		return Arrays.<CheckerWithNumber>asList(
+				new FunctionOrVariableChecker(),
+				new FunctionOrVariableChecker()
 		);
-		return asList(new ValidatorAndConstructor<>(
-				validator,
-				new IntervalFunctionConstructor<>(factory)
-		));
 	}
 
-	private static class IntervalFunctionConstructor<N extends Number> implements Constructor<IntervalFunction<N>> {
+	private static List<Pair<String, String>> getAcceptedBracketPairs() {
+		return asList(
+				new Pair<>("[", "]"),
+				new Pair<>("[", ")"),
+				new Pair<>("(", "]"),
+				new Pair<>("(", ")")
+		);
+	}
 
-		private final FunctionConvertor<IdentityFunction<N>, N> convertor;
-		private final IntervalFactory<N> factory;
+	@Override
+	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+		return types.getPassedValues().get(nodes.get(1));
+	}
 
-		public IntervalFunctionConstructor(IntervalFactory<N> factory) {
-			this.factory = factory;
-			this.convertor = new FunctionConvertor<>(new IdentityFunctionFactory<N>());
+	@Override
+	public IntervalFunction<N> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+		String openingBracket = first(tokens).getValue();
+		BoundType lowerType;
+		if ("[".equals(openingBracket)) {
+			lowerType = CLOSED;
+		} else {
+			lowerType = OPEN;
+		}
+		String closingBracket = last(tokens).getValue();
+		BoundType upperType;
+		if ("]".equals(closingBracket)) {
+			upperType = CLOSED;
+		} else {
+			upperType = OPEN;
 		}
 
-		@Override
-		public IntervalFunction<N> construct(List<ValidationResult> results) throws FactoryException {
-			StringResult openingBracket = (StringResult) results.get(0);
-			BoundType lowerType;
-			if ("[".equals(openingBracket.getString())) {
-				lowerType = CLOSED;
-			} else {
-				lowerType = OPEN;
-			}
-			ReflexiveFunction<N> lowerBound = convertor.convert(results.get(1));
-			ReflexiveFunction<N> upperBound = convertor.convert(results.get(2));
-			StringResult closingBracket = (StringResult) results.get(3);
-			BoundType upperType;
-			if ("]".equals(closingBracket.getString())) {
-				upperType = CLOSED;
-			} else {
-				upperType = OPEN;
-			}
-			return new IntervalFunction<>(lowerType, lowerBound, upperBound, upperType, factory);
-		}
+		return new IntervalFunction<>(
+				lowerType,
+				(ReflexiveFunction<N>) functions.get(0),
+				(ReflexiveFunction<N>) functions.get(1),
+				upperType,
+				factory
+		);
 	}
 }

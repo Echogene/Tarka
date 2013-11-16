@@ -2,7 +2,7 @@ package logic.function.factory.validation.token;
 
 import javafx.util.Pair;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.function.factory.validation.checking.checkers.FunctionChecker;
+import logic.function.factory.validation.checking.checkers.FunctionfulChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
@@ -32,7 +32,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		this.checkers = new ArrayList<>(checkers);
 		this.acceptedBracketPairs = acceptedBracketPairs;
 		if (!this.acceptedBracketPairs.isEmpty()) {
-			FunctionChecker outerBracketChecker = new FunctionChecker(acceptedBracketPairs, new ArrayList<>());
+			FunctionfulChecker outerBracketChecker = new FunctionfulChecker(acceptedBracketPairs, new ArrayList<>());
 			this.checkers.add(0, outerBracketChecker);
 		}
 	}
@@ -42,7 +42,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 	}
 
 	@Override
-	public MapToErrors<TokenGroup> validateTokens(List<Token> tokens) throws TokenValidationException {
+	public synchronized MapToErrors<TokenGroup> validateTokens(List<Token> tokens) throws TokenValidationException {
 		resetIterator();
 		List<TokenGroup> groups = new ArrayList<>();
 		if (!this.acceptedBracketPairs.isEmpty()) {
@@ -57,7 +57,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		currentChecker = new CurrentIterator<>(checkers.iterator());
 	}
 
-	private void checkToken(TokenGroup group) throws TokenValidationException {
+	private synchronized void checkToken(TokenGroup group) throws TokenValidationException {
 		while (true) {
 			CheckerWithNumber current = currentChecker.current();
 			if (current == null) {
@@ -80,7 +80,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		}
 	}
 
-	public List<TokenGroup> groupTokens(List<Token> tokens) throws TokenValidationException {
+	private List<TokenGroup> groupTokens(List<Token> tokens) throws TokenValidationException {
 		List<TokenGroup> tokenGroups = new ArrayList<>();
 		Token lastToken = null;
 		for (Token token : tokens) {

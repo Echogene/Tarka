@@ -70,4 +70,8 @@ public class DisjunctiveChecker extends CheckerWithNumber {
 		}
 		return output;
 	}
+
+	public List<Checker> getSubCheckers() {
+		return subCheckers;
+	}
 }

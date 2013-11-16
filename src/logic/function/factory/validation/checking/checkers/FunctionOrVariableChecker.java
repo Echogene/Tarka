@@ -14,10 +14,10 @@ public class FunctionOrVariableChecker extends DisjunctiveChecker {
 			List<Pair<String, String>> acceptedBracketPairs,
 			List<Class<? extends Function<?, ?>>> acceptedFunctionClasses
 	) {
-		super(new FunctionChecker(acceptedBracketPairs, acceptedFunctionClasses), new VariableChecker());
+		super(new FunctionfulChecker(acceptedBracketPairs, acceptedFunctionClasses), new VariableChecker());
 	}
 
 	public FunctionOrVariableChecker() {
-		super(new FunctionChecker(), new VariableChecker());
+		super(new FunctionfulChecker(), new VariableChecker());
 	}
 }

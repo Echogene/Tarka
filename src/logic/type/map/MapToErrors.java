@@ -74,4 +74,8 @@ public class MapToErrors<K> implements ErrorMap {
 	public Collection<String> getErrorMessages() {
 		return failedValues.values();
 	}
+
+	public Set<K> getPassedKeys() {
+		return passedKeys;
+	}
 }

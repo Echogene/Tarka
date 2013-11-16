@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class FunctionChecker extends AtomicChecker {
+public class FunctionfulChecker extends AtomicChecker {
 
 	private final List<Pair<String, String>> acceptedBracketPairs;
 	private final List<Class<? extends Function<?, ?>>> acceptedFunctionClasses;
 
-	public FunctionChecker(
+	public FunctionfulChecker(
 			List<Pair<String, String>> acceptedBracketPairs,
 			List<Class<? extends Function<?, ?>>> acceptedFunctionClasses
 	) {
@@ -25,7 +25,7 @@ public class FunctionChecker extends AtomicChecker {
 		this.acceptedFunctionClasses = acceptedFunctionClasses;
 	}
 
-	public FunctionChecker() {
+	public FunctionfulChecker() {
 		this(new ArrayList<>(), new ArrayList<>());
 	}
 

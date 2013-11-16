@@ -8,6 +8,7 @@ import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
+import static util.CollectionUtils.first;
 
 /**
  * @author Steven Weston
@@ -19,7 +20,7 @@ public class SimpleLogicParser implements Parser {
 			return null;
 		}
 		SimpleLogicParseTree output = new SimpleLogicParseTree();
-		SimpleLogicParseTreeNode currentMother = new SimpleLogicParseTreeNode(tokens.get(0));
+		SimpleLogicParseTreeNode currentMother = new SimpleLogicParseTreeNode(first(tokens));
 		output.getNodes().add(currentMother);
 		SimpleLogicParseTreeNode currentChild;
 		for (int i = 1; i < tokens.size(); i++) {
