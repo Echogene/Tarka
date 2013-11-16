@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class ValidatorAndConstructor<F extends Function> {
 	private final SimpleLogicValidator validator;

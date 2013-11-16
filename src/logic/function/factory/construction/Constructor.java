@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public interface Constructor<F extends Function> {
 	F construct(List<ValidationResult> results) throws FactoryException;
