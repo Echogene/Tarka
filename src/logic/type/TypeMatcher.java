@@ -13,11 +13,11 @@ import java.util.List;
 public interface TypeMatcher {
 
 	/**
-	 * Given a list of tokens and types, find out the type that is represented by the tokens.
+	 * Given a list of nodes and types, find out the type that is represented by the nodes.
 	 *
-	 * @param tokens The list of tokens
+	 * @param nodes The list of nodes (including surrounding brackets)
 	 * @param types The map of types
 	 * @return The type if the type was found, null otherwise.
 	 */
-	Type getType(List<ParseTreeNode> tokens, MapWithErrors<ParseTreeNode, Type> types) throws ExtractorException;
+	Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws ExtractorException;
 }
