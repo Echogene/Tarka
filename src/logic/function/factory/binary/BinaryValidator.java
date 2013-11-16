@@ -12,6 +12,7 @@ import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Numb
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class BinaryValidator extends SimpleLogicValidator {
 	public BinaryValidator(
