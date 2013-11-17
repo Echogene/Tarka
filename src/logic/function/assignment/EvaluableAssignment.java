@@ -1,6 +1,7 @@
 package logic.function.assignment;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 
 /**
@@ -8,7 +9,7 @@ import logic.function.evaluable.Evaluable;
  */
 public class EvaluableAssignment<T extends Nameable> extends Assignment<T, Boolean> implements Evaluable<T> {
 
-	public EvaluableAssignment(Evaluable<T> evaluee, String assignee, Evaluable<T> assingment) {
+	public EvaluableAssignment(Evaluable<T> evaluee, String assignee, Function<T, ?> assingment) {
 		super(evaluee, assignee, assingment);
 	}
 }

@@ -11,9 +11,9 @@ import logic.model.universe.Universe;
 class Assignment<D extends Nameable, C> implements Function<D, C> {
 	private Function<D, C> evaluee;
 	private String assignee;
-	private Function<D, C> assingment;
+	private Function<D, ?> assingment;
 
-	public Assignment(Function<D, C> evaluee, String assignee, Function<D, C> assingment) {
+	public Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
 		this.assingment = assingment;
