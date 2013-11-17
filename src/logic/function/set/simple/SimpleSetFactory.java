@@ -9,13 +9,8 @@ import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.set.Set;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
-import reading.parsing.ParseTreeNode;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -43,11 +38,6 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 			members.add(new IdentityFunction<>(memberString));
 		}
 		return new SimpleSet<>(members);
-	}
-
-	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Set.class;
 	}
 
 	@Override

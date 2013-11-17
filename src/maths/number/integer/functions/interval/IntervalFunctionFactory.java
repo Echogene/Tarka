@@ -6,15 +6,10 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.set.Set;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
 import maths.number.Number;
 import maths.number.integer.sets.interval.IntervalFactory;
 import reading.lexing.Token;
-import reading.parsing.ParseTreeNode;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,11 +46,6 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 				new Pair<>("(", "]"),
 				new Pair<>("(", ")")
 		);
-	}
-
-	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Set.class;
 	}
 
 	@Override

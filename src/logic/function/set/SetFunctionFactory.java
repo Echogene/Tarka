@@ -5,7 +5,11 @@ import logic.Nameable;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.set.Set;
+import logic.type.TypeInferrorException;
+import logic.type.map.MapWithErrors;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -15,5 +19,10 @@ public abstract class SetFunctionFactory<T extends Nameable, F extends SetFuncti
 
 	protected SetFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs) {
 		super(checkers, acceptedBracketPairs);
+	}
+
+	@Override
+	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+		return Set.class;
 	}
 }

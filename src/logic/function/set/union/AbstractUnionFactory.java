@@ -6,13 +6,8 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.set.Set;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
-import reading.parsing.ParseTreeNode;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +19,6 @@ abstract class AbstractUnionFactory<T extends Nameable> extends SetFunctionFacto
 
 	protected AbstractUnionFactory(List<CheckerWithNumber> checkers) {
 		super(checkers, Arrays.asList(new Pair<>("(", ")")));
-	}
-
-	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Set.class;
 	}
 
 	@Override
