@@ -37,7 +37,7 @@ public interface Universe<T extends Nameable> {
 	 * @return The value to which the variable was assigned previously.
 	 * @throws VariableNotAssignedException
 	 */
-	Object setVariable(String variableSymbol, T t) throws VariableNotAssignedException;
+	Object setVariable(String variableSymbol, Object t) throws VariableNotAssignedException;
 
 	/**
 	 * @param value

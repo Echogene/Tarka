@@ -15,7 +15,7 @@ import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
-import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
+import logic.function.voidfunction.definition.member.DefinitionFactory;
 import logic.model.universe.Universe;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class StandardReader {
 		output.add(new MultaryUnionFactory<>());
 		output.add(new ReflexiveAssignmentFactory<>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
-		output.add(new MemberDefinitionFactory<>());
+		output.add(new DefinitionFactory<>());
 		output.add(new SimpleSetFactory<>());
 		output.add(new IfElseFactory<>());
 		return output;

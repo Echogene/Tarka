@@ -11,10 +11,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class MemberDefinitionFactoryTest extends FactoryTest<MemberDefinitionFactory<Integer>> {
+public class DefinitionFactoryTest extends FactoryTest<DefinitionFactory<Integer>> {
 
-	public MemberDefinitionFactoryTest() {
-		factory = new MemberDefinitionFactory<>();
+	public DefinitionFactoryTest() {
+		factory = new DefinitionFactory<>();
 		functionFactory = new IdentityFunctionFactory<Integer>();
 	}
 
