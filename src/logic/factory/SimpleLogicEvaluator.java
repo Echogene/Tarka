@@ -3,8 +3,8 @@ package logic.factory;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
-import logic.function.factory.construction.IdentityConstructorFromType;
 import logic.function.factory.validation.function.FunctionValidationException;
+import logic.identity.IdentityConstructorFromType;
 import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
 import logic.type.TypeInferrorException;
@@ -72,7 +72,13 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
 		for (ParseTreeNode node : tree.getNodes()) {
 			if (types.containsKey(node)) {
-				identityFunctions.put(node, identityConstructorFromType.create(types.get(node)));
+				identityFunctions.put(
+						node,
+						identityConstructorFromType.create(
+								node.getToken().getValue(),
+								types.get(node)
+						)
+				);
 			}
 		}
 

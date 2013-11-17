@@ -1,75 +1,85 @@
 package logic.identity;
 
+import javafx.util.Pair;
 import logic.Nameable;
+import logic.factory.FactoryException;
+import logic.function.Function;
+import logic.function.evaluable.Evaluable;
 import logic.function.factory.ConstructorFromString;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.WordAtom;
-import logic.function.factory.oldvalidation.group.validators.FunctionOrVariableValidator;
-import logic.function.factory.oldvalidation.results.FunctionResult;
-import logic.function.factory.oldvalidation.results.StringResult;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.FunctionFactory;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.ReflexiveFunctionFactory;
+import logic.function.set.SetFunction;
+import logic.set.Set;
+import logic.type.TypeInferrorException;
+import logic.type.map.MapWithErrors;
+import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
-import static logic.identity.IdentityFunction.IDENTITY_NAME;
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
  */
 public class IdentityFunctionFactory<T extends Nameable>
-		extends ReflexiveFunctionFactory<T, IdentityFunction<T>>
-		implements ConstructorFromString<IdentityFunction<T>> {
+		extends FunctionFactory<T, Object, IdentityFunction<T, ?>>
+		implements
+				ConstructorFromString<MemberIdentityFunction<T>>,
+				IdentityConstructorFromType<T>  {
 
 	public IdentityFunctionFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<IdentityFunction<T>>> getConstructors() {
-		SimpleLogicValidator validatorWithoutId = new SimpleLogicValidator();
-		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
-		ValidatorAndConstructor<IdentityFunction<T>> constructorWithoutId = new ValidatorAndConstructor<>(
-				validatorWithoutId,
-				new IdentityFunctionConstructor<>(1)
+	private static List<CheckerWithNumber> getCheckers() {
+		return Arrays.<CheckerWithNumber>asList(
+				new FunctionOrVariableChecker(
+						ReflexiveFunction.class,
+						Evaluable.class,
+						SetFunction.class
+				)
 		);
-		SimpleLogicValidator validatorWithId = new SimpleLogicValidator();
-		validatorWithId.addValidator(ONE, new WordAtom(IDENTITY_NAME));
-		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(ReflexiveFunction.class));
-		ValidatorAndConstructor<IdentityFunction<T>> constructorWithId = new ValidatorAndConstructor<>(
-				validatorWithId,
-				new IdentityFunctionConstructor<>(2)
-		);
-		return Arrays.asList(constructorWithoutId, constructorWithId);
 	}
 
 	@Override
-	public IdentityFunction<T> construct(String parameterName) {
-		return new IdentityFunction<>(parameterName);
+	public MemberIdentityFunction<T> construct(String parameterName) {
+		return new MemberIdentityFunction<>(parameterName);
 	}
 
-	private static class IdentityFunctionConstructor<T extends Nameable> implements Constructor<IdentityFunction<T>> {
+	@Override
+	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+		return types.getPassedValues().get(nodes.get(1));
+	}
 
-		private final int resultIndex;
-
-		private IdentityFunctionConstructor(int resultIndex) {
-			this.resultIndex = resultIndex;
-		}
-
-		@Override
-		public IdentityFunction<T> construct(List<ValidationResult> results) {
-			ValidationResult validationResult = results.get(resultIndex);
-			if (validationResult instanceof StringResult) {
-				StringResult result = (StringResult) validationResult;
-				return new IdentityFunction<>(result.getString());
+	@Override
+	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		Function<?, ?> function = functions.get(0);
+		if (tokens.get(0).isOfType(OPEN_BRACKET)) {
+			if (function instanceof ReflexiveFunction<?>) {
+				return new MemberIdentityFunction<>((ReflexiveFunction<T>) function);
+			} else if (function instanceof Evaluable<?>) {
+				return new EvaluableIdentityFunction<>((Evaluable<T>) function);
 			} else {
-				FunctionResult result = (FunctionResult) validationResult;
-				return new IdentityFunction<>((ReflexiveFunction<T>) result.getFunction());
+				return new SetIdentityFunction<>((SetFunction<T>) function);
 			}
+		} else {
+			return (IdentityFunction<T, ?>) function;
+		}
+	}
+
+	@Override
+	public IdentityFunction<T, ?> create(String parameter, Type type) {
+		if (type == Boolean.class) {
+			return new EvaluableIdentityFunction<>(parameter);
+		} else if (type == Set.class) {
+			return new SetIdentityFunction<>(parameter);
+		} else {
+			return new MemberIdentityFunction<>(parameter);
 		}
 	}
 }

@@ -1,7 +1,6 @@
-package logic.function.factory.construction;
+package logic.identity;
 
 import logic.Nameable;
-import logic.function.Function;
 
 import java.lang.reflect.Type;
 
@@ -10,5 +9,5 @@ import java.lang.reflect.Type;
  */
 public interface IdentityConstructorFromType<D extends Nameable> {
 
-	Function<D, ?> create(Type type);
+	IdentityFunction<D, ?> create(String parameter, Type type);
 }

@@ -22,6 +22,10 @@ public class FunctionOrVariableChecker extends DisjunctiveChecker {
 		super(new FunctionfulChecker(new ArrayList<>(), acceptedFunctionClasses), new VariableChecker());
 	}
 
+	public FunctionOrVariableChecker(Class... acceptedFunctionClasses) {
+		super(new FunctionfulChecker(new ArrayList<>(), Arrays.asList(acceptedFunctionClasses)), new VariableChecker());
+	}
+
 	public FunctionOrVariableChecker(Class acceptedFunctionClass) {
 		super(new FunctionfulChecker(new ArrayList<>(), Arrays.asList(acceptedFunctionClass)), new VariableChecker());
 	}
