@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BinaryUnionFactory<T extends Nameable> extends AbstractUnionFactory<T> {
 
-	protected BinaryUnionFactory() {
+	public BinaryUnionFactory() {
 		super(getCheckers());
 	}
 
