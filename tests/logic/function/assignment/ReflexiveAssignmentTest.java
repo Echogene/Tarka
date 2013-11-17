@@ -1,4 +1,4 @@
-package logic.function.reflexive.assignment;
+package logic.function.assignment;
 
 import logic.TestClass;
 import logic.TestClassUniverse;

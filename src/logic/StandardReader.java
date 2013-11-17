@@ -1,6 +1,7 @@
 package logic;
 
 import logic.factory.SimpleLogicReaderImpl;
+import logic.function.assignment.ReflexiveAssignmentFactory;
 import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
@@ -10,7 +11,6 @@ import logic.function.evaluable.statements.quantified.standard.QuantifiedStateme
 import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.ifelse.IfElseFactory;
-import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
