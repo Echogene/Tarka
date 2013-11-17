@@ -12,6 +12,13 @@ import java.util.Map;
  */
 public interface VariableAssignerFactory {
 
+	/**
+	 * Return a map from variable names to the represented type given the nodes and function types.
+	 * @param nodes the nodes to analyse (including surrounding brackets)
+	 * @param functionTypes
+	 * @return
+	 * @throws VariableAssignmentTypeException
+	 */
 	Map<String, Type> assignVariableTypes(
 			List<ParseTreeNode> nodes,
 			MapWithErrors<ParseTreeNode, Type> functionTypes
