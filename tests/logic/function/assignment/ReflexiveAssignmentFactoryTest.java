@@ -27,7 +27,7 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 
 	@Test
 	public void testCreateElement() throws Exception {
-		ReflexiveAssignment<TestClass> expected = new ReflexiveAssignment<TestClass>(
+		Assignment<TestClass> expected = new Assignment<TestClass>(
 				new IdentityFunction<>("x"),
 				"x",
 				new IdentityFunction<>("y")
@@ -35,7 +35,7 @@ public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignm
 
 		setUpTokens("(x where x is y)");
 		setUpFunctions();
-		ReflexiveAssignment<TestClass> actual = (ReflexiveAssignment<TestClass>) factory.createElement(tokens, functions);
+		Assignment<TestClass> actual = (Assignment<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
 }

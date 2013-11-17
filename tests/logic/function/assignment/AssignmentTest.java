@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class ReflexiveAssignmentTest {
+public class AssignmentTest {
 	@Test
 	public void testSimpleEvaluation() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
@@ -26,7 +26,7 @@ public class ReflexiveAssignmentTest {
 		universalSet.put(new TestClass("x"));
 		universalSet.put(new TestClass("y"));
 
-		ReflexiveAssignment<TestClass> assignment = new ReflexiveAssignment<TestClass>(
+		Assignment<TestClass> assignment = new Assignment<TestClass>(
 				new IdentityFunction<>("x"),
 				"x",
 				new IdentityFunction<>("y")
@@ -41,7 +41,7 @@ public class ReflexiveAssignmentTest {
 
 		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader(universe);
 
-		ReflexiveAssignment<Integer> assignment = new ReflexiveAssignment<>(
+		Assignment<Integer> assignment = new Assignment<>(
 				(ReflexiveFunction<Integer>) reader.read("(2+x)"),
 				"x",
 				(ReflexiveFunction<Integer>) reader.read("(2+2)")
