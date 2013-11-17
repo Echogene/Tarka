@@ -1,4 +1,4 @@
-package logic.function.reflexive.identity;
+package logic.identity;
 
 import logic.Nameable;
 import logic.function.factory.ConstructorFromString;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
-import static logic.function.reflexive.identity.IdentityFunction.IDENTITY_NAME;
+import static logic.identity.IdentityFunction.IDENTITY_NAME;
 
 /**
  * @author Steven Weston

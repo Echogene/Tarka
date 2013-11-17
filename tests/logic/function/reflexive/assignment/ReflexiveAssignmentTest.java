@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.identity.IdentityFunction;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;

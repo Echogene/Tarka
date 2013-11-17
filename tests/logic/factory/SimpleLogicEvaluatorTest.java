@@ -16,8 +16,8 @@ import logic.function.evaluable.statements.quantified.standard.QuantifierFactory
 import logic.function.evaluable.statements.unary.UnaryConnectiveFactory;
 import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
-import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunction;
+import logic.identity.IdentityFunctionFactory;
 import logic.model.universe.empty.EmptyUniverse;
 import org.junit.BeforeClass;
 import org.junit.Test;

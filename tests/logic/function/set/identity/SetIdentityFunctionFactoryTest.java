@@ -2,6 +2,7 @@ package logic.function.set.identity;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
+import logic.identity.SetIdentityFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

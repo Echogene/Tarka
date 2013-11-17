@@ -1,7 +1,7 @@
 package logic.function.factory.oldvalidation.group;
 
 import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.identity.IdentityFunction;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;

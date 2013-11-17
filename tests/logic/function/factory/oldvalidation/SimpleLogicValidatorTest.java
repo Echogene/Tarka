@@ -13,7 +13,7 @@ import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunctionFactory;
 import org.junit.Test;
 
 import java.util.ArrayList;

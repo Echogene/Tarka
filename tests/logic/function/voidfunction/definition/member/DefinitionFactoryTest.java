@@ -1,8 +1,8 @@
 package logic.function.voidfunction.definition.member;
 
 import logic.factory.FactoryTest;
-import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunction;
+import logic.identity.IdentityFunctionFactory;
 import maths.number.integer.Integer;
 import org.junit.Test;
 

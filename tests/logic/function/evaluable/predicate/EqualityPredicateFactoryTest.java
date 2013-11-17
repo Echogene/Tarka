@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.factory.FactoryTest;
 import logic.function.Function;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunctionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

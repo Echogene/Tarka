@@ -2,9 +2,9 @@ package logic.function.factory.oldvalidation.group;
 
 import logic.function.factory.oldvalidation.group.validators.FunctionAtom;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.set.SetFunction;
-import logic.function.set.identity.SetIdentityFunction;
+import logic.identity.IdentityFunction;
+import logic.identity.SetIdentityFunction;
 import org.junit.Test;
 
 import java.util.Arrays;

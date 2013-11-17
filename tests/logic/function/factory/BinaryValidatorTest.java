@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.factory.SimpleLogicLexer;
 import logic.function.Function;
 import logic.function.factory.binary.BinaryValidator;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.identity.IdentityFunction;
 import org.junit.BeforeClass;
 import reading.lexing.Token;
 

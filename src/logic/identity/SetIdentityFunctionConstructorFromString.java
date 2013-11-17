@@ -1,4 +1,4 @@
-package logic.function.set.identity;
+package logic.identity;
 
 import logic.Nameable;
 import logic.function.factory.ConstructorFromString;

@@ -1,55 +1,52 @@
-package logic.function.reflexive.identity;
+package logic.identity;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.ParameterNotFoundException;
-import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 import logic.set.Dictionary;
 
 /**
  * @author Steven Weston
  */
-public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T> {
+class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
+
 	public static final String IDENTITY_NAME = "id";
 	protected String parameter;
-	protected ReflexiveFunction<T> function;
+	protected Function<D, C> function;
 
 	public IdentityFunction(String parameter) {
 		this.parameter = parameter;
 		this.function  = null;
 	}
 
-	public IdentityFunction(ReflexiveFunction<T> function) {
+	public IdentityFunction(Function<D, C> function) {
 		this.parameter = null;
 		this.function  = function;
 	}
 
 	@Override
-	public T evaluate(Universe<T> universe) throws Exception {
+	public C evaluate(Universe<D> universe) throws Exception {
 		if (function != null) {
 			return function.evaluate(universe);
 		}
 		Dictionary<Object> variables = universe.getVariables();
-		Dictionary<T> universalSet = universe.getUniversalSet();
+		Dictionary<D> universalSet = universe.getUniversalSet();
 		boolean variablesContainsParameter    = variables    != null && variables.contains(getParameter());
 		boolean universalSetContainsParameter = universalSet != null && universalSet.contains(getParameter());
 		if (!variablesContainsParameter && !universalSetContainsParameter) {
 			throw new ParameterNotFoundException("Identity function could not find the parameter " + getParameter());
 		}
 		if (variablesContainsParameter) {
-			return (T) variables.get(getParameter()); //todo
+			return (C) variables.get(getParameter()); //todo
 		} else {
-			return universalSet.get(getParameter());
+			return (C) universalSet.get(getParameter());
 		}
 
 	}
 
 	public String getParameter() {
 		return parameter;
-	}
-
-	public ReflexiveFunction<T> getFunction() {
-		return function;
 	}
 
 	@Override
@@ -59,16 +56,16 @@ public class IdentityFunction<T extends Nameable> implements ReflexiveFunction<T
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof IdentityFunction<?>)) {
+		if (!(o instanceof IdentityFunction<?, ?>)) {
 			return false;
 		}
-		IdentityFunction<?> other = (IdentityFunction<?>) o;
+		IdentityFunction<?, ?> other = (IdentityFunction<?, ?>) o;
 		boolean areParametersBothNull = getParameter() == null && other.getParameter() == null;
 		boolean areParametersEqual = areParametersBothNull
 				|| (getParameter() != null && getParameter().equals(other.getParameter()));
-		boolean areFunctionsBothNull = getFunction() == null && other.getFunction() == null;
+		boolean areFunctionsBothNull = function == null && other.function == null;
 		boolean areFunctionsEqual = areFunctionsBothNull
-				|| (getFunction() != null && getFunction().equals(other.getFunction()));
+				|| (function != null && function.equals(other.function));
 		return areParametersEqual && areFunctionsEqual;
 	}
 

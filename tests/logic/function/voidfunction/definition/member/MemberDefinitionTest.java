@@ -2,7 +2,7 @@ package logic.function.voidfunction.definition.member;
 
 import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.identity.IdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;

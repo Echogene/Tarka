@@ -2,6 +2,7 @@ package logic.function.set.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
+import logic.identity.SetIdentityFunction;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import org.junit.Test;

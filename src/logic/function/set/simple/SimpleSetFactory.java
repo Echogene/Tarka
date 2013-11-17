@@ -7,8 +7,8 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.set.SetFunctionFactory;
+import logic.identity.IdentityFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;

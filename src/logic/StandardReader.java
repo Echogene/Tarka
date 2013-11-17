@@ -11,11 +11,11 @@ import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.ifelse.IfElseFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
 import logic.function.voidfunction.definition.member.DefinitionFactory;
+import logic.identity.IdentityFunctionFactory;
 import logic.model.universe.Universe;
 
 import java.util.ArrayList;

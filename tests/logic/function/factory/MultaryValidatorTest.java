@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.factory.SimpleLogicLexer;
 import logic.function.Function;
 import logic.function.factory.multary.MultaryValidator;
-import logic.function.set.identity.SetIdentityFunction;
+import logic.identity.SetIdentityFunction;
 import org.junit.BeforeClass;
 import reading.lexing.Token;
 

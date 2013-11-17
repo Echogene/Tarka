@@ -1,7 +1,7 @@
 package maths.number.integer.functions.interval;
 
 import logic.factory.FactoryTest;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunctionFactory;
 import maths.number.integer.Integer;
 import maths.number.integer.sets.interval.FiniteIntegerIntervalFactory;
 import org.junit.Test;

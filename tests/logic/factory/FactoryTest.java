@@ -3,8 +3,8 @@ package logic.factory;
 import logic.TestClass;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
-import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.set.identity.SetIdentityFunction;
+import logic.identity.IdentityFunction;
+import logic.identity.SetIdentityFunction;
 import reading.lexing.LexerException;
 import reading.lexing.Token;
 

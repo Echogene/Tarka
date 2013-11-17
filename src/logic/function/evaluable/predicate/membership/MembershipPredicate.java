@@ -3,9 +3,9 @@ package logic.function.evaluable.predicate.membership;
 import logic.Nameable;
 import logic.function.evaluable.predicate.Predicate;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.set.SetFunction;
-import logic.function.set.identity.SetIdentityFunction;
+import logic.identity.IdentityFunction;
+import logic.identity.SetIdentityFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 

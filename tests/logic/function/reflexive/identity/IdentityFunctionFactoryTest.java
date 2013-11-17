@@ -2,6 +2,8 @@ package logic.function.reflexive.identity;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
+import logic.identity.IdentityFunction;
+import logic.identity.IdentityFunctionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

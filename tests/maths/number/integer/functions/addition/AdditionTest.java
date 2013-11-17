@@ -1,7 +1,7 @@
 package maths.number.integer.functions.addition;
 
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
+import logic.identity.IdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.model.universe.IntegerUniverse;

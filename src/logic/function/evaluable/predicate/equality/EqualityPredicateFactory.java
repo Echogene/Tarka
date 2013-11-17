@@ -9,8 +9,8 @@ import logic.function.factory.construction.ValidatorAndConstructor;
 import logic.function.factory.oldvalidation.SimpleLogicValidator;
 import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.identity.IdentityFunction;
+import logic.identity.IdentityFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;
