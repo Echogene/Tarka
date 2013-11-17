@@ -13,7 +13,6 @@ import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.SetFunction;
 import logic.function.set.identity.SetIdentityFunction;
-import logic.function.set.identity.SetIdentityFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;

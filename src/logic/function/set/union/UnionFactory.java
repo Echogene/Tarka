@@ -12,7 +12,6 @@ import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
 import logic.function.set.identity.SetIdentityFunction;
-import logic.function.set.identity.SetIdentityFunctionFactory;
 
 import java.util.HashSet;
 import java.util.List;

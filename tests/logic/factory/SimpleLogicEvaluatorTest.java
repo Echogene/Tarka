@@ -18,7 +18,6 @@ import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.reflexive.identity.IdentityFunction;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
-import logic.function.set.identity.SetIdentityFunctionFactory;
 import logic.model.universe.empty.EmptyUniverse;
 import org.junit.BeforeClass;
 import org.junit.Test;

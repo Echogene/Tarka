@@ -1,23 +1,26 @@
 package logic.function.set.simple;
 
+import javafx.util.Pair;
 import logic.Nameable;
-import logic.factory.FactoryException;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.multary.MultaryValidator;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.Function;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.identity.IdentityFunction;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.SetFunctionFactory;
+import logic.set.Set;
+import logic.type.TypeInferrorException;
+import logic.type.map.MapWithErrors;
+import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 
 /**
  * @author Steven Weston
@@ -25,16 +28,12 @@ import static java.util.Arrays.asList;
 public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, SimpleSet<T>> {
 
 	public SimpleSetFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("{", "}")));
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<SimpleSet<T>>> getConstructors() {
-		SimpleLogicValidator validator = new MultaryValidator(asList("{"), null, ReflexiveFunction.class, asList("}"));
-		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						validator,
-						new SimpleSetConstructor<T>()
-				)
+	private static List<CheckerWithNumber> getCheckers() {
+		return Arrays.<CheckerWithNumber>asList(
+				new NumberedChecker(MANY, new FunctionOrVariableChecker(Arrays.<Class>asList(ReflexiveFunction.class)))
 		);
 	}
 
@@ -46,21 +45,17 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 		return new SimpleSet<>(members);
 	}
 
-	private static class SimpleSetConstructor<T extends Nameable> implements Constructor<SimpleSet<T>> {
+	@Override
+	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+		return Set.class;
+	}
 
-		private final FunctionConvertor<IdentityFunction<T>, T> convertor;
-
-		public SimpleSetConstructor() {
-			this.convertor = new FunctionConvertor<>(new IdentityFunctionFactory<T>());
+	@Override
+	public SimpleSet<T> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+		java.util.Set<ReflexiveFunction<T>> members = new HashSet<>();
+		for (Function<?, ?> function : functions) {
+			members.add((ReflexiveFunction<T>) function);
 		}
-
-		@Override
-		public SimpleSet<T> construct(List<ValidationResult> results) throws FactoryException {
-			java.util.Set<ReflexiveFunction<T>> parameters = new HashSet<>();
-			for (int i = 1; i < results.size() - 1; i++) {
-				parameters.add(convertor.convert(results.get(i)));
-			}
-			return new SimpleSet<>(parameters);
-		}
+		return new SimpleSet<>(members);
 	}
 }

@@ -18,7 +18,6 @@ import logic.function.factory.oldvalidation.group.validators.QuantifierAtom;
 import logic.function.factory.oldvalidation.results.StringResult;
 import logic.function.factory.oldvalidation.results.ValidationResult;
 import logic.function.set.SetFunction;
-import logic.function.set.identity.SetIdentityFunctionFactory;
 
 import java.util.Arrays;
 import java.util.List;
