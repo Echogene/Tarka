@@ -1,56 +1,51 @@
 package maths.number.integer.functions.subtraction;
 
+import javafx.util.Pair;
 import logic.factory.FactoryException;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.Function;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
-import logic.function.reflexive.identity.IdentityFunctionFactory;
+import logic.type.TypeInferrorException;
+import logic.type.map.MapWithErrors;
 import maths.number.Number;
 import maths.number.Subtractor;
+import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
-
-import static java.util.Arrays.asList;
-import static maths.number.integer.functions.subtraction.Subtraction.MINUS;
 
 /**
  * @author Steven Weston
  */
 public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFactory<N, Subtraction<N>> {
 
+	private final Subtractor<N> subtractor;
+
 	public SubtractionFactory(Subtractor<N> subtractor) {
-		super(getConstructors(subtractor));
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+		this.subtractor = subtractor;
 	}
 
-	private static <N extends Number> List<ValidatorAndConstructor<Subtraction<N>>> getConstructors(Subtractor<N> subtractor) {
-		SimpleLogicValidator binaryValidator = new BinaryValidator(asList(MINUS));
+	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						binaryValidator,
-						new SubtractionConstructor<N>(subtractor)
-				)
+				new FunctionOrVariableChecker(ReflexiveFunction.class),
+				new OperatorChecker(Subtraction.MINUS),
+				new FunctionOrVariableChecker(ReflexiveFunction.class)
 		);
 	}
 
-	private static class SubtractionConstructor<N extends Number> implements Constructor<Subtraction<N>> {
+	@Override
+	public Subtraction<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		return new Subtraction<>((ReflexiveFunction<N>) functions.get(0), (ReflexiveFunction<N>) functions.get(1), subtractor);
+	}
 
-		private final Subtractor<N> subtractor;
-		private final FunctionConvertor<ReflexiveFunction<N>, N> convertor;
-
-		public SubtractionConstructor(Subtractor<N> subtractor) {
-			this.subtractor = subtractor;
-			this.convertor = new FunctionConvertor<ReflexiveFunction<N>, N>(new IdentityFunctionFactory<N>());
-		}
-
-		@Override
-		public Subtraction<N> construct(List<ValidationResult> results) throws FactoryException {
-			return new Subtraction<>(convertor.convert(results.get(1)), convertor.convert(results.get(3)), subtractor);
-		}
+	@Override
+	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+		return types.getPassedValues().get(nodes.get(1));
 	}
 }
