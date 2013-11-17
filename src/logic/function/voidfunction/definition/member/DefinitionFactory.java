@@ -12,20 +12,24 @@ import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.type.TypeInferrorException;
+import logic.type.VariableAssignerFactory;
+import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static logic.function.voidfunction.definition.member.MemberDefinition.DEFINITION_SYMBOL;
 
 /**
  * @author Steven Weston
  */
-public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, Definition<T, ?>> {
+public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, Definition<T, ?>> implements VariableAssignerFactory {
 
 	public DefinitionFactory() {
 		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
@@ -43,6 +47,13 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 						)
 				)
 		);
+	}
+
+	@Override
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+		String variableName = nodes.get(1).getToken().getValue();
+		Type type = functionTypes.getPassedValues().get(nodes.get(3));
+		return Collections.singletonMap(variableName, type);
 	}
 
 	@Override
