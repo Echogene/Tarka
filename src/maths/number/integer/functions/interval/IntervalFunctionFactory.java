@@ -6,6 +6,7 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunctionFactory;
+import logic.set.Set;
 import logic.type.TypeInferrorException;
 import logic.type.map.MapWithErrors;
 import maths.number.Number;
@@ -54,7 +55,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 
 	@Override
 	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return types.getPassedValues().get(nodes.get(1));
+		return Set.class;
 	}
 
 	@Override
