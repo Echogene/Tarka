@@ -15,11 +15,11 @@ import java.util.List;
 public class FunctionfulChecker extends AtomicChecker {
 
 	private final List<Pair<String, String>> acceptedBracketPairs;
-	private final List<Class<? extends Function<?, ?>>> acceptedFunctionClasses;
+	private final List<Class> acceptedFunctionClasses;
 
 	public FunctionfulChecker(
 			List<Pair<String, String>> acceptedBracketPairs,
-			List<Class<? extends Function<?, ?>>> acceptedFunctionClasses
+			List<Class> acceptedFunctionClasses
 	) {
 		this.acceptedBracketPairs = acceptedBracketPairs;
 		this.acceptedFunctionClasses = acceptedFunctionClasses;

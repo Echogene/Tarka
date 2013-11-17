@@ -1,8 +1,8 @@
 package logic.function.factory.validation.checking.checkers;
 
 import javafx.util.Pair;
-import logic.function.Function;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +12,13 @@ public class FunctionOrVariableChecker extends DisjunctiveChecker {
 
 	public FunctionOrVariableChecker(
 			List<Pair<String, String>> acceptedBracketPairs,
-			List<Class<? extends Function<?, ?>>> acceptedFunctionClasses
+			List<Class> acceptedFunctionClasses
 	) {
 		super(new FunctionfulChecker(acceptedBracketPairs, acceptedFunctionClasses), new VariableChecker());
+	}
+
+	public FunctionOrVariableChecker(List<Class> acceptedFunctionClasses) {
+		super(new FunctionfulChecker(new ArrayList<>(), acceptedFunctionClasses), new VariableChecker());
 	}
 
 	public FunctionOrVariableChecker() {
