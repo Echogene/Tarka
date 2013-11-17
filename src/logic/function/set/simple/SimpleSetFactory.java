@@ -33,7 +33,7 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.<CheckerWithNumber>asList(
-				new NumberedChecker(MANY, new FunctionOrVariableChecker(Arrays.<Class>asList(ReflexiveFunction.class)))
+				new NumberedChecker(MANY, new FunctionOrVariableChecker(ReflexiveFunction.class))
 		);
 	}
 

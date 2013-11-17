@@ -35,7 +35,7 @@ public class UnionTest {
 
 		universe.setUniversalSetOfSets(sets);
 
-		Union<TestClass> union = UnionFactory.createElement("A", "B");
+		Union<TestClass> union = MultaryUnionFactory.createElement("A", "B");
 		Set<TestClass> unionResult = union.evaluate(universe);
 
 		assertTrue(unionResult.containsValue(a));

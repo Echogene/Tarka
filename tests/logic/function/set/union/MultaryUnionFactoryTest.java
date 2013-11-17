@@ -9,10 +9,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
+public class MultaryUnionFactoryTest extends FactoryTest<MultaryUnionFactory<TestClass>> {
 
-	public UnionFactoryTest() {
-		factory = new UnionFactory<>();
+	public MultaryUnionFactoryTest() {
+		factory = new MultaryUnionFactory<>();
 		functionFactory = new SetIdentityFunctionFactory<>();
 	}
 
@@ -32,7 +32,7 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 		Union<TestClass> expected;
 		Union<TestClass> actual;
 
-		expected = UnionFactory.createElement("X", "Y");
+		expected = MultaryUnionFactory.createElement("X", "Y");
 		setUpTokens("(X ∪ Y)");
 		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
@@ -77,7 +77,7 @@ public class UnionFactoryTest extends FactoryTest<UnionFactory<TestClass>> {
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
-		expected = UnionFactory.createElement("X", "Y", "Z");
+		expected = MultaryUnionFactory.createElement("X", "Y", "Z");
 		setUpTokens("(⋃ X Y Z)");
 		setUpFunctions();
 		actual = (Union<TestClass>) factory.createElement(tokens, functions);

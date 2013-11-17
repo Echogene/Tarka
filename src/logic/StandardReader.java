@@ -13,7 +13,7 @@ import logic.function.ifelse.IfElseFactory;
 import logic.function.reflexive.assignment.ReflexiveAssignmentFactory;
 import logic.function.reflexive.identity.IdentityFunctionFactory;
 import logic.function.set.simple.SimpleSetFactory;
-import logic.function.set.union.UnionFactory;
+import logic.function.set.union.MultaryUnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinitionFactory;
 import logic.model.universe.Universe;
 
@@ -39,7 +39,7 @@ public class StandardReader {
 		output.add(new LogicalConstantFactory<>());
 		output.add(new UnaryStatementFactory<>());
 		output.add(new QuantifiedStatementFactory<>());
-		output.add(new UnionFactory<>());
+		output.add(new MultaryUnionFactory<>());
 		output.add(new ReflexiveAssignmentFactory<>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
 		output.add(new MemberDefinitionFactory<>());

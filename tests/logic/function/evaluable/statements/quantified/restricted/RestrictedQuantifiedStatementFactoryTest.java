@@ -7,7 +7,7 @@ import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.function.set.identity.SetIdentityFunction;
-import logic.function.set.union.UnionFactory;
+import logic.function.set.union.MultaryUnionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -55,12 +55,12 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 		expected = new RestrictedQuantifiedStatement<>(
 				quantifierFactory.createElement("∀"),
 				"x",
-				UnionFactory.<TestClass>createElement("X", "Y"),
+				MultaryUnionFactory.<TestClass>createElement("X", "Y"),
 				(Evaluable<TestClass>) evaluable1
 		);
 		setUpTokens("(∀x∊()())");
 		setUpFunctions("", "(x=y)");
-		functions.set(0, UnionFactory.<TestClass>createElement("X", "Y"));
+		functions.set(0, MultaryUnionFactory.<TestClass>createElement("X", "Y"));
 		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
