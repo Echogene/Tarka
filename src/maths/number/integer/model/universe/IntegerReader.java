@@ -7,7 +7,7 @@ import logic.model.universe.Universe;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
-import maths.number.integer.functions.addition.AdditionFactory;
+import maths.number.integer.functions.addition.BinaryAdditionFactory;
 import maths.number.integer.functions.interval.IntervalFunctionFactory;
 import maths.number.integer.functions.subtraction.SubtractionFactory;
 import maths.number.integer.sets.interval.FiniteIntegerIntervalFactory;
@@ -20,7 +20,7 @@ import java.util.List;
 public class IntegerReader {
 	public static SimpleLogicReaderImpl<Integer> createStandardReader(Universe<Integer> universe) {
 		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories();
-		factories.add(new AdditionFactory<>(new IntegerSummor()));
+		factories.add(new BinaryAdditionFactory<>(new IntegerSummor()));
 		factories.add(new SubtractionFactory<>(new IntegerSubtractor()));
 		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory()));
 		return new SimpleLogicReaderImpl<>(factories, universe);

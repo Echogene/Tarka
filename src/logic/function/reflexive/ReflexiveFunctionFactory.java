@@ -1,8 +1,9 @@
 package logic.function.reflexive;
 
+import javafx.util.Pair;
 import logic.Nameable;
 import logic.function.factory.FunctionFactory;
-import logic.function.factory.construction.ValidatorAndConstructor;
+import logic.function.factory.validation.checking.CheckerWithNumber;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends ReflexiveFunction<T>>
 		extends FunctionFactory<T, T, F> {
 
-	public ReflexiveFunctionFactory(List<ValidatorAndConstructor<F>> constructors) {
-		super(constructors);
+	protected ReflexiveFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs) {
+		super(checkers, acceptedBracketPairs);
 	}
 }

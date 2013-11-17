@@ -17,13 +17,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class AdditionFactoryTest extends FactoryTest<AdditionFactory<Integer>> {
+public class BinaryAdditionFactoryTest extends FactoryTest<BinaryAdditionFactory<Integer>> {
 	private static IntegerSummor summor;
 
-	public AdditionFactoryTest() {
+	public BinaryAdditionFactoryTest() {
 		super();
 		summor  = new IntegerSummor();
-		factory = new AdditionFactory<>(summor);
+		factory = new BinaryAdditionFactory<>(summor);
 		functionFactory = new IdentityFunctionFactory<TestClass>();
 	}
 
