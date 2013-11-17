@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * @author Steven Weston
+ * @deprecated
  */
 public class ValidationResult implements Iterable<ValidationResult.ValidationType> {
 	private List<ValidationType> types;
