@@ -11,10 +11,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class ReflexiveAssignmentFactoryTest extends FactoryTest<ReflexiveAssignmentFactory<TestClass>> {
+public class AssignmentFactoryTest extends FactoryTest<AssignmentFactory<TestClass>> {
 
-	public ReflexiveAssignmentFactoryTest() {
-		factory = new ReflexiveAssignmentFactory<>();
+	public AssignmentFactoryTest() {
+		factory = new AssignmentFactory<>();
 		functionFactory = new IdentityFunctionFactory<TestClass>();
 	}
 

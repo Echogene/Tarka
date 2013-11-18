@@ -1,7 +1,7 @@
 package logic;
 
 import logic.factory.SimpleLogicReaderImpl;
-import logic.function.assignment.ReflexiveAssignmentFactory;
+import logic.function.assignment.AssignmentFactory;
 import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
@@ -41,7 +41,7 @@ public class StandardReader {
 		output.add(new QuantifiedStatementFactory<>());
 		output.add(new BinaryUnionFactory<>());
 		output.add(new MultaryUnionFactory<>());
-		output.add(new ReflexiveAssignmentFactory<>());
+		output.add(new AssignmentFactory<>());
 		output.add(new RestrictedQuantifiedStatementFactory<>());
 		output.add(new DefinitionFactory<>());
 		output.add(new SimpleSetFactory<>());
