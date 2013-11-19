@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.EvaluableFactory;
-import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.factory.binary.BinaryValidator;
 import logic.function.factory.construction.Constructor;
 import logic.function.factory.construction.FunctionConvertor;

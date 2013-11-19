@@ -3,7 +3,6 @@ package logic.function.evaluable.statements.quantified.standard;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.constants.LogicalConstant;
 import logic.function.evaluable.predicate.Predicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.set.finite.StandardSet;

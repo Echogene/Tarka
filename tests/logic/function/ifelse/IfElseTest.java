@@ -3,7 +3,6 @@ package logic.function.ifelse;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.constants.LogicalConstant;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import logic.identity.IdentityFunction;
 import org.junit.Test;

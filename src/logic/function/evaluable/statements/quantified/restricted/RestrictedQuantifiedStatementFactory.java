@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.EvaluableFactory;
-import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.function.factory.construction.Constructor;

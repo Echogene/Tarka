@@ -2,7 +2,6 @@ package logic;
 
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.assignment.AssignmentFactory;
-import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryStatementFactory;

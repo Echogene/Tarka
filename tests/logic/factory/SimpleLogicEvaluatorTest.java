@@ -3,7 +3,6 @@ package logic.factory;
 import logic.TestClass;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.constants.LogicalConstantFactory;
 import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;

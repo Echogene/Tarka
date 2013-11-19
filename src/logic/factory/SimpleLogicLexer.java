@@ -1,6 +1,5 @@
 package logic.factory;
 
-import logic.function.evaluable.constants.LogicalConstant;
 import logic.function.evaluable.statements.binary.BinaryConnective;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.evaluable.statements.unary.UnaryConnective;

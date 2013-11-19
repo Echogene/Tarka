@@ -3,7 +3,6 @@ package logic.function.evaluable.statements.binary;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.constants.LogicalConstant;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.model.universe.Universe;
 import logic.set.ModifiableSet;
