@@ -9,12 +9,12 @@ import logic.function.evaluable.statements.quantified.restricted.RestrictedQuant
 import logic.function.evaluable.statements.quantified.standard.QuantifiedStatementFactory;
 import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
+import logic.function.identity.IdentityFunctionFactory;
 import logic.function.ifelse.IfElseFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
 import logic.function.voidfunction.definition.member.DefinitionFactory;
-import logic.identity.IdentityFunctionFactory;
 import logic.model.universe.Universe;
 
 import java.util.ArrayList;

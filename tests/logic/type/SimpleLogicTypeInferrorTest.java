@@ -4,7 +4,6 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicLexer;
 import logic.factory.SimpleLogicParser;
-import logic.type.map.ExtractorException;
 import org.junit.Test;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
@@ -49,7 +48,7 @@ public class SimpleLogicTypeInferrorTest {
 								return type;
 							}
 						}
-						throw new ExtractorException("blabla");
+						throw new TypeInferrorException("blabla");
 					}
 				),
 				asList(

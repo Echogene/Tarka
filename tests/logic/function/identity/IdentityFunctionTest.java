@@ -1,8 +1,7 @@
-package logic.function.reflexive.identity;
+package logic.function.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.identity.MemberIdentityFunction;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
 

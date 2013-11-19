@@ -8,8 +8,8 @@ import logic.function.evaluable.predicate.PredicateFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
+import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.MemberIdentityFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;

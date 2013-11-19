@@ -5,10 +5,10 @@ import logic.factory.FactoryTest;
 import logic.function.Function;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
+import logic.function.identity.MemberIdentityFunction;
+import logic.function.identity.SetIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.identity.MemberIdentityFunction;
-import logic.identity.SetIdentityFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

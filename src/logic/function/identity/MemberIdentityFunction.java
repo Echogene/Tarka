@@ -1,4 +1,4 @@
-package logic.identity;
+package logic.function.identity;
 
 import logic.Nameable;
 import logic.function.reflexive.ReflexiveFunction;

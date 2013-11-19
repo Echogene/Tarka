@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.function.FunctionValidationException;
-import logic.identity.IdentityConstructorFromType;
+import logic.function.identity.IdentityConstructorFromType;
 import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
 import logic.type.TypeInferrorException;

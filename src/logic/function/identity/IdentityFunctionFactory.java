@@ -1,4 +1,4 @@
-package logic.identity;
+package logic.function.identity;
 
 import javafx.util.Pair;
 import logic.Nameable;

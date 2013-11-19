@@ -2,9 +2,9 @@ package maths.number.integer.functions.addition;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
+import logic.function.identity.IdentityFunctionFactory;
+import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.IdentityFunctionFactory;
-import logic.identity.MemberIdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import org.junit.Test;

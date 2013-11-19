@@ -6,9 +6,9 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.NumberedChecker;
+import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.identity.MemberIdentityFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;

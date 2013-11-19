@@ -2,6 +2,7 @@ package logic.function.set.union;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
+import logic.function.identity.IdentityFunctionFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +14,7 @@ public class MultaryUnionFactoryTest extends FactoryTest<MultaryUnionFactory<Tes
 
 	public MultaryUnionFactoryTest() {
 		factory = new MultaryUnionFactory<>();
-		functionFactory = new SetIdentityFunctionFactory<>();
+		functionFactory = new IdentityFunctionFactory<>();
 	}
 
 	@Test
@@ -35,62 +36,62 @@ public class MultaryUnionFactoryTest extends FactoryTest<MultaryUnionFactory<Tes
 		expected = MultaryUnionFactory.createElement("X", "Y");
 		setUpTokens("(X ∪ Y)");
 		setUpFunctions();
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(X ∪ Y)");
 		functions = null;
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(X ∪ Y)");
-		actual = (Union<TestClass>) factory.createElement(tokens);
+		actual = factory.createElement(tokens);
 		assertEquals(expected, actual);
 
 		setUpTokens("(X ∪ Y)");
 		setUpFunctions();
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(() ∪ Y)");
 		setUpFunctions("(Id X)");
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(X ∪ ())");
 		setUpFunctions("(Id Y)");
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(() ∪ ())");
 		setUpFunctions("(Id X)", "(Id Y)");
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ X Y)");
 		setUpFunctions();
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ Y X)");
 		setUpFunctions();
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		expected = MultaryUnionFactory.createElement("X", "Y", "Z");
 		setUpTokens("(⋃ X Y Z)");
 		setUpFunctions();
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ () () ())");
 		setUpFunctions("(Id X)", "(Id Y)", "(Id Z)");
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(⋃ X () ())");
 		setUpFunctions("(Id Y)", "(Id Z)");
-		actual = (Union<TestClass>) factory.createElement(tokens, functions);
+		actual = factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
 }

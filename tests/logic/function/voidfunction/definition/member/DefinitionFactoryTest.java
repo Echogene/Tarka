@@ -1,8 +1,8 @@
 package logic.function.voidfunction.definition.member;
 
 import logic.factory.FactoryTest;
-import logic.identity.IdentityFunctionFactory;
-import logic.identity.MemberIdentityFunction;
+import logic.function.identity.IdentityFunctionFactory;
+import logic.function.identity.MemberIdentityFunction;
 import maths.number.integer.Integer;
 import org.junit.Test;
 
@@ -27,21 +27,21 @@ public class DefinitionFactoryTest extends FactoryTest<DefinitionFactory<Integer
 
 	@Test
 	public void testCreateElement() throws Exception {
-		MemberDefinition<Integer> expected;
-		MemberDefinition<Integer> actual;
+		Definition<Integer, Integer> expected;
+		Definition<Integer, Integer> actual;
 
 		setUpTokens("(x ≔ 2)");
 		setUpFunctions();
 
 		expected = new MemberDefinition<>("x", new MemberIdentityFunction<>("2"));
-		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);
+		actual = (Definition<Integer, Integer>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 
 		setUpTokens("(x ≔ ())");
 		setUpFunctions("(2)");
 
 		expected = new MemberDefinition<>("x", new MemberIdentityFunction<>("2"));
-		actual = (MemberDefinition<Integer>) factory.createElement(tokens, functions);
+		actual = (Definition<Integer, Integer>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
 }
