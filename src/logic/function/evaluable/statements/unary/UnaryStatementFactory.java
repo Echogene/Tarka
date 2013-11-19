@@ -1,70 +1,44 @@
 package logic.function.evaluable.statements.unary;
 
+import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.EvaluableFactory;
-import logic.function.evaluable.constants.LogicalConstantFactory;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.group.validators.FunctionOrVariableValidator;
-import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
-import logic.function.factory.oldvalidation.results.StringResult;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
+import reading.lexing.Token;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static logic.function.evaluable.statements.unary.UnaryConnective.UNARY_CONNECTIVE_SYMBOL_LIST;
-import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston
  */
 public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<T, UnaryStatement<T>> {
 
+	private final UnaryConnectiveFactory unaryConnectiveFactory;
+
 	public UnaryStatementFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+		this.unaryConnectiveFactory = new UnaryConnectiveFactory();
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<UnaryStatement<T>>> getConstructors() {
-		SimpleLogicValidator validatorWithoutId = new SimpleLogicValidator();
-		validatorWithoutId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
-		ValidatorAndConstructor<UnaryStatement<T>> constructorWithoutSymbol = new ValidatorAndConstructor<>(
-				validatorWithoutId,
-				new Constructor<>(1)
+	private static List<CheckerWithNumber> getCheckers() {
+		return Arrays.asList(
+				new OperatorChecker(UNARY_CONNECTIVE_SYMBOL_LIST),
+				new FunctionOrVariableChecker(Evaluable.class)
 		);
-		SimpleLogicValidator validatorWithId = new SimpleLogicValidator();
-		validatorWithId.addValidator(ONE, new OperatorAtom(UNARY_CONNECTIVE_SYMBOL_LIST));
-		validatorWithId.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
-		ValidatorAndConstructor<UnaryStatement<T>> constructorWithSymbol = new ValidatorAndConstructor<>(
-				validatorWithId,
-				new Constructor<>(2)
-		);
-		return Arrays.asList(constructorWithoutSymbol, constructorWithSymbol);
 	}
 
-	private static class Constructor<T extends Nameable> implements logic.function.factory.construction.Constructor<UnaryStatement<T>> {
-
-		private final int resultIndex;
-		private final FunctionConvertor<Evaluable<T>, T> convertor;
-
-		private Constructor(int resultIndex) {
-			this.resultIndex = resultIndex;
-			this.convertor = new FunctionConvertor<Evaluable<T>, T>(new LogicalConstantFactory<T>());
-		}
-
-		@Override
-		public UnaryStatement<T> construct(List<ValidationResult> results) throws FactoryException {
-			UnaryConnectiveFactory factory = new UnaryConnectiveFactory();
-			if (resultIndex == 2) {
-				UnaryConnective connective = factory.createElement(((StringResult)results.get(1)).getString());
-				return new UnaryStatement<>(connective, convertor.convert(results.get(resultIndex)));
-			} else {
-				return new UnaryStatement<>(convertor.convert(results.get(resultIndex)));
-			}
-		}
+	@Override
+	public UnaryStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		UnaryConnective connective = unaryConnectiveFactory.createElement(tokens.get(1).getValue());
+		Evaluable<T> function = (Evaluable<T>) functions.get(0);
+		return new UnaryStatement<>(connective, function);
 	}
-
 }
