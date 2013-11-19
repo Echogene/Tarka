@@ -1,68 +1,61 @@
 package logic.function.evaluable.statements.quantified.standard;
 
+import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.EvaluableFactory;
-import logic.function.evaluable.constants.LogicalConstantFactory;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.VariableAtom;
-import logic.function.factory.oldvalidation.group.validators.FunctionOrVariableValidator;
-import logic.function.factory.oldvalidation.group.validators.QuantifierAtom;
-import logic.function.factory.oldvalidation.results.StringResult;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.QuantifierChecker;
+import logic.function.factory.validation.checking.checkers.VariableChecker;
+import logic.type.VariableAssignerFactory;
+import logic.type.VariableAssignmentTypeException;
+import logic.type.map.MapWithErrors;
+import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static logic.function.evaluable.statements.quantified.standard.Quantifier.QUANTIFIER_SYMBOL_LIST;
-import static logic.function.factory.oldvalidation.GroupValidatorWithNumber.Number.ONE;
 
 /**
  * @author Steven Weston
  */
-public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFactory<T, QuantifiedStatement<T>> {
+public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFactory<T, QuantifiedStatement<T>> implements VariableAssignerFactory {
+
+	private final QuantifierFactory quantifierFactory;
 
 	public QuantifiedStatementFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+		this.quantifierFactory = new QuantifierFactory();
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<QuantifiedStatement<T>>> getConstructors() {
-		SimpleLogicValidator validator = new SimpleLogicValidator();
-		validator.addValidator(ONE, new QuantifierAtom(QUANTIFIER_SYMBOL_LIST));
-		validator.addValidator(ONE, new VariableAtom());
-		validator.addValidator(ONE, new FunctionOrVariableValidator(Evaluable.class));
-
+	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						validator,
-						new QuantifiedStatementConstructor<T>()
-				)
+				new QuantifierChecker(QUANTIFIER_SYMBOL_LIST),
+				new VariableChecker(),
+				new FunctionOrVariableChecker(Evaluable.class)
 		);
 	}
 
-	private static class QuantifiedStatementConstructor<T extends Nameable> implements Constructor<QuantifiedStatement<T>> {
+	@Override
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+		String variable = nodes.get(2).getToken().getValue();
+		Type UNIVERSE_TYPE = maths.number.integer.Integer.class; //todo
+		return Collections.singletonMap(variable, UNIVERSE_TYPE);
+	}
 
-		private final FunctionConvertor<Evaluable<T>, T> constructor;
-
-		private QuantifiedStatementConstructor() {
-			this.constructor = new FunctionConvertor<Evaluable<T>, T>(new LogicalConstantFactory<T>());
-		}
-
-		@Override
-		public QuantifiedStatement<T> construct(List<ValidationResult> results) throws FactoryException {
-			StringResult firstResult = (StringResult) results.get(1);
-			QuantifierFactory quantifierFactory = new QuantifierFactory();
-			Quantifier quantifier = quantifierFactory.createElement(firstResult.getString());
-
-			StringResult secondResult = (StringResult) results.get(2);
-
-			Evaluable<T> evaluable = constructor.convert(results.get(3));
-
-			return new QuantifiedStatement<T>(quantifier, secondResult.getString(), evaluable);
-		}
+	@Override
+	public QuantifiedStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
+		String variable = tokens.get(2).getValue();
+		Evaluable<T> evaluable = (Evaluable<T>) functions.get(1);
+		return new QuantifiedStatement<>(quantifier, variable, evaluable);
 	}
 }
