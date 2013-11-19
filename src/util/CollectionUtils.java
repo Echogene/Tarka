@@ -1,8 +1,11 @@
 package util;
 
+import logic.type.map.Extractor;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -54,5 +57,19 @@ public class CollectionUtils {
 
 	public static <T> T last(List<T> list) {
 		return list.get(list.size() - 1);
+	}
+
+	public static <K, V> String printMap(Map<K, V> map, Extractor<V, String> valuePrinter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\n");
+		for (Map.Entry<K, V> entry : map.entrySet()) {
+			try {
+				sb.append("\t" + entry.getKey() + " → " + valuePrinter.extract(entry.getValue()) + "\n");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 }

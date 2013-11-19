@@ -86,4 +86,9 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	public final F createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		return construct(tokens, functions);
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName();
+	}
 }

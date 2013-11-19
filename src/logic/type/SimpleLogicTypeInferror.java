@@ -16,7 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.text.MessageFormat.format;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
+import static util.ClassUtils.safeSimpleName;
+import static util.CollectionUtils.printMap;
 import static util.TreeUtils.surroundWithParentNodes;
 
 /**
@@ -154,8 +157,17 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (matchedTypes.allFailed()) {
 			throw new TypeInferrorException("There were no types matched with " + surroundedNodes.toString() + ".");
 		}
-		if (matchedTypes.hasAmbiguousPasses()) {
-			throw new TypeInferrorException(surroundedNodes.toString() + " resolved to more than one type.");
+		if (matchedTypes.hasTotallyAmbiguousPasses()) {
+			throw new TypeInferrorException(
+					format(
+							"{0} resolved to more than one type: {1}.",
+							surroundedNodes.toString(),
+							printMap(
+									matchedTypes.getPassedValues(),
+									type -> safeSimpleName((Class) type)
+							)
+					)
+			);
 		}
 
 		typeMap.putAll(functionTypesAfterAssignment.getPassedValues());
