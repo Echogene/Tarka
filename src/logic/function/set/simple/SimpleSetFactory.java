@@ -8,7 +8,7 @@ import logic.function.factory.validation.checking.checkers.FunctionOrVariableChe
 import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunctionFactory;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;
@@ -35,7 +35,7 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 	public static <T extends Nameable> SimpleSet<T> createElement(String... memberStrings) {
 		java.util.Set<ReflexiveFunction<T>> members = new HashSet<>();
 		for (String memberString : memberStrings) {
-			members.add(new IdentityFunction<>(memberString));
+			members.add(new MemberIdentityFunction<>(memberString));
 		}
 		return new SimpleSet<>(members);
 	}
