@@ -1,7 +1,7 @@
 package logic.function.factory.oldvalidation.group;
 
 import logic.function.factory.oldvalidation.group.validators.OperatorAtom;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
@@ -31,7 +31,7 @@ public class OperatorAtomTest extends GroupValidatorTest {
 		);
 		expectValidationException(
 				newOperatorToken("∨"),
-				new IdentityFunction("x")
+				new MemberIdentityFunction("x")
 		);
 	}
 }

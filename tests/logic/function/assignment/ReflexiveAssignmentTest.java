@@ -4,7 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicReaderImpl;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class AssignmentTest {
+public class ReflexiveAssignmentTest {
 	@Test
 	public void testSimpleEvaluation() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
@@ -26,10 +26,10 @@ public class AssignmentTest {
 		universalSet.put(new TestClass("x"));
 		universalSet.put(new TestClass("y"));
 
-		Assignment<TestClass> assignment = new Assignment<TestClass>(
-				new IdentityFunction<>("x"),
+		ReflexiveAssignment<TestClass> assignment = new ReflexiveAssignment<TestClass>(
+				new MemberIdentityFunction<>("x"),
 				"x",
-				new IdentityFunction<>("y")
+				new MemberIdentityFunction<>("y")
 		);
 
 		assertEquals(new TestClass("y"), assignment.evaluate(universe));
@@ -41,7 +41,7 @@ public class AssignmentTest {
 
 		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader(universe);
 
-		Assignment<Integer> assignment = new Assignment<>(
+		ReflexiveAssignment<Integer> assignment = new ReflexiveAssignment<>(
 				(ReflexiveFunction<Integer>) reader.read("(2+x)"),
 				"x",
 				(ReflexiveFunction<Integer>) reader.read("(2+2)")

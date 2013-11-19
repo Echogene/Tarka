@@ -2,8 +2,8 @@ package logic.function.reflexive.identity;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
-import logic.identity.IdentityFunction;
 import logic.identity.IdentityFunctionFactory;
+import logic.identity.MemberIdentityFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -30,29 +30,29 @@ public class IdentityFunctionFactoryTest extends FactoryTest<IdentityFunctionFac
 
 	@Test
 	public void testCreateElements() throws Exception {
-		IdentityFunction<TestClass> expected;
-		IdentityFunction<TestClass> actual;
+		MemberIdentityFunction<TestClass> expected;
+		MemberIdentityFunction<TestClass> actual;
 
-		expected = new IdentityFunction<>("x");
+		expected = new MemberIdentityFunction<>("x");
 		setUpTokens("(id x)");
-		actual = (IdentityFunction<TestClass>) factory.createElement(tokens);
+		actual = (MemberIdentityFunction<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
-		expected = new IdentityFunction<>("x");
+		expected = new MemberIdentityFunction<>("x");
 		setUpTokens("(x)");
-		actual = (IdentityFunction<TestClass>) factory.createElement(tokens);
+		actual = (MemberIdentityFunction<TestClass>) factory.createElement(tokens);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
-		expected = new IdentityFunction<>(new IdentityFunction<>("x"));
+		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<>("x"));
 		setUpTokens("(id ())");
 		setUpIdentityFunction("x");
-		actual = (IdentityFunction<TestClass>) factory.createElement(tokens, functions);
+		actual = (MemberIdentityFunction<TestClass>) factory.createElement(tokens, functions);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 
-		expected = new IdentityFunction<>(new IdentityFunction<>("x"));
+		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<>("x"));
 		setUpTokens("(())");
 		setUpIdentityFunction("x");
-		actual = (IdentityFunction<TestClass>) factory.createElement(tokens, functions);
+		actual = (MemberIdentityFunction<TestClass>) factory.createElement(tokens, functions);
 		assertEquals("Expected created identity function to be equal to the factory-built one", expected, actual);
 	}
 }

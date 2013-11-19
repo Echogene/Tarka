@@ -3,7 +3,7 @@ package logic.factory;
 import logic.TestClass;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import logic.identity.SetIdentityFunction;
 import reading.lexing.LexerException;
 import reading.lexing.Token;
@@ -55,7 +55,7 @@ public abstract class FactoryTest<F extends FunctionFactory<?, ?, ?>> {
 	protected void setUpOneIdentityAndOneSetIdentityFunction(String identityFunctionParameter1, String identityFunctionParameter2) {
 		functions = new ArrayList<>(2);
 		if (!identityFunctionParameter1.isEmpty()) {
-			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter1));
+			functions.add(new MemberIdentityFunction<TestClass>(identityFunctionParameter1));
 		}
 		if (!identityFunctionParameter2.isEmpty()) {
 			functions.add(new SetIdentityFunction<>(identityFunctionParameter2));
@@ -67,7 +67,7 @@ public abstract class FactoryTest<F extends FunctionFactory<?, ?, ?>> {
 		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
 			functions.add(null);
 		} else {
-			functions.add(new IdentityFunction<TestClass>(identityFunctionParameter));
+			functions.add(new MemberIdentityFunction<TestClass>(identityFunctionParameter));
 		}
 	}
 
