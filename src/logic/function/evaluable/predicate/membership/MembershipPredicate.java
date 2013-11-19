@@ -4,8 +4,6 @@ import logic.Nameable;
 import logic.function.evaluable.predicate.Predicate;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.identity.IdentityFunction;
-import logic.identity.SetIdentityFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 
@@ -16,16 +14,6 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	public static final String MEMBERSHIP_SYMBOL = "∊";
 	protected ReflexiveFunction<T> memberFunction;
 	protected SetFunction<T> setFunction;
-
-	public MembershipPredicate(ReflexiveFunction<T> memberFunction, String setSymbol) {
-		this.memberFunction = memberFunction;
-		this.setFunction    = new SetIdentityFunction<>(setSymbol);
-	}
-
-	public MembershipPredicate(String memberSymbol, SetFunction<T> setFunction) {
-		this.memberFunction = new IdentityFunction<>(memberSymbol);
-		this.setFunction    = setFunction;
-	}
 
 	public MembershipPredicate(ReflexiveFunction<T> memberFunction, SetFunction<T> setFunction) {
 		this.memberFunction = memberFunction;

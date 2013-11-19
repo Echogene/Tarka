@@ -7,6 +7,8 @@ import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
+import logic.identity.MemberIdentityFunction;
+import logic.identity.SetIdentityFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -38,13 +40,13 @@ public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredic
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);
 
 		setUpOneIdentityAndOneSetIdentityFunction("x", "");
-		expected = new MembershipPredicate<>((ReflexiveFunction<TestClass>) functions.get(0), "X");
+		expected = new MembershipPredicate<>((ReflexiveFunction<TestClass>) functions.get(0), new SetIdentityFunction<>("X"));
 		setUpTokens("(() ∊ X)");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);
 
 		setUpOneIdentityAndOneSetIdentityFunction("", "X");
-		expected = new MembershipPredicate<>("x", (SetFunction<TestClass>) functions.get(0));
+		expected = new MembershipPredicate<>(new MemberIdentityFunction<>("x"), (SetFunction<TestClass>) functions.get(0));
 		setUpTokens("(x ∊ ())");
 		actual = factory.createElement(tokens, functions);
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);
