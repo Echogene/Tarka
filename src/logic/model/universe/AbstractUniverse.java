@@ -20,10 +20,10 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 	}
 
 	@Override
-	public Object setVariable(String variableSymbol, T t) throws VariableNotAssignedException {
+	public Object setVariable(String variableSymbol, Object object) throws VariableNotAssignedException {
 		if (!getVariables().contains(variableSymbol)) {
 			throw new VariableNotAssignedException("The variable " + variableSymbol + " has not yet been assigned.");
 		}
-		return getVariables().put(variableSymbol, t);
+		return getVariables().put(variableSymbol, object);
 	}
 }
