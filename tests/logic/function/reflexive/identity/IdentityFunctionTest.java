@@ -2,7 +2,7 @@ package logic.function.reflexive.identity;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class IdentityFunctionTest {
 		TestClass x = new TestClass("x");
 		variables.put(x);
 
-		IdentityFunction<TestClass> function = new IdentityFunction<>("x");
+		MemberIdentityFunction<TestClass> function = new MemberIdentityFunction<>("x");
 
 		TestClassUniverse universe = new TestClassUniverse();
 		universe.setVariables(variables);

@@ -3,8 +3,8 @@ package maths.number.integer.functions.addition;
 import logic.TestClass;
 import logic.factory.FactoryTest;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.IdentityFunction;
 import logic.identity.IdentityFunctionFactory;
+import logic.identity.MemberIdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import org.junit.Test;
@@ -36,8 +36,8 @@ public class BinaryAdditionFactoryTest extends FactoryTest<BinaryAdditionFactory
 
 	@Test
 	public void testFactoryWithoutFunctions() throws Exception {
-		ReflexiveFunction<Integer> two = new IdentityFunction<>("2");
-		ReflexiveFunction<Integer> three = new IdentityFunction<>("3");
+		ReflexiveFunction<Integer> two = new MemberIdentityFunction<>("2");
+		ReflexiveFunction<Integer> three = new MemberIdentityFunction<>("3");
 		List<ReflexiveFunction<Integer>> parameters = new ArrayList<>();
 		parameters.add(two);
 		parameters.add(three);
@@ -45,16 +45,16 @@ public class BinaryAdditionFactoryTest extends FactoryTest<BinaryAdditionFactory
 		Addition<Integer> expected = new Addition<>(parameters, summor);
 
 		setUpTokens("(2+3)");
-		Addition<Integer> actual = (Addition<Integer>) factory.createElement(tokens);
+		Addition<Integer> actual = factory.createElement(tokens);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testMultary() throws Exception {
-		ReflexiveFunction<Integer> two = new IdentityFunction<>("2");
-		ReflexiveFunction<Integer> three = new IdentityFunction<>("3");
-		ReflexiveFunction<Integer> four = new IdentityFunction<>("4");
+		ReflexiveFunction<Integer> two = new MemberIdentityFunction<>("2");
+		ReflexiveFunction<Integer> three = new MemberIdentityFunction<>("3");
+		ReflexiveFunction<Integer> four = new MemberIdentityFunction<>("4");
 		List<ReflexiveFunction<Integer>> parameters = new ArrayList<>();
 		parameters.add(two);
 		parameters.add(three);
@@ -64,7 +64,7 @@ public class BinaryAdditionFactoryTest extends FactoryTest<BinaryAdditionFactory
 
 		setUpTokens("(Σ 2 3 4)");
 		setUpFunctions();
-		Addition<Integer> actual = (Addition<Integer>) factory.createElement(tokens, functions);
+		Addition<Integer> actual = factory.createElement(tokens, functions);
 
 		assertEquals(expected, actual);
 	}

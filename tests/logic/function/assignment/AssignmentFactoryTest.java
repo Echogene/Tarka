@@ -2,8 +2,8 @@ package logic.function.assignment;
 
 import logic.TestClass;
 import logic.factory.FactoryTest;
-import logic.identity.IdentityFunction;
 import logic.identity.IdentityFunctionFactory;
+import logic.identity.MemberIdentityFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -27,15 +27,15 @@ public class AssignmentFactoryTest extends FactoryTest<AssignmentFactory<TestCla
 
 	@Test
 	public void testCreateElement() throws Exception {
-		Assignment<TestClass> expected = new Assignment<TestClass>(
-				new IdentityFunction<>("x"),
+		ReflexiveAssignment<TestClass> expected = new ReflexiveAssignment<TestClass>(
+				new MemberIdentityFunction<>("x"),
 				"x",
-				new IdentityFunction<>("y")
+				new MemberIdentityFunction<>("y")
 		);
 
 		setUpTokens("(x where x is y)");
 		setUpFunctions();
-		Assignment<TestClass> actual = (Assignment<TestClass>) factory.createElement(tokens, functions);
+		ReflexiveAssignment<TestClass> actual = (ReflexiveAssignment<TestClass>) factory.createElement(tokens, functions);
 		assertEquals(expected, actual);
 	}
 }
