@@ -10,6 +10,8 @@ import logic.function.factory.validation.checking.checkers.FunctionOrVariableChe
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
+import logic.identity.MemberIdentityFunction;
+import logic.identity.SetIdentityFunction;
 import reading.lexing.Token;
 
 import java.util.Arrays;
@@ -30,6 +32,12 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 				new OperatorChecker(MembershipPredicate.MEMBERSHIP_SYMBOL),
 				new FunctionOrVariableChecker(SetFunction.class)
 		);
+	}
+
+	public static <T extends Nameable> MembershipPredicate<T> createElement(String member, String set) {
+		MemberIdentityFunction<T> memberFunction = new MemberIdentityFunction<>(member);
+		SetIdentityFunction<T> setFunction = new SetIdentityFunction<>(set);
+		return new MembershipPredicate<>(memberFunction, setFunction);
 	}
 
 	@Override

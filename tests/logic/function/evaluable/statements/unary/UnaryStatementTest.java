@@ -4,6 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
+import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.model.universe.Universe;
 import logic.set.ModifiableSet;
 import logic.set.Set;
@@ -33,7 +34,7 @@ public class UnaryStatementTest {
 
 		testAllTheThings(TAUTOLOGY, CONTRADICTION, universe);
 
-		MembershipPredicate<TestClass> membershipPredicate = new MembershipPredicate<>("x", "set");
+		MembershipPredicate<TestClass> membershipPredicate = MembershipPredicateFactory.createElement("x", "set");
 		StandardSet<TestClass> set = new StandardSet<>("set");
 		((ModifiableSet<Set<TestClass>>) universe.getUniversalSetOfSets()).put(set);
 		TestClass x = new TestClass("x");

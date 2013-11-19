@@ -3,6 +3,7 @@ package logic.function.evaluable.predicate;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
+import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
@@ -36,23 +37,23 @@ public class MembershipPredicateTest {
 		universe.setUniversalSetOfSets(sets);
 
 		MembershipPredicate<TestClass> predicate;
-		predicate = new MembershipPredicate<>("x", "X");
+		predicate = MembershipPredicateFactory.createElement("x", "X");
 		assertTrue("Expect x to be in X", predicate.evaluate(universe));
-		predicate = new MembershipPredicate<>("y", "X");
+		predicate = MembershipPredicateFactory.createElement("y", "X");
 		assertFalse("Expect y to not be in X", predicate.evaluate(universe));
-		predicate = new MembershipPredicate<>("x", "Y");
+		predicate = MembershipPredicateFactory.createElement("x", "Y");
 		assertFalse("Expect x to not be in Y", predicate.evaluate(universe));
 
 		StandardSet<Object> variables = new StandardSet<>("variables");
 		variables.put("x", y);
 		universe.setVariables(variables);
-		predicate = new MembershipPredicate<>("x", "X");
+		predicate = MembershipPredicateFactory.createElement("x", "X");
 		assertFalse("Expect x to not be in X", predicate.evaluate(universe));
-		predicate = new MembershipPredicate<>("y", "X");
+		predicate = MembershipPredicateFactory.createElement("y", "X");
 		assertFalse("Expect y to not be in X", predicate.evaluate(universe));
-		predicate = new MembershipPredicate<>("x", "Y");
+		predicate = MembershipPredicateFactory.createElement("x", "Y");
 		assertTrue("Expect x to be in Y", predicate.evaluate(universe));
-		predicate = new MembershipPredicate<>("y", "Y");
+		predicate = MembershipPredicateFactory.createElement("y", "Y");
 		assertTrue("Expect x to be in Y", predicate.evaluate(universe));
 	}
 }

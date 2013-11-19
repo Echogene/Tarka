@@ -32,7 +32,7 @@ public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredic
 		Function<TestClass, Boolean> expected;
 		Function<TestClass, Boolean> actual;
 
-		expected = new MembershipPredicate<>("x", "X");
+		expected = MembershipPredicateFactory.createElement("x", "X");
 		setUpTokens("(x ∊ X)");
 		actual = factory.createElement(tokens);
 		assertEquals("Expected created membership predicate to be equal to the factory-built one", expected, actual);

@@ -17,11 +17,6 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	protected ReflexiveFunction<T> memberFunction;
 	protected SetFunction<T> setFunction;
 
-	public MembershipPredicate(String memberSymbol, String setSymbol) {
-		this.memberFunction = new IdentityFunction<>(memberSymbol);
-		this.setFunction    = new SetIdentityFunction<>(setSymbol);
-	}
-
 	public MembershipPredicate(ReflexiveFunction<T> memberFunction, String setSymbol) {
 		this.memberFunction = memberFunction;
 		this.setFunction    = new SetIdentityFunction<>(setSymbol);
