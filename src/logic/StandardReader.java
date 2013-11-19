@@ -35,7 +35,6 @@ public class StandardReader {
 		output.add(new EqualityPredicateFactory<>());
 		output.add(new MembershipPredicateFactory<>());
 		output.add(new BinaryStatementFactory<>());
-		output.add(new LogicalConstantFactory<>());
 		output.add(new UnaryStatementFactory<>());
 		output.add(new QuantifiedStatementFactory<>());
 		output.add(new BinaryUnionFactory<>());

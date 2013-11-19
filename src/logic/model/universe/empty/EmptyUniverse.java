@@ -58,7 +58,7 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T> {
 	}
 
 	@Override
-	public Object setVariable(String variableSymbol, Nameable nameable) throws VariableNotAssignedException {
+	public Object setVariable(String variableSymbol, Object object) throws VariableNotAssignedException {
 		throw new NotImplementedException();
 	}
 

@@ -27,7 +27,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 
 	private final IntervalFactory<N> factory;
 
-	protected IntervalFunctionFactory(IntervalFactory<N> factory) {
+	public IntervalFunctionFactory(IntervalFactory<N> factory) {
 		super(getCheckers(), getAcceptedBracketPairs());
 		this.factory = factory;
 	}
