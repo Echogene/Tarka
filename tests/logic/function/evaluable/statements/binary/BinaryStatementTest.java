@@ -1,25 +1,10 @@
 package logic.function.evaluable.statements.binary;
 
-import logic.TestClass;
-import logic.TestClassUniverse;
-import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.predicate.membership.MembershipPredicate;
-import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
-import logic.model.universe.Universe;
-import logic.set.ModifiableSet;
-import logic.set.Set;
-import logic.set.finite.StandardSet;
-import org.junit.Test;
-
-import static logic.function.evaluable.statements.binary.BinaryConnective.BinaryConnectiveType.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author Steven Weston
  */
 public class BinaryStatementTest {
-
+	/* todo: redo this
 	public static final LogicalConstant<TestClass> CONTRADICTION = new LogicalConstant<>(false);
 	public static final LogicalConstant<TestClass> TAUTOLOGY = new LogicalConstant<>(true);
 
@@ -83,5 +68,5 @@ public class BinaryStatementTest {
 		} else {
 			assertFalse(statement.evaluate(universe));
 		}
-	}
+	}*/
 }

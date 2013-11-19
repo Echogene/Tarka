@@ -1,7 +1,7 @@
 package maths.number.integer.functions.addition;
 
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.IdentityFunction;
+import logic.identity.MemberIdentityFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.model.universe.IntegerUniverse;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class AdditionTest {
 	@Test
 	public void test() throws Exception {
-		ReflexiveFunction<Integer> two = new IdentityFunction<>("2");
+	ReflexiveFunction<Integer> two = new MemberIdentityFunction<>("2");
 		List<ReflexiveFunction<Integer>> parameters = new ArrayList<>();
 		parameters.add(two);
 		parameters.add(two);
@@ -32,24 +32,24 @@ public class AdditionTest {
 		assertEquals("2 + 2 = 4", new Integer(4), sum.evaluate(universe));
 
 		parameters.clear();
-		parameters.add(new IdentityFunction<>("123456789"));
-		parameters.add(new IdentityFunction<>("987654321"));
+		parameters.add(new MemberIdentityFunction<>("123456789"));
+		parameters.add(new MemberIdentityFunction<>("987654321"));
 
 		sum = new Addition<>(parameters, summor);
 		assertEquals("123456789 + 987654321 = 1111111110", new Integer(1111111110), sum.evaluate(universe));
 
 		parameters.clear();
-		parameters.add(new IdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
-		parameters.add(new IdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
+		parameters.add(new MemberIdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
+		parameters.add(new MemberIdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
 
 		sum = new Addition<>(parameters, summor);
 		assertEquals(new Integer("222222222222222222222222222222222222222222222222222222222222222222222"), sum.evaluate(universe));
 
 		parameters.clear();
-		parameters.add(new IdentityFunction<>("1"));
-		parameters.add(new IdentityFunction<>("1"));
-		parameters.add(new IdentityFunction<>("1"));
-		parameters.add(new IdentityFunction<>("1"));
+		parameters.add(new MemberIdentityFunction<>("1"));
+		parameters.add(new MemberIdentityFunction<>("1"));
+		parameters.add(new MemberIdentityFunction<>("1"));
+		parameters.add(new MemberIdentityFunction<>("1"));
 
 		assertEquals("(Σ 1 1 1 1)", sum.toString());
 
@@ -57,10 +57,10 @@ public class AdditionTest {
 		assertEquals("1 + 1 + 1 + 1 = 4", new Integer(4), sum.evaluate(universe));
 
 		parameters.clear();
-		parameters.add(new IdentityFunction<>("1"));
+		parameters.add(new MemberIdentityFunction<>("1"));
 		List<ReflexiveFunction<Integer>> subParameters = new ArrayList<>();
-		subParameters.add(new IdentityFunction<>("2"));
-		subParameters.add(new IdentityFunction<>("3"));
+		subParameters.add(new MemberIdentityFunction<>("2"));
+		subParameters.add(new MemberIdentityFunction<>("3"));
 		parameters.add(new Addition<>(subParameters, summor));
 
 		assertEquals("(1 + (2 + 3))", sum.toString());
