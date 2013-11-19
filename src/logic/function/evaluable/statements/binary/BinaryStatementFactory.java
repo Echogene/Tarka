@@ -1,58 +1,46 @@
 package logic.function.evaluable.statements.binary;
 
+import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.EvaluableFactory;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.StringResult;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
+import reading.lexing.Token;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.function.evaluable.statements.binary.BinaryConnective.BINARY_CONNECTIVE_SYMBOL_LIST;
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
  */
 public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory<T, BinaryStatement<T>> {
 
+	private final BinaryConnectiveFactory binaryConnectiveFactory;
+
 	public BinaryStatementFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+		this.binaryConnectiveFactory = new BinaryConnectiveFactory();
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<BinaryStatement<T>>> getConstructors() {
-		SimpleLogicValidator validator = new BinaryValidator(Evaluable.class, BINARY_CONNECTIVE_SYMBOL_LIST, Evaluable.class);
+	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						validator,
-						new BinaryStatementConstructor<T>()
-				)
+				new FunctionOrVariableChecker(Evaluable.class),
+				new OperatorChecker(BinaryConnective.BINARY_CONNECTIVE_SYMBOL_LIST),
+				new FunctionOrVariableChecker(Evaluable.class)
 		);
 	}
 
-	private static class BinaryStatementConstructor<T extends Nameable> implements Constructor<BinaryStatement<T>> {
-
-		private final FunctionConvertor<Evaluable<T>, T> constructor;
-
-		private BinaryStatementConstructor() {
-			this.constructor = new FunctionConvertor<Evaluable<T>, T>(new LogicalConstantFactory<T>());
-		}
-
-		@Override
-		public BinaryStatement<T> construct(List<ValidationResult> results) throws FactoryException {
-			Evaluable<T> firstFunction = constructor.convert(results.get(1));
-
-			StringResult connectiveResult = (StringResult) results.get(2);
-			BinaryConnective binaryConnective = BinaryConnectiveFactory.create(connectiveResult.getString());
-
-			Evaluable<T> secondFunction = constructor.convert(results.get(3));
-			return new BinaryStatement<>(firstFunction, binaryConnective, secondFunction);
-		}
+	@Override
+	public BinaryStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		Boolean firstBracket = tokens.get(1).isOfType(OPEN_BRACKET);
+		String connectieString = tokens.get(firstBracket ? 3 : 2).getValue();
+		BinaryConnective connective = binaryConnectiveFactory.createElement(connectieString);
+		return new BinaryStatement<>((Evaluable<T>) functions.get(0), connective, (Evaluable<T>) functions.get(1));
 	}
 }
