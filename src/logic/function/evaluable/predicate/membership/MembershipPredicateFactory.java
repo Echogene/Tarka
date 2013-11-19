@@ -1,18 +1,16 @@
 package logic.function.evaluable.predicate.membership;
 
+import javafx.util.Pair;
 import logic.Nameable;
+import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.evaluable.predicate.PredicateFactory;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.identity.IdentityFunction;
-import logic.identity.IdentityFunctionFactory;
-import logic.identity.SetIdentityFunction;
+import reading.lexing.Token;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,38 +21,21 @@ import java.util.List;
 public class MembershipPredicateFactory<T extends Nameable> extends PredicateFactory<T, MembershipPredicate<T>> {
 
 	public MembershipPredicateFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<MembershipPredicate<T>>> getConstructors() {
-		SimpleLogicValidator validator = new BinaryValidator(
-				ReflexiveFunction.class,
-				Arrays.asList(MembershipPredicate.MEMBERSHIP_SYMBOL),
-				SetFunction.class
-		);
+	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						validator,
-						new MembershipPredicateConstructor<T>()
-				)
+				new FunctionOrVariableChecker(ReflexiveFunction.class),
+				new OperatorChecker(MembershipPredicate.MEMBERSHIP_SYMBOL),
+				new FunctionOrVariableChecker(SetFunction.class)
 		);
 	}
 
-	private static class MembershipPredicateConstructor<T extends Nameable> implements Constructor<MembershipPredicate<T>> {
-
-		private final FunctionConvertor<IdentityFunction<T>, T> identityFunctionConstructor;
-		private final FunctionConvertor<SetIdentityFunction<T>, T> setIdentityFunctionConstructor;
-
-		private MembershipPredicateConstructor() {
-			this.identityFunctionConstructor = new FunctionConvertor<>(new IdentityFunctionFactory<T>());
-			this.setIdentityFunctionConstructor = new FunctionConvertor<>(new SetIdentityFunctionFactory<T>());
-		}
-
-		@Override
-		public MembershipPredicate<T> construct(List<ValidationResult> results) {
-			ReflexiveFunction<T> firstFunction = identityFunctionConstructor.convert(results.get(1));
-			SetFunction<T> secondFunction = setIdentityFunctionConstructor.convert(results.get(3));
-			return new MembershipPredicate<>(firstFunction, secondFunction);
-		}
+	@Override
+	public MembershipPredicate<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
+		SetFunction<T> equand = (SetFunction<T>) functions.get(1);
+		return new MembershipPredicate<>(equor, equand);
 	}
 }

@@ -1,27 +1,26 @@
 package logic.function.evaluable.predicate.equality;
 
+import javafx.util.Pair;
 import logic.Nameable;
+import logic.factory.FactoryException;
+import logic.function.Function;
 import logic.function.evaluable.predicate.PredicateFactory;
-import logic.function.factory.binary.BinaryValidator;
-import logic.function.factory.construction.Constructor;
-import logic.function.factory.construction.FunctionConvertor;
-import logic.function.factory.construction.ValidatorAndConstructor;
-import logic.function.factory.oldvalidation.SimpleLogicValidator;
-import logic.function.factory.oldvalidation.results.ValidationResult;
+import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.identity.IdentityFunction;
-import logic.identity.IdentityFunctionFactory;
+import logic.identity.MemberIdentityFunction;
+import reading.lexing.Token;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static logic.function.evaluable.predicate.equality.EqualityPredicate.EQUALITY_SYMBOL;
 
 /**
  * A {@code Factory} for creating {@code EqualityPredicate}s.
  * @author Steven Weston
  */
 public class EqualityPredicateFactory<T extends Nameable> extends PredicateFactory<T, EqualityPredicate<T>> {
+	
 	/**
 	 * @param equorString The string representing the equor of the equals.
 	 * @param equandString The string representing the equand of the equals.
@@ -29,38 +28,27 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	 * @return An equality predicate of the form 'equorString = equandString'.
 	 */
 	public static <T extends Nameable> EqualityPredicate<T> createElement(String equorString, String equandString) {
-		IdentityFunction<T> equorFunction = new IdentityFunction<>(equorString);
-		IdentityFunction<T> equandFunction = new IdentityFunction<>(equandString);
+		MemberIdentityFunction<T> equorFunction = new MemberIdentityFunction<>(equorString);
+		MemberIdentityFunction<T> equandFunction = new MemberIdentityFunction<>(equandString);
 		return new EqualityPredicate<>(equorFunction, equandFunction);
 	}
 
 	public EqualityPredicateFactory() {
-		super(getConstructors());
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
 	}
 
-	private static <T extends Nameable> List<ValidatorAndConstructor<EqualityPredicate<T>>> getConstructors() {
-		SimpleLogicValidator validator = new BinaryValidator(Arrays.asList(EQUALITY_SYMBOL));
+	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new ValidatorAndConstructor<>(
-						validator,
-						new EqualityPredicateConstructor<T>()
-				)
+				new FunctionOrVariableChecker(ReflexiveFunction.class),
+				new OperatorChecker(EqualityPredicate.EQUALITY_SYMBOL),
+				new FunctionOrVariableChecker(ReflexiveFunction.class)
 		);
 	}
 
-	private static class EqualityPredicateConstructor<T extends Nameable> implements Constructor<EqualityPredicate<T>> {
-
-		private final FunctionConvertor<IdentityFunction<T>, T> convertor;
-
-		private EqualityPredicateConstructor() {
-			this.convertor = new FunctionConvertor<>(new IdentityFunctionFactory<T>());
-		}
-
-		@Override
-		public EqualityPredicate<T> construct(List<ValidationResult> results) {
-			ReflexiveFunction<T> firstFunction = convertor.convert(results.get(1));
-			ReflexiveFunction<T> secondFunction = convertor.convert(results.get(3));
-			return new EqualityPredicate<>(firstFunction, secondFunction);
-		}
+	@Override
+	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
+		ReflexiveFunction<T> equand = (ReflexiveFunction<T>) functions.get(1);
+		return new EqualityPredicate<>(equor, equand);
 	}
 }
