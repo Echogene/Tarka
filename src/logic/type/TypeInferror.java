@@ -4,6 +4,7 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -15,7 +16,11 @@ public interface TypeInferror {
 	 * Go through the tree and for each scope, attach a map of variables to their types existing in that scope.
 	 *
 	 * @param tree
+	 * @param passedMatchers The type matchers to use to match each node
 	 * @return
 	 */
-	Map<ParseTreeNode, Type> inferTypes(ParseTree tree) throws TypeInferrorException;
+	Map<ParseTreeNode, Type> inferTypes(
+			ParseTree tree,
+			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers
+	) throws TypeInferrorException;
 }

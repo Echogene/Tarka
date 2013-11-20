@@ -50,9 +50,9 @@ public class DisjunctiveChecker extends CheckerWithNumber {
 		if (map.allFailed()) {
 			throw new FunctionValidationException(
 					"The function "
-							+ function.toString()
-							+ " failed validation because:"
-							+ StringUtils.addCharacterAfterEveryNewline(map.concatenateErrorMessages(), '\t')
+					+ function.toString()
+					+ " failed validation because:\n"
+					+ StringUtils.addCharacterAfterEveryNewline(map.concatenateErrorMessages(), '\t')
 			);
 		}
 	}

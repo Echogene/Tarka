@@ -8,7 +8,6 @@ import logic.function.identity.IdentityConstructorFromType;
 import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
 import logic.type.TypeInferrorException;
-import logic.type.TypeMatcher;
 import logic.type.VariableAssignerFactory;
 import logic.type.map.CheckorException;
 import logic.type.map.MapToErrors;
@@ -39,17 +38,22 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		this.factories = factories;
 
 		Collection<VariableAssignerFactory> variableAssignerFactories = new HashSet<>();
-		Collection<TypeMatcher> matchers = new HashSet<>();
 		for (FunctionFactory<T, ?, ?> factory : factories) {
 			if (factory instanceof VariableAssignerFactory) {
 				variableAssignerFactories.add((VariableAssignerFactory) factory);
 			}
-			if (factory != null) {
-				matchers.add(factory);
+		}
+		identityConstructorFromType = getIdentityConstructorFromType(factories);
+		typeInferror = new SimpleLogicTypeInferror<>(variableAssignerFactories, universe);
+	}
+
+	private IdentityConstructorFromType<T> getIdentityConstructorFromType(List<FunctionFactory<T, ?, ?>> factories) {
+		for (FunctionFactory<T, ?, ?> factory : factories) {
+			if (factory instanceof IdentityConstructorFromType) {
+				return (IdentityConstructorFromType<T>) factory;
 			}
 		}
-		typeInferror = new SimpleLogicTypeInferror<>(matchers, variableAssignerFactories, universe);
-		identityConstructorFromType = null; //todo
+		return null;
 	}
 
 	@Override
@@ -66,7 +70,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			passedFactories.put(first(children).getMother(), validateTokens(TreeUtils.extractTokens(children)));
 		});
 
-		final Map<ParseTreeNode, Type> types = typeInferror.inferTypes(tree);
+		final Map<ParseTreeNode, Type> types = typeInferror.inferTypes(tree, passedFactories);
 
 		// Create functions for the typed nodes
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
@@ -117,7 +121,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		if (mapToErrors.allFailed()) {
 			throw new EvaluatorException(
 					"Validation failed because:\n"
-					+ StringUtils.addCharacterAfterEveryNewline(mapToErrors.concatenateErrorMessages(), '\n')
+					+ StringUtils.addCharacterAfterEveryNewline(mapToErrors.concatenateErrorMessages(), '\t')
 			);
 		}
 		return new ArrayList<>(mapToErrors.getPassedKeys());

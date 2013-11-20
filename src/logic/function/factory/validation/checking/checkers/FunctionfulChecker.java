@@ -5,9 +5,13 @@ import logic.function.Function;
 import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
+import util.CollectionUtils;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.text.MessageFormat.format;
 
 /**
  * @author Steven Weston
@@ -37,7 +41,13 @@ public class FunctionfulChecker extends AtomicChecker {
 		if (!acceptedBracketPairs.isEmpty()) {
 			Pair<String, String> pair = new Pair<>(tokenGroup.getOpeningBracket(), tokenGroup.getClosingBracket());
 			if (!acceptedBracketPairs.contains(pair)) {
-				throw new TokenValidationException(tokenGroup.toString() + " was not in " + acceptedBracketPairs.toString() + ".");
+				throw new TokenValidationException(
+						MessageFormat.format(
+								"{0} was not in {1}.",
+								tokenGroup.toString(),
+								acceptedBracketPairs.toString()
+						)
+				);
 			}
 		}
 	}
@@ -45,14 +55,32 @@ public class FunctionfulChecker extends AtomicChecker {
 	@Override
 	public void check(Function<?, ?> function) throws FunctionValidationException {
 		if (!acceptedFunctionClasses.isEmpty()) {
-			if (!acceptedFunctionClasses.contains(function.getClass())) {
-				throw new FunctionValidationException(function.toString() + " was not in any of " + acceptedFunctionClasses.toString() + ".");
+			boolean classFound = false;
+			for (Class clazz : acceptedFunctionClasses) {
+				if (clazz.isInstance(function)) {
+					classFound = true;
+					break;
+				}
+			}
+			if (!classFound) {
+				throw new FunctionValidationException(
+						MessageFormat.format(
+								"{0} was not in any of {1}.",
+								function.toString(),
+								CollectionUtils.simpleNames(acceptedFunctionClasses)
+						)
+				);
 			}
 		}
 	}
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " where in " + acceptedBracketPairs;
+		return format(
+				"{0} where in {1} surrounded with {2}",
+				getClass().getSimpleName(),
+				CollectionUtils.simpleNames(acceptedFunctionClasses),
+				acceptedBracketPairs
+		);
 	}
 }

@@ -17,13 +17,13 @@ public class MapWithErrors<K, V> implements ErrorMap {
 
 	private final Map<K, String> failedValues;
 
-	public MapWithErrors(final Collection<K> keys, final Extractor<K, V> extractor) {
+	public MapWithErrors(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
 		passedValues = new HashMap<>();
 		failedValues = new HashMap<>();
 		fillFrom(keys, extractor);
 	}
 
-	private void fillFrom(final Collection<K> keys, final Extractor<K, V> extractor) {
+	private void fillFrom(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
 		for (K key : keys) {
 			try {
 				passedValues.put(key, extractor.extract(key));
@@ -34,14 +34,14 @@ public class MapWithErrors<K, V> implements ErrorMap {
 	}
 
 	@SafeVarargs
-	public MapWithErrors(final Collection<K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
+	public MapWithErrors(final Collection<? extends K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
 		passedValues = new HashMap<>();
 		failedValues = new HashMap<>();
 		fillFrom(keys, pairs);
 	}
 
 	@SafeVarargs
-	private final void fillFrom(final Collection<K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
+	private final void fillFrom(final Collection<? extends K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
 		for (K key : keys) {
 			for (Pair<Testor<K>, Extractor<K, V>> pair : pairs) {
 				Testor<K> testor = pair.getKey();
