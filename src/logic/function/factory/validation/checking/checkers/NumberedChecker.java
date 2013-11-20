@@ -33,4 +33,8 @@ public class NumberedChecker extends CheckerWithNumber {
 	public void check(Function<?, ?> function) throws FunctionValidationException {
 		checker.check(function);
 	}
+
+	public Checker getChecker() {
+		return checker;
+	}
 }

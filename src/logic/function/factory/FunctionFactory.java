@@ -10,6 +10,7 @@ import logic.function.factory.validation.checking.Checker;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.DisjunctiveChecker;
 import logic.function.factory.validation.checking.checkers.FunctionfulChecker;
+import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.function.FunctionValidator;
 import logic.function.factory.validation.function.SimpleLogicFunctionValidator;
@@ -66,6 +67,9 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 					return true;
 				}
 			}
+		} else if (checker instanceof NumberedChecker) {
+			NumberedChecker numberedChecker = (NumberedChecker) checker;
+			return isOrContainsFunctionChecker(numberedChecker.getChecker());
 		}
 		return false;
 	}
