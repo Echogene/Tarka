@@ -10,8 +10,8 @@ import org.junit.Test;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicReaderImplTest {
-	private static SimpleLogicReaderImpl reader;
+public class SimpleLogicReaderTest {
+	private static SimpleLogicReader reader;
 
 	@BeforeClass
 	public static void setUp() {

@@ -1,7 +1,7 @@
 package maths.number.integer.model.universe;
 
 import logic.StandardReader;
-import logic.factory.SimpleLogicReaderImpl;
+import logic.factory.SimpleLogicReader;
 import logic.function.factory.FunctionFactory;
 import logic.model.universe.Universe;
 import maths.number.integer.Integer;
@@ -18,12 +18,12 @@ import java.util.List;
  * @author Steven Weston
  */
 public class IntegerReader {
-	public static SimpleLogicReaderImpl<Integer> createStandardReader(Universe<Integer> universe) {
+	public static SimpleLogicReader<Integer> createStandardReader(Universe<Integer> universe) {
 		Class<Integer> universeType = universe.getTypeOfUniverse();
 		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories(universeType);
 		factories.add(new BinaryAdditionFactory<>(new IntegerSummor(), universeType));
 		factories.add(new SubtractionFactory<>(new IntegerSubtractor(), universeType));
 		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory(), universeType));
-		return new SimpleLogicReaderImpl<>(factories, universe);
+		return new SimpleLogicReader<>(factories, universe);
 	}
 }

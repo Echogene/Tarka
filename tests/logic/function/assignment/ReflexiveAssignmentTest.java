@@ -2,7 +2,7 @@ package logic.function.assignment;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.factory.SimpleLogicReaderImpl;
+import logic.factory.SimpleLogicReader;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.set.finite.StandardSet;
@@ -39,7 +39,7 @@ public class ReflexiveAssignmentTest {
 	public void testEvaluationWithAddition() throws Exception {
 		IntegerUniverse universe = new IntegerUniverse();
 
-		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader(universe);
+		SimpleLogicReader<Integer> reader = IntegerReader.createStandardReader(universe);
 
 		ReflexiveAssignment<Integer> assignment = new ReflexiveAssignment<>(
 				(ReflexiveFunction<Integer>) reader.read("(2+x)"),

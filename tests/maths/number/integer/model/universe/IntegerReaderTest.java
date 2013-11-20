@@ -1,6 +1,6 @@
 package maths.number.integer.model.universe;
 
-import logic.factory.SimpleLogicReaderImpl;
+import logic.factory.SimpleLogicReader;
 import logic.function.evaluable.Evaluable;
 import maths.number.integer.Integer;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class IntegerReaderTest {
 	@Test
 	public void testReader() throws Exception {
 		IntegerUniverse universe = new IntegerUniverse();
-		SimpleLogicReaderImpl<Integer> reader = IntegerReader.createStandardReader(universe);
+		SimpleLogicReader<Integer> reader = IntegerReader.createStandardReader(universe);
 
 		@SuppressWarnings("unchecked")
 		Evaluable<Integer> twoPlusTwoIsFour = (Evaluable<Integer>) reader.read("((2 + 2) = 4)");

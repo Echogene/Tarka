@@ -1,6 +1,6 @@
 package maths.number.integer.model;
 
-import logic.factory.SimpleLogicReaderImpl;
+import logic.factory.SimpleLogicReader;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 public class IntegerReaderRepl {
 
 	private static IntegerUniverse universe;
-	private static SimpleLogicReaderImpl<Integer> reader;
+	private static SimpleLogicReader<Integer> reader;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

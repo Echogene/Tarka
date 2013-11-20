@@ -1,6 +1,6 @@
 package logic;
 
-import logic.factory.SimpleLogicReaderImpl;
+import logic.factory.SimpleLogicReader;
 import logic.function.assignment.AssignmentFactory;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
@@ -24,9 +24,9 @@ import java.util.List;
  * @author Steven Weston
  */
 public class StandardReader {
-	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader(Universe<T> universe) {
+	public static <T extends Nameable> SimpleLogicReader<T> createStandardReader(Universe<T> universe) {
 		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories(universe.getTypeOfUniverse());
-		return new SimpleLogicReaderImpl<>(factories, universe);
+		return new SimpleLogicReader<>(factories, universe);
 	}
 
 	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories(Class<T> universeType) {
