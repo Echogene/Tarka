@@ -20,8 +20,8 @@ import static logic.function.factory.validation.checking.CheckerWithNumber.Numbe
  */
 public class MultaryUnionFactory<T extends Nameable> extends AbstractUnionFactory<T> {
 
-	public MultaryUnionFactory() {
-		super(getCheckers());
+	public MultaryUnionFactory(Class<T> universeType) {
+		super(getCheckers(), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

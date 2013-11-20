@@ -1,9 +1,9 @@
 package logic.factory;
 
 import logic.TestClass;
+import logic.TestClassUniverse;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
-import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryConnectiveFactory;
@@ -16,8 +16,6 @@ import logic.function.evaluable.statements.unary.UnaryConnectiveFactory;
 import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.identity.IdentityFunctionFactory;
-import logic.function.identity.MemberIdentityFunction;
-import logic.model.universe.empty.EmptyUniverse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.lexing.Token;
@@ -45,19 +43,27 @@ public class SimpleLogicEvaluatorTest {
 
 	private static List<FunctionFactory<TestClass, ?, ?>> factories;
 
+	private static TestClassUniverse universe;
+
 	@BeforeClass
 	public static void setUp() {
 		factories = new ArrayList<>();
-		factories.add(new EqualityPredicateFactory<>());
-		factories.add(new MembershipPredicateFactory<>());
-		factories.add(new IdentityFunctionFactory<>());
-		factories.add(new BinaryStatementFactory<>());
-		factories.add(new UnaryStatementFactory<>());
-		factories.add(new QuantifiedStatementFactory<>());
+		Class<TestClass> universeType = TestClass.class;
+		factories.add(new EqualityPredicateFactory<>(universeType));
+		factories.add(new MembershipPredicateFactory<>(universeType));
+		factories.add(new IdentityFunctionFactory<>(universeType));
+		factories.add(new BinaryStatementFactory<>(universeType));
+		factories.add(new UnaryStatementFactory<>(universeType));
+		factories.add(new QuantifiedStatementFactory<>(universeType));
+
+		universe = new TestClassUniverse();
+		universe.put("x");
+		universe.put("y");
+		universe.put("z");
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator<>(factories, new EmptyUniverse<>(TestClass.class));
+		evaluator = new SimpleLogicEvaluator<>(factories, universe);
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();
@@ -68,47 +74,11 @@ public class SimpleLogicEvaluatorTest {
 	public void testEvaluate() throws Exception {
 		Function<?, ?> expected;
 		Function<?, ?> actual;
-		MemberIdentityFunction<TestClass> nestedX;
-		MemberIdentityFunction<TestClass> nestedY;
 		Evaluable<TestClass> evaluable1;
 		Evaluable<TestClass> evaluable2;
 
 		expected = EqualityPredicateFactory.createElement("x", "y");
 		tokens = lexer.tokeniseString("(x=y)");
-		tree = parser.parseTokens(tokens);
-		actual = evaluator.evaluate(tree);
-		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
-
-		expected = EqualityPredicateFactory.createElement("x", "y");
-		tokens = lexer.tokeniseString("((id x)=y)");
-		tree = parser.parseTokens(tokens);
-		actual = evaluator.evaluate(tree);
-		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
-
-		MemberIdentityFunction<TestClass> x = new MemberIdentityFunction<>("x");
-		expected = new MemberIdentityFunction<>(x);
-		tokens = lexer.tokeniseString("(id (id x))");
-		tree = parser.parseTokens(tokens);
-		actual = evaluator.evaluate(tree);
-		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
-
-		MemberIdentityFunction<TestClass> y = new MemberIdentityFunction<>("y");
-		expected = new EqualityPredicate<>(new MemberIdentityFunction<>(x), y);
-		tokens = lexer.tokeniseString("((id (id x))=y)");
-		tree = parser.parseTokens(tokens);
-		actual = evaluator.evaluate(tree);
-		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
-
-		expected = EqualityPredicateFactory.createElement("x", "y");
-		tokens = lexer.tokeniseString("((id x)=(id y))");
-		tree = parser.parseTokens(tokens);
-		actual = evaluator.evaluate(tree);
-		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
-
-		nestedX = new MemberIdentityFunction<>(x);
-		nestedY = new MemberIdentityFunction<>(y);
-		expected = new EqualityPredicate<>(nestedX, nestedY);
-		tokens = lexer.tokeniseString("((id (id x))=(id (id y)))");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
@@ -124,12 +94,12 @@ public class SimpleLogicEvaluatorTest {
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);
 
-		evaluable1 = EqualityPredicateFactory.createElement("x", "y");
+		evaluable1 = EqualityPredicateFactory.createElement("a", "y");
 		expected = new QuantifiedStatement<>(
 				quantifierFactory.createElement("∀"),
-				"x",
+				"a",
 				evaluable1);
-		tokens = lexer.tokeniseString("(∀x(x=y))");
+		tokens = lexer.tokeniseString("(∀a(a=y))");
 		tree = parser.parseTokens(tokens);
 		actual = evaluator.evaluate(tree);
 		assertEquals("Expect created equality predicated to be equal to the evaluated one", expected, actual);

@@ -29,8 +29,8 @@ public class MultaryAdditionFactory<N extends maths.number.Number> extends Refle
 
 	private final Summor<N> summor;
 
-	public MultaryAdditionFactory(Summor<N> summor) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public MultaryAdditionFactory(Summor<N> summor, Class<N> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.summor = summor;
 	}
 

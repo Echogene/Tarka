@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class BinaryUnionFactory<T extends Nameable> extends AbstractUnionFactory<T> {
 
-	public BinaryUnionFactory() {
-		super(getCheckers());
+	public BinaryUnionFactory(Class<T> universeType) {
+		super(getCheckers(), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

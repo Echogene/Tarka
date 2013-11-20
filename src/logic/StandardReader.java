@@ -25,25 +25,25 @@ import java.util.List;
  */
 public class StandardReader {
 	public static <T extends Nameable> SimpleLogicReaderImpl<T> createStandardReader(Universe<T> universe) {
-		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories();
+		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories(universe.getTypeOfUniverse());
 		return new SimpleLogicReaderImpl<>(factories, universe);
 	}
 
-	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories() {
+	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories(Class<T> universeType) {
 		List<FunctionFactory<T, ?, ?>> output = new ArrayList<>();
-		output.add(new IdentityFunctionFactory<>());
-		output.add(new EqualityPredicateFactory<>());
-		output.add(new MembershipPredicateFactory<>());
-		output.add(new BinaryStatementFactory<>());
-		output.add(new UnaryStatementFactory<>());
-		output.add(new QuantifiedStatementFactory<>());
-		output.add(new BinaryUnionFactory<>());
-		output.add(new MultaryUnionFactory<>());
-		output.add(new AssignmentFactory<>());
-		output.add(new RestrictedQuantifiedStatementFactory<>());
-		output.add(new DefinitionFactory<>());
-		output.add(new SimpleSetFactory<>());
-		output.add(new IfElseFactory<>());
+		output.add(new IdentityFunctionFactory<>(universeType));
+		output.add(new EqualityPredicateFactory<>(universeType));
+		output.add(new MembershipPredicateFactory<>(universeType));
+		output.add(new BinaryStatementFactory<>(universeType));
+		output.add(new UnaryStatementFactory<>(universeType));
+		output.add(new QuantifiedStatementFactory<>(universeType));
+		output.add(new BinaryUnionFactory<>(universeType));
+		output.add(new MultaryUnionFactory<>(universeType));
+		output.add(new AssignmentFactory<>(universeType));
+		output.add(new RestrictedQuantifiedStatementFactory<>(universeType));
+		output.add(new DefinitionFactory<>(universeType));
+		output.add(new SimpleSetFactory<>(universeType));
+		output.add(new IfElseFactory<>(universeType));
 		return output;
 	}
 }

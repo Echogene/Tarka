@@ -38,8 +38,10 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 
 	private final TokenValidator tokenValidator;
 	private final FunctionValidator functionValidator;
+	private final Class<D> universeType;
 
-	protected FunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs) {
+	protected FunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<D> universeType) {
+		this.universeType = universeType;
 		tokenValidator = new SimpleLogicTokenValidator(checkers, acceptedBracketPairs);
 		functionValidator = new SimpleLogicFunctionValidator(extractFunctionCheckers(checkers));
 	}
@@ -90,5 +92,9 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	@Override
 	public String toString() {
 		return getClass().getSimpleName();
+	}
+
+	protected Class<D> getUniverseType() {
+		return universeType;
 	}
 }

@@ -1,6 +1,5 @@
 package maths.number.integer.functions.addition;
 
-import logic.TestClass;
 import logic.factory.FactoryTest;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
@@ -23,8 +22,8 @@ public class BinaryAdditionFactoryTest extends FactoryTest<BinaryAdditionFactory
 	public BinaryAdditionFactoryTest() {
 		super();
 		summor  = new IntegerSummor();
-		factory = new BinaryAdditionFactory<>(summor);
-		functionFactory = new IdentityFunctionFactory<TestClass>();
+		factory = new BinaryAdditionFactory<>(summor, Integer.class);
+		functionFactory = new IdentityFunctionFactory<>(Integer.class);
 	}
 
 	@Test

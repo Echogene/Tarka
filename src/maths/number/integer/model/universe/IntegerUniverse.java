@@ -52,16 +52,22 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 
 	@Override
 	public Class<Integer> getTypeOfUniverse() {
-		throw new NotImplementedException();
+		return Integer.class;
 	}
 
 	@Override
 	public boolean contains(String value) {
-		throw new NotImplementedException();
+		return ℤ.contains(value) || variables.contains(value);
 	}
 
 	@Override
 	public Type getTypeOfElement(String value) {
-		throw new NotImplementedException();
+		if (ℤ.contains(value)) {
+			return Integer.class;
+		} else if (variables.contains(value)) {
+			return variables.get(value).getClass();
+		} else {
+			return null;
+		}
 	}
 }

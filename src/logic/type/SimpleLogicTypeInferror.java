@@ -12,14 +12,12 @@ import util.StringUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.text.MessageFormat.format;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.ClassUtils.safeSimpleName;
+import static util.CollectionUtils.first;
 import static util.CollectionUtils.printMap;
 import static util.TreeUtils.surroundWithParentNodes;
 
@@ -28,28 +26,28 @@ import static util.TreeUtils.surroundWithParentNodes;
  */
 public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror {
 
-	private final Collection<VariableAssignerFactory> factories;
-
 	private final Universe<T> universe;
 
 	private HashMap<ParseTreeNode,Type> typeMap;
 	private Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers;
+	private Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners;
 
-	public SimpleLogicTypeInferror(Collection<VariableAssignerFactory> factories, Universe<T> universe) {
-		this.factories = factories;
+	public SimpleLogicTypeInferror(Universe<T> universe) {
 		this.universe = universe;
 	}
 
 	@Override
 	public synchronized Map<ParseTreeNode, Type> inferTypes(
 			ParseTree tree,
-			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers
+			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
+			Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
 	) throws TypeInferrorException {
 		if (tree == null) {
 			return null;
 		}
 		typeMap = new HashMap<>();
 		this.passedMatchers = passedMatchers;
+		this.passedAssigners = passedAssigners;
 		ParseTreeNode firstNode = tree.getFirstNode();
 		Type type = inferType(firstNode.getChildren(), new HashMap<>());
 		typeMap.put(firstNode, type);
@@ -110,7 +108,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				VariableAssignerFactory,
 				Map<String, Type>
 		> variableAssignments = new MapWithErrors<>(
-				factories,
+				passedAssigners.get(first(surroundedNodes)),
 				(VariableAssignerFactory factory) -> factory.assignVariableTypes(surroundedNodes, functionTypes)
 		);
 		if (variableAssignments.hasAmbiguousPasses()) {
@@ -135,7 +133,13 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (variableAssignments.hasTotallyUniquePass()) {
 			Map<String, Type> assignedVariableTypes = variableAssignments.getUniquePassedValue();
 			assignedVariableTypes.putAll(variablesTypes);
-			functionTypesAfterAssignment = inferChildTypes(nodes, assignedVariableTypes);
+			List<ParseTreeNode> childrenNodes = new ArrayList<>();
+			for (ParseTreeNode node : nodes) {
+				if (shouldWalkDownAt(node)) {
+					childrenNodes.add(node);
+				}
+			}
+			functionTypesAfterAssignment = inferChildTypes(childrenNodes, assignedVariableTypes);
 		} else {
 			functionTypesAfterAssignment = functionTypes;
 		}

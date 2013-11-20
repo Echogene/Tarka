@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class MembershipPredicateFactory<T extends Nameable> extends PredicateFactory<T, MembershipPredicate<T>> {
 
-	public MembershipPredicateFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public MembershipPredicateFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

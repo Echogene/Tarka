@@ -18,9 +18,9 @@ public class UnaryStatementFactoryTest extends FactoryTest<UnaryStatementFactory
 
 	public UnaryStatementFactoryTest() {
 		lexer   = new SimpleLogicLexer();
-		factory = new UnaryStatementFactory<>();
+		factory = new UnaryStatementFactory<>(TestClass.class);
 		connectiveFactory = new UnaryConnectiveFactory();
-		functionFactory = new EqualityPredicateFactory<>();
+		functionFactory = new EqualityPredicateFactory<>(TestClass.class);
 	}
 
 	@Test

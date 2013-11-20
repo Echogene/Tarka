@@ -17,9 +17,9 @@ public class BinaryStatementFactoryTest extends FactoryTest<BinaryStatementFacto
 
 	public BinaryStatementFactoryTest() {
 		super();
-		factory = new BinaryStatementFactory<>();
+		factory = new BinaryStatementFactory<>(TestClass.class);
 		connectiveFactory = new BinaryConnectiveFactory();
-		functionFactory = new EqualityPredicateFactory<>();
+		functionFactory = new EqualityPredicateFactory<>(TestClass.class);
 	}
 
 	@Test

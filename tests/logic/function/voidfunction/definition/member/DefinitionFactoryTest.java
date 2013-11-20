@@ -14,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 public class DefinitionFactoryTest extends FactoryTest<DefinitionFactory<Integer>> {
 
 	public DefinitionFactoryTest() {
-		factory = new DefinitionFactory<>();
-		functionFactory = new IdentityFunctionFactory<Integer>();
+		factory = new DefinitionFactory<>(Integer.class);
+		functionFactory = new IdentityFunctionFactory<>(Integer.class);
 	}
 
 	@Test

@@ -29,8 +29,8 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	public static final String IF = "if";
 	public static final String OTHERWISE = "otherwise";
 
-	public IfElseFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public IfElseFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class MembershipPredicateFactoryTest extends FactoryTest<MembershipPredicateFactory<TestClass>> {
 
 	public MembershipPredicateFactoryTest() {
-		factory = new MembershipPredicateFactory<>();
+		factory = new MembershipPredicateFactory<>(TestClass.class);
 	}
 
 	@Test

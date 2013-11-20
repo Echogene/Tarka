@@ -32,8 +32,8 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	public static final String WHERE = "where";
 	public static final String IS = "is";
 
-	public AssignmentFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public AssignmentFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

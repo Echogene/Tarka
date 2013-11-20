@@ -20,8 +20,8 @@ public class IntervalFunctionFactoryTest extends FactoryTest<IntervalFunctionFac
 
 	public IntervalFunctionFactoryTest() {
 		intervalFactory = new FiniteIntegerIntervalFactory();
-		factory = new IntervalFunctionFactory<>(intervalFactory);
-		identityFunctionFactory = new IdentityFunctionFactory<>();
+		factory = new IntervalFunctionFactory<>(intervalFactory, Integer.class);
+		identityFunctionFactory = new IdentityFunctionFactory<>(Integer.class);
 	}
 
 	@Test

@@ -31,8 +31,8 @@ import static logic.function.voidfunction.definition.member.MemberDefinition.DEF
  */
 public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, Definition<T, ?>> implements VariableAssignerFactory {
 
-	public DefinitionFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public DefinitionFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

@@ -27,8 +27,8 @@ public class BinaryAdditionFactory<N extends Number> extends ReflexiveFunctionFa
 
 	private final Summor<N> summor;
 
-	public BinaryAdditionFactory(Summor<N> summor) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public BinaryAdditionFactory(Summor<N> summor, Class<N> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.summor = summor;
 	}
 

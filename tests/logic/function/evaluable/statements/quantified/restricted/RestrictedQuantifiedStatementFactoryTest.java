@@ -20,9 +20,9 @@ public class RestrictedQuantifiedStatementFactoryTest extends FactoryTest<Restri
 	private static QuantifierFactory quantifierFactory;
 
 	public RestrictedQuantifiedStatementFactoryTest() {
-		factory = new RestrictedQuantifiedStatementFactory<>();
+		factory = new RestrictedQuantifiedStatementFactory<>(TestClass.class);
 		quantifierFactory = new QuantifierFactory();
-		functionFactory = new EqualityPredicateFactory<>();
+		functionFactory = new EqualityPredicateFactory<>(TestClass.class);
 	}
 
 	@Test

@@ -14,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 public class AssignmentFactoryTest extends FactoryTest<AssignmentFactory<TestClass>> {
 
 	public AssignmentFactoryTest() {
-		factory = new AssignmentFactory<>();
-		functionFactory = new IdentityFunctionFactory<TestClass>();
+		factory = new AssignmentFactory<>(TestClass.class);
+		functionFactory = new IdentityFunctionFactory<>(TestClass.class);
 	}
 
 	@Test

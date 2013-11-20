@@ -80,7 +80,7 @@ public class FunctionfulChecker extends AtomicChecker {
 				"{0} where in {1} surrounded with {2}",
 				getClass().getSimpleName(),
 				CollectionUtils.simpleNames(acceptedFunctionClasses),
-				acceptedBracketPairs
+				acceptedBracketPairs.isEmpty() ? "any brackets" : acceptedBracketPairs
 		);
 	}
 }

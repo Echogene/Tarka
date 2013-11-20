@@ -32,8 +32,8 @@ public class IdentityFunctionFactory<T extends Nameable>
 				ConstructorFromString<MemberIdentityFunction<T>>,
 				IdentityConstructorFromType<T>  {
 
-	public IdentityFunctionFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public IdentityFunctionFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

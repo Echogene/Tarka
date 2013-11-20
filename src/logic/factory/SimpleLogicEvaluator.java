@@ -16,12 +16,17 @@ import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 import util.StringUtils;
 import util.TreeUtils;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.CollectionUtils.first;
 
@@ -37,14 +42,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
 		this.factories = factories;
 
-		Collection<VariableAssignerFactory> variableAssignerFactories = new HashSet<>();
-		for (FunctionFactory<T, ?, ?> factory : factories) {
-			if (factory instanceof VariableAssignerFactory) {
-				variableAssignerFactories.add((VariableAssignerFactory) factory);
-			}
-		}
 		identityConstructorFromType = getIdentityConstructorFromType(factories);
-		typeInferror = new SimpleLogicTypeInferror<>(variableAssignerFactories, universe);
+		typeInferror = new SimpleLogicTypeInferror<>(universe);
 	}
 
 	private IdentityConstructorFromType<T> getIdentityConstructorFromType(List<FunctionFactory<T, ?, ?>> factories) {
@@ -66,16 +65,20 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 		// Validate tokens recursively
 		final Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories = new HashMap<>();
+		final Map<ParseTreeNode, List<VariableAssignerFactory>> passedAssigners = new HashMap<>();
 		headRecurse(firstChildren, children -> {
-			passedFactories.put(first(children).getMother(), validateTokens(TreeUtils.extractTokens(children)));
+			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = validateTokens(TreeUtils.extractTokens(children));
+			ParseTreeNode key = first(children).getMother();
+			passedAssigners.put(key, CollectionUtils.filterList(passedFactoriesForNode, VariableAssignerFactory.class));
+			passedFactories.put(key, passedFactoriesForNode);
 		});
 
-		final Map<ParseTreeNode, Type> types = typeInferror.inferTypes(tree, passedFactories);
+		final Map<ParseTreeNode, Type> types = typeInferror.inferTypes(tree, passedFactories, passedAssigners);
 
 		// Create functions for the typed nodes
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
 		for (ParseTreeNode node : tree.getNodes()) {
-			if (types.containsKey(node)) {
+			if (types.containsKey(node) && node.getToken().isOfType(NAME)) {
 				identityFunctions.put(
 						node,
 						identityConstructorFromType.create(

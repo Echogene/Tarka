@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class SimpleSetFactoryTest extends FactoryTest<SimpleSetFactory<Integer>> {
 
 	public SimpleSetFactoryTest() {
-		factory = new SimpleSetFactory<>();
+		factory = new SimpleSetFactory<>(Integer.class);
 	}
 
 	@Test

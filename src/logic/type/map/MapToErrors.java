@@ -67,7 +67,14 @@ public class MapToErrors<K> implements ErrorMap {
 
 	@Override
 	public String concatenateErrorMessages() {
-		return StringUtils.join(failedValues.values(), "\n");
+		StringBuilder sb = new StringBuilder();
+		for (Map.Entry<K, String> entry : failedValues.entrySet()) {
+			sb.append(entry.getKey());
+			sb.append(" → \n");
+			sb.append(StringUtils.addCharacterAfterEveryNewline(entry.getValue(), '\t'));
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 
 	@Override

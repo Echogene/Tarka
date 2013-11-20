@@ -22,8 +22,8 @@ import static logic.function.factory.validation.checking.CheckerWithNumber.Numbe
  */
 public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, SimpleSet<T>> {
 
-	public SimpleSetFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("{", "}")));
+	public SimpleSetFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("{", "}")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

@@ -37,8 +37,8 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 
 	private final QuantifierFactory quantifierFactory;
 
-	public RestrictedQuantifiedStatementFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public RestrictedQuantifiedStatementFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.quantifierFactory = new QuantifierFactory();
 	}
 

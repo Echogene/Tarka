@@ -23,8 +23,8 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 
 	private final BinaryConnectiveFactory binaryConnectiveFactory;
 
-	public BinaryStatementFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public BinaryStatementFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.binaryConnectiveFactory = new BinaryConnectiveFactory();
 	}
 

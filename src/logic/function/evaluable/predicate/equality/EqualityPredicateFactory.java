@@ -33,8 +33,8 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 		return new EqualityPredicate<>(equorFunction, equandFunction);
 	}
 
-	public EqualityPredicateFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public EqualityPredicateFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

@@ -26,8 +26,8 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 
 	private final Subtractor<N> subtractor;
 
-	public SubtractionFactory(Subtractor<N> subtractor) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public SubtractionFactory(Subtractor<N> subtractor, Class<N> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.subtractor = subtractor;
 	}
 

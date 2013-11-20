@@ -31,8 +31,8 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 
 	private final QuantifierFactory quantifierFactory;
 
-	public QuantifiedStatementFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public QuantifiedStatementFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.quantifierFactory = new QuantifierFactory();
 	}
 
@@ -45,17 +45,19 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+	public Map<String, Type> assignVariableTypes(
+			List<ParseTreeNode> nodes,
+			MapWithErrors<ParseTreeNode, Type> functionTypes
+	) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
-		Type UNIVERSE_TYPE = maths.number.integer.Integer.class; //todo
-		return Collections.singletonMap(variable, UNIVERSE_TYPE);
+		return Collections.<String, Type>singletonMap(variable, getUniverseType());
 	}
 
 	@Override
 	public QuantifiedStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();
-		Evaluable<T> evaluable = (Evaluable<T>) functions.get(1);
+		Evaluable<T> evaluable = (Evaluable<T>) functions.get(0);
 		return new QuantifiedStatement<>(quantifier, variable, evaluable);
 	}
 }

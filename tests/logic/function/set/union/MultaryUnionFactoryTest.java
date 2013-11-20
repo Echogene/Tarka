@@ -13,8 +13,8 @@ import static org.junit.Assert.assertEquals;
 public class MultaryUnionFactoryTest extends FactoryTest<MultaryUnionFactory<TestClass>> {
 
 	public MultaryUnionFactoryTest() {
-		factory = new MultaryUnionFactory<>();
-		functionFactory = new IdentityFunctionFactory<>();
+		factory = new MultaryUnionFactory<>(TestClass.class);
+		functionFactory = new IdentityFunctionFactory<>(TestClass.class);
 	}
 
 	@Test

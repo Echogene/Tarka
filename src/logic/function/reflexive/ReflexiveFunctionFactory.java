@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends ReflexiveFunction<T>>
 		extends FunctionFactory<T, T, F> {
 
-	protected ReflexiveFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs) {
-		super(checkers, acceptedBracketPairs);
+	protected ReflexiveFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<T> universeType) {
+		super(checkers, acceptedBracketPairs, universeType);
 	}
 }

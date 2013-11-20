@@ -17,9 +17,9 @@ public class QuantifiedStatementFactoryTest extends FactoryTest<QuantifiedStatem
 	private static QuantifierFactory quantifierFactory;
 	
 	public QuantifiedStatementFactoryTest() {
-		factory = new QuantifiedStatementFactory<>();
+		factory = new QuantifiedStatementFactory<>(TestClass.class);
 		quantifierFactory = new QuantifierFactory();
-		functionFactory = new EqualityPredicateFactory<>();
+		functionFactory = new EqualityPredicateFactory<>(TestClass.class);
 	}
 
 	@Test

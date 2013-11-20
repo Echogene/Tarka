@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class IdentityFunctionFactoryTest extends FactoryTest<IdentityFunctionFactory<TestClass>> {
 
 	public IdentityFunctionFactoryTest() {
-		factory = new IdentityFunctionFactory<>();
+		factory = new IdentityFunctionFactory<>(TestClass.class);
 	}
 
 	@Test

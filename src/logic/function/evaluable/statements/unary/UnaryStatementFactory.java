@@ -23,8 +23,8 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 
 	private final UnaryConnectiveFactory unaryConnectiveFactory;
 
-	public UnaryStatementFactory() {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")));
+	public UnaryStatementFactory(Class<T> universeType) {
+		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 		this.unaryConnectiveFactory = new UnaryConnectiveFactory();
 	}
 

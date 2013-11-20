@@ -16,8 +16,8 @@ import java.util.List;
  */
 public abstract class EvaluableFactory<T extends Nameable, F extends Evaluable<T>> extends FunctionFactory<T, Boolean, F> {
 
-	protected EvaluableFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs) {
-		super(checkers, acceptedBracketPairs);
+	protected EvaluableFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<T> universeType) {
+		super(checkers, acceptedBracketPairs, universeType);
 	}
 
 	@Override

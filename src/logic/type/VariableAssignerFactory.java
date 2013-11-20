@@ -14,6 +14,7 @@ public interface VariableAssignerFactory {
 
 	/**
 	 * Return a map from variable names to the represented type given the nodes and function types.
+	 *
 	 * @param nodes the nodes to analyse (including surrounding brackets)
 	 * @param functionTypes
 	 * @return

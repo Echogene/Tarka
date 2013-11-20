@@ -72,4 +72,14 @@ public class CollectionUtils {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	public static <T, U> List<U> filterList(List<T> collection, Class<U> clazz) {
+		List<U> output = new ArrayList<>();
+		for (T t : collection) {
+			if (clazz.isInstance(t)) {
+				output.add(clazz.cast(t));
+			}
+		}
+		return output;
+	}
 }

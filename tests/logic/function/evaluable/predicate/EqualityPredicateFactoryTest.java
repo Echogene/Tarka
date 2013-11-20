@@ -15,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 public class EqualityPredicateFactoryTest extends FactoryTest<EqualityPredicateFactory<TestClass>> {
 
 	public EqualityPredicateFactoryTest() {
-		factory = new EqualityPredicateFactory<>();
-		functionFactory = new IdentityFunctionFactory<TestClass>();
+		factory = new EqualityPredicateFactory<>(TestClass.class);
+		functionFactory = new IdentityFunctionFactory<>(TestClass.class);
 	}
 
 	@Test

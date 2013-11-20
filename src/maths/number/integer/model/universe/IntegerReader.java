@@ -19,10 +19,11 @@ import java.util.List;
  */
 public class IntegerReader {
 	public static SimpleLogicReaderImpl<Integer> createStandardReader(Universe<Integer> universe) {
-		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories();
-		factories.add(new BinaryAdditionFactory<>(new IntegerSummor()));
-		factories.add(new SubtractionFactory<>(new IntegerSubtractor()));
-		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory()));
+		Class<Integer> universeType = universe.getTypeOfUniverse();
+		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories(universeType);
+		factories.add(new BinaryAdditionFactory<>(new IntegerSummor(), universeType));
+		factories.add(new SubtractionFactory<>(new IntegerSubtractor(), universeType));
+		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory(), universeType));
 		return new SimpleLogicReaderImpl<>(factories, universe);
 	}
 }
