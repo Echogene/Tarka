@@ -11,6 +11,7 @@ import reading.parsing.ParseTreeNode;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +114,12 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				(VariableAssignerFactory factory) -> factory.assignVariableTypes(surroundedNodes, functionTypes)
 		);
 		if (variableAssignments.hasAmbiguousPasses()) {
-			throw new TypeInferrorException("Ambiguous assignment for " + surroundedNodes.toString() + ".");
+			throw new TypeInferrorException(
+					MessageFormat.format(
+							"Ambiguous assignment for {0}.",
+							surroundedNodes.toString()
+					)
+			);
 		}
 		return variableAssignments;
 	}
