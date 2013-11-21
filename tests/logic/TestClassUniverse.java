@@ -7,7 +7,9 @@ import logic.set.Uniter;
 import logic.set.finite.StandardSet;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * @author Steven Weston
@@ -18,6 +20,7 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	protected StandardSet<Set<TestClass>> universalSetOfSets;
 
 	protected StandardSet<Object> variableSet;
+	private final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 
 	@Override
 	public Dictionary<TestClass> getUniversalSet() {
@@ -61,13 +64,18 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	public boolean contains(String value) {
 		return variableSet.contains(value)
 				|| universalSet.contains(value)
-				|| universalSetOfSets.contains(value);
+				|| universalSetOfSets.contains(value)
+				|| logicalConstants.contains(value);
 	}
 
 	@Override
 	public Type getTypeOfElement(String value) {
 		if (variableSet.contains(value)) {
 			return variableSet.get(value).getClass();
+		} else if (universalSetOfSets.contains(value)) {
+			return Set.class;
+		} else if (logicalConstants.contains(value)) {
+			return Boolean.class;
 		} else {
 			return TestClass.class;
 		}
@@ -100,5 +108,13 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 
 	public void put(String s) {
 		universalSet.put(s, new TestClass(s));
+	}
+
+	public void putSet(String setName, String... elements) {
+		StandardSet<TestClass> set = new StandardSet<>(setName);
+		for (String element : elements) {
+			set.put(universalSet.get(element));
+		}
+		universalSetOfSets.put(setName, set);
 	}
 }

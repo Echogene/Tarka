@@ -65,7 +65,8 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 		boolean areFunctionsBothNull = function == null && other.function == null;
 		boolean areFunctionsEqual = areFunctionsBothNull
 				|| (function != null && function.equals(other.function));
-		return areParametersEqual && areFunctionsEqual;
+		boolean areClassesEqual = o.getClass().isInstance(this) || getClass().isInstance(o);
+		return areParametersEqual && areFunctionsEqual && areClassesEqual;
 	}
 
 	@Override
