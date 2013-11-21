@@ -47,6 +47,11 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
+	public int hashCode() {
+		return parameters != null ? parameters.hashCode() : 0;
+	}
+
+	@Override
 	public String toString() {
 		if (parameters.size() == 2) {
 			Iterator<SetFunction<T>> iterator = parameters.iterator();

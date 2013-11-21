@@ -15,6 +15,7 @@ import logic.function.evaluable.statements.unary.UnaryStatement;
 import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.identity.SetIdentityFunction;
+import logic.function.set.union.AbstractUnionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -37,6 +38,7 @@ public class SimpleLogicReaderTest {
 		universe.put("x");
 		universe.put("y");
 		universe.putSet("X", "x");
+		universe.putSet("Y", "y");
 		reader = StandardReader.createStandardReader(universe);
 	}
 
@@ -199,6 +201,52 @@ public class SimpleLogicReaderTest {
 				EqualityPredicateFactory.createElement("a", "x")
 		);
 		actual = reader.read("(∀a(a = x))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateBinaryUnion() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = AbstractUnionFactory.createElement("X", "Y");
+		actual = reader.read("(X ∪ Y)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateNestedBinaryUnion() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = AbstractUnionFactory.createElement(
+				AbstractUnionFactory.<TestClass>createElement("X", "Y"),
+				AbstractUnionFactory.<TestClass>createElement("Y", "X")
+		);
+		actual = reader.read("((X ∪ Y) ∪ (Y ∪ X))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateMultaryUnion() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = AbstractUnionFactory.createElement("X", "Y");
+		actual = reader.read("(⋃ X Y)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateNestedMultaryUnion() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = AbstractUnionFactory.createElement(
+				AbstractUnionFactory.<TestClass>createElement("X", "Y"),
+				AbstractUnionFactory.<TestClass>createElement("Y", "X")
+		);
+		actual = reader.read("(⋃ (X ∪ Y) (Y ∪ X))");
 		assertEquals(expected, actual);
 	}
 
