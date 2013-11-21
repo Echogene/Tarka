@@ -34,6 +34,16 @@ public class SimpleLogicReaderTest {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testCreateNestedMemberIdentityFunction() throws Exception {
+		Function<?, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<>("x"));
+		actual = reader.read("((x))");
+		assertEquals(expected, actual);
+	}
+
 //	@Test
 //	public void testRead() throws Exception {
 //		Function<?, ?> expected;
