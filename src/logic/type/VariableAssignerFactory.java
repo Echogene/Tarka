@@ -24,4 +24,6 @@ public interface VariableAssignerFactory {
 			List<ParseTreeNode> nodes,
 			MapWithErrors<ParseTreeNode, Type> functionTypes
 	) throws VariableAssignmentTypeException;
+
+	boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes);
 }

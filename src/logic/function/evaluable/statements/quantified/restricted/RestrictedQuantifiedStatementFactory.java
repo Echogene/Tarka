@@ -60,6 +60,11 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	}
 
 	@Override
+	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
+		return nodes.indexOf(node) > 3;
+	}
+
+	@Override
 	public RestrictedQuantifiedStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();

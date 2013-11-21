@@ -107,6 +107,14 @@ public class MapWithErrors<K, V> implements ErrorMap {
 		}
 	}
 
+	public K getUniquePassedKey() {
+		if (hasTotallyUniquePass()) {
+			return passedValues.keySet().iterator().next();
+		} else {
+			return null;
+		}
+	}
+
 	public Map<K, V> getPassedValues() {
 		return passedValues;
 	}

@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static logic.function.voidfunction.definition.member.MemberDefinition.DEFINITION_SYMBOL;
 
 /**
@@ -54,6 +55,11 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 		String variableName = nodes.get(1).getToken().getValue();
 		Type type = functionTypes.getPassedValues().get(nodes.get(3));
 		return Collections.singletonMap(variableName, type);
+	}
+
+	@Override
+	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
+		return node.getToken().isOfType(OPEN_BRACKET);
 	}
 
 	@Override
