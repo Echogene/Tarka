@@ -50,6 +50,10 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		}
 		groups.addAll(groupTokens(CollectionUtils.stripFirstAndLast(tokens)));
 		MapToErrors<TokenGroup> errors = new MapToErrors<>(groups, this::checkToken);
+		if (currentChecker.hasNext()
+				|| (currentChecker.current() != null && currentChecker.current().getNumber() == ONE)) {
+			throw new TokenValidationException("There were too many checkers.");
+		}
 		return errors;
 	}
 

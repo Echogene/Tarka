@@ -11,7 +11,6 @@ import logic.set.Dictionary;
  */
 class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
-	public static final String IDENTITY_NAME = "id";
 	protected String parameter;
 	protected Function<D, C> function;
 

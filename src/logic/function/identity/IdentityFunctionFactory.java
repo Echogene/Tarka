@@ -59,7 +59,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	@Override
 	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		Function<?, ?> function = functions.get(0);
-		if (tokens.get(0).isOfType(OPEN_BRACKET)) {
+		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?>) {
 				return new MemberIdentityFunction<>((ReflexiveFunction<T>) function);
 			} else if (function instanceof Evaluable<?>) {
