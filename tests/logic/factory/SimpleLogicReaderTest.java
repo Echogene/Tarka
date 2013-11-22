@@ -19,6 +19,7 @@ import logic.function.evaluable.statements.unary.UnaryStatement;
 import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.identity.SetIdentityFunction;
+import logic.function.ifelse.ReflexiveIfElse;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.AbstractUnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinition;
@@ -573,6 +574,69 @@ public class SimpleLogicReaderTest {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testCreateReflexiveIfElse() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveIfElse<TestClass>(
+				new EvaluableIdentityFunction<TestClass>("⊤"),
+				new MemberIdentityFunction<TestClass>("x"),
+				new MemberIdentityFunction<TestClass>("y")
+		);
+		actual = reader.read("(x if ⊤ otherwise y)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadNestedReflexiveIfElse() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveIfElse<TestClass>(
+				new EvaluableIdentityFunction<TestClass>("⊤"),
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("a"),
+						"a",
+						new MemberIdentityFunction<TestClass>("x")
+				),
+				new MemberIdentityFunction<TestClass>("y")
+		);
+		actual = reader.read("((a where a is x) if ⊤ otherwise y)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateMidNestedReflexiveIfElse() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveIfElse<TestClass>(
+				EqualityPredicateFactory.createElement("x", "y"),
+				new MemberIdentityFunction<TestClass>("x"),
+				new MemberIdentityFunction<TestClass>("y")
+		);
+		actual = reader.read("(x if (x = y) otherwise y)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateTailNestedReflexiveIfElse() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveIfElse<TestClass>(
+				new EvaluableIdentityFunction<TestClass>("⊤"),
+				new MemberIdentityFunction<TestClass>("x"),
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("a"),
+						"a",
+						new MemberIdentityFunction<TestClass>("y")
+				)
+		);
+		actual = reader.read("(x if ⊤ otherwise (a where a is y))");
+		assertEquals(expected, actual);
+	}
 
 //	@Test
 //	public void testRead() throws Exception {
