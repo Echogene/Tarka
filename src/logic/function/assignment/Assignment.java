@@ -41,6 +41,8 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 		Assignment other = (Assignment) o;
 		return this.evaluee.equals(other.evaluee)
 				&& this.assignee.equals(other.assignee)
-				&& this.assingment.equals(other.assingment);
+				&& this.assingment.equals(other.assingment)
+				&& (this.getClass().isInstance(other)
+					|| other.getClass().isInstance(this));
 	}
 }

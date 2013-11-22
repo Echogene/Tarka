@@ -4,6 +4,8 @@ import logic.StandardReader;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.Function;
+import logic.function.assignment.ReflexiveAssignment;
+import logic.function.assignment.SetAssignment;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryConnectiveFactory;
@@ -142,9 +144,9 @@ public class SimpleLogicReaderTest {
 		Function<?, ?> actual;
 
 		expected = new BinaryStatement<TestClass>(
-				EqualityPredicateFactory.createElement("x", "y"),
+				EqualityPredicateFactory.<TestClass>createElement("x", "y"),
 				binaryConnectiveFactory.createElement("∧"),
-				MembershipPredicateFactory.createElement("x", "X")
+				MembershipPredicateFactory.<TestClass>createElement("x", "X")
 		);
 		actual = reader.read("((x = y) ∧ (x ∊ X))");
 		assertEquals(expected, actual);
@@ -247,6 +249,150 @@ public class SimpleLogicReaderTest {
 				AbstractUnionFactory.<TestClass>createElement("Y", "X")
 		);
 		actual = reader.read("(⋃ (X ∪ Y) (Y ∪ X))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateReflexiveAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveAssignment<TestClass>(
+				new MemberIdentityFunction<TestClass>("a"),
+				"a",
+				new MemberIdentityFunction<TestClass>("x")
+		);
+		actual = reader.read("(a where a is x)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadNestedReflexiveAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveAssignment<TestClass>(
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("b"),
+						"b",
+						new MemberIdentityFunction<TestClass>("a")
+				),
+				"a",
+				new MemberIdentityFunction<TestClass>("x")
+		);
+		actual = reader.read("((b where b is a) where a is x)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateTailNestedReflexiveAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveAssignment<TestClass>(
+				new MemberIdentityFunction<TestClass>("a"),
+				"a",
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("b"),
+						"b",
+						new MemberIdentityFunction<TestClass>("x")
+				)
+		);
+		actual = reader.read("(a where a is (b where b is x))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadAndTailNestedReflexiveAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new ReflexiveAssignment<TestClass>(
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("a"),
+						"a",
+						new MemberIdentityFunction<TestClass>("b")
+				),
+				"b",
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("c"),
+						"c",
+						new MemberIdentityFunction<TestClass>("x")
+				)
+		);
+		actual = reader.read("((a where a is b) where b is (c where c is x))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateSetAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new SetAssignment<TestClass>(
+				new SetIdentityFunction<TestClass>("a"),
+				"a",
+				new SetIdentityFunction<TestClass>("X")
+		);
+		actual = reader.read("(a where a is X)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadNestedSetAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new SetAssignment<TestClass>(
+				new SetAssignment<TestClass>(
+						new SetIdentityFunction<TestClass>("b"),
+						"b",
+						new SetIdentityFunction<TestClass>("a")
+				),
+				"a",
+				new SetIdentityFunction<TestClass>("X")
+		);
+		actual = reader.read("((b where b is a) where a is X)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateTailNestedSetAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new SetAssignment<TestClass>(
+				new SetIdentityFunction<TestClass>("a"),
+				"a",
+				new SetAssignment<TestClass>(
+						new SetIdentityFunction<TestClass>("b"),
+						"b",
+						new SetIdentityFunction<TestClass>("X")
+				)
+		);
+		actual = reader.read("(a where a is (b where b is X))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadAndTailNestedSetAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new SetAssignment<TestClass>(
+				new SetAssignment<TestClass>(
+						new SetIdentityFunction<TestClass>("a"),
+						"a",
+						new SetIdentityFunction<TestClass>("b")
+				),
+				"b",
+				new SetAssignment<TestClass>(
+						new SetIdentityFunction<TestClass>("c"),
+						"c",
+						new SetIdentityFunction<TestClass>("X")
+				)
+		);
+		actual = reader.read("((a where a is b) where b is (c where c is X))");
 		assertEquals(expected, actual);
 	}
 
