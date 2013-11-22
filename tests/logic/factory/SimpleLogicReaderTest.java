@@ -4,6 +4,7 @@ import logic.StandardReader;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.Function;
+import logic.function.assignment.EvaluableAssignment;
 import logic.function.assignment.ReflexiveAssignment;
 import logic.function.assignment.SetAssignment;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
@@ -393,6 +394,78 @@ public class SimpleLogicReaderTest {
 				)
 		);
 		actual = reader.read("((a where a is b) where b is (c where c is X))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateEvaluableAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new EvaluableAssignment<TestClass>(
+				new EvaluableIdentityFunction< TestClass >("a"),
+				"a",
+				new EvaluableIdentityFunction<TestClass>("⊤")
+		);
+		actual = reader.read("(a where a is ⊤)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadNestedEvaluableAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new EvaluableAssignment<TestClass>(
+				new EvaluableAssignment<TestClass>(
+						new EvaluableIdentityFunction<TestClass>("b"),
+						"b",
+						new EvaluableIdentityFunction<TestClass>("a")
+				),
+				"a",
+				new EvaluableIdentityFunction<TestClass>("⊤")
+		);
+		actual = reader.read("((b where b is a) where a is ⊤)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateTailNestedEvaluableAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new EvaluableAssignment<TestClass>(
+				new EvaluableIdentityFunction<TestClass>("a"),
+				"a",
+				new EvaluableAssignment<TestClass>(
+						new EvaluableIdentityFunction<TestClass>("b"),
+						"b",
+						new EvaluableIdentityFunction<TestClass>("⊤")
+				)
+		);
+		actual = reader.read("(a where a is (b where b is ⊤))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateHeadAndTailNestedEvaluableAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new EvaluableAssignment<TestClass>(
+				new EvaluableAssignment<TestClass>(
+						new EvaluableIdentityFunction<TestClass>("a"),
+						"a",
+						new EvaluableIdentityFunction<TestClass>("b")
+				),
+				"b",
+				new EvaluableAssignment<TestClass>(
+						new EvaluableIdentityFunction<TestClass>("c"),
+						"c",
+						new EvaluableIdentityFunction<TestClass>("⊤")
+				)
+		);
+		actual = reader.read("((a where a is b) where b is (c where c is ⊤))");
 		assertEquals(expected, actual);
 	}
 
