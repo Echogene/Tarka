@@ -40,6 +40,15 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 		return new SimpleSet<>(members);
 	}
 
+	@SafeVarargs
+	public static <T extends Nameable> SimpleSet<T> createElement(ReflexiveFunction<T>... members) {
+		java.util.Set<ReflexiveFunction<T>> memberSet = new HashSet<>();
+		for (ReflexiveFunction<T> member : members) {
+			memberSet.add(member);
+		}
+		return new SimpleSet<>(memberSet);
+	}
+
 	@Override
 	public SimpleSet<T> construct(List<Token> tokens, List<Function<?, ?>> functions) {
 		java.util.Set<ReflexiveFunction<T>> members = new HashSet<>();

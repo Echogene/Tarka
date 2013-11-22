@@ -45,4 +45,12 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 				&& (this.getClass().isInstance(other)
 					|| other.getClass().isInstance(this));
 	}
+
+	@Override
+	public int hashCode() {
+		int result = evaluee != null ? evaluee.hashCode() : 0;
+		result = 31 * result + (assignee != null ? assignee.hashCode() : 0);
+		result = 31 * result + (assingment != null ? assingment.hashCode() : 0);
+		return result;
+	}
 }

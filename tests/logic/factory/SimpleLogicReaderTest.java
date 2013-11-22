@@ -11,6 +11,7 @@ import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryConnectiveFactory;
 import logic.function.evaluable.statements.binary.BinaryStatement;
+import logic.function.evaluable.statements.quantified.restricted.RestrictedQuantifiedStatement;
 import logic.function.evaluable.statements.quantified.standard.QuantifiedStatement;
 import logic.function.evaluable.statements.quantified.standard.QuantifierFactory;
 import logic.function.evaluable.statements.unary.UnaryConnectiveFactory;
@@ -18,7 +19,9 @@ import logic.function.evaluable.statements.unary.UnaryStatement;
 import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.identity.SetIdentityFunction;
+import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.AbstractUnionFactory;
+import logic.function.voidfunction.definition.member.MemberDefinition;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -468,6 +471,108 @@ public class SimpleLogicReaderTest {
 		actual = reader.read("((a where a is b) where b is (c where c is ⊤))");
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void testCreateMixedAssignment() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new EvaluableAssignment<TestClass>(
+				EqualityPredicateFactory.<TestClass>createElement("a",  "x"),
+				"a",
+				new MemberIdentityFunction<TestClass>("x")
+		);
+		actual = reader.read("((a = x) where a is x)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateRestrictedQuantifiedStatement() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new RestrictedQuantifiedStatement<TestClass>(
+				quantifierFactory.createElement("∀"),
+				"a",
+				new SetIdentityFunction<TestClass>("X"),
+				new EvaluableIdentityFunction<TestClass>("⊤")
+		);
+		actual = reader.read("(∀a ∊ X ⊤)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateNestedRestrictedQuantifiedStatement() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new RestrictedQuantifiedStatement<TestClass>(
+				quantifierFactory.createElement("∀"),
+				"a",
+				new SetIdentityFunction<TestClass>("X"),
+				EqualityPredicateFactory.createElement("a", "x")
+		);
+		actual = reader.read("(∀a ∊ X (a = x))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateMemberDefinition() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new MemberDefinition<TestClass>(
+				"a",
+				new MemberIdentityFunction<TestClass>("x")
+		);
+		actual = reader.read("(a ≔ x)");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateNestedMemberDefinition() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = new MemberDefinition<TestClass>(
+				"a",
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("b"),
+						"b",
+						new MemberIdentityFunction<TestClass>("x")
+				)
+		);
+		actual = reader.read("(a ≔ (b where b is x))");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateSimpleSet() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = SimpleSetFactory.<TestClass>createElement("x", "y");
+		actual = reader.read("{x y}");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testCreateNestedSimpleSet() throws Exception {
+		Function<TestClass, ?> expected;
+		Function<?, ?> actual;
+
+		expected = SimpleSetFactory.<TestClass>createElement(
+				new MemberIdentityFunction<TestClass>("x"),
+				new ReflexiveAssignment<TestClass>(
+						new MemberIdentityFunction<TestClass>("a"),
+						"a",
+						new MemberIdentityFunction<TestClass>("y")
+				)
+		);
+		actual = reader.read("{x (a where a is y)}");
+		assertEquals(expected, actual);
+	}
+
 
 //	@Test
 //	public void testRead() throws Exception {

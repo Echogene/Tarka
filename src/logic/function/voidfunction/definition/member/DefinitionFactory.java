@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static logic.function.voidfunction.definition.member.MemberDefinition.DEFINITION_SYMBOL;
 
 /**
@@ -59,7 +58,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 
 	@Override
 	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
-		return node.getToken().isOfType(OPEN_BRACKET);
+		return nodes.indexOf(node) > 1;
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 
 	@Override
 	public Definition<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) {
-		Function<?, ?> definition = functions.get(1);
+		Function<?, ?> definition = functions.get(0);
 		String variableName = tokens.get(1).getValue();
 		if (definition instanceof ReflexiveFunction<?>) {
 			return new MemberDefinition<>(variableName, (ReflexiveFunction<T>) definition);

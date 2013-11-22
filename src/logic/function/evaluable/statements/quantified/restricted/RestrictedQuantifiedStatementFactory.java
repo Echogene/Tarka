@@ -55,8 +55,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	@Override
 	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
-		Type UNIVERSE_TYPE = maths.number.integer.Integer.class; //todo
-		return Collections.singletonMap(variable, UNIVERSE_TYPE);
+		return Collections.<String, Type>singletonMap(variable, getUniverseType());
 	}
 
 	@Override
@@ -68,8 +67,8 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	public RestrictedQuantifiedStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();
-		SetFunction<T> setFunction = (SetFunction<T>) functions.get(1);
-		Evaluable<T> evaluable = (Evaluable<T>) functions.get(2);
+		SetFunction<T> setFunction = (SetFunction<T>) functions.get(0);
+		Evaluable<T> evaluable = (Evaluable<T>) functions.get(1);
 		return new RestrictedQuantifiedStatement<>(quantifier, variable, setFunction, evaluable);
 	}
 }
