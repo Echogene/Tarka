@@ -81,6 +81,19 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		}
 	}
 
+	@Override
+	public Object get(String value) {
+		if (variableSet.contains(value)) {
+			return variableSet.get(value);
+		} else if (universalSetOfSets.contains(value)) {
+			return universalSetOfSets.get(value);
+		} else if (logicalConstants.contains(value)) {
+			return value.equals("⊤");
+		} else {
+			return universalSet.get(value);
+		}
+	}
+
 	public TestClassUniverse() {
 		variableSet        = new StandardSet<>("variables");
 		universalSet       = new StandardSet<>("universalSet");

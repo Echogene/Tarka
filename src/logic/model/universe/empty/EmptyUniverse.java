@@ -71,4 +71,9 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T> {
 	public Type getTypeOfElement(String value) {
 		return null;
 	}
+
+	@Override
+	public Object get(String value) {
+		throw new NotImplementedException();
+	}
 }

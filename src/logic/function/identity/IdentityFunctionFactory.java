@@ -76,7 +76,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	public IdentityFunction<T, ?> create(String parameter, Type type) {
 		if (type == Boolean.class) {
 			return new EvaluableIdentityFunction<>(parameter);
-		} else if (type == Set.class) {
+		} else if (type == Set.class || Set.class.isAssignableFrom((Class) type)) {
 			return new SetIdentityFunction<>(parameter);
 		} else {
 			return new MemberIdentityFunction<>(parameter);

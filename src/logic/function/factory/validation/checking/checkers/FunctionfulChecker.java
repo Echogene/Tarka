@@ -65,8 +65,9 @@ public class FunctionfulChecker extends AtomicChecker {
 			if (!classFound) {
 				throw new FunctionValidationException(
 						MessageFormat.format(
-								"{0} was not in any of {1}.",
+								"{0} ({1}) was not in any of {2}.",
 								function.toString(),
+								function.getClass().getSimpleName(),
 								CollectionUtils.simpleNames(acceptedFunctionClasses)
 						)
 				);

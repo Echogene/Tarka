@@ -2,12 +2,13 @@ package logic.function.voidfunction.definition.member;
 
 import logic.Nameable;
 import logic.function.Function;
+import logic.function.voidfunction.VoidFunction;
 import logic.model.universe.Universe;
 
 /**
  * @author Steven Weston
  */
-class Definition<D extends Nameable, C> implements Function<D, Void> {
+class Definition<D extends Nameable, C> implements VoidFunction<D> {
 
 	private String variableName;
 	private Function<D, C> definition;

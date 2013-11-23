@@ -8,6 +8,8 @@ import maths.number.integer.Integer;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Steven Weston
@@ -18,6 +20,7 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	StandardSet<Object> variables;
 
 	StandardSet<Set<Integer>> universalSetOfSets;
+	private final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 
 	public IntegerUniverse() {
 		ℤ = new IntegerSet("ℤ");
@@ -57,7 +60,10 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 
 	@Override
 	public boolean contains(String value) {
-		return ℤ.contains(value) || variables.contains(value);
+		return ℤ.contains(value)
+				|| variables.contains(value)
+				|| universalSetOfSets.contains(value)
+				|| logicalConstants.contains(value);
 	}
 
 	@Override
@@ -66,8 +72,30 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 			return Integer.class;
 		} else if (variables.contains(value)) {
 			return variables.get(value).getClass();
+		} else if (universalSetOfSets.contains(value)) {
+			return Set.class;
+		} else if (logicalConstants.contains(value)) {
+			return Boolean.class;
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Object get(String value) {
+		if (ℤ.contains(value)) {
+			return ℤ.get(value);
+		} else if (variables.contains(value)) {
+			return variables.get(value);
+		} else if (universalSetOfSets.contains(value)) {
+			return universalSetOfSets.get(value);
+		} else if (logicalConstants.contains(value)) {
+			return value.equals("⊤");
+		}
+		throw new UniverseException();
+	}
+
+	private class UniverseException extends RuntimeException {
+
 	}
 }

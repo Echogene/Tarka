@@ -51,4 +51,6 @@ public interface Universe<T extends Nameable> {
 	 * @return
 	 */
 	Type getTypeOfElement(String value);
+
+	Object get(String value);
 }
