@@ -7,6 +7,7 @@ import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.identity.SetIdentityFunction;
 import logic.function.set.SetFunction;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -37,5 +38,10 @@ public class MultaryUnionFactory<T extends Nameable> extends AbstractUnionFactor
 			sets.add(new SetIdentityFunction<>(parameter));
 		}
 		return new Union<>(sets);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }

@@ -82,4 +82,9 @@ public class IdentityFunctionFactory<T extends Nameable>
 			return new MemberIdentityFunction<>(parameter);
 		}
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getSingleVariableWithIndex(nodes, 1);
+	}
 }

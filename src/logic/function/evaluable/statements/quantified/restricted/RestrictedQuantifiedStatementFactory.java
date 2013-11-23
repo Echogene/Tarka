@@ -22,10 +22,9 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
@@ -70,5 +69,25 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 		SetFunction<T> setFunction = (SetFunction<T>) functions.get(0);
 		Evaluable<T> evaluable = (Evaluable<T>) functions.get(1);
 		return new RestrictedQuantifiedStatement<>(quantifier, variable, setFunction, evaluable);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		ParseTreeNode firstNode = nodes.get(4);
+		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {
+			ParseTreeNode secondNode = nodes.get(6);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				return new ArrayList<>();
+			} else {
+				return Arrays.asList(secondNode);
+			}
+		} else {
+			ParseTreeNode secondNode = nodes.get(5);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				return Arrays.asList(firstNode);
+			} else {
+				return Arrays.asList(firstNode, secondNode);
+			}
+		}
 	}
 }

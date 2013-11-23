@@ -18,8 +18,11 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
@@ -76,6 +79,46 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 			return new SetIfElse<>((Evaluable<T>) condition, (SetFunction<T>) ifTrue, (SetFunction<T>) ifFalse);
 		} else {
 			throw new FactoryException("Unknown function type.");
+		}
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		ParseTreeNode firstNode = nodes.get(1);
+		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {
+			ParseTreeNode secondNode = nodes.get(4);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				ParseTreeNode thirdNode = nodes.get(7);
+				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
+					return new ArrayList<>();
+				} else {
+					return Arrays.asList(thirdNode);
+				}
+			} else {
+				ParseTreeNode thirdNode = nodes.get(6);
+				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
+					return Arrays.asList(secondNode);
+				} else {
+					return Arrays.asList(secondNode, thirdNode);
+				}
+			}
+		} else {
+			ParseTreeNode secondNode = nodes.get(3);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				ParseTreeNode thirdNode = nodes.get(6);
+				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
+					return Arrays.asList(firstNode);
+				} else {
+					return Arrays.asList(firstNode, thirdNode);
+				}
+			} else {
+				ParseTreeNode thirdNode = nodes.get(5);
+				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
+					return Arrays.asList(firstNode, secondNode);
+				} else {
+					return Arrays.asList(firstNode, secondNode, thirdNode);
+				}
+			}
 		}
 	}
 }

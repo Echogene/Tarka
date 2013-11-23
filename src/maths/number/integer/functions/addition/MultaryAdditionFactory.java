@@ -54,4 +54,9 @@ public class MultaryAdditionFactory<N extends maths.number.Number> extends Refle
 	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
 		return types.getPassedValues().get(nodes.get(2));
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
+	}
 }

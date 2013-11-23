@@ -13,6 +13,7 @@ import logic.function.identity.SetIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,5 +46,10 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
 		SetFunction<T> equand = (SetFunction<T>) functions.get(1);
 		return new MembershipPredicate<>(equor, equand);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }

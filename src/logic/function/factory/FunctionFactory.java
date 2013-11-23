@@ -21,9 +21,13 @@ import logic.function.factory.validation.token.group.TokenGroup;
 import logic.type.TypeMatcher;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 
 /**
  * @author Steven Weston
@@ -100,5 +104,30 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 
 	protected Class<D> getUniverseType() {
 		return universeType;
+	}
+
+	/**
+	 * Given a list of nodes, return a sublist of those who represent variables
+	 * @param nodes the list of nodes (including surrounding brackets)
+	 * @return
+	 */
+	public abstract List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes);
+
+	protected List<ParseTreeNode> getSingleVariableWithIndex(List<ParseTreeNode> nodes, int index) {
+		ParseTreeNode node = nodes.get(index);
+		if (node.getToken().isOfType(NAME)) {
+			return Arrays.asList(node);
+		}
+		return new ArrayList<>();
+	}
+
+	protected List<ParseTreeNode> getAllVariables(List<ParseTreeNode> nodes) {
+		List<ParseTreeNode> output = new ArrayList<>();
+		for (ParseTreeNode node : nodes) {
+			if (node.getToken().isOfType(NAME)) {
+				output.add(node);
+			}
+		}
+		return output;
 	}
 }

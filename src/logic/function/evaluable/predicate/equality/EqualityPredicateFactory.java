@@ -11,6 +11,7 @@ import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,5 +51,10 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
 		ReflexiveFunction<T> equand = (ReflexiveFunction<T>) functions.get(1);
 		return new EqualityPredicate<>(equor, equand);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }

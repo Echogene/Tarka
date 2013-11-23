@@ -10,6 +10,7 @@ import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -57,4 +58,10 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 		}
 		return new SimpleSet<>(members);
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
+	}
+
 }

@@ -48,4 +48,9 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
 		return types.getPassedValues().get(nodes.get(1));
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
+	}
 }

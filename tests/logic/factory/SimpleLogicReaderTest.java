@@ -25,8 +25,13 @@ import logic.function.set.union.AbstractUnionFactory;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import reading.evaluating.EvaluatorException;
+import util.CollectionUtils;
+import util.ExceptionalRunnable;
 
-import static org.junit.Assert.assertEquals;
+import java.text.MessageFormat;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Steven Weston
@@ -636,6 +641,142 @@ public class SimpleLogicReaderTest {
 		);
 		actual = reader.read("(x if ⊤ otherwise (a where a is y))");
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForIdentityFunction() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForEqualityPredicate() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a = x)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForEqualityPredicate2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(x = a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForMembershipPredicate() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(x ∊ A)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForMembershipPredicate2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a ∊ X)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForBinaryStatement() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a ∨ ⊤)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForBinaryStatement2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(⊥ ∨ a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForUnaryStatement() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(¬a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForQuantifiedStatement() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(∀x a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForBinaryUnion() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(A ∪ X)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForBinaryUnion2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(X ∪ A)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForMultaryUnion() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(⋃ A X)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForMultaryUnion2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(⋃ X A)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForAssignment() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a where b is x)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForAssignment2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(b where b is a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForRestrictedQuantifiedStatement() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(∀x ∊ A ⊤)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForRestrictedQuantifiedStatement2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(∀x ∊ X a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForDefinition() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(b ≔ a)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForSimpleSet() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("{a x}"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForSimpleSet2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("{x a}"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForIfElse() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(a if ⊤ otherwise x)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForIfElse2() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(y if a otherwise x)"));
+	}
+
+	@Test
+	public void testExceptionIsThrownIfVariableNotFoundInUniverseForIfElse3() throws Exception {
+		testEvaluatorExceptionIsThrown(() -> reader.read("(y if ⊤ otherwise a)"));
+	}
+
+	private void testEvaluatorExceptionIsThrown(ExceptionalRunnable runnable) {
+		testExceptionIsThrown(runnable, EvaluatorException.class);
+	}
+
+	private void testExceptionIsThrown(ExceptionalRunnable runnable, Class<? extends Exception> exceptionClass) {
+		try {
+			runnable.run();
+			fail("Should throw an exception.");
+		} catch (Exception e) {
+			assertTrue(
+					MessageFormat.format(
+							"Thrown exception should be a {0}.  It was {1}\n{2}",
+							exceptionClass.getSimpleName(),
+							e.getClass().getSimpleName(),
+							CollectionUtils.arrayToString(e.getStackTrace(), "\n")
+					),
+					exceptionClass.isInstance(e)
+			);
+		}
 	}
 
 //	@Test

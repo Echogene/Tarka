@@ -21,10 +21,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -106,6 +103,26 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 			return index < 3 || index > 5;
 		} else {
 			return index < 2 || index > 4;
+		}
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		ParseTreeNode firstNode = nodes.get(1);
+		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {
+			ParseTreeNode secondNode = nodes.get(6);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				return new ArrayList<>();
+			} else {
+				return Arrays.asList(secondNode);
+			}
+		} else {
+			ParseTreeNode secondNode = nodes.get(5);
+			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
+				return Arrays.asList(firstNode);
+			} else {
+				return Arrays.asList(firstNode, secondNode);
+			}
 		}
 	}
 }

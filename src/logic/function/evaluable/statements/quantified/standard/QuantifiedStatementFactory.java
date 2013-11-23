@@ -65,4 +65,9 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 		Evaluable<T> evaluable = (Evaluable<T>) functions.get(0);
 		return new QuantifiedStatement<>(quantifier, variable, evaluable);
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getSingleVariableWithIndex(nodes, 3);
+	}
 }

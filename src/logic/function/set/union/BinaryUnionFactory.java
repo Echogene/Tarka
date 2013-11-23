@@ -5,6 +5,7 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.set.SetFunction;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,5 +25,10 @@ public class BinaryUnionFactory<T extends Nameable> extends AbstractUnionFactory
 				new OperatorChecker(Union.BINARY_SYMBOL),
 				new FunctionOrVariableChecker(SetFunction.class)
 		);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }

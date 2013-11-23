@@ -59,7 +59,7 @@ public class CollectionUtils {
 		return list.get(list.size() - 1);
 	}
 
-	public static <K, V> String printMap(Map<K, V> map, Extractor<V, String> valuePrinter) {
+	public static <K, V> String mapToString(Map<K, V> map, Extractor<V, String> valuePrinter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
 		for (Map.Entry<K, V> entry : map.entrySet()) {
@@ -70,6 +70,15 @@ public class CollectionUtils {
 			}
 		}
 		sb.append("}");
+		return sb.toString();
+	}
+
+	public static String arrayToString(Object[] objects, String afterEach) {
+		StringBuilder sb = new StringBuilder();
+		for (Object object : objects) {
+			sb.append(object.toString());
+			sb.append(afterEach);
+		}
 		return sb.toString();
 	}
 

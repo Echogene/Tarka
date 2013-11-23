@@ -78,4 +78,9 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 			return new SetDefinition<>(variableName, (SetFunction<T>) definition);
 		}
 	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getSingleVariableWithIndex(nodes, 3);
+	}
 }

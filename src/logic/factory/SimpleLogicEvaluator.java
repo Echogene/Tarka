@@ -18,9 +18,9 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import util.CollectionUtils;
 import util.StringUtils;
-import util.TreeUtils;
 
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,8 @@ import java.util.Map;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.CollectionUtils.first;
+import static util.TreeUtils.extractTokens;
+import static util.TreeUtils.surroundWithParentNodes;
 
 /**
  * @author Steven Weston
@@ -67,7 +69,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		final Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories = new HashMap<>();
 		final Map<ParseTreeNode, List<VariableAssignerFactory>> passedAssigners = new HashMap<>();
 		headRecurse(firstChildren, children -> {
-			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = validateTokens(TreeUtils.extractTokens(children));
+			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = validateTokens(extractTokens(children));
 			ParseTreeNode key = first(children).getMother();
 			passedAssigners.put(key, CollectionUtils.filterList(passedFactoriesForNode, VariableAssignerFactory.class));
 			passedFactories.put(key, passedFactoriesForNode);
@@ -77,15 +79,33 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 		// Create functions for the typed nodes
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
+		headRecurse(firstChildren, children -> {
+			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(children.get(0).getMother());
+			for (FunctionFactory<T, ?, ?> factory : passedFactoriesForNode) {
+				List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
+				for (ParseTreeNode variable : variables) {
+					if (!types.containsKey(variable)) {
+						throw new EvaluatorException(
+								MessageFormat.format(
+										"{0} had no type bound to it after type inference.",
+										variable.getToken().getValue()
+								)
+						);
+					}
+					identityFunctions.put(
+							variable,
+							identityConstructorFromType.create(
+									variable.getToken().getValue(),
+									types.get(variable)
+							)
+					);
+				}
+			}
+		});
 		for (ParseTreeNode node : tree.getNodes()) {
+			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(node.getMother());
 			if (types.containsKey(node) && node.getToken().isOfType(NAME)) {
-				identityFunctions.put(
-						node,
-						identityConstructorFromType.create(
-								node.getToken().getValue(),
-								types.get(node)
-						)
-				);
+
 			}
 		}
 
@@ -170,7 +190,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 		FunctionFactory<T, ?, ?> factory = first(remainingFactories);
 
-		List<Token> tokens = TreeUtils.extractTokens(nodes);
+		List<Token> tokens = extractTokens(nodes);
 		try {
 			return factory.createElement(tokens, functions);
 		} catch (FactoryException e) {

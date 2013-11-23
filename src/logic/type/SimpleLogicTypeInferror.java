@@ -18,7 +18,7 @@ import static java.text.MessageFormat.format;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.ClassUtils.safeSimpleName;
 import static util.CollectionUtils.first;
-import static util.CollectionUtils.printMap;
+import static util.CollectionUtils.mapToString;
 import static util.TreeUtils.surroundWithParentNodes;
 
 /**
@@ -174,7 +174,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 					format(
 							"{0} resolved to more than one type: {1}.",
 							surroundedNodes.toString(),
-							printMap(
+							mapToString(
 									matchedTypes.getPassedValues(),
 									type -> safeSimpleName((Class) type)
 							)

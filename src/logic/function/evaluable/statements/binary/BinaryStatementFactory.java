@@ -10,6 +10,7 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,5 +43,10 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 		String connectieString = tokens.get(firstBracket ? 3 : 2).getValue();
 		BinaryConnective connective = binaryConnectiveFactory.createElement(connectieString);
 		return new BinaryStatement<>((Evaluable<T>) functions.get(0), connective, (Evaluable<T>) functions.get(1));
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }
