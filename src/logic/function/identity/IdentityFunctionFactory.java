@@ -16,6 +16,7 @@ import logic.type.TypeInferrorException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 
 	@Override
 	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		Function<?, ?> function = functions.get(0);
+		Function<?, ?> function = CollectionUtils.safeGet(functions, 0);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?>) {
 				return new MemberIdentityFunction<>((ReflexiveFunction<T>) function);
