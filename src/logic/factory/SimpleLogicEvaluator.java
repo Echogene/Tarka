@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static util.CollectionUtils.first;
 import static util.TreeUtils.extractTokens;
@@ -78,13 +77,20 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		final Map<ParseTreeNode, Type> types = typeInferror.inferTypes(tree, passedFactories, passedAssigners);
 
 		// Create functions for the typed nodes
+		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = createIdentityFunctionsForVariables(firstChildren, passedFactories, types);
+
+		// Validate and construct functions recursively and return the function
+		return evaluate(firstChildren, identityFunctions, passedFactories);
+	}
+
+	private Map<ParseTreeNode, Function<T, ?>> createIdentityFunctionsForVariables(List<ParseTreeNode> firstChildren, Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories, Map<ParseTreeNode, Type> types) throws EvaluatorException {
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
 		headRecurse(firstChildren, children -> {
 			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(children.get(0).getMother());
 			for (FunctionFactory<T, ?, ?> factory : passedFactoriesForNode) {
 				List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
 				for (ParseTreeNode variable : variables) {
-					if (!types.containsKey(variable)) {
+					if (!types.containsKey(variable) || types.get(variable) == null) {
 						throw new EvaluatorException(
 								MessageFormat.format(
 										"{0} had no type bound to it after type inference.",
@@ -102,15 +108,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 				}
 			}
 		});
-		for (ParseTreeNode node : tree.getNodes()) {
-			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(node.getMother());
-			if (types.containsKey(node) && node.getToken().isOfType(NAME)) {
-
-			}
-		}
-
-		// Validate and construct functions recursively and return the function
-		return evaluate(firstChildren, identityFunctions, passedFactories);
+		return identityFunctions;
 	}
 
 	/**
