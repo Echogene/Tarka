@@ -35,7 +35,7 @@ public class DisjunctiveChecker extends CheckerWithNumber {
 			throw new TokenValidationException(
 					"The group "
 							+ tokenGroup.toString()
-							+ " failed validation because:"
+							+ " failed validation because:\n"
 							+ StringUtils.addCharacterAfterEveryNewline(map.concatenateErrorMessages(), '\t')
 			);
 		}
