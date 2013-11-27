@@ -1,11 +1,23 @@
 package logic.function.evaluable.statements.quantified.standard;
 
+import logic.TestClass;
+import logic.TestClassUniverse;
+import logic.function.evaluable.Evaluable;
+import logic.function.evaluable.predicate.Predicate;
+import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
+import logic.function.identity.EvaluableIdentityFunction;
+import logic.set.finite.StandardSet;
+import org.junit.Test;
+
+import static logic.function.evaluable.statements.quantified.standard.Quantifier.QuantifierType.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Steven Weston
  */
 public class QuantifierTest {
 
-	/* todo: fix me
 	@Test
 	public void testApply() throws Exception {
 		StandardSet<TestClass> X = new StandardSet<>("X");
@@ -14,7 +26,7 @@ public class QuantifierTest {
 		universe.setUniversalSet(X);
 
 		Predicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
-		Evaluable<TestClass> contradiction = new LogicalConstant<>(false);
+		Evaluable<TestClass> contradiction = new EvaluableIdentityFunction<>(false);
 
 		Quantifier quantifier;
 		// 100
@@ -110,5 +122,5 @@ public class QuantifierTest {
 		assertFalse(quantifier.apply("x", contradiction, universe, universe.getValueSet()));
 		quantifier = new Quantifier(NEXISTS_UNIQUE);
 		assertTrue(quantifier.apply("x", contradiction, universe, universe.getValueSet()));
-	}*/
+	}
 }
