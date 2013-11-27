@@ -5,6 +5,7 @@ import logic.Nameable;
 import logic.factory.Factory;
 import logic.factory.FactoryException;
 import logic.function.Function;
+import logic.function.evaluable.Evaluable;
 import logic.function.factory.construction.FunctionConstructor;
 import logic.function.factory.validation.checking.Checker;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -18,6 +19,8 @@ import logic.function.factory.validation.token.SimpleLogicTokenValidator;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.TokenValidator;
 import logic.function.factory.validation.token.group.TokenGroup;
+import logic.function.reflexive.ReflexiveFunction;
+import logic.function.set.SetFunction;
 import logic.type.TypeMatcher;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
@@ -40,6 +43,12 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 				FunctionConstructor<F>,
 				Factory<F>
 {
+
+	protected final static List<Class> NON_VOID_FUNCTIONS = Arrays.<Class>asList(
+			ReflexiveFunction.class,
+			Evaluable.class,
+			SetFunction.class
+	);
 
 	private final TokenValidator tokenValidator;
 	private final FunctionValidator functionValidator;

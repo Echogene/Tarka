@@ -9,7 +9,6 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.identity.MemberIdentityFunction;
-import logic.function.reflexive.ReflexiveFunction;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
@@ -40,16 +39,16 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new FunctionOrVariableChecker(ReflexiveFunction.class),
+				new FunctionOrVariableChecker(NON_VOID_FUNCTIONS),
 				new OperatorChecker(EqualityPredicate.EQUALITY_SYMBOL),
-				new FunctionOrVariableChecker(ReflexiveFunction.class)
+				new FunctionOrVariableChecker(NON_VOID_FUNCTIONS)
 		);
 	}
 
 	@Override
 	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
-		ReflexiveFunction<T> equand = (ReflexiveFunction<T>) functions.get(1);
+		Function<T, ?> equor  = (Function<T, ?>) functions.get(0);
+		Function<T, ?> equand = (Function<T, ?>) functions.get(1);
 		return new EqualityPredicate<>(equor, equand);
 	}
 

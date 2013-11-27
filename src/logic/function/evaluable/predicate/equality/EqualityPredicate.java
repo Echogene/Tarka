@@ -1,8 +1,8 @@
 package logic.function.evaluable.predicate.equality;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.predicate.Predicate;
-import logic.function.reflexive.ReflexiveFunction;
 import logic.model.universe.Universe;
 
 /**
@@ -13,6 +13,7 @@ import logic.model.universe.Universe;
  * @author Steven Weston
  */
 public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
+
 	/**
 	 * The symbol used to represent equality.  Surprisingly, it is an equals symbol.
 	 */
@@ -21,18 +22,18 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	/**
 	 * The function that precedes the equals symbol in the expression.
 	 */
-	protected ReflexiveFunction<T> equorFunction;
+	protected Function<T, ?> equorFunction;
 
 	/**
 	 * The function that follows the equals symbol in the expression.
 	 */
-	protected ReflexiveFunction<T> equandFunction;
+	protected Function<T, ?> equandFunction;
 
-	public ReflexiveFunction<T> getEquandFunction() {
+	public Function<T, ?> getEquandFunction() {
 		return equandFunction;
 	}
 
-	public ReflexiveFunction<T> getEquorFunction() {
+	public Function<T, ?> getEquorFunction() {
 		return equorFunction;
 	}
 
@@ -41,15 +42,15 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	 * @param equorFunction The function that precedes the equals symbol.
 	 * @param equandFunction The function that follows the equals symbol.
 	 */
-	public EqualityPredicate(ReflexiveFunction<T> equorFunction, ReflexiveFunction<T> equandFunction) {
+	public EqualityPredicate(Function<T, ?> equorFunction, Function<T, ?> equandFunction) {
 		this.equorFunction  = equorFunction;
 		this.equandFunction = equandFunction;
 	}
 
 	@Override
 	public Boolean evaluate(Universe<T> universe) throws Exception {
-		T equor = getEquorFunction().evaluate(universe);
-		T equand = getEquandFunction().evaluate(universe);
+		Object equor = getEquorFunction().evaluate(universe);
+		Object equand = getEquandFunction().evaluate(universe);
 		return equor.equals(equand);
 	}
 

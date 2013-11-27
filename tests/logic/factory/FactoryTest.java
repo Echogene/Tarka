@@ -1,80 +1,30 @@
 package logic.factory;
 
-import logic.TestClass;
+import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
-import logic.function.identity.MemberIdentityFunction;
-import logic.function.identity.SetIdentityFunction;
-import reading.lexing.LexerException;
-import reading.lexing.Token;
+import logic.function.identity.IdentityFunctionFactory;
+import logic.model.universe.Universe;
+import reading.reading.Reader;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.fail;
+import java.util.Arrays;
 
 /**
  * @author Steven Weston
  */
-public abstract class FactoryTest<F extends FunctionFactory<?, ?, ?>> {
+public abstract class FactoryTest<T extends Nameable, U extends Universe<T>, F extends FunctionFactory<T, ?, ?>> {
 
-	protected List<Token> tokens;
-	protected List<Function<?, ?>> functions;
-	protected F factory;
-	protected SimpleLogicLexer lexer;
-	protected FunctionFactory<?, ?, ?> functionFactory;
+	protected final U universe;
+	protected final Reader<Function<?, ?>> reader;
 
-	public FactoryTest() {
-		lexer = new SimpleLogicLexer();
-	}
-
-	protected void setUpFunctions(String... functions) throws LexerException, FactoryException {
-		this.functions = new ArrayList<>();
-		for (String function : functions) {
-			if (function == null || function.isEmpty()) {
-				this.functions.add(null);
-			} else {
-				this.functions.add(functionFactory.createElement(lexer.tokeniseString(function)));
-			}
-		}
-	}
-
-	protected void setUpTokens(String tokenString) throws Exception {
-		tokens = lexer.tokeniseString(tokenString);
-	}
-
-	protected void setUpSetIdentityFunction(String identityFunctionParameter) {
-		functions = new ArrayList<>(1);
-		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(new SetIdentityFunction<>(identityFunctionParameter));
-		}
-	}
-
-	protected void setUpOneIdentityAndOneSetIdentityFunction(String identityFunctionParameter1, String identityFunctionParameter2) {
-		functions = new ArrayList<>(2);
-		if (!identityFunctionParameter1.isEmpty()) {
-			functions.add(new MemberIdentityFunction<TestClass>(identityFunctionParameter1));
-		}
-		if (!identityFunctionParameter2.isEmpty()) {
-			functions.add(new SetIdentityFunction<>(identityFunctionParameter2));
-		}
-	}
-
-	protected void setUpIdentityFunction(String identityFunctionParameter) {
-		functions = new ArrayList<>(1);
-		if (identityFunctionParameter == null || identityFunctionParameter.isEmpty()) {
-			functions.add(null);
-		} else {
-			functions.add(new MemberIdentityFunction<TestClass>(identityFunctionParameter));
-		}
-	}
-
-	protected void expectFactoryException() {
-		try {
-			factory.createElement(tokens, functions);
-			fail("Should not have been able to create");
-		} catch (FactoryException e) {}
+	public FactoryTest(F factory, U universe) {
+		this.universe = universe;
+		this.reader = new SimpleLogicReader<>(
+				Arrays.<FunctionFactory<T, ?, ?>>asList(
+						new IdentityFunctionFactory<>(universe.getTypeOfUniverse()),
+						factory
+				),
+				universe
+		);
 	}
 }
