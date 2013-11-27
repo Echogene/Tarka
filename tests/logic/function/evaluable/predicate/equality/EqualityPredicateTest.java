@@ -1,9 +1,7 @@
-package logic.function.evaluable.predicate;
+package logic.function.evaluable.predicate.equality;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.function.evaluable.predicate.equality.EqualityPredicate;
-import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
 

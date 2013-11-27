@@ -1,9 +1,7 @@
-package logic.function.evaluable.predicate;
+package logic.function.evaluable.predicate.membership;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.function.evaluable.predicate.membership.MembershipPredicate;
-import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
