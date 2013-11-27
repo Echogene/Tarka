@@ -11,7 +11,8 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
  * @author Steven Weston
  */
 public class TokenGroup {
-	private List<Token> group;
+
+	private final List<Token> group;
 
 	public TokenGroup(Token token) {
 		group = new ArrayList<>();

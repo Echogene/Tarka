@@ -9,8 +9,8 @@ import logic.model.universe.Universe;
  */
 class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
-	private String parameter;
-	private Function<D, C> function;
+	private final String parameter;
+	private final Function<D, C> function;
 
 	IdentityFunction(String parameter) {
 		this.parameter = parameter;

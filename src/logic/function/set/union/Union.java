@@ -14,11 +14,12 @@ import java.util.Iterator;
  * @author Steven Weston
  */
 public class Union<T extends Nameable> implements SetFunction<T> {
+
 	public final static String MULTARY_SYMBOL = "⋃";
 	public final static String BINARY_SYMBOL = "∪";
 	public final static String UNION_SYMBOLS = MULTARY_SYMBOL + BINARY_SYMBOL;
 
-	protected java.util.Set<SetFunction<T>> parameters;
+	private final java.util.Set<SetFunction<T>> parameters;
 
 	public Union(java.util.Set<SetFunction<T>> parameters) {
 		this.parameters = parameters;

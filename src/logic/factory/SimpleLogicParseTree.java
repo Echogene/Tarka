@@ -12,7 +12,8 @@ import static util.CollectionUtils.first;
  * @author Steven Weston
  */
 public class SimpleLogicParseTree implements ParseTree {
-	protected List<ParseTreeNode> nodes;
+
+	private final List<ParseTreeNode> nodes;
 
 	public SimpleLogicParseTree() {
 		this.nodes  = new ArrayList<>();

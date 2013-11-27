@@ -10,8 +10,8 @@ import logic.model.universe.Universe;
  */
 class Definition<D extends Nameable, C> implements VoidFunction<D> {
 
-	private String variableName;
-	private Function<D, C> definition;
+	private final String variableName;
+	private final Function<D, C> definition;
 
 	public static final String DEFINITION_SYMBOL = "≔";
 

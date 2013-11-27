@@ -11,11 +11,12 @@ import java.util.List;
 * @author Steven Weston
 */
 public class SimpleLogicParseTreeNode implements ParseTreeNode {
-	protected SimpleLogicParseTreeNode mother;
-	protected List<ParseTreeNode> children;
-	protected Token token;
-	protected SimpleLogicParseTreeNode spouse;
-	protected int depth;
+
+	private final SimpleLogicParseTreeNode mother;
+	private final List<ParseTreeNode> children;
+	private final Token token;
+	private SimpleLogicParseTreeNode spouse;
+	private final int depth;
 
 	public SimpleLogicParseTreeNode(Token token) {
 		this(null, token);
@@ -27,8 +28,9 @@ public class SimpleLogicParseTreeNode implements ParseTreeNode {
 		this.token    = token;
 		this.spouse   = null;
 
-		this.depth = 0;
-		if (mother != null) {
+		if (mother == null) {
+			this.depth = 0;
+		} else {
 			mother.addChild(this);
 			this.depth = mother.depth + 1;
 		}

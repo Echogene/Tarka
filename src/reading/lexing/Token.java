@@ -4,8 +4,9 @@ package reading.lexing;
  * @author Steven Weston
  */
 public class Token {
-	protected TokenType type;
-	protected String value;
+
+	private final TokenType type;
+	private final String value;
 
 	public Token(TokenType type, String value) {
 		this.type = type;

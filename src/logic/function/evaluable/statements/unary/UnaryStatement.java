@@ -8,8 +8,9 @@ import logic.model.universe.Universe;
  * @author Steven Weston
  */
 public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
-	protected UnaryConnective connective;
-	protected Evaluable<T> evaluable;
+
+	private final UnaryConnective connective;
+	private final Evaluable<T> evaluable;
 
 	public UnaryStatement(UnaryConnective connective, Evaluable<T> evaluable) {
 		this.connective = connective;

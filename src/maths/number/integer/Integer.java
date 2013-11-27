@@ -9,7 +9,7 @@ public class Integer implements maths.number.Number {
 
 	public static final Integer ONE = new Integer(1);
 	public static final Integer ZERO = new Integer(0);
-	BigInteger value;
+	final BigInteger value;
 
 	public Integer(int value) {
 		this.value = new BigInteger(java.lang.Integer.toString(value));

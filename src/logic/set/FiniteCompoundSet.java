@@ -48,7 +48,7 @@ public class FiniteCompoundSet<T extends Nameable> extends FiniteSet<T> implemen
 	}
 
 	private class FiniteCompoundSetIterator implements Iterator<T> {
-		private Iterator<FiniteSet<T>> setIterator;
+		private final Iterator<FiniteSet<T>> setIterator;
 		private Iterator<T> currentSetIterator;
 
 		public FiniteCompoundSetIterator() {

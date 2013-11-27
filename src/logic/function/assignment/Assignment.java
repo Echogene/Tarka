@@ -14,9 +14,9 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 
 	public static final String WHERE = "where";
 	public static final String IS = "is";
-	private Function<D, C> evaluee;
-	private String assignee;
-	private Function<D, ?> assingment;
+	private final Function<D, C> evaluee;
+	private final String assignee;
+	private final Function<D, ?> assingment;
 
 	Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
 		this.evaluee    = evaluee;

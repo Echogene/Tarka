@@ -22,12 +22,12 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	/**
 	 * The function that precedes the equals symbol in the expression.
 	 */
-	private Function<T, ?> equorFunction;
+	private final Function<T, ?> equorFunction;
 
 	/**
 	 * The function that follows the equals symbol in the expression.
 	 */
-	private Function<T, ?> equandFunction;
+	private final Function<T, ?> equandFunction;
 
 	public Function<T, ?> getEquandFunction() {
 		return equandFunction;

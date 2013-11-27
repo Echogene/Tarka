@@ -9,9 +9,9 @@ import logic.model.universe.Universe;
  */
 public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
 
-	private Quantifier quantifier;
-	private String variableSymbol;
-	private Evaluable<T> evaluable;
+	private final Quantifier quantifier;
+	private final String variableSymbol;
+	private final Evaluable<T> evaluable;
 
 	public QuantifiedStatement(Quantifier quantifier, String variableSymbol, Evaluable<T> evaluable) {
 		this.quantifier = quantifier;

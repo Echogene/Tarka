@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class SimplePrimalityCheckerTest {
 
-	private SimplePrimalityChecker checker;
+	private final SimplePrimalityChecker checker;
 
 	public SimplePrimalityCheckerTest() {
 		checker = new SimplePrimalityChecker();

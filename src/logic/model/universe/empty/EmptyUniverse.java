@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  */
 public class EmptyUniverse<T extends Nameable> implements Universe<T> {
 
-	private Class<T> clazz;
+	private final Class<T> clazz;
 
 	public EmptyUniverse(Class<T> clazz) {
 		this.clazz = clazz;

@@ -14,7 +14,7 @@ import logic.set.Set;
  */
 public class RestrictedQuantifiedStatement<T extends Nameable> extends QuantifiedStatement<T> {
 
-	private SetFunction<T> setFunction;
+	private final SetFunction<T> setFunction;
 
 	public RestrictedQuantifiedStatement(
 			Quantifier quantifier,

@@ -14,9 +14,10 @@ import java.util.List;
  * @author Steven Weston
  */
 public class SimpleLogicReader<T extends Nameable> implements Reader<Function<?, ?>> {
-	protected SimpleLogicLexer lexer;
-	protected SimpleLogicParser parser;
-	protected SimpleLogicEvaluator evaluator;
+
+	private final SimpleLogicLexer lexer;
+	private final SimpleLogicParser parser;
+	private final SimpleLogicEvaluator evaluator;
 
 	public SimpleLogicReader(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
 		lexer = new SimpleLogicLexer();

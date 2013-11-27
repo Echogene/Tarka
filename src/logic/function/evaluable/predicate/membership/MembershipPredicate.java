@@ -12,8 +12,8 @@ import logic.set.Set;
  */
 public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	public static final String MEMBERSHIP_SYMBOL = "∊";
-	protected ReflexiveFunction<T> memberFunction;
-	protected SetFunction<T> setFunction;
+	private final ReflexiveFunction<T> memberFunction;
+	private final SetFunction<T> setFunction;
 
 	public MembershipPredicate(ReflexiveFunction<T> memberFunction, SetFunction<T> setFunction) {
 		this.memberFunction = memberFunction;

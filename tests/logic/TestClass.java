@@ -4,7 +4,8 @@ package logic;
  * @author Steven Weston
  */
 public class TestClass implements Nameable {
-	protected String name;
+
+	private final String name;
 
 	public TestClass(String name) {
 		this.name = name;

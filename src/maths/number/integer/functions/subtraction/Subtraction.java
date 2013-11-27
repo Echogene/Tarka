@@ -12,15 +12,16 @@ import java.util.List;
  * @author Steven Weston
  */
 public class Subtraction<N extends Number> implements ReflexiveFunction<N> {
+
 	public static final String MINUS = "−";
 	public static final String HYPHEN = "-";
 
 	public static final List<String> SYMBOL_LIST = Arrays.asList(MINUS, HYPHEN);
 
-	private ReflexiveFunction<N> minuend;
-	private ReflexiveFunction<N> subtrahend;
+	private final ReflexiveFunction<N> minuend;
+	private final ReflexiveFunction<N> subtrahend;
 
-	Subtractor<N> subtractor;
+	private final Subtractor<N> subtractor;
 
 	public Subtraction(ReflexiveFunction<N> minuend, ReflexiveFunction<N> subtrahend, Subtractor<N> subtractor) {
 		this.minuend    = minuend;

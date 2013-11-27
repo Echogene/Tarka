@@ -15,11 +15,11 @@ import java.util.List;
  * @author Steven Weston
  */
 public class IntegerUniverse extends AbstractUniverse<Integer> {
-	PrimeNumberSet ℙ;
-	IntegerSet ℤ;
-	StandardSet<Object> variables;
+	private final PrimeNumberSet ℙ;
+	private final IntegerSet ℤ;
+	private final StandardSet<Object> variables;
 
-	StandardSet<Set<Integer>> universalSetOfSets;
+	private final StandardSet<Set<Integer>> universalSetOfSets;
 	private final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 
 	public IntegerUniverse() {

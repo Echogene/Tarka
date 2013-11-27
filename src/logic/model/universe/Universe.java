@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
  * @author Steven Weston
  */
 public interface Universe<T extends Nameable> {
+
 	Dictionary<T> getUniversalSet();
 
 	Dictionary<Set<T>> getUniversalSetOfSets();
@@ -22,8 +23,8 @@ public interface Universe<T extends Nameable> {
 	Class<T> getTypeOfUniverse();
 
 	/**
-	 *
-	 * @param variableSymbol
+	 * Unassign the variable with the given symbol.
+	 * @param variableSymbol the symbol of the variable to unassign
 	 * @return The value to which the variable was assigned previously.
 	 */
 	Object unassignVariable(String variableSymbol);
@@ -31,16 +32,16 @@ public interface Universe<T extends Nameable> {
 	void assignVariable(String variableSymbol) throws VariableAlreadyExistsException;
 
 	/**
-	 *
-	 * @param variableSymbol
-	 * @param t
+	 * Set the value of a variable with the given symbol to another value.
+	 * @param variableSymbol the symbol of the variable to revalue
+	 * @param object the new value to give the variable
 	 * @return The value to which the variable was assigned previously.
 	 * @throws VariableNotAssignedException
 	 */
-	Object setVariable(String variableSymbol, Object t) throws VariableNotAssignedException;
+	Object setVariable(String variableSymbol, Object object) throws VariableNotAssignedException;
 
 	/**
-	 * @param value
+	 * @param value the name of the object of which to test existence
 	 * @return whether the universe contains an object with the given name
 	 */
 	boolean contains(String value);

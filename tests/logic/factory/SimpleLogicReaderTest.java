@@ -40,9 +40,9 @@ public class SimpleLogicReaderTest {
 
 	private static SimpleLogicReader reader;
 	private static TestClassUniverse universe;
-	private static BinaryConnectiveFactory binaryConnectiveFactory = new BinaryConnectiveFactory();
-	private static UnaryConnectiveFactory unaryConnectiveFactory = new UnaryConnectiveFactory();
-	private static QuantifierFactory quantifierFactory = new QuantifierFactory();
+	private static final BinaryConnectiveFactory binaryConnectiveFactory = new BinaryConnectiveFactory();
+	private static final UnaryConnectiveFactory unaryConnectiveFactory = new UnaryConnectiveFactory();
+	private static final QuantifierFactory quantifierFactory = new QuantifierFactory();
 
 	@BeforeClass
 	public static void setUp() {

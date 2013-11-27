@@ -16,8 +16,8 @@ import java.util.HashSet;
  */
 public class InfiniteCompoundSet<T extends Nameable> extends InfiniteSet<T> implements CompoundSet<T> {
 
-	private FiniteCompoundSet<T> finitePart;
-	private java.util.Set<InfiniteSet<T>> infinitePart;
+	private final FiniteCompoundSet<T> finitePart;
+	private final java.util.Set<InfiniteSet<T>> infinitePart;
 
 	public InfiniteCompoundSet(String name) {
 		this(name, new FiniteCompoundSet<>((String) null), new HashSet<>());

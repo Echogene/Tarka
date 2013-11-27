@@ -6,7 +6,8 @@ import logic.Nameable;
  * @author Steven Weston
  */
 public class MultiSetEntry<T extends Nameable> implements Nameable {
-	private T entry;
+
+	private final T entry;
 
 	private int number;
 

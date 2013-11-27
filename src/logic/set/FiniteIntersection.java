@@ -41,7 +41,7 @@ public class FiniteIntersection<T extends Nameable> extends FiniteSet<T> {
 
 	private class FiniteInteresectionIterator implements Iterator<T> {
 
-		private Iterator<T> setIterator;
+		private final Iterator<T> setIterator;
 		private T currentElement;
 
 		public FiniteInteresectionIterator() {

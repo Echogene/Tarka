@@ -12,7 +12,7 @@ import logic.set.finite.StandardSet;
  */
 public class SimpleSet<T extends Nameable> implements SetFunction<T> {
 
-	java.util.Set<ReflexiveFunction<T>> members;
+	private final java.util.Set<ReflexiveFunction<T>> members;
 
 	public SimpleSet(java.util.Set<ReflexiveFunction<T>> members) {
 		this.members = members;
