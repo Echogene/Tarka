@@ -57,6 +57,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 		Function<?, ?> ifTrue = functions.get(0);
 		Function<?, ?> condition = functions.get(1);
 		Function<?, ?> ifFalse = functions.get(2);
+		// todo: this might be able to be neater
 		if (ifTrue instanceof ReflexiveFunction<?>) {
 			if (!(ifFalse instanceof ReflexiveFunction<?>)) {
 				throw new FactoryException("The true and false cases were different types.");
