@@ -11,9 +11,9 @@ import static java.math.BigInteger.*;
  */
 public class SimplePrimalityChecker implements PrimalityChecker {
 
-	public static final BigInteger TWO = valueOf(2L);
-	public static final BigInteger THREE = valueOf(3L);
-	public static final BigInteger SIX = valueOf(6L);
+	private static final BigInteger TWO = valueOf(2L);
+	private static final BigInteger THREE = valueOf(3L);
+	private static final BigInteger SIX = valueOf(6L);
 
 	@Override
 	public boolean isPrime(Integer integer) {

@@ -21,9 +21,10 @@ import static org.junit.Assert.assertTrue;
  * @author Steven Weston
  */
 public class UnaryStatementTest {
+
 	public static final StandardSet<TestClass> EMPTY_SET = new StandardSet<>("∅");
-	public static final EvaluableIdentityFunction<TestClass> TAUTOLOGY = new EvaluableIdentityFunction<>(true);
-	public static final EvaluableIdentityFunction<TestClass> CONTRADICTION = new EvaluableIdentityFunction<>(false);
+	private static final EvaluableIdentityFunction<TestClass> TAUTOLOGY = new EvaluableIdentityFunction<>(true);
+	private static final EvaluableIdentityFunction<TestClass> CONTRADICTION = new EvaluableIdentityFunction<>(false);
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {

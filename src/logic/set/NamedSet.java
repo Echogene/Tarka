@@ -4,9 +4,10 @@ package logic.set;
  * @author Steven Weston
  */
 public abstract class NamedSet<T> implements Set<T> {
-	protected final String name;
 
-	public NamedSet(String name) {
+	private final String name;
+
+	protected NamedSet(String name) {
 		this.name = name;
 	}
 

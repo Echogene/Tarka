@@ -15,11 +15,13 @@ import java.util.List;
  * @author Steven Weston
  */
 public class TestClassUniverse extends AbstractUniverse<TestClass> {
-	protected StandardSet<TestClass> universalSet;
 
-	protected StandardSet<Set<TestClass>> universalSetOfSets;
+	private StandardSet<TestClass> universalSet;
 
-	protected StandardSet<Object> variableSet;
+	private StandardSet<Set<TestClass>> universalSetOfSets;
+
+	private StandardSet<Object> variableSet;
+
 	private final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 
 	@Override

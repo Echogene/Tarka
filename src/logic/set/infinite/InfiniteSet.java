@@ -8,7 +8,8 @@ import logic.set.UnmodifiableSet;
  * @author Steven Weston
  */
 public abstract class InfiniteSet<T extends Nameable> extends NamedSet<T> implements UnmodifiableSet<T> {
-	public InfiniteSet(String name) {
+
+	protected InfiniteSet(String name) {
 		super(name);
 	}
 }

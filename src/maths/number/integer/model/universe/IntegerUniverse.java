@@ -15,6 +15,7 @@ import java.util.List;
  * @author Steven Weston
  */
 public class IntegerUniverse extends AbstractUniverse<Integer> {
+
 	private final PrimeNumberSet ℙ;
 	private final IntegerSet ℤ;
 	private final StandardSet<Object> variables;

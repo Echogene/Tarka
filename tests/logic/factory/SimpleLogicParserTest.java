@@ -40,7 +40,7 @@ public class SimpleLogicParserTest {
 		}, "expected a complicated statement to be parsed correctly");
 	}
 
-	public static void testDepths(String test, int [] expectedDepths, String assertion) throws Exception {
+	private static void testDepths(String test, int [] expectedDepths, String assertion) throws Exception {
 		tokens = lexer.tokeniseString(test);
 		tree = parser.parseTokens(tokens);
 		int i = 0;

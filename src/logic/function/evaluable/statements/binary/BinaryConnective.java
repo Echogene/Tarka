@@ -9,6 +9,7 @@ import java.util.List;
  * @author Steven Weston
  */
 public class BinaryConnective extends Connective {
+
 	public final static String OR_SYMBOL = "∨";
 	public final static String NOR_SYMBOL = "⊽";
 	public final static String AND_SYMBOL = "∧";

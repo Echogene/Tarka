@@ -9,7 +9,7 @@ import logic.set.Set;
  */
 public class SetDefinition<T extends Nameable> extends Definition<T, Set<T>> {
 
-	protected SetDefinition(String variableName, SetFunction<T> definition) {
+	public SetDefinition(String variableName, SetFunction<T> definition) {
 		super(variableName, definition);
 	}
 }

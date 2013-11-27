@@ -8,7 +8,7 @@ import maths.number.integer.prime.SimplePrimalityChecker;
  */
 public class PrimeNumberSet extends IntegerSet {
 
-	public static final SimplePrimalityChecker CHECKER = new SimplePrimalityChecker();
+	private static final SimplePrimalityChecker CHECKER = new SimplePrimalityChecker();
 
 	public PrimeNumberSet(String name) {
 		super(name);

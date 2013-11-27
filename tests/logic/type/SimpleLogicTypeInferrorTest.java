@@ -16,11 +16,11 @@ import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -31,7 +31,8 @@ import static util.NumberUtils.ordinal;
  */
 public class SimpleLogicTypeInferrorTest {
 
-	public static final List<AssignmentFactory<TestClass>> ASSIGNMENT_FACTORY = Collections.singletonList(new AssignmentFactory<>(TestClass.class));
+	private static final List<AssignmentFactory<TestClass>> ASSIGNMENT_FACTORY =
+			singletonList(new AssignmentFactory<>(TestClass.class));
 	private final Lexer lexer;
 	private final Parser parser;
 	private final SimpleLogicTypeInferror<TestClass> inferror;
