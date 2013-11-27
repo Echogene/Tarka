@@ -1,10 +1,21 @@
 package logic.function.ifelse;
 
+import logic.TestClass;
+import logic.TestClassUniverse;
+import logic.function.evaluable.Evaluable;
+import logic.function.identity.EvaluableIdentityFunction;
+import logic.function.identity.MemberIdentityFunction;
+import logic.function.voidfunction.definition.member.MemberDefinition;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Steven Weston
  */
 public class IfElseTest {
-	/* todo: fix me
+
 	@Test
 	public void testEvaluate() throws Exception {
 		TestClassUniverse universe = new TestClassUniverse();
@@ -16,20 +27,20 @@ public class IfElseTest {
 		MemberDefinition<TestClass> ifFalse;
 		VoidIfElse<TestClass> ifElse;
 
-		condition = new LogicalConstant<>(true);
-		ifTrue = new MemberDefinition<>("x", new IdentityFunction<>("1"));
-		ifFalse = new MemberDefinition<>("x", new IdentityFunction<>("0"));
+		condition = new EvaluableIdentityFunction<>(true);
+		ifTrue = new MemberDefinition<>("x",  new MemberIdentityFunction<>("1"));
+		ifFalse = new MemberDefinition<>("x", new MemberIdentityFunction<>("0"));
 		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
 		ifElse.evaluate(universe);
 		assertTrue(universe.getVariables().contains("x"));
 		assertEquals(new TestClass("1"), universe.getVariables().get("x"));
 
-		condition = new LogicalConstant<>(false);
-		ifTrue = new MemberDefinition<>("y", new IdentityFunction<>("1"));
-		ifFalse = new MemberDefinition<>("y", new IdentityFunction<>("0"));
+		condition = new EvaluableIdentityFunction<>(false);
+		ifTrue = new MemberDefinition<>("y",  new MemberIdentityFunction<>("1"));
+		ifFalse = new MemberDefinition<>("y", new MemberIdentityFunction<>("0"));
 		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
 		ifElse.evaluate(universe);
 		assertTrue(universe.getVariables().contains("y"));
 		assertEquals(new TestClass("0"), universe.getVariables().get("y"));
-	}*/
+	}
 }

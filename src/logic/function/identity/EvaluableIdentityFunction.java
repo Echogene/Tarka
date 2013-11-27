@@ -15,4 +15,8 @@ public class EvaluableIdentityFunction<T extends Nameable> extends IdentityFunct
 	public EvaluableIdentityFunction(Evaluable<T> function) {
 		super(function);
 	}
+
+	public EvaluableIdentityFunction(Boolean bool) {
+		super(bool ? "⊤" : "⊥");
+	}
 }
