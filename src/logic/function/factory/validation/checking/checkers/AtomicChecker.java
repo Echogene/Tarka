@@ -5,9 +5,9 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 /**
  * @author Steven Weston
  */
-public abstract class AtomicChecker extends CheckerWithNumber {
+abstract class AtomicChecker extends CheckerWithNumber {
 
-	protected AtomicChecker() {
+	AtomicChecker() {
 		super(Number.ONE);
 	}
 }

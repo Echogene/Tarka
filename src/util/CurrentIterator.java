@@ -8,7 +8,7 @@ import java.util.Iterator;
 public class CurrentIterator<T> implements Iterator<T> {
 
 	private final Iterator<T> iterator;
-	T current;
+	private T current;
 
 	public CurrentIterator(Iterator<T> iterator) {
 		this.iterator = iterator;

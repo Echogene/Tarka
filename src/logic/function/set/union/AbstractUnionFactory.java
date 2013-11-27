@@ -18,7 +18,7 @@ import java.util.List;
  */
 abstract class AbstractUnionFactory<T extends Nameable> extends SetFunctionFactory<T, Union<T>> {
 
-	protected AbstractUnionFactory(List<CheckerWithNumber> checkers, Class<T> universeType) {
+	AbstractUnionFactory(List<CheckerWithNumber> checkers, Class<T> universeType) {
 		super(checkers, Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
 

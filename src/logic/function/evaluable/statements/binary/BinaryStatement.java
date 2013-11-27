@@ -8,9 +8,9 @@ import logic.model.universe.Universe;
  * @author Steven Weston
  */
 public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
-	protected Evaluable<T> firstEvaluable;
-	protected BinaryConnective connective;
-	protected Evaluable<T> secondEvaluable;
+	private Evaluable<T> firstEvaluable;
+	private BinaryConnective connective;
+	private Evaluable<T> secondEvaluable;
 
 	public BinaryStatement(Evaluable<T> firstEvaluable, BinaryConnective connective, Evaluable<T> secondEvaluable) {
 		this.firstEvaluable  = firstEvaluable;

@@ -13,6 +13,7 @@ import static logic.function.evaluable.statements.binary.BinaryConnective.*;
  * @author Steven Weston
  */
 public class BinaryConnectiveFactory implements ConnectiveFactory<BinaryConnective> {
+
 	@Override
 	public BinaryConnective createElement(String string) throws FactoryException {
 		return BinaryConnectiveFactory.create(string);

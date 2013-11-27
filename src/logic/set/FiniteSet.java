@@ -7,7 +7,7 @@ import maths.number.integer.Integer;
  */
 public abstract class FiniteSet<T> extends NamedSet<T> implements Iterable<T> {
 
-	public FiniteSet(String name) {
+	protected FiniteSet(String name) {
 		super(name);
 	}
 

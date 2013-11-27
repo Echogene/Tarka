@@ -7,7 +7,7 @@ import logic.model.universe.Universe;
 import static java.text.MessageFormat.format;
 
 /**
- * An assignment is a function that assigns a value to a variable.
+ * An assignment is a function that assigns a value to a variable within a scope.
  * @author Steven Weston
  */
 class Assignment<D extends Nameable, C> implements Function<D, C> {
@@ -18,7 +18,7 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 	private String assignee;
 	private Function<D, ?> assingment;
 
-	protected Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
+	Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
 		this.assingment = assingment;
@@ -35,7 +35,7 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 
 	@Override
 	public String toString() {
-		return format("({0} {1} {2} {3} {4})", evaluee.toString(), WHERE, assignee, IS, assingment.toString());
+		return format("({0} {1} {2} {3} {4})", evaluee, WHERE, assignee, IS, assingment);
 	}
 
 	@Override

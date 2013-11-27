@@ -9,15 +9,15 @@ import logic.model.universe.Universe;
  */
 class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
-	protected String parameter;
-	protected Function<D, C> function;
+	private String parameter;
+	private Function<D, C> function;
 
-	public IdentityFunction(String parameter) {
+	IdentityFunction(String parameter) {
 		this.parameter = parameter;
 		this.function  = null;
 	}
 
-	public IdentityFunction(Function<D, C> function) {
+	IdentityFunction(Function<D, C> function) {
 		this.parameter = null;
 		this.function  = function;
 	}

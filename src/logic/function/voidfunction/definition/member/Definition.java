@@ -15,7 +15,7 @@ class Definition<D extends Nameable, C> implements VoidFunction<D> {
 
 	public static final String DEFINITION_SYMBOL = "≔";
 
-	protected Definition(String variableName, Function<D, C> definition) {
+	Definition(String variableName, Function<D, C> definition) {
 		this.variableName = variableName;
 		this.definition   = definition;
 	}

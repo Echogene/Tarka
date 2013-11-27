@@ -21,8 +21,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class BinaryStatementTest {
 
-	public static final EvaluableIdentityFunction<TestClass> CONTRADICTION = new EvaluableIdentityFunction<>(false);
-	public static final EvaluableIdentityFunction<TestClass> TAUTOLOGY     = new EvaluableIdentityFunction<>(true);
+	private static final EvaluableIdentityFunction<TestClass> CONTRADICTION = new EvaluableIdentityFunction<>(false);
+	private static final EvaluableIdentityFunction<TestClass> TAUTOLOGY     = new EvaluableIdentityFunction<>(true);
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {

@@ -8,7 +8,7 @@ import logic.function.evaluable.Evaluable;
  */
 public class EvaluableDefinition<T extends Nameable> extends Definition<T, Boolean> {
 
-	protected EvaluableDefinition(String variableName, Evaluable<T> definition) {
+	public EvaluableDefinition(String variableName, Evaluable<T> definition) {
 		super(variableName, definition);
 	}
 }

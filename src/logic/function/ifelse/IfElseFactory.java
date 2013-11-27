@@ -29,9 +29,6 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  */
 public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object, IfElse<T, ?>> {
 
-	public static final String IF = "if";
-	public static final String OTHERWISE = "otherwise";
-
 	public IfElseFactory(Class<T> universeType) {
 		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
@@ -39,9 +36,9 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
 				new FunctionOrVariableChecker(Function.class),
-				new StringChecker(IF),
+				new StringChecker(IfElse.IF),
 				new FunctionOrVariableChecker(Evaluable.class),
-				new StringChecker(OTHERWISE),
+				new StringChecker(IfElse.OTHERWISE),
 				new FunctionOrVariableChecker(Function.class)
 				// todo: somehow validate that the first and third functions are the same type
 		);

@@ -5,7 +5,7 @@ package logic.function.factory.validation.checking;
  */
 public abstract class CheckerWithNumber implements Checker {
 
-	protected final Number number;
+	private final Number number;
 
 	protected CheckerWithNumber(Number number) {
 		this.number = number;

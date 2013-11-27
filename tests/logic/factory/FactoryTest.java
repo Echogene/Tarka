@@ -17,7 +17,7 @@ public abstract class FactoryTest<T extends Nameable, U extends Universe<T>, F e
 	protected final U universe;
 	protected final Reader<Function<?, ?>> reader;
 
-	public FactoryTest(F factory, U universe) {
+	protected FactoryTest(F factory, U universe) {
 		this.universe = universe;
 		this.reader = new SimpleLogicReader<>(
 				Arrays.<FunctionFactory<T, ?, ?>>asList(
