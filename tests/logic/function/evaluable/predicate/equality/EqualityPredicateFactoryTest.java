@@ -33,8 +33,8 @@ public class EqualityPredicateFactoryTest extends FactoryTest<TestClass, TestCla
 	@Test
 	public void testCreateWithSets() throws Exception {
 		EqualityPredicate<TestClass> expected = new EqualityPredicate<TestClass>(
-				new SetIdentityFunction<TestClass>("X"),
-				new SetIdentityFunction<TestClass>("Y")
+				new SetIdentityFunction<>("X"),
+				new SetIdentityFunction<>("Y")
 		);
 		EqualityPredicate<TestClass> actual = (EqualityPredicate<TestClass>) reader.read("(X = Y)");
 
@@ -44,8 +44,8 @@ public class EqualityPredicateFactoryTest extends FactoryTest<TestClass, TestCla
 	@Test
 	public void testCreateWithEvaluables() throws Exception {
 		EqualityPredicate<TestClass> expected = new EqualityPredicate<TestClass>(
-				new EvaluableIdentityFunction<TestClass>("⊤"),
-				new EvaluableIdentityFunction<TestClass>("⊥")
+				new EvaluableIdentityFunction<>("⊤"),
+				new EvaluableIdentityFunction<>("⊥")
 		);
 		EqualityPredicate<TestClass> actual = (EqualityPredicate<TestClass>) reader.read("(⊤ = ⊥)");
 
