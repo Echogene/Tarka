@@ -2,10 +2,7 @@ package util;
 
 import logic.type.map.Extractor;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -88,6 +85,24 @@ public class CollectionUtils {
 			if (clazz.isInstance(t)) {
 				output.add(clazz.cast(t));
 			}
+		}
+		return output;
+	}
+
+	public static <K, V> Map<K, V> createMap(List<K> keys, List<V> values) {
+		Map<K, V> output = new HashMap<>();
+		int index = 0;
+		for (K key : keys) {
+			output.put(key, values.get(index));
+			index++;
+		}
+		return output;
+	}
+
+	public static <K, V> Map<K, V> createMap(List<K> keys, V value) {
+		Map<K, V> output = new HashMap<>();
+		for (K key : keys) {
+			output.put(key, value);
 		}
 		return output;
 	}

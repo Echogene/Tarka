@@ -4,6 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicLexer;
 import logic.factory.SimpleLogicParser;
+import logic.function.assignment.AssignmentFactory;
 import org.junit.Test;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
@@ -11,9 +12,11 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import reading.parsing.Parser;
 import reading.parsing.ParserException;
+import util.CollectionUtils;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ import static util.NumberUtils.ordinal;
  */
 public class SimpleLogicTypeInferrorTest {
 
+	public static final List<AssignmentFactory<TestClass>> ASSIGNMENT_FACTORY = Collections.singletonList(new AssignmentFactory<>(TestClass.class));
 	private final Lexer lexer;
 	private final Parser parser;
 	private final SimpleLogicTypeInferror<TestClass> inferror;
@@ -46,71 +50,75 @@ public class SimpleLogicTypeInferrorTest {
 	@Test
 	public void testSimpleTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is 2)");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 3, 5));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(
+				tree,
+				createMap(tree, 0),
+				createMap(tree, 0)
+		);
+		checkNodes(tree, map, asList(0, 1, 5));
 	}
 
 	@Test
 	public void testIgnoredVariableTypeInference() throws Exception {
 		ParseTree tree = parse("(2 where x is 2)");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 3, 5));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0), createMap(tree, 0));
+		checkNodes(tree, map, asList(0, 1, 5));
 	}
 
 	@Test
 	public void testHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((y where y is x) where x is 2)");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 9, 11));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 1), createMap(tree, 0, 1));
+		checkNodes(tree, map, asList(0, 1, 2, 6, 11));
 	}
 
 	@Test
 	public void testHeadNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(((z where z is y) where y is x) where x is 2)");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 2, 3, 5, 7, 10, 12, 15 ,17));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 1, 2), createMap(tree, 0, 1, 2));
+		checkNodes(tree, map, asList(0, 1, 2, 3, 7, 12, 17));
 	}
 
 	@Test
 	public void testTailNestedTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is (y where y is 2))");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 8, 10));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 5), createMap(tree, 0, 5));
+		checkNodes(tree, map, asList(0, 1, 5, 6, 10));
 	}
 
 	@Test
 	public void testTailNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is (y where y is (z where z is 2)))");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 8, 10, 11, 13, 15));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 5, 10), createMap(tree, 0, 5, 10));
+		checkNodes(tree, map, asList(0, 1, 5, 6, 10, 11, 15));
 	}
 
 	@Test
 	public void testTailAndHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((x where x is y) where y is (z where z is 2))");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 9, 11, 12, 14, 16));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 1, 11), createMap(tree, 0, 1, 11));
+		checkNodes(tree, map, asList(0, 1, 2, 6, 11, 12, 16));
 	}
 
 	@Test
 	public void testHeadThenTailNestedTypeInference() throws Exception {
 		ParseTree tree = parse("((x where x is (y where y is z)) where z is 2)");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 2, 4, 6, 7, 9, 11, 15, 17));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 1, 6), createMap(tree, 0, 1, 6));
+		checkNodes(tree, map, asList(0, 1, 2, 6, 7, 11, 17));
 	}
 
 	@Test
 	public void testTailThenHeadNestedTypeInference() throws Exception {
 		ParseTree tree = parse("(x where x is ((z where z is y) where y is 2))");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 3, 5, 6, 7, 9, 11, 14, 16));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 5, 6), createMap(tree, 0, 5, 6));
+		checkNodes(tree, map, asList(0, 1, 5, 6, 7, 11, 16));
 	}
 
 	@Test
 	public void testTailAndHeadNestedTwiceTypeInference() throws Exception {
 		ParseTree tree = parse("(((a where a is b) where b is (c where c is d)) where d is ((e where e is f) where f is (g where g is 2)))");
-		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, new HashMap(), new HashMap());
-		checkNodes(tree, map, asList(0, 1, 2, 3, 5, 7, 10, 12, 13, 15, 17, 21, 23, 24, 25, 27, 29, 32, 34, 35, 37, 39));
+		Map<ParseTreeNode, Type> map = inferror.inferTypes(tree, createMap(tree, 0, 1, 2, 12, 23, 24, 34), createMap(tree, 0, 1, 2, 12, 23, 24, 34));
+		checkNodes(tree, map, asList(0, 1, 2, 3, 7, 12, 13, 17, 23, 24, 25, 29, 34, 35, 39));
 	}
 
 	private void checkNodes(ParseTree tree, Map<ParseTreeNode, Type> map, List<Integer> notNull) {
@@ -127,5 +135,13 @@ public class SimpleLogicTypeInferrorTest {
 
 	private ParseTree parse(String string) throws LexerException, ParserException {
 		return parser.parseTokens(lexer.tokeniseString(string));
+	}
+
+	private Map<ParseTreeNode, List<AssignmentFactory<TestClass>>> createMap(ParseTree tree, Integer... indices) {
+		List<ParseTreeNode> nodes = new ArrayList<>(indices.length);
+		for (Integer index : indices) {
+			nodes.add(tree.getNodes().get(index));
+		}
+		return CollectionUtils.<ParseTreeNode, List<AssignmentFactory<TestClass>>>createMap(nodes, ASSIGNMENT_FACTORY);
 	}
 }
