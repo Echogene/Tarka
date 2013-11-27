@@ -4,16 +4,21 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.model.universe.Universe;
 
+import static java.text.MessageFormat.format;
+
 /**
  * An assignment is a function that assigns a value to a variable.
  * @author Steven Weston
  */
 class Assignment<D extends Nameable, C> implements Function<D, C> {
+
+	public static final String WHERE = "where";
+	public static final String IS = "is";
 	private Function<D, C> evaluee;
 	private String assignee;
 	private Function<D, ?> assingment;
 
-	public Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
+	protected Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
 		this.assingment = assingment;
@@ -30,7 +35,7 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 
 	@Override
 	public String toString() {
-		return "(" + evaluee.toString() + " where " + assignee + " is " + assingment.toString() + ")";
+		return format("({0} {1} {2} {3} {4})", evaluee.toString(), WHERE, assignee, IS, assingment.toString());
 	}
 
 	@Override

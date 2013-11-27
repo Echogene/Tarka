@@ -36,7 +36,7 @@ public class MultaryAdditionFactory<N extends maths.number.Number> extends Refle
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new OperatorChecker(Addition.PLUS_SYMBOL),
+				new OperatorChecker(Addition.SUM_SYMBOL),
 				new NumberedChecker(MANY, new FunctionOrVariableChecker(ReflexiveFunction.class))
 		);
 	}

@@ -12,12 +12,13 @@ import java.util.List;
  * @author Steven Weston
  */
 public class Addition<N extends Number> implements ReflexiveFunction<N> {
+
 	public static final String PLUS_SYMBOL = "+";
 	public static final String SUM_SYMBOL = "Σ";
 	public static final String ADDITION_SYMBOLS = PLUS_SYMBOL + SUM_SYMBOL;
-	List<ReflexiveFunction<N>> parameters;
+	private final List<ReflexiveFunction<N>> parameters;
 
-	Summor<N> summor;
+	private final Summor<N> summor;
 
 	Addition(List<ReflexiveFunction<N>> parameters, Summor<N> summor) {
 		this.parameters = parameters;

@@ -30,9 +30,6 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  */
 public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object, Assignment<T, ?>> implements VariableAssignerFactory {
 
-	public static final String WHERE = "where";
-	public static final String IS = "is";
-
 	public AssignmentFactory(Class<T> universeType) {
 		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
 	}
@@ -40,9 +37,9 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
 				new FunctionOrVariableChecker(),
-				new StringChecker(WHERE),
+				new StringChecker(Assignment.WHERE),
 				new VariableChecker(),
-				new StringChecker(IS),
+				new StringChecker(Assignment.IS),
 				new FunctionOrVariableChecker(
 						ReflexiveFunction.class,
 						Evaluable.class,
