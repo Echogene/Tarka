@@ -1,13 +1,29 @@
 package logic.function.evaluable.statements.unary;
 
+import logic.TestClass;
+import logic.TestClassUniverse;
+import logic.function.evaluable.Evaluable;
+import logic.function.evaluable.predicate.membership.MembershipPredicate;
+import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
+import logic.function.identity.EvaluableIdentityFunction;
+import logic.model.universe.Universe;
+import logic.set.ModifiableSet;
+import logic.set.Set;
+import logic.set.finite.StandardSet;
+import org.junit.Test;
+
+import static logic.function.evaluable.statements.unary.UnaryConnective.UnaryConnectiveType.EMPTY;
+import static logic.function.evaluable.statements.unary.UnaryConnective.UnaryConnectiveType.NEGATION;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Steven Weston
  */
 public class UnaryStatementTest {
-	/* todo: fix me
 	public static final StandardSet<TestClass> EMPTY_SET = new StandardSet<>("∅");
-	public static final LogicalConstant<TestClass> TAUTOLOGY = new LogicalConstant<>(true);
-	public static final LogicalConstant<TestClass> CONTRADICTION = new LogicalConstant<>(false);
+	public static final EvaluableIdentityFunction<TestClass> TAUTOLOGY = new EvaluableIdentityFunction<>(true);
+	public static final EvaluableIdentityFunction<TestClass> CONTRADICTION = new EvaluableIdentityFunction<>(false);
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {
@@ -40,7 +56,7 @@ public class UnaryStatementTest {
 		assertFalse(statement.evaluate(universe));
 	}
 
-	private void testAllTheThings(LogicalConstant<TestClass> tautology, LogicalConstant<TestClass> contradiction, Universe<TestClass> setOrUniverse) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass> tautology, Evaluable<TestClass> contradiction, Universe<TestClass> setOrUniverse) throws Exception {
 		UnaryConnective c;
 		c = new UnaryConnective(EMPTY);
 		assertUnaryStatement(tautology, c, setOrUniverse, true);
@@ -66,5 +82,5 @@ public class UnaryStatementTest {
 		} else {
 			assertFalse(statement.evaluate(universe));
 		}
-	}*/
+	}
 }
