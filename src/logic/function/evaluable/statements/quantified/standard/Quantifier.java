@@ -43,7 +43,7 @@ public class Quantifier extends Connective {
 	}
 
 	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T> evaluable, Universe<T> universe) throws Exception {
-		return apply(variableSymbol, evaluable, universe, universe.getValueSet());
+		return apply(variableSymbol, evaluable, universe, universe.getUniversalSet());
 	}
 
 	public <T extends Nameable> boolean apply(

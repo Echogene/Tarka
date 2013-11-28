@@ -38,11 +38,6 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T> {
 	}
 
 	@Override
-	public Set<T> getValueSet() {
-		return new EmptySet<>();
-	}
-
-	@Override
 	public Class<T> getTypeOfUniverse() {
 		return clazz;
 	}

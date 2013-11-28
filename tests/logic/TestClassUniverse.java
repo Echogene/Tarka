@@ -3,13 +3,7 @@ package logic;
 import logic.model.universe.AbstractUniverse;
 import logic.set.Dictionary;
 import logic.set.Set;
-import logic.set.Uniter;
 import logic.set.finite.StandardSet;
-
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
 
 /**
  * @author Steven Weston
@@ -21,8 +15,6 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	private StandardSet<Set<TestClass>> universalSetOfSets;
 
 	private StandardSet<Object> variableSet;
-
-	private final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 
 	@Override
 	public Dictionary<TestClass> getUniversalSet() {
@@ -39,14 +31,6 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		return variableSet;
 	}
 
-	@Override
-	public Set<TestClass> getValueSet() {
-		java.util.Set<Set<TestClass>> unitees = new LinkedHashSet<>();
-		unitees.add(universalSet);
-		unitees.add(getVariableSetInUniverse());
-		return Uniter.unite(unitees);
-	}
-
 	private StandardSet<TestClass> getVariableSetInUniverse() {
 		StandardSet<TestClass> output = new StandardSet<>("variablesInUniverse");
 		for (Object o : variableSet) {
@@ -60,40 +44,6 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	@Override
 	public Class<TestClass> getTypeOfUniverse() {
 		return TestClass.class;
-	}
-
-	@Override
-	public boolean contains(String value) {
-		return variableSet.contains(value)
-				|| universalSet.contains(value)
-				|| universalSetOfSets.contains(value)
-				|| logicalConstants.contains(value);
-	}
-
-	@Override
-	public Type getTypeOfElement(String value) {
-		if (variableSet.contains(value)) {
-			return variableSet.get(value).getClass();
-		} else if (universalSetOfSets.contains(value)) {
-			return Set.class;
-		} else if (logicalConstants.contains(value)) {
-			return Boolean.class;
-		} else {
-			return TestClass.class;
-		}
-	}
-
-	@Override
-	public Object get(String value) {
-		if (variableSet.contains(value)) {
-			return variableSet.get(value);
-		} else if (universalSetOfSets.contains(value)) {
-			return universalSetOfSets.get(value);
-		} else if (logicalConstants.contains(value)) {
-			return value.equals("⊤");
-		} else {
-			return universalSet.get(value);
-		}
 	}
 
 	public TestClassUniverse() {

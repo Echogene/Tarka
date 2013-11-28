@@ -18,8 +18,6 @@ public interface Universe<T extends Nameable> {
 
 	StandardSet<Object> getVariables();
 
-	Set<T> getValueSet();
-
 	Class<T> getTypeOfUniverse();
 
 	/**
