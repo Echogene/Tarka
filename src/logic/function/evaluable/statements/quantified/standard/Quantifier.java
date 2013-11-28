@@ -4,8 +4,8 @@ import logic.Connective;
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
 import logic.model.universe.Universe;
-import logic.set.FiniteSet;
 import logic.set.Set;
+import logic.set.finite.FiniteSet;
 import logic.set.infinite.InfiniteSet;
 import logic.set.infinite.InfiniteSetException;
 

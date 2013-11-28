@@ -3,6 +3,7 @@ package logic.factory;
 import logic.function.evaluable.statements.binary.BinaryConnective;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.evaluable.statements.unary.UnaryConnective;
+import logic.function.set.intersection.Intersection;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;
@@ -27,6 +28,7 @@ public class SimpleLogicLexer implements Lexer {
 			+ BinaryConnective.BINARY_CONNECTIVE_SYMBOLS
 			+ UnaryConnective.UNARY_CONNECTIVE_SYMBOLS
 			+ Union.UNION_SYMBOLS
+			+ Intersection.INTERSECTION_SYMBOLS
 			+ Addition.ADDITION_SYMBOLS
 			+ Subtraction.MINUS
 			+ MemberDefinition.DEFINITION_SYMBOL;

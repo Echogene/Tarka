@@ -1,30 +1,28 @@
-package logic.function.set.union;
+package logic.function.set.intersection;
 
 import logic.Nameable;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
-import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.set.SetFunction;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
-
 /**
  * @author Steven Weston
  */
-public class MultaryUnionFactory<T extends Nameable> extends AbstractUnionFactory<T> {
+public class BinaryIntersectionFactory<T extends Nameable> extends AbstractIntersectionFactory<T> {
 
-	public MultaryUnionFactory(Class<T> universeType) {
+	public BinaryIntersectionFactory(Class<T> universeType) {
 		super(getCheckers(), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new OperatorChecker(Union.MULTARY_SYMBOL),
-				new NumberedChecker(MANY, new FunctionOrVariableChecker(SetFunction.class))
+				new FunctionOrVariableChecker(SetFunction.class),
+				new OperatorChecker(Intersection.BINARY_SYMBOL),
+				new FunctionOrVariableChecker(SetFunction.class)
 		);
 	}
 }

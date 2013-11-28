@@ -1,9 +1,12 @@
-package logic.set;
+package logic.set.finite;
 
 import logic.Nameable;
+import logic.set.ImpoundSet;
+import logic.set.Set;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 import static maths.number.integer.Integer.ONE;
@@ -11,17 +14,18 @@ import static maths.number.integer.Integer.ONE;
 /**
  * @author Steven Weston
  */
-public class FiniteIntersection<T extends Nameable> extends FiniteSet<T> {
+public class FiniteImpoundSet<T extends Nameable> extends FiniteSet<T> implements ImpoundSet<T> {
 
-	private final java.util.Set<? extends Set<T>> intersection;
+	private final java.util.Set<Set<T>> intersection;
 
-	FiniteIntersection(String name, java.util.Set<? extends Set<T>> intersection) {
+	public FiniteImpoundSet(String name) {
 		super(name);
-		this.intersection = intersection;
+		this.intersection = new HashSet<>();
 	}
 
-	FiniteIntersection(java.util.Set<? extends Set<T>> intersection) {
-		this(null, intersection);
+	FiniteImpoundSet(String name, java.util.Set<Set<T>> intersection) {
+		super(name);
+		this.intersection = intersection;
 	}
 
 	@Override
@@ -37,6 +41,11 @@ public class FiniteIntersection<T extends Nameable> extends FiniteSet<T> {
 	@Override
 	public Iterator<T> iterator() {
 		return new FiniteInteresectionIterator();
+	}
+
+	@Override
+	public void intersectWith(Set<T> set) {
+		intersection.add(set);
 	}
 
 	private class FiniteInteresectionIterator implements Iterator<T> {

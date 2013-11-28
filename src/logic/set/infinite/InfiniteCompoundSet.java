@@ -2,9 +2,9 @@ package logic.set.infinite;
 
 import logic.Nameable;
 import logic.set.CompoundSet;
-import logic.set.FiniteCompoundSet;
-import logic.set.FiniteSet;
 import logic.set.Set;
+import logic.set.finite.FiniteCompoundSet;
+import logic.set.finite.FiniteSet;
 import logic.set.finite.StandardSet;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

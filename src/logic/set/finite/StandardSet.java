@@ -2,7 +2,6 @@ package logic.set.finite;
 
 import logic.Nameable;
 import logic.set.Dictionary;
-import logic.set.FiniteSet;
 import logic.set.ModifiableSet;
 import maths.number.integer.Integer;
 

@@ -1,5 +1,6 @@
-package logic.set;
+package logic.set.finite;
 
+import logic.set.NamedSet;
 import maths.number.integer.Integer;
 
 /**

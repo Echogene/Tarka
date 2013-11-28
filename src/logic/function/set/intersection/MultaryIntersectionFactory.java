@@ -1,4 +1,4 @@
-package logic.function.set.union;
+package logic.function.set.intersection;
 
 import logic.Nameable;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -15,15 +15,15 @@ import static logic.function.factory.validation.checking.CheckerWithNumber.Numbe
 /**
  * @author Steven Weston
  */
-public class MultaryUnionFactory<T extends Nameable> extends AbstractUnionFactory<T> {
+public class MultaryIntersectionFactory<T extends Nameable> extends AbstractIntersectionFactory<T> {
 
-	public MultaryUnionFactory(Class<T> universeType) {
+	public MultaryIntersectionFactory(Class<T> universeType) {
 		super(getCheckers(), universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new OperatorChecker(Union.MULTARY_SYMBOL),
+				new OperatorChecker(Intersection.MULTARY_SYMBOL),
 				new NumberedChecker(MANY, new FunctionOrVariableChecker(SetFunction.class))
 		);
 	}

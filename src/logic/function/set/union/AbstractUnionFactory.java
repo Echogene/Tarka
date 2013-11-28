@@ -8,6 +8,7 @@ import logic.function.identity.SetIdentityFunction;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
+import reading.parsing.ParseTreeNode;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -46,5 +47,10 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 			sets.add(setFunction);
 		}
 		return new Union<>(sets);
+	}
+
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
 	}
 }

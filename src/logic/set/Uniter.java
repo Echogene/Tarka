@@ -2,6 +2,7 @@ package logic.set;
 
 import logic.Nameable;
 import logic.function.set.union.Union;
+import logic.set.finite.FiniteCompoundSet;
 import logic.set.infinite.InfiniteCompoundSet;
 import logic.set.infinite.InfiniteSet;
 
@@ -11,6 +12,7 @@ import java.util.Iterator;
  * @author Steven Weston
  */
 public class Uniter {
+
 	public static <T extends Nameable> Set<T> unite(java.util.Set<? extends Set<T>> sets) {
 		//todo: look into caching this
 		boolean infinite = false;

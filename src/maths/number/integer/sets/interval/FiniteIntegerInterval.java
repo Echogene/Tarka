@@ -1,6 +1,6 @@
 package maths.number.integer.sets.interval;
 
-import logic.set.FiniteSet;
+import logic.set.finite.FiniteSet;
 import maths.number.Subtractor;
 import maths.number.Summor;
 import maths.number.integer.Integer;

@@ -1,7 +1,7 @@
-package logic.set;
+package logic.set.finite;
 
 import logic.TestClass;
-import logic.set.finite.StandardSet;
+import logic.set.Set;
 import maths.number.integer.Integer;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
  * @author Steven Weston
  */
 @SuppressWarnings("unchecked")
-public class FiniteIntersectionTest {
+public class FiniteImpoundSetTest {
 
 	@Test
 	public void testSmallestSet() throws Exception {
@@ -26,7 +26,7 @@ public class FiniteIntersectionTest {
 		StandardSet<TestClass> oneElement = createSet("1", "x");
 		StandardSet<TestClass> twoElements = createSet("2", "y", "z");
 
-		FiniteIntersection<TestClass> intersection;
+		FiniteImpoundSet<TestClass> intersection;
 		intersection = createIntersection(emptySet, oneElement, twoElements);
 		assertEquals(emptySet, intersection.smallestSet());
 
@@ -41,7 +41,7 @@ public class FiniteIntersectionTest {
 		StandardSet<TestClass> twoElements = createSet("2", "y", "z");
 		StandardSet<TestClass> threeElements = createSet("3", "x", "y", "z");
 
-		FiniteIntersection<TestClass> intersection;
+		FiniteImpoundSet<TestClass> intersection;
 		intersection = createIntersection(emptySet, oneElement, twoElements, threeElements);
 		assertFalse(intersection.containsValue(new TestClass("x")));
 		assertFalse(intersection.containsValue(new TestClass("y")));
@@ -66,7 +66,7 @@ public class FiniteIntersectionTest {
 		StandardSet<TestClass> threeElements = createSet("3", "x", "y", "z");
 		StandardSet<TestClass> otherThreeElements = createSet("3", "a", "b", "c");
 
-		FiniteIntersection<TestClass> intersection;
+		FiniteImpoundSet<TestClass> intersection;
 		List<TestClass> elements;
 
 		intersection = createIntersection(threeElements);
@@ -106,7 +106,7 @@ public class FiniteIntersectionTest {
 		StandardSet<TestClass> threeElements = createSet("3", "x", "y", "z");
 		StandardSet<TestClass> otherThreeElements = createSet("3", "a", "b", "c");
 
-		FiniteIntersection<TestClass> intersection;
+		FiniteImpoundSet<TestClass> intersection;
 
 		intersection = createIntersection(threeElements);
 		assertEquals(new Integer(3), intersection.size());
@@ -130,7 +130,7 @@ public class FiniteIntersectionTest {
 		assertEquals(new Integer(0), intersection.size());
 	}
 
-	private List<TestClass> getElementList(FiniteIntersection<TestClass> intersection) {
+	private List<TestClass> getElementList(FiniteImpoundSet<TestClass> intersection) {
 		List<TestClass> elements;
 		elements = new ArrayList<>();
 		for (TestClass test : intersection) {
@@ -147,10 +147,10 @@ public class FiniteIntersectionTest {
 		return output;
 	}
 
-	private FiniteIntersection<TestClass> createIntersection(Set<TestClass>... intersectees) {
+	private FiniteImpoundSet<TestClass> createIntersection(Set<TestClass>... intersectees) {
 		java.util.Set<Set<TestClass>> set = new HashSet<>();
 		Collections.addAll(set, intersectees);
 
-		return new FiniteIntersection<>("", set);
+		return new FiniteImpoundSet<>("", set);
 	}
 }
