@@ -32,6 +32,11 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 		return new Union<>(sets);
 	}
 
+	@Override
+	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		return getAllVariables(nodes);
+	}
+
 	public static <T extends Nameable> Union<T> createElement(String... setNames) {
 		java.util.Set<SetFunction<T>> sets = new HashSet<>();
 		for (String setName : setNames) {
@@ -47,10 +52,5 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 			sets.add(setFunction);
 		}
 		return new Union<>(sets);
-	}
-
-	@Override
-	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
-		return getAllVariables(nodes);
 	}
 }

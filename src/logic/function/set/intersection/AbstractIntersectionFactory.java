@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
+import logic.function.identity.SetIdentityFunction;
 import logic.function.set.SetFunction;
 import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
@@ -35,4 +36,22 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
 	}
+
+	public static <T extends Nameable> Intersection<T> createElement(String... setNames) {
+		java.util.Set<SetFunction<T>> sets = new HashSet<>();
+		for (String setName : setNames) {
+			sets.add(new SetIdentityFunction<>(setName));
+		}
+		return new Intersection<>(sets);
+	}
+
+	@SafeVarargs
+	public static <T extends Nameable> Intersection<T> createElement(SetFunction<T>... setFunctions) {
+		java.util.Set<SetFunction<T>> sets = new HashSet<>();
+		for (SetFunction<T> setFunction : setFunctions) {
+			sets.add(setFunction);
+		}
+		return new Intersection<>(sets);
+	}
+
 }
