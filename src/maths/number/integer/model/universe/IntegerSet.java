@@ -8,6 +8,7 @@ import maths.number.integer.Integer;
  * @author Steven Weston
  */
 public class IntegerSet extends InfiniteSet<Integer> implements Dictionary<Integer> {
+
 	public IntegerSet(String name) {
 		super(name);
 	}

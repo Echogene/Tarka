@@ -1,7 +1,6 @@
 package maths.number.integer.model.universe;
 
 import logic.model.universe.AbstractUniverse;
-import logic.model.universe.empty.EmptySet;
 import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
@@ -15,17 +14,14 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	private final IntegerSet ℤ;
 	private final StandardSet<Object> variables;
 
-	private final StandardSet<Set<Integer>> universalSetOfSets;
+	private final IntegerUniverseSetOfSets universalSetOfSets;
 
 	public IntegerUniverse() {
 		ℤ = new IntegerSet("ℤ");
 
 		variables = new StandardSet<>("variables");
 
-		universalSetOfSets = new StandardSet<>("sets");
-		universalSetOfSets.put(ℤ);
-		universalSetOfSets.put(new PrimeNumberSet("ℙ"));
-		universalSetOfSets.put(new EmptySet<>());
+		universalSetOfSets = new IntegerUniverseSetOfSets(ℤ);
 	}
 
 	@Override
