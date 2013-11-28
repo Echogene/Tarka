@@ -1,6 +1,7 @@
 package logic;
 
 import logic.model.universe.AbstractUniverse;
+import logic.model.universe.empty.EmptySet;
 import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
@@ -31,16 +32,6 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		return variableSet;
 	}
 
-	private StandardSet<TestClass> getVariableSetInUniverse() {
-		StandardSet<TestClass> output = new StandardSet<>("variablesInUniverse");
-		for (Object o : variableSet) {
-			if (o instanceof TestClass) {
-				output.put(o.toString(), (TestClass) o);
-			}
-		}
-		return output;
-	}
-
 	@Override
 	public Class<TestClass> getTypeOfUniverse() {
 		return TestClass.class;
@@ -51,6 +42,7 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		universalSet       = new StandardSet<>("universalSet");
 		universalSetOfSets = new StandardSet<>("universalSetOfSets");
 		universalSetOfSets.put(universalSet);
+		universalSetOfSets.put(new EmptySet<>());
 	}
 
 	public void setVariables(StandardSet<Object> variables) {

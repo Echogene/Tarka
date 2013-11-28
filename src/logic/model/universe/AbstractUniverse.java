@@ -72,7 +72,7 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 		throw new UniverseException();
 	}
 
-	private class UniverseException extends RuntimeException {
+	private static class UniverseException extends RuntimeException {
 
 	}
 }

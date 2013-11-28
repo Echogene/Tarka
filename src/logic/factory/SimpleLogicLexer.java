@@ -36,7 +36,7 @@ public class SimpleLogicLexer implements Lexer {
 	private static final Pattern OPEN_PAREN_PATTERN = Pattern.compile(OPEN_PAREN_REGEX);
 	private static final String CLOSE_PAREN_REGEX = "[\\)\\}\\]]";
 	private static final Pattern CLOSE_PAREN_PATTERN = Pattern.compile(CLOSE_PAREN_REGEX);
-	private static final String NAME_REGEX = "[\\-]?[\\wℤℙ⊤⊥]+";
+	private static final String NAME_REGEX = "[\\-]?[\\wℤℙ⊤⊥∅]+";
 	private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
 	private static final String OPERATOR_REGEX = "[" + OPERATOR_GROUP + "]";
 	private static final Pattern OPERATOR_PATTERN = Pattern.compile(OPERATOR_REGEX);
