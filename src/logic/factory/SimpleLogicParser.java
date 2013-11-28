@@ -28,7 +28,8 @@ public class SimpleLogicParser implements Parser {
 		SimpleLogicParseTreeNode currentMother = new SimpleLogicParseTreeNode(first(tokens));
 		output.getNodes().add(currentMother);
 		SimpleLogicParseTreeNode currentChild;
-		for (Token t : tokens) {
+		for (int i = 1; i < tokens.size(); i++) {
+			Token t = tokens.get(i);
 			if (t.isOfType(OPEN_BRACKET)) {
 				currentChild = new SimpleLogicParseTreeNode(currentMother, t);
 				currentMother = currentChild;
