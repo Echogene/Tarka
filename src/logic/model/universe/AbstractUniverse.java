@@ -45,10 +45,10 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 
 	@Override
 	public final Type getTypeOfElement(String value) {
-		if (getUniversalSet().contains(value)) {
-			return maths.number.integer.Integer.class;
-		} else if (getVariables().contains(value)) {
+		if (getVariables().contains(value)) {
 			return getVariables().get(value).getClass();
+		} else if (getUniversalSet().contains(value)) {
+			return getTypeOfUniverse();
 		} else if (getUniversalSetOfSets().contains(value)) {
 			return Set.class;
 		} else if (logicalConstants.contains(value)) {
@@ -60,10 +60,10 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 
 	@Override
 	public final Object get(String value) {
-		if (getUniversalSet().contains(value)) {
-			return getUniversalSet().get(value);
-		} else if (getVariables().contains(value)) {
+		if (getVariables().contains(value)) {
 			return getVariables().get(value);
+		} else if (getUniversalSet().contains(value)) {
+			return getUniversalSet().get(value);
 		} else if (getUniversalSetOfSets().contains(value)) {
 			return getUniversalSetOfSets().get(value);
 		} else if (logicalConstants.contains(value)) {
