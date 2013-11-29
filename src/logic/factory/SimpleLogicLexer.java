@@ -24,7 +24,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
  */
 public class SimpleLogicLexer implements Lexer {
 	private static final String OPERATOR_GROUP =
-			"∊∈∉∍∋∌="
+			"∊∈∉∍∋∌=/\\"
 			+ BinaryConnective.BINARY_CONNECTIVE_SYMBOLS
 			+ UnaryConnective.UNARY_CONNECTIVE_SYMBOLS
 			+ Union.UNION_SYMBOLS
