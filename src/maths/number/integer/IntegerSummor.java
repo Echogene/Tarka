@@ -3,7 +3,6 @@ package maths.number.integer;
 import maths.number.Summor;
 
 import java.math.BigInteger;
-import java.util.Collection;
 
 /**
  * @author Steven Weston
@@ -15,7 +14,7 @@ public class IntegerSummor implements Summor<Integer> {
 	}
 
 	@Override
-	public Integer sum(Collection<Integer> summands) {
+	public Integer sum(Iterable<Integer> summands) {
 		BigInteger output = new BigInteger("0");
 		for (Integer summand : summands) {
 			output = output.add(summand.value);

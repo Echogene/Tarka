@@ -1,4 +1,4 @@
-package maths.number.integer.functions.subtraction;
+package maths.number.integer.functions.addition;
 
 import javafx.util.Pair;
 import logic.factory.FactoryException;
@@ -6,10 +6,10 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
-import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
+import logic.function.set.SetFunction;
 import maths.number.Number;
-import maths.number.Subtractor;
+import maths.number.Summor;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
@@ -19,26 +19,26 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFactory<N, Subtraction<N>> {
+public class SetTotalFactory<N extends Number> extends ReflexiveFunctionFactory<N, SetTotal<N>> {
 
-	private final Subtractor<N> subtractor;
+	private final Summor<N> summor;
 
-	public SubtractionFactory(Subtractor<N> subtractor, Class<N> universeType) {
+	public SetTotalFactory(Summor<N> summor, Class<N> universeType) {
 		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
-		this.subtractor = subtractor;
+		this.summor = summor;
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
-				new FunctionOrVariableChecker(ReflexiveFunction.class),
-				new OperatorChecker(Subtraction.MINUS),
-				new FunctionOrVariableChecker(ReflexiveFunction.class)
+				new OperatorChecker(Addition.SUM_SYMBOL),
+				new OperatorChecker("/"),
+				new FunctionOrVariableChecker(SetFunction.class)
 		);
 	}
 
 	@Override
-	public Subtraction<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
-		return new Subtraction<>((ReflexiveFunction<N>) functions.get(0), (ReflexiveFunction<N>) functions.get(1), subtractor);
+	public SetTotal<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+		return new SetTotal<>((SetFunction<N>) functions.get(0), summor);
 	}
 
 	@Override

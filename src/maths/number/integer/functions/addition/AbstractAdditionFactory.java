@@ -6,14 +6,11 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
 import maths.number.Number;
 import maths.number.Summor;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,11 +30,6 @@ public abstract class AbstractAdditionFactory<N extends Number> extends Reflexiv
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
-	}
-
-	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return getUniverseType();
 	}
 
 	@Override
