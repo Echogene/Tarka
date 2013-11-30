@@ -5,12 +5,15 @@ import logic.factory.SimpleLogicReader;
 import logic.function.factory.FunctionFactory;
 import logic.model.universe.Universe;
 import maths.number.integer.Integer;
+import maths.number.integer.IntegerMultiplior;
 import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.functions.addition.BinaryAdditionFactory;
 import maths.number.integer.functions.addition.MultaryAdditionFactory;
 import maths.number.integer.functions.addition.SetTotalFactory;
 import maths.number.integer.functions.interval.IntervalFunctionFactory;
+import maths.number.integer.functions.multiplication.BinaryMultiplicationFactory;
+import maths.number.integer.functions.multiplication.MultaryMultiplicationFactory;
 import maths.number.integer.functions.subtraction.SubtractionFactory;
 import maths.number.integer.sets.interval.FiniteIntegerIntervalFactory;
 
@@ -25,6 +28,8 @@ public class IntegerReader {
 		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories(universeType);
 		factories.add(new BinaryAdditionFactory<>(new IntegerSummor(), universeType));
 		factories.add(new MultaryAdditionFactory<>(new IntegerSummor(), universeType));
+		factories.add(new BinaryMultiplicationFactory<>(new IntegerMultiplior(), universeType));
+		factories.add(new MultaryMultiplicationFactory<>(new IntegerMultiplior(), universeType));
 		factories.add(new SetTotalFactory<>(new IntegerSummor(), universeType));
 		factories.add(new SubtractionFactory<>(new IntegerSubtractor(), universeType));
 		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory(), universeType));

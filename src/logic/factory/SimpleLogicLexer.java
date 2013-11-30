@@ -7,6 +7,7 @@ import logic.function.set.intersection.Intersection;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.member.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;
+import maths.number.integer.functions.multiplication.Multiplication;
 import maths.number.integer.functions.subtraction.Subtraction;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
@@ -30,6 +31,7 @@ public class SimpleLogicLexer implements Lexer {
 			+ Union.UNION_SYMBOLS
 			+ Intersection.INTERSECTION_SYMBOLS
 			+ Addition.ADDITION_SYMBOLS
+			+ Multiplication.MULTIPLICATION_SYMBOLS
 			+ Subtraction.MINUS
 			+ MemberDefinition.DEFINITION_SYMBOL;
 	private static final String QUANTIFIER_GROUP = Quantifier.QUANTIFIER_SYMBOLS;
