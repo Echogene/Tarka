@@ -1,6 +1,5 @@
 package maths.number.integer.functions.multiplication;
 
-import javafx.util.Pair;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -12,7 +11,6 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +21,7 @@ abstract class AbstractMultiplicationFactory<N extends Number> extends Reflexive
 	private final Multiplior<N> multiplior;
 
 	AbstractMultiplicationFactory(List<CheckerWithNumber> checkers, Class<N> universeType, Multiplior<N> multiplior) {
-		super(checkers, Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(checkers, STANDARD_BRACKETS, universeType);
 		this.multiplior = multiplior;
 	}
 

@@ -1,6 +1,5 @@
 package logic.function.evaluable.statements.binary;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -25,7 +24,7 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	private final BinaryConnectiveFactory binaryConnectiveFactory;
 
 	public BinaryStatementFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 		this.binaryConnectiveFactory = new BinaryConnectiveFactory();
 	}
 

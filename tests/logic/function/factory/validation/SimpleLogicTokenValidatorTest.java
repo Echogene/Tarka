@@ -1,7 +1,7 @@
 package logic.function.factory.validation;
 
-import javafx.util.Pair;
 import logic.factory.SimpleLogicLexer;
+import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.NumberedChecker;
@@ -65,7 +65,7 @@ public class SimpleLogicTokenValidatorTest {
 						new OperatorChecker("+"),
 						new VariableChecker()
 				),
-				Arrays.asList(new Pair<>("(", ")"))
+				FunctionFactory.STANDARD_BRACKETS
 		);
 		MapToErrors<TokenGroup> errors;
 		errors = validator.validateTokens(lexer.tokeniseString("[∀ ∨ +]"));

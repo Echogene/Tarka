@@ -1,6 +1,5 @@
 package logic.function.voidfunction.definition.member;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
@@ -32,7 +31,7 @@ import static logic.function.voidfunction.definition.member.MemberDefinition.DEF
 public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, Definition<T, ?>> implements VariableAssignerFactory {
 
 	public DefinitionFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

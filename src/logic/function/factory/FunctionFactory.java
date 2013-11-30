@@ -44,6 +44,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 				Factory<F>
 {
 
+	public static final List<Pair<String,String>> STANDARD_BRACKETS = Arrays.asList(new Pair<>("(", ")"));
 	protected final static List<Class> NON_VOID_FUNCTIONS = Arrays.<Class>asList(
 			ReflexiveFunction.class,
 			Evaluable.class,

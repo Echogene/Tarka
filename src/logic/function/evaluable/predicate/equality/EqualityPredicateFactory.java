@@ -1,6 +1,5 @@
 package logic.function.evaluable.predicate.equality;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -34,7 +33,7 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	public EqualityPredicateFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

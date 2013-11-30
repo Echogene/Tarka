@@ -1,6 +1,5 @@
 package maths.number.integer.functions.subtraction;
 
-import javafx.util.Pair;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -24,7 +23,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	private final Subtractor<N> subtractor;
 
 	public SubtractionFactory(Subtractor<N> subtractor, Class<N> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 		this.subtractor = subtractor;
 	}
 

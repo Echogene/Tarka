@@ -1,6 +1,5 @@
 package logic.function.evaluable.statements.unary;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -25,7 +24,7 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 	private final UnaryConnectiveFactory unaryConnectiveFactory;
 
 	public UnaryStatementFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 		this.unaryConnectiveFactory = new UnaryConnectiveFactory();
 	}
 

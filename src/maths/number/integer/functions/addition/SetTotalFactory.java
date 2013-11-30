@@ -1,6 +1,5 @@
 package maths.number.integer.functions.addition;
 
-import javafx.util.Pair;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -24,7 +23,7 @@ public class SetTotalFactory<N extends Number> extends ReflexiveFunctionFactory<
 	private final Summor<N> summor;
 
 	public SetTotalFactory(Summor<N> summor, Class<N> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 		this.summor = summor;
 	}
 

@@ -1,6 +1,5 @@
 package logic.function.assignment;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -31,7 +30,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object, Assignment<T, ?>> implements VariableAssignerFactory {
 
 	public AssignmentFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

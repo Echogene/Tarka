@@ -1,6 +1,5 @@
 package logic.function.set.union;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
@@ -10,7 +9,6 @@ import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -20,7 +18,7 @@ import java.util.List;
 public abstract class AbstractUnionFactory<T extends Nameable> extends SetFunctionFactory<T, Union<T>> {
 
 	AbstractUnionFactory(List<CheckerWithNumber> checkers, Class<T> universeType) {
-		super(checkers, Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(checkers, STANDARD_BRACKETS, universeType);
 	}
 
 	@Override

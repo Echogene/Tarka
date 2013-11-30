@@ -1,6 +1,5 @@
 package logic.function.evaluable.predicate.membership;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -24,7 +23,7 @@ import java.util.List;
 public class MembershipPredicateFactory<T extends Nameable> extends PredicateFactory<T, MembershipPredicate<T>> {
 
 	public MembershipPredicateFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {

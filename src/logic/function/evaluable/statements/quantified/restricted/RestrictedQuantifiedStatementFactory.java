@@ -1,6 +1,5 @@
 package logic.function.evaluable.statements.quantified.restricted;
 
-import javafx.util.Pair;
 import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
@@ -37,7 +36,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	private final QuantifierFactory quantifierFactory;
 
 	public RestrictedQuantifiedStatementFactory(Class<T> universeType) {
-		super(getCheckers(), Arrays.asList(new Pair<>("(", ")")), universeType);
+		super(getCheckers(), STANDARD_BRACKETS, universeType);
 		this.quantifierFactory = new QuantifierFactory();
 	}
 
