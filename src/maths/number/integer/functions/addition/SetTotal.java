@@ -5,7 +5,7 @@ import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
-import logic.set.infinite.InfiniteSetException;
+import logic.set.infinite.NotCertainlyFiniteSetException;
 import maths.number.Number;
 import maths.number.Summor;
 
@@ -30,7 +30,7 @@ public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
 		if (setToTotal instanceof FiniteSet) {
 			return summor.sum((FiniteSet<N>) setToTotal);
 		} else {
-			throw new InfiniteSetException("Cannot total an infinite set.");
+			throw new NotCertainlyFiniteSetException("Cannot total a set that is not certainly finite.");
 		}
 	}
 

@@ -6,8 +6,7 @@ import logic.function.evaluable.Evaluable;
 import logic.model.universe.Universe;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
-import logic.set.infinite.InfiniteSet;
-import logic.set.infinite.InfiniteSetException;
+import logic.set.infinite.NotCertainlyFiniteSetException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +54,8 @@ public class Quantifier extends Connective {
 		universe.assignVariable(variableSymbol);
 		int existCount = 0;
 		Boolean output = null;
-		if (set instanceof InfiniteSet<?>) {
-			throw new InfiniteSetException("Cannot determine quantifier validity in infinite set.");
+		if (!(set instanceof FiniteSet<?>)) {
+			throw new NotCertainlyFiniteSetException("Cannot determine quantifier validity in a set that is not certainly finite.");
 		}
 		FiniteSet<T> finiteSet = (FiniteSet<T>) set;
 		for (T t : finiteSet) {

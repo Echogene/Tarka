@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.set.intersection.Intersection;
 import logic.set.finite.FiniteImpoundSet;
 import logic.set.finite.FiniteSet;
-import logic.set.infinite.InfiniteImpoundSet;
+import logic.set.infinite.UndeterminableImpoundSet;
 
 import java.util.Iterator;
 
@@ -25,7 +25,7 @@ public class Intersector {
 		if (finite) {
 			output = new FiniteImpoundSet<>(getNameForIntersection(sets));
 		} else {
-			output = new InfiniteImpoundSet<>(getNameForIntersection(sets));
+			output = new UndeterminableImpoundSet<>(getNameForIntersection(sets));
 		}
 		for (Set<T> set : sets) {
 			output.intersectWith(set);
