@@ -6,6 +6,8 @@ import logic.function.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
+import logic.set.Set;
+import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerReader;
 import maths.number.integer.model.universe.IntegerUniverse;
@@ -50,7 +52,24 @@ public class IntegerReaderRepl {
 				System.out.println(evaluable.evaluate(universe));
 			} else if (function instanceof SetFunction) {
 				SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
-				System.out.println(setFunction.evaluate(universe));
+				Set<Integer> set = setFunction.evaluate(universe);
+				if (set instanceof FiniteSet) {
+					FiniteSet<Integer> finiteSet = (FiniteSet<Integer>) set;
+					StringBuilder sb = new StringBuilder();
+					sb.append("{");
+					Boolean first = true;
+					for (Integer i : finiteSet) {
+						if (!first) {
+							sb.append(" ");
+						}
+						sb.append(i);
+						first = false;
+					}
+					sb.append("}");
+					System.out.println(sb.toString());
+				} else {
+					System.out.println(set);
+				}
 			} else if (function instanceof VoidFunction) {
 				VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
 				voidFunction.evaluate(universe);
