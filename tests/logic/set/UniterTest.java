@@ -3,6 +3,7 @@ package logic.set;
 import logic.TestClass;
 import logic.set.finite.FiniteCompoundSet;
 import logic.set.finite.StandardSet;
+import logic.set.operators.Uniter;
 import maths.number.integer.Integer;
 import maths.number.integer.model.universe.IntegerSet;
 import maths.number.integer.model.universe.PrimeNumberSet;

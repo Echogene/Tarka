@@ -2,6 +2,7 @@ package logic.set.finite;
 
 import logic.Nameable;
 import logic.set.ImpoundSet;
+import logic.set.NamedSet;
 import logic.set.Set;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
@@ -14,7 +15,7 @@ import static maths.number.integer.Integer.ONE;
 /**
  * @author Steven Weston
  */
-public class FiniteImpoundSet<T extends Nameable> extends FiniteSet<T> implements ImpoundSet<T> {
+public class FiniteImpoundSet<T extends Nameable> extends NamedSet<T> implements ImpoundSet<T>, FiniteSet<T> {
 
 	private final java.util.Set<Set<T>> intersection;
 

@@ -5,7 +5,7 @@ import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
-import logic.set.infinite.NotCertainlyFiniteSetException;
+import logic.set.undeterminable.NotCertainlyFiniteSetException;
 import maths.number.Number;
 import maths.number.Summor;
 

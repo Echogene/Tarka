@@ -1,16 +1,17 @@
-package logic.set.infinite;
+package logic.set.undeterminable;
 
 import logic.Nameable;
 import logic.set.ImpoundSet;
+import logic.set.NamedSet;
 import logic.set.Set;
-import logic.set.undeterminable.UndeterminableSet;
+import logic.set.infinite.InfiniteSet;
 
 import java.util.HashSet;
 
 /**
  * @author Steven Weston
  */
-public class UndeterminableImpoundSet<T extends Nameable> extends UndeterminableSet<T> implements ImpoundSet<T> {
+public class UndeterminableImpoundSet<T extends Nameable> extends NamedSet<T> implements ImpoundSet<T>, UndeterminableSet<T> {
 
 	private final java.util.Set<InfiniteSet<T>> sets;
 

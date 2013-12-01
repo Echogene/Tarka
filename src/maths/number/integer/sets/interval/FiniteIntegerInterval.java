@@ -1,5 +1,6 @@
 package maths.number.integer.sets.interval;
 
+import logic.set.NamedSet;
 import logic.set.finite.FiniteSet;
 import maths.number.Subtractor;
 import maths.number.Summor;
@@ -15,7 +16,7 @@ import static maths.number.integer.sets.interval.IntervalBound.BoundType.CLOSED;
 /**
  * @author Steven Weston
  */
-public class FiniteIntegerInterval extends FiniteSet<Integer> implements Interval<Integer> {
+public class FiniteIntegerInterval extends NamedSet<Integer> implements Interval<Integer>, FiniteSet<Integer> {
 
 	private final Subtractor<Integer> subtractor = new IntegerSubtractor();
 	private final Summor<Integer> summor = new IntegerSummor();

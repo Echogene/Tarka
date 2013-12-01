@@ -1,13 +1,14 @@
 package maths.number.integer.model.universe;
 
 import logic.set.Dictionary;
+import logic.set.NamedSet;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
 
 /**
  * @author Steven Weston
  */
-public class IntegerSet extends InfiniteSet<Integer> implements Dictionary<Integer> {
+public class IntegerSet extends NamedSet<Integer> implements Dictionary<Integer>, InfiniteSet<Integer> {
 
 	public IntegerSet(String name) {
 		super(name);

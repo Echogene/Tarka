@@ -3,8 +3,8 @@ package logic.function.set.intersection;
 import logic.Nameable;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
-import logic.set.Intersector;
 import logic.set.Set;
+import logic.set.operators.Intersector;
 
 import java.util.HashSet;
 import java.util.Iterator;

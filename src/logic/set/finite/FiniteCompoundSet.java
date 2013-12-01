@@ -2,6 +2,7 @@ package logic.set.finite;
 
 import logic.Nameable;
 import logic.set.CompoundSet;
+import logic.set.NamedSet;
 import logic.set.Set;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 /**
  * @author Steven Weston
  */
-public class FiniteCompoundSet<T extends Nameable> extends FiniteSet<T> implements CompoundSet<T> {
+public class FiniteCompoundSet<T extends Nameable> extends NamedSet<T> implements CompoundSet<T>, FiniteSet<T> {
 
 	private final java.util.Set<FiniteSet<T>> components;
 

@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.set.SetFunction;
 import logic.model.universe.Universe;
 import logic.set.Set;
-import logic.set.Uniter;
+import logic.set.operators.Uniter;
 
 import java.util.HashSet;
 import java.util.Iterator;

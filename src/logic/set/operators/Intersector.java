@@ -1,10 +1,12 @@
-package logic.set;
+package logic.set.operators;
 
 import logic.Nameable;
 import logic.function.set.intersection.Intersection;
+import logic.set.ImpoundSet;
+import logic.set.Set;
 import logic.set.finite.FiniteImpoundSet;
 import logic.set.finite.FiniteSet;
-import logic.set.infinite.UndeterminableImpoundSet;
+import logic.set.undeterminable.UndeterminableImpoundSet;
 
 import java.util.Iterator;
 

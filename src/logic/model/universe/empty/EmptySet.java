@@ -1,5 +1,6 @@
 package logic.model.universe.empty;
 
+import logic.set.NamedSet;
 import logic.set.finite.FiniteSet;
 
 import java.util.Collections;
@@ -10,7 +11,7 @@ import static maths.number.integer.Integer.ZERO;
 /**
  * @author Steven Weston
  */
-public class EmptySet<T> extends FiniteSet<T> {
+public class EmptySet<T> extends NamedSet<T> implements FiniteSet<T> {
 
 	public EmptySet() {
 		super("∅");

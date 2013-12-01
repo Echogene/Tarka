@@ -1,7 +1,9 @@
-package logic.set;
+package logic.set.operators;
 
 import logic.Nameable;
 import logic.function.set.union.Union;
+import logic.set.CompoundSet;
+import logic.set.Set;
 import logic.set.finite.FiniteCompoundSet;
 import logic.set.infinite.InfiniteCompoundSet;
 import logic.set.infinite.InfiniteSet;
