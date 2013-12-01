@@ -4,6 +4,7 @@ import logic.Nameable;
 import logic.set.ImpoundSet;
 import logic.set.NamedSet;
 import logic.set.Set;
+import logic.set.SkippyIterator;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 
@@ -41,42 +42,12 @@ public class FiniteImpoundSet<T extends Nameable> extends NamedSet<T> implements
 
 	@Override
 	public Iterator<T> iterator() {
-		return new FiniteInteresectionIterator();
+		return new SkippyIterator<>(smallestSet().iterator(), this::containsValue);
 	}
 
 	@Override
 	public void intersectWith(Set<T> set) {
 		intersection.add(set);
-	}
-
-	private class FiniteInteresectionIterator implements Iterator<T> {
-
-		private final Iterator<T> setIterator;
-		private T currentElement;
-
-		public FiniteInteresectionIterator() {
-			setIterator = smallestSet().iterator();
-		}
-
-		@Override
-		public boolean hasNext() {
-			if (!setIterator.hasNext()) {
-				return false;
-			}
-			currentElement = setIterator.next();
-			while (!containsValue(currentElement) && setIterator.hasNext()) {
-				currentElement = setIterator.next();
-			}
-			return containsValue(currentElement);
-		}
-
-		@Override
-		public T next() {
-			if (currentElement == null) {
-				currentElement = setIterator.next();
-			}
-			return currentElement;
-		}
 	}
 
 	FiniteSet<T> smallestSet() {
