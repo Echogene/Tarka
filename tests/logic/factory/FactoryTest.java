@@ -1,11 +1,9 @@
 package logic.factory;
 
 import logic.Nameable;
-import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.model.universe.Universe;
-import reading.reading.Reader;
 
 import java.util.Arrays;
 
@@ -15,7 +13,7 @@ import java.util.Arrays;
 public abstract class FactoryTest<T extends Nameable, U extends Universe<T>, F extends FunctionFactory<T, ?, ?>> {
 
 	protected final U universe;
-	protected final Reader<Function<?, ?>> reader;
+	protected final SimpleLogicReader<T> reader;
 
 	protected FactoryTest(F factory, U universe) {
 		this.universe = universe;

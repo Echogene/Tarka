@@ -4,6 +4,7 @@ import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.FunctionTest;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
+import logic.function.identity.SetIdentityFunction;
 import logic.set.Set;
 import logic.set.filtered.FiniteFilteredSet;
 import logic.set.finite.FiniteSet;
@@ -44,7 +45,7 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, C
 	public void testEvaluateFiniteSet() throws Exception {
 		function = new ComplexSet<>(
 				"a",
-				(Set<TestClass>) universe.get("X"),
+				new SetIdentityFunction<TestClass>("X"),
 				MembershipPredicateFactory.createElement("a", "Y")
 		);
 
@@ -61,7 +62,7 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, C
 	public void testEvaluateNonFiniteSet() throws Exception {
 		function = new ComplexSet<>(
 				"a",
-				(Set<TestClass>) universe.get("Z"),
+				new SetIdentityFunction<TestClass>("Z"),
 				MembershipPredicateFactory.createElement("a", "Y")
 		);
 

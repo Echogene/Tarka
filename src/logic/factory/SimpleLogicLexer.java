@@ -3,6 +3,7 @@ package logic.factory;
 import logic.function.evaluable.statements.binary.BinaryConnective;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.evaluable.statements.unary.UnaryConnective;
+import logic.function.set.complex.ComplexSet;
 import logic.function.set.intersection.Intersection;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.member.MemberDefinition;
@@ -33,7 +34,8 @@ public class SimpleLogicLexer implements Lexer {
 			+ Addition.ADDITION_SYMBOLS
 			+ Multiplication.MULTIPLICATION_SYMBOLS
 			+ Subtraction.MINUS
-			+ MemberDefinition.DEFINITION_SYMBOL;
+			+ MemberDefinition.DEFINITION_SYMBOL
+			+ ComplexSet.SUCH_THAT;
 	private static final String QUANTIFIER_GROUP = Quantifier.QUANTIFIER_SYMBOLS;
 
 	private static final String OPEN_PAREN_REGEX = "[\\(\\{\\[]";

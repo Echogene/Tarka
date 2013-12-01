@@ -17,11 +17,12 @@ import java.text.MessageFormat;
  */
 public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 
+	public static final String SUCH_THAT = "|";
 	private final String variable;
-	private final Set<T> boundingSet;
+	private final SetFunction<T> boundingSet;
 	private final Evaluable<T> evaluable;
 
-	public ComplexSet(String variable, Set<T> boundingSet, Evaluable<T> evaluable) {
+	public ComplexSet(String variable, SetFunction<T> boundingSet, Evaluable<T> evaluable) {
 		this.variable = variable;
 		this.boundingSet = boundingSet;
 		this.evaluable = evaluable;
@@ -36,18 +37,11 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 			universe.unassignVariable(variable);
 			return output;
 		};
-		if (boundingSet instanceof FiniteSet) {
-			return new FiniteFilteredSet<>(
-					toString(),
-					(FiniteSet<T>) boundingSet,
-					filter
-			);
+		Set<T> set = boundingSet.evaluate(universe);
+		if (set instanceof FiniteSet) {
+			return new FiniteFilteredSet<>(toString(), (FiniteSet<T>) set, filter);
 		} else {
-			return new UndeterminableFilteredSet<>(
-					toString(),
-					boundingSet,
-					filter
-			);
+			return new UndeterminableFilteredSet<>(toString(), set, filter);
 		}
 	}
 

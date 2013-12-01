@@ -140,4 +140,18 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		}
 		return output;
 	}
+
+	protected List<ParseTreeNode> getAllVariablesExcept(List<ParseTreeNode> nodes, Integer exception) {
+		List<ParseTreeNode> output = new ArrayList<>();
+		for (int i = 0; i < nodes.size(); i++) {
+			if (i == exception) {
+				continue;
+			}
+			ParseTreeNode node = nodes.get(i);
+			if (node.getToken().isOfType(NAME)) {
+				output.add(node);
+			}
+		}
+		return output;
+	}
 }

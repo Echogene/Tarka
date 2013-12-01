@@ -41,7 +41,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	private final IdentityConstructorFromType<T> identityConstructorFromType;
 
 	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
-		this.factories = factories;
+		this.factories = new ArrayList<>(factories);
 
 		identityConstructorFromType = getIdentityConstructorFromType(factories);
 		typeInferror = new SimpleLogicTypeInferror<>(universe);
@@ -146,6 +146,10 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			);
 		}
 		return new ArrayList<>(mapToErrors.getPassedKeys());
+	}
+
+	public void addFactory(FunctionFactory<T, ?, ?> factory) {
+		factories.add(factory);
 	}
 
 	private interface Validator<K, V> {
