@@ -11,6 +11,7 @@ import logic.function.evaluable.statements.unary.UnaryStatementFactory;
 import logic.function.factory.FunctionFactory;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.ifelse.IfElseFactory;
+import logic.function.set.complex.ComplexSetFactory;
 import logic.function.set.intersection.BinaryIntersectionFactory;
 import logic.function.set.intersection.MultaryIntersectionFactory;
 import logic.function.set.simple.SimpleSetFactory;
@@ -48,6 +49,7 @@ public class StandardReader {
 		output.add(new DefinitionFactory<>(universeType));
 		output.add(new SimpleSetFactory<>(universeType));
 		output.add(new IfElseFactory<>(universeType));
+		output.add(new ComplexSetFactory<>(universeType));
 		return output;
 	}
 }

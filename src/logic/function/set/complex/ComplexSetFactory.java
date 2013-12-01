@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T, ComplexSet<T>> implements VariableAssignerFactory {
 
-	protected ComplexSetFactory(Class<T> universeType) {
+	public ComplexSetFactory(Class<T> universeType) {
 		super(getCheckers(), Arrays.asList(new Pair<>("{", "}")), universeType);
 	}
 
