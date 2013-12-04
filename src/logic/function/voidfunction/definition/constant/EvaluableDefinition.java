@@ -1,4 +1,4 @@
-package logic.function.voidfunction.definition.member;
+package logic.function.voidfunction.definition.constant;
 
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;

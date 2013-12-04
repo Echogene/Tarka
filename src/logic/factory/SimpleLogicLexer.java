@@ -6,7 +6,7 @@ import logic.function.evaluable.statements.unary.UnaryConnective;
 import logic.function.set.complex.ComplexSet;
 import logic.function.set.intersection.Intersection;
 import logic.function.set.union.Union;
-import logic.function.voidfunction.definition.member.MemberDefinition;
+import logic.function.voidfunction.definition.constant.MemberDefinition;
 import maths.number.integer.functions.addition.Addition;
 import maths.number.integer.functions.multiplication.Multiplication;
 import maths.number.integer.functions.subtraction.Subtraction;

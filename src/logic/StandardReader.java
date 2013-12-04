@@ -17,7 +17,7 @@ import logic.function.set.intersection.MultaryIntersectionFactory;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
-import logic.function.voidfunction.definition.member.DefinitionFactory;
+import logic.function.voidfunction.definition.constant.DefinitionFactory;
 import logic.model.universe.Universe;
 
 import java.util.ArrayList;

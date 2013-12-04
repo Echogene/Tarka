@@ -22,7 +22,7 @@ import logic.function.identity.SetIdentityFunction;
 import logic.function.ifelse.ReflexiveIfElse;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.AbstractUnionFactory;
-import logic.function.voidfunction.definition.member.MemberDefinition;
+import logic.function.voidfunction.definition.constant.MemberDefinition;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.evaluating.EvaluatorException;

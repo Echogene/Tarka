@@ -1,4 +1,4 @@
-package logic.function.voidfunction.definition.member;
+package logic.function.voidfunction.definition.constant;
 
 import logic.Nameable;
 import logic.function.Function;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static logic.function.voidfunction.definition.member.MemberDefinition.DEFINITION_SYMBOL;
+import static logic.function.voidfunction.definition.constant.MemberDefinition.DEFINITION_SYMBOL;
 
 /**
  * @author Steven Weston

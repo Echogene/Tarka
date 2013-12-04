@@ -1,4 +1,4 @@
-package logic.function.voidfunction.definition.member;
+package logic.function.voidfunction.definition.constant;
 
 import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;

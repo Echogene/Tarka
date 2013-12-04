@@ -5,7 +5,7 @@ import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.MemberIdentityFunction;
-import logic.function.voidfunction.definition.member.MemberDefinition;
+import logic.function.voidfunction.definition.constant.MemberDefinition;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
