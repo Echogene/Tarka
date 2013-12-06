@@ -34,6 +34,10 @@ public class SimplePrimalityCheckerTest {
 		checkPrime(11);
 		checkNotPrime(12);
 		checkPrime(13);
+		checkNotPrime(25);
+		checkNotPrime(35);
+		checkNotPrime(121);
+		checkNotPrime(143);
 
 		// Test some largish Carol primes.
 		assertTrue(checker.isPrime(new Integer("68718952447")));

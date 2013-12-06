@@ -13,6 +13,7 @@ public class SimplePrimalityChecker implements PrimalityChecker {
 
 	private static final BigInteger TWO = valueOf(2L);
 	private static final BigInteger THREE = valueOf(3L);
+	private static final BigInteger FIVE = valueOf(5L);
 	private static final BigInteger SIX = valueOf(6L);
 
 	@Override
@@ -28,9 +29,9 @@ public class SimplePrimalityChecker implements PrimalityChecker {
 			return false;
 		}
 		// All prime numbers > 3 are of the form 6k±1, so we only need to test those.
-		for (i = SIX; i.compareTo(root) <= 0; i = i.add(SIX)) {
-			if (v.mod(i.subtract(ONE)).equals(ZERO)
-					|| v.mod(i.add(ONE)).equals(ZERO)) {
+		for (i = FIVE; i.compareTo(root) <= 0; i = i.add(SIX)) {
+			if (v.mod(i).equals(ZERO)
+					|| v.mod(i.add(TWO)).equals(ZERO)) {
 				return false;
 			}
 		}
