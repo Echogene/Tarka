@@ -1,6 +1,7 @@
 package logic.function.identity;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
@@ -19,15 +20,16 @@ public class IdentityFunctionTest {
 
 		MemberIdentityFunction<TestClass> function = new MemberIdentityFunction<>("x");
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		universe.setVariables(variables);
-		assertEquals("Expect evaluation of function with variables to be equal to " + x.toString(), x, function.evaluate(universe));
+		assertEquals("Expect evaluation of function with variables to be equal to " + x.toString(), x, function.evaluate(model));
 
 
 		StandardSet<TestClass> universalSet = new StandardSet<>("universe");
 		universalSet.put(x);
 		universe = new TestClassUniverse();
 		universe.setUniverse(universalSet);
-		assertEquals("Expect evaluation of function with no variables to be equal to " + x.toString(), x, function.evaluate(universe));
+		assertEquals("Expect evaluation of function with no variables to be equal to " + x.toString(), x, function.evaluate(model));
 	}
 }

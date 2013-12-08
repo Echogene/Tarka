@@ -1,7 +1,7 @@
 package maths.number.integer.functions.subtraction;
 
 import logic.function.reflexive.ReflexiveFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import maths.number.Number;
 import maths.number.Subtractor;
 
@@ -30,8 +30,8 @@ public class Subtraction<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public N evaluate(Universe<N> universe) throws Exception {
-		return subtractor.subtract(minuend.evaluate(universe), subtrahend.evaluate(universe));
+	public N evaluate(Model<N, ?, ?> model) throws Exception {
+		return subtractor.subtract(minuend.evaluate(model), subtrahend.evaluate(model));
 	}
 
 	@Override

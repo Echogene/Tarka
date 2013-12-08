@@ -3,7 +3,7 @@ package logic.function.ifelse;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 import static java.text.MessageFormat.format;
 
@@ -26,11 +26,11 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public C evaluate(Universe<D> universe) throws Exception {
-		if (condition.evaluate(universe)) {
-			return ifTrue.evaluate(universe);
+	public C evaluate(Model<D, ?, ?> model) throws Exception {
+		if (condition.evaluate(model)) {
+			return ifTrue.evaluate(model);
 		} else {
-			return ifFalse.evaluate(universe);
+			return ifFalse.evaluate(model);
 		}
 	}
 

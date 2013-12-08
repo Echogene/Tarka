@@ -1,6 +1,7 @@
 package logic.function.ifelse;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.identity.EvaluableIdentityFunction;
@@ -18,7 +19,8 @@ public class IfElseTest {
 
 	@Test
 	public void testEvaluate() throws Exception {
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		universe.put("0");
 		universe.put("1");
 
@@ -31,7 +33,7 @@ public class IfElseTest {
 		ifTrue = new MemberDefinition<>("x",  new MemberIdentityFunction<>("1"));
 		ifFalse = new MemberDefinition<>("x", new MemberIdentityFunction<>("0"));
 		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
-		ifElse.evaluate(universe);
+		ifElse.evaluate(model);
 		assertTrue(universe.getVariables().contains("x"));
 		assertEquals(new TestClass("1"), universe.getVariables().get("x"));
 
@@ -39,7 +41,7 @@ public class IfElseTest {
 		ifTrue = new MemberDefinition<>("y",  new MemberIdentityFunction<>("1"));
 		ifFalse = new MemberDefinition<>("y", new MemberIdentityFunction<>("0"));
 		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
-		ifElse.evaluate(universe);
+		ifElse.evaluate(model);
 		assertTrue(universe.getVariables().contains("y"));
 		assertEquals(new TestClass("0"), universe.getVariables().get("y"));
 	}

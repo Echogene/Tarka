@@ -1,6 +1,7 @@
 package logic.function.set.complex;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.function.FunctionTest;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
@@ -18,10 +19,10 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Steven Weston
  */
-public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, ComplexSet<TestClass>> {
+public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, TestClassModel, ComplexSet<TestClass>> {
 
 	public ComplexSetTest() {
-		super(new TestClassUniverse());
+		super(new TestClassModel());
 		universe.put("x");
 		universe.put("y");
 		universe.put("z");
@@ -49,7 +50,7 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, C
 				MembershipPredicateFactory.createElement("a", "Y")
 		);
 
-		Set<TestClass> filteredSet = function.evaluate(universe);
+		Set<TestClass> filteredSet = function.evaluate(model);
 
 		assertTrue(filteredSet instanceof FiniteSet);
 		assertTrue(filteredSet instanceof FiniteFilteredSet);
@@ -66,7 +67,7 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, C
 				MembershipPredicateFactory.createElement("a", "Y")
 		);
 
-		Set<TestClass> filteredSet = function.evaluate(universe);
+		Set<TestClass> filteredSet = function.evaluate(model);
 
 		assertFalse(filteredSet.containsValue(new TestClass("x")));
 		assertTrue(filteredSet.containsValue(new TestClass("y")));

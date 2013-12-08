@@ -1,12 +1,12 @@
 package logic.function.evaluable.statements.binary;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.identity.EvaluableIdentityFunction;
-import logic.model.universe.Universe;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
@@ -26,21 +26,22 @@ public class BinaryStatementTest {
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {
-		TestClassUniverse universe = new TestClassUniverse();
-		testAllTheThings(TAUTOLOGY, CONTRADICTION, universe);
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
+		testAllTheThings(TAUTOLOGY, CONTRADICTION, model);
 
 		MembershipPredicate<TestClass> membershipPredicate = MembershipPredicateFactory.createElement("x", "set");
 		StandardSet<TestClass> set = new StandardSet<>("set");
 		((ModifiableSet<Set<TestClass>>) universe.getUniversalSetOfSets()).put(set);
 		TestClass x = new TestClass("x");
 		((ModifiableSet<TestClass>) universe.getUniversalSet()).put(x);
-		testAllTheThings(TAUTOLOGY, membershipPredicate, universe);
+		testAllTheThings(TAUTOLOGY, membershipPredicate, model);
 
 		set.put(x);
-		testAllTheThings(membershipPredicate, CONTRADICTION, universe);
+		testAllTheThings(membershipPredicate, CONTRADICTION, model);
 	}
 
-	private void testAllTheThings(Evaluable<TestClass> t, Evaluable<TestClass> f, Universe<TestClass> o) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass> t, Evaluable<TestClass> f, TestClassModel o) throws Exception {
 		assertBinaryStatementStates(f, new BinaryConnective(OR),          t, o, false, true,  true,  true);
 		assertBinaryStatementStates(f, new BinaryConnective(NOR),         t, o, true,  false, false, false);
 		assertBinaryStatementStates(f, new BinaryConnective(AND),         t, o, false, false, false, true);
@@ -57,32 +58,31 @@ public class BinaryStatementTest {
 			Evaluable<TestClass> contradiction,
 			BinaryConnective connective,
 			Evaluable<TestClass> tautology,
-			Universe<TestClass> setOrUniverse,
+			TestClassModel model,
 			boolean state1,
 			boolean state2,
 			boolean state3,
 			boolean state4) throws Exception {
 
-		assertBinaryStatement(contradiction, connective, contradiction, setOrUniverse, state1);
-		assertBinaryStatement(contradiction, connective, tautology, setOrUniverse, state2);
-		assertBinaryStatement(tautology, connective, contradiction, setOrUniverse, state3);
-		assertBinaryStatement(tautology, connective, tautology, setOrUniverse, state4);
+		assertBinaryStatement(contradiction, connective, contradiction, model, state1);
+		assertBinaryStatement(contradiction, connective, tautology,     model, state2);
+		assertBinaryStatement(tautology,     connective, contradiction, model, state3);
+		assertBinaryStatement(tautology,     connective, tautology,     model, state4);
 	}
 
 	private void assertBinaryStatement(
 			Evaluable<TestClass> firstEvaluable,
 			BinaryConnective connective,
 			Evaluable<TestClass> secondEvaluable,
-			Universe<TestClass> setOrUniverse,
+			TestClassModel model,
 			boolean assertTrue)
 			throws Exception {
 		BinaryStatement<TestClass> statement;
 		statement = new BinaryStatement<>(firstEvaluable, connective, secondEvaluable);
-		TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
 		if (assertTrue) {
-			assertTrue(statement.evaluate(universe));
+			assertTrue(statement.evaluate(model));
 		} else {
-			assertFalse(statement.evaluate(universe));
+			assertFalse(statement.evaluate(model));
 		}
 	}
 }

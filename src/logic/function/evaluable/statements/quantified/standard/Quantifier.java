@@ -3,7 +3,7 @@ package logic.function.evaluable.statements.quantified.standard;
 import logic.Connective;
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
 import logic.set.undeterminable.NotCertainlyFiniteSetException;
@@ -41,17 +41,17 @@ public class Quantifier extends Connective {
 		this.type = type;
 	}
 
-	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T> evaluable, Universe<T> universe) throws Exception {
-		return apply(variableSymbol, evaluable, universe, universe.getUniversalSet());
+	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T> evaluable, Model<T, ?, ?> model) throws Exception {
+		return apply(variableSymbol, evaluable, model, model.getUniverse().getUniversalSet());
 	}
 
 	public <T extends Nameable> boolean apply(
 			String variableSymbol,
 			Evaluable<T> evaluable,
-			Universe<T> universe,
+			Model<T, ?, ?> model,
 			Set<T> set) throws Exception {
 
-		universe.assignVariable(variableSymbol);
+		model.assignVariable(variableSymbol);
 		int existCount = 0;
 		Boolean output = null;
 		if (!(set instanceof FiniteSet<?>)) {
@@ -59,8 +59,8 @@ public class Quantifier extends Connective {
 		}
 		FiniteSet<T> finiteSet = (FiniteSet<T>) set;
 		for (T t : finiteSet) {
-			universe.setVariable(variableSymbol, t);
-			if (evaluable.evaluate(universe)) {
+			model.setVariable(variableSymbol, t);
+			if (evaluable.evaluate(model)) {
 				if (type.equals(QuantifierType.EXISTS)) {
 					output = true;
 					break;
@@ -88,7 +88,7 @@ public class Quantifier extends Connective {
 				}
 			}
 		}
-		universe.unassignVariable(variableSymbol);
+		model.unassignVariable(variableSymbol);
 		if (output != null) {
 			return output;
 		} else if (type.equals(QuantifierType.EXISTS)) {

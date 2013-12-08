@@ -3,7 +3,7 @@ package logic.function.set.simple;
 import logic.Nameable;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 
@@ -18,10 +18,10 @@ public class SimpleSet<T extends Nameable> implements SetFunction<T> {
 		this.members = members;
 	}
 
-	public Set<T> evaluate(Universe<T> universe) throws Exception {
+	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		StandardSet<T> output = new StandardSet<>(toString());
 		for (ReflexiveFunction<T> member : members) {
-			output.put(member.evaluate(universe));
+			output.put(member.evaluate(model));
 		}
 		return output;
 	}

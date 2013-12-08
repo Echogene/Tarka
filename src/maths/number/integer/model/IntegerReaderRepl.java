@@ -1,6 +1,5 @@
 package maths.number.integer.model;
 
-import logic.factory.SimpleLogicReader;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.reflexive.ReflexiveFunction;
@@ -9,8 +8,6 @@ import logic.function.voidfunction.VoidFunction;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
-import maths.number.integer.model.universe.IntegerReader;
-import maths.number.integer.model.universe.IntegerUniverse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,13 +18,10 @@ import java.io.InputStreamReader;
  */
 public class IntegerReaderRepl {
 
-	private static IntegerUniverse universe;
-	private static SimpleLogicReader<Integer> reader;
+	private static final IntegerModel model = new IntegerModel();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		universe = new IntegerUniverse();
-		reader = IntegerReader.createStandardReader(universe);
 		String in;
 		while (true) {
 			in =  br.readLine();
@@ -43,16 +37,16 @@ public class IntegerReaderRepl {
 
 	private static void evaluateInput(String in) {
 		try {
-			Function<?, ?> function = reader.read(in);
+			Function<?, ?> function = model.getReader().read(in);
 			if (function instanceof ReflexiveFunction) {
 				ReflexiveFunction<Integer> reflexiveFunction = (ReflexiveFunction<Integer>) function;
-				System.out.println(reflexiveFunction.evaluate(universe));
+				System.out.println(reflexiveFunction.evaluate(model));
 			} else if (function instanceof Evaluable) {
 				Evaluable<Integer> evaluable = (Evaluable<Integer>) function;
-				System.out.println(evaluable.evaluate(universe));
+				System.out.println(evaluable.evaluate(model));
 			} else if (function instanceof SetFunction) {
 				SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
-				Set<Integer> set = setFunction.evaluate(universe);
+				Set<Integer> set = setFunction.evaluate(model);
 				if (set instanceof FiniteSet) {
 					FiniteSet<Integer> finiteSet = (FiniteSet<Integer>) set;
 					StringBuilder sb = new StringBuilder();
@@ -72,7 +66,7 @@ public class IntegerReaderRepl {
 				}
 			} else if (function instanceof VoidFunction) {
 				VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
-				voidFunction.evaluate(universe);
+				voidFunction.evaluate(model);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

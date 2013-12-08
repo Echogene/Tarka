@@ -2,7 +2,7 @@ package maths.number.integer.functions.interval;
 
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import maths.number.Number;
 import maths.number.integer.sets.interval.IntervalFactory;
@@ -35,8 +35,8 @@ public class IntervalFunction<N extends Number> implements SetFunction<N> {
 	}
 
 	@Override
-	public Set<N> evaluate(Universe<N> universe) throws Exception {
-		return factory.createElement(lowerType, lowerBound.evaluate(universe), upperBound.evaluate(universe), upperType);
+	public Set<N> evaluate(Model<N, ?, ?> model) throws Exception {
+		return factory.createElement(lowerType, lowerBound.evaluate(model), upperBound.evaluate(model), upperType);
 	}
 
 	@Override

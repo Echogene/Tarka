@@ -1,12 +1,12 @@
 package logic.function.evaluable.statements.unary;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.identity.EvaluableIdentityFunction;
-import logic.model.universe.Universe;
 import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
@@ -28,12 +28,13 @@ public class UnaryStatementTest {
 
 	@Test
 	public void testEvaluateWithUniverse() throws Exception {
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 
 		UnaryConnective c;
 		UnaryStatement<TestClass> statement;
 
-		testAllTheThings(TAUTOLOGY, CONTRADICTION, universe);
+		testAllTheThings(TAUTOLOGY, CONTRADICTION, model);
 
 		MembershipPredicate<TestClass> membershipPredicate = MembershipPredicateFactory.createElement("x", "set");
 		StandardSet<TestClass> set = new StandardSet<>("set");
@@ -43,45 +44,44 @@ public class UnaryStatementTest {
 
 		c = new UnaryConnective(EMPTY);
 		statement = new UnaryStatement<>(c, membershipPredicate);
-		assertFalse(statement.evaluate(universe));
+		assertFalse(statement.evaluate(model));
 		c = new UnaryConnective(NEGATION);
 		statement = new UnaryStatement<>(c, membershipPredicate);
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 
 		set.put(x);
 		c = new UnaryConnective(EMPTY);
 		statement = new UnaryStatement<>(c, membershipPredicate);
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 		c = new UnaryConnective(NEGATION);
 		statement = new UnaryStatement<>(c, membershipPredicate);
-		assertFalse(statement.evaluate(universe));
+		assertFalse(statement.evaluate(model));
 	}
 
-	private void testAllTheThings(Evaluable<TestClass> tautology, Evaluable<TestClass> contradiction, Universe<TestClass> setOrUniverse) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass> tautology, Evaluable<TestClass> contradiction, TestClassModel model) throws Exception {
 		UnaryConnective c;
 		c = new UnaryConnective(EMPTY);
-		assertUnaryStatement(tautology, c, setOrUniverse, true);
-		assertUnaryStatement(contradiction, c, setOrUniverse, false);
+		assertUnaryStatement(tautology, c, model, true);
+		assertUnaryStatement(contradiction, c, model, false);
 
 		c = new UnaryConnective(NEGATION);
-		assertUnaryStatement(tautology, c, setOrUniverse, false);
-		assertUnaryStatement(contradiction, c, setOrUniverse, true);
+		assertUnaryStatement(tautology, c, model, false);
+		assertUnaryStatement(contradiction, c, model, true);
 	}
 
 	private void assertUnaryStatement(
 		Evaluable<TestClass> evaluable,
 		UnaryConnective connective,
-		Universe<TestClass> setOrUniverse,
+		TestClassModel model,
 		boolean assertTrue
 	) throws Exception {
 
 		UnaryStatement<TestClass> statement;
 		statement = new UnaryStatement<>(connective, evaluable);
-		TestClassUniverse universe = (TestClassUniverse) setOrUniverse;
 		if (assertTrue) {
-			assertTrue(statement.evaluate(universe));
+			assertTrue(statement.evaluate(model));
 		} else {
-			assertFalse(statement.evaluate(universe));
+			assertFalse(statement.evaluate(model));
 		}
 	}
 }

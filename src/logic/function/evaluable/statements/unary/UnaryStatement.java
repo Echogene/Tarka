@@ -2,7 +2,7 @@ package logic.function.evaluable.statements.unary;
 
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * @author Steven Weston
@@ -23,8 +23,8 @@ public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		return connective.apply(evaluable.evaluate(universe));
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		return connective.apply(evaluable.evaluate(model));
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import logic.set.ModifiableSet;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
+import maths.number.integer.model.IntegerModel;
 import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
@@ -20,7 +21,8 @@ public class SimpleSetTest {
 		Set<Integer> actual;
 		SimpleSet<Integer> set = SimpleSetFactory.createElement("x", "2");
 
-		IntegerUniverse universe = new IntegerUniverse();
+		IntegerModel model = new IntegerModel();
+		IntegerUniverse universe = model.getUniverse();
 
 		universe.assignVariable("x");
 		universe.setVariable("x", new Integer(1));
@@ -29,7 +31,7 @@ public class SimpleSetTest {
 		expected.put(new Integer(1));
 		expected.put(new Integer(2));
 
-		actual = set.evaluate(universe);
+		actual = set.evaluate(model);
 		assertEquals(expected, actual);
 
 		universe.setVariable("x", new Integer(2));
@@ -37,7 +39,7 @@ public class SimpleSetTest {
 		expected = new StandardSet<>(set.toString());
 		expected.put(new Integer(2));
 
-		actual = set.evaluate(universe);
+		actual = set.evaluate(model);
 		assertEquals(expected, actual);
 	}
 }

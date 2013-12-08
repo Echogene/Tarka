@@ -1,6 +1,7 @@
 package logic.function.evaluable.statements.quantified.standard;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
@@ -23,7 +24,8 @@ public class QuantifiedStatementTest {
 	public void testEvaluate() throws Exception {
 		StandardSet<TestClass> universalSet = new StandardSet<>("universalSet");
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
@@ -41,14 +43,15 @@ public class QuantifiedStatementTest {
 		universalSet.put(new TestClass("b"));
 		universalSet.put(new TestClass("c"));
 
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 	}
 
 	@Test
 	public void testEvaluateFalseOnSetWithOneElement() throws Exception {
 		StandardSet<TestClass> universalSet = new StandardSet<>("universalSet");
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
@@ -62,15 +65,15 @@ public class QuantifiedStatementTest {
 		QuantifiedStatement<TestClass> statement = new QuantifiedStatement<>(quantifier, "x", nestedStatement);
 		// ∀x∃y¬(x=y)
 
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 
 		universalSet.put(new TestClass("a"));
-		assertFalse(statement.evaluate(universe));
+		assertFalse(statement.evaluate(model));
 
 		universalSet.put(new TestClass("b"));
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 
 		universalSet.put(new TestClass("c"));
-		assertTrue(statement.evaluate(universe));
+		assertTrue(statement.evaluate(model));
 	}
 }

@@ -3,7 +3,7 @@ package logic.function.evaluable.predicate.equality;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.evaluable.predicate.Predicate;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * A class that represents an equality predicate.  An equality predicate is of the form "x = y" and either evaluates to
@@ -48,9 +48,9 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		Object equor = getEquorFunction().evaluate(universe);
-		Object equand = getEquandFunction().evaluate(universe);
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		Object equor = getEquorFunction().evaluate(model);
+		Object equand = getEquandFunction().evaluate(model);
 		return equor.equals(equand);
 	}
 

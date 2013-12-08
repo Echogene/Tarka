@@ -2,7 +2,7 @@ package logic.function.set.union;
 
 import logic.Nameable;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.operators.Uniter;
 
@@ -28,10 +28,10 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
-	public Set<T> evaluate(Universe<T> universe) throws Exception {
+	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		java.util.Set<Set<T>> setsToUnion = new HashSet<>();
 		for(SetFunction<T> function : parameters) {
-			setsToUnion.add(function.evaluate(universe));
+			setsToUnion.add(function.evaluate(model));
 		}
 		return Uniter.unite(setsToUnion);
 	}

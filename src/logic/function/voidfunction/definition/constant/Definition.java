@@ -3,7 +3,7 @@ package logic.function.voidfunction.definition.constant;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.voidfunction.VoidFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * @author Steven Weston
@@ -21,9 +21,9 @@ class Definition<D extends Nameable, C> implements VoidFunction<D> {
 	}
 
 	@Override
-	public Void evaluate(Universe<D> universe) throws Exception {
-		universe.assignVariable(variableName);
-		universe.setVariable(variableName, definition.evaluate(universe));
+	public Void evaluate(Model<D, ?, ?> model) throws Exception {
+		model.assignVariable(variableName);
+		model.setVariable(variableName, definition.evaluate(model));
 		return null;
 	}
 

@@ -4,6 +4,7 @@ import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
+import maths.number.integer.model.IntegerModel;
 import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
@@ -28,22 +29,23 @@ public class AdditionTest {
 
 		assertEquals("(2 + 2)", sum.toString());
 
-		IntegerUniverse universe = new IntegerUniverse();
-		assertEquals("2 + 2 = 4", new Integer(4), sum.evaluate(universe));
+		IntegerModel model = new IntegerModel();
+		IntegerUniverse universe = model.getUniverse();
+		assertEquals("2 + 2 = 4", new Integer(4), sum.evaluate(model));
 
 		parameters.clear();
 		parameters.add(new MemberIdentityFunction<>("123456789"));
 		parameters.add(new MemberIdentityFunction<>("987654321"));
 
 		sum = new Addition<>(parameters, summor);
-		assertEquals("123456789 + 987654321 = 1111111110", new Integer(1111111110), sum.evaluate(universe));
+		assertEquals("123456789 + 987654321 = 1111111110", new Integer(1111111110), sum.evaluate(model));
 
 		parameters.clear();
 		parameters.add(new MemberIdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
 		parameters.add(new MemberIdentityFunction<>("111111111111111111111111111111111111111111111111111111111111111111111"));
 
 		sum = new Addition<>(parameters, summor);
-		assertEquals(new Integer("222222222222222222222222222222222222222222222222222222222222222222222"), sum.evaluate(universe));
+		assertEquals(new Integer("222222222222222222222222222222222222222222222222222222222222222222222"), sum.evaluate(model));
 
 		parameters.clear();
 		parameters.add(new MemberIdentityFunction<>("1"));
@@ -54,7 +56,7 @@ public class AdditionTest {
 		assertEquals("(Σ 1 1 1 1)", sum.toString());
 
 		sum = new Addition<>(parameters, summor);
-		assertEquals("1 + 1 + 1 + 1 = 4", new Integer(4), sum.evaluate(universe));
+		assertEquals("1 + 1 + 1 + 1 = 4", new Integer(4), sum.evaluate(model));
 
 		parameters.clear();
 		parameters.add(new MemberIdentityFunction<>("1"));
@@ -66,6 +68,6 @@ public class AdditionTest {
 		assertEquals("(1 + (2 + 3))", sum.toString());
 
 		sum = new Addition<>(parameters, summor);
-		assertEquals("1 + 2 + 3 = 6", new Integer(6), sum.evaluate(universe));
+		assertEquals("1 + 2 + 3 = 6", new Integer(6), sum.evaluate(model));
 	}
 }

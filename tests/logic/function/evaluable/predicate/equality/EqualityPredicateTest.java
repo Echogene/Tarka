@@ -1,6 +1,7 @@
 package logic.function.evaluable.predicate.equality;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.set.finite.StandardSet;
 import org.junit.Test;
@@ -20,7 +21,8 @@ public class EqualityPredicateTest {
 	}
 
 	private void testEvaluateOnSimpleExpressions() throws Exception {
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		TestClass x = new TestClass("x");
 		TestClass y = new TestClass("y");
 
@@ -31,9 +33,9 @@ public class EqualityPredicateTest {
 		universe.setVariables(variables);
 
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "x");
-		assertTrue("Expect x = x to evaluate to true", predicate.evaluate(universe));
+		assertTrue("Expect x = x to evaluate to true", predicate.evaluate(model));
 		predicate = EqualityPredicateFactory.createElement("x", "y");
-		assertFalse("Expect x = y to evaluate to false", predicate.evaluate(universe));
+		assertFalse("Expect x = y to evaluate to false", predicate.evaluate(model));
 	}
 
 	private void testEvaluateOnVariableOverriding() throws Exception {
@@ -42,7 +44,8 @@ public class EqualityPredicateTest {
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
 		StandardSet<Object> variables;
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		variables = new StandardSet<>("variables");
 		variables.put("y", x);
 		universe.setVariables(variables);
@@ -52,20 +55,21 @@ public class EqualityPredicateTest {
 		universalSet.put(y);
 		universe.setUniversalSet(universalSet);
 
-		assertTrue("Expect x = y to evaluate to true when y represents x", predicate.evaluate(universe));
+		assertTrue("Expect x = y to evaluate to true when y represents x", predicate.evaluate(model));
 	}
 
 	private void testEvaluateOnTwoUniverseMembersMappedToTheSameElement() throws Exception {
 		TestClass x = new TestClass("x");
 		EqualityPredicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 
 		StandardSet<TestClass> universalSet = new StandardSet<>("universalSet");
 		universalSet.put(x);
 		universalSet.put("y", x);
 		universe.setUniversalSet(universalSet);
 
-		assertTrue("Expect x = y to evaluate to true when y represents x", predicate.evaluate(universe));
+		assertTrue("Expect x = y to evaluate to true when y represents x", predicate.evaluate(model));
 	}
 }

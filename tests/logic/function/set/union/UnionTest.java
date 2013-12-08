@@ -1,6 +1,7 @@
 package logic.function.set.union;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.set.ModifiableSet;
 import logic.set.Set;
@@ -16,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 public class UnionTest {
 	@Test
 	public void testEvaluate() throws Exception {
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		StandardSet<Set<TestClass>> sets = new StandardSet<>("sets");
 
 		ModifiableSet<TestClass> A = new StandardSet<>("A");
@@ -36,7 +38,7 @@ public class UnionTest {
 		universe.setUniversalSetOfSets(sets);
 
 		Union<TestClass> union = AbstractUnionFactory.createElement("A", "B");
-		Set<TestClass> unionResult = union.evaluate(universe);
+		Set<TestClass> unionResult = union.evaluate(model);
 
 		assertTrue(unionResult.containsValue(a));
 		assertTrue(unionResult.containsValue(b));

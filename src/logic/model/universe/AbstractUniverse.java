@@ -1,6 +1,7 @@
 package logic.model.universe;
 
 import logic.Nameable;
+import logic.factory.SimpleLogicReader;
 import logic.set.Set;
 
 import java.lang.reflect.Type;
@@ -13,6 +14,8 @@ import java.util.List;
 public abstract class AbstractUniverse<T extends Nameable> implements Universe<T> {
 
 	protected final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
+
+	protected SimpleLogicReader<T> reader;
 
 	@Override
 	public Object unassignVariable(String variableSymbol) {
@@ -69,10 +72,13 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 		} else if (logicalConstants.contains(value)) {
 			return value.equals("⊤");
 		}
-		throw new UniverseException();
+		throw new UniverseException("Unknown value.");
 	}
 
 	private static class UniverseException extends RuntimeException {
 
+		public UniverseException(String s) {
+			super(s);
+		}
 	}
 }

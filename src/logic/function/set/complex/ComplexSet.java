@@ -3,7 +3,7 @@ package logic.function.set.complex;
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.filtered.FiniteFilteredSet;
 import logic.set.filtered.UndeterminableFilteredSet;
@@ -29,15 +29,15 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
-	public Set<T> evaluate(Universe<T> universe) throws Exception {
+	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		Filter<T> filter = t -> {
-			universe.assignVariable(variable);
-			universe.setVariable(variable, t);
-			Boolean output = evaluable.evaluate(universe);
-			universe.unassignVariable(variable);
+			model.assignVariable(variable);
+			model.setVariable(variable, t);
+			Boolean output = evaluable.evaluate(model);
+			model.unassignVariable(variable);
 			return output;
 		};
-		Set<T> set = boundingSet.evaluate(universe);
+		Set<T> set = boundingSet.evaluate(model);
 		if (set instanceof FiniteSet) {
 			return new FiniteFilteredSet<>(toString(), (FiniteSet<T>) set, filter);
 		} else {

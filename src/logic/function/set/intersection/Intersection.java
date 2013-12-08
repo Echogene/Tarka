@@ -2,7 +2,7 @@ package logic.function.set.intersection;
 
 import logic.Nameable;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.operators.Intersector;
 
@@ -27,10 +27,10 @@ public class Intersection<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
-	public Set<T> evaluate(Universe<T> universe) throws Exception {
+	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		java.util.Set<Set<T>> setsToIntersect = new HashSet<>();
 		for(SetFunction<T> function : parameters) {
-			setsToIntersect.add(function.evaluate(universe));
+			setsToIntersect.add(function.evaluate(model));
 		}
 		return Intersector.intersect(setsToIntersect);
 	}

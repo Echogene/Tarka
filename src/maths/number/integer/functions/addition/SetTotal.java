@@ -2,7 +2,7 @@ package maths.number.integer.functions.addition;
 
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
 import logic.set.undeterminable.NotCertainlyFiniteSetException;
@@ -25,8 +25,8 @@ public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public N evaluate(Universe<N> universe) throws Exception {
-		Set<N> setToTotal = set.evaluate(universe);
+	public N evaluate(Model<N, ?, ?> model) throws Exception {
+		Set<N> setToTotal = set.evaluate(model);
 		if (setToTotal instanceof FiniteSet) {
 			return summor.sum((FiniteSet<N>) setToTotal);
 		} else {

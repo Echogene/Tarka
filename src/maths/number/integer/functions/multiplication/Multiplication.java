@@ -1,7 +1,7 @@
 package maths.number.integer.functions.multiplication;
 
 import logic.function.reflexive.ReflexiveFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import maths.number.Multiplior;
 import maths.number.Number;
 
@@ -27,10 +27,10 @@ public class Multiplication<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public N evaluate(Universe<N> universe) throws Exception {
+	public N evaluate(Model<N, ?, ?> model) throws Exception {
 		List<N> numbers = new ArrayList<>();
 		for(ReflexiveFunction<N> function : factors) {
-			numbers.add(function.evaluate(universe));
+			numbers.add(function.evaluate(model));
 		}
 		return multiplior.produce(numbers);
 	}

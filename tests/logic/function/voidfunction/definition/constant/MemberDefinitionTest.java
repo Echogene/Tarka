@@ -4,7 +4,7 @@ import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.identity.MemberIdentityFunction;
 import maths.number.integer.Integer;
-import maths.number.integer.model.universe.IntegerUniverse;
+import maths.number.integer.model.IntegerModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -17,11 +17,11 @@ public class MemberDefinitionTest {
 	public void testEvaluate() throws Exception {
 		MemberDefinition<Integer> definition = new MemberDefinition<>("x", new MemberIdentityFunction<>("2"));
 
-		IntegerUniverse universe = new IntegerUniverse();
+		IntegerModel model = new IntegerModel();
 
-		definition.evaluate(universe);
+		definition.evaluate(model);
 
 		EqualityPredicate<Integer> xEquals2 = EqualityPredicateFactory.createElement("x", "2");
-		assertTrue(xEquals2.evaluate(universe));
+		assertTrue(xEquals2.evaluate(model));
 	}
 }

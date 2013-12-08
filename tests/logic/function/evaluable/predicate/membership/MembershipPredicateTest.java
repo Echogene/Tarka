@@ -1,6 +1,7 @@
 package logic.function.evaluable.predicate.membership;
 
 import logic.TestClass;
+import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.set.ModifiableSet;
 import logic.set.Set;
@@ -30,28 +31,29 @@ public class MembershipPredicateTest {
 		sets.put(X);
 		sets.put(Y);
 
-		TestClassUniverse universe = new TestClassUniverse();
+		TestClassModel model = new TestClassModel();
+		TestClassUniverse universe = model.getUniverse();
 		universe.setUniversalSet(universalSet);
 		universe.setUniversalSetOfSets(sets);
 
 		MembershipPredicate<TestClass> predicate;
 		predicate = MembershipPredicateFactory.createElement("x", "X");
-		assertTrue("Expect x to be in X", predicate.evaluate(universe));
+		assertTrue("Expect x to be in X", predicate.evaluate(model));
 		predicate = MembershipPredicateFactory.createElement("y", "X");
-		assertFalse("Expect y to not be in X", predicate.evaluate(universe));
+		assertFalse("Expect y to not be in X", predicate.evaluate(model));
 		predicate = MembershipPredicateFactory.createElement("x", "Y");
-		assertFalse("Expect x to not be in Y", predicate.evaluate(universe));
+		assertFalse("Expect x to not be in Y", predicate.evaluate(model));
 
 		StandardSet<Object> variables = new StandardSet<>("variables");
 		variables.put("x", y);
 		universe.setVariables(variables);
 		predicate = MembershipPredicateFactory.createElement("x", "X");
-		assertFalse("Expect x to not be in X", predicate.evaluate(universe));
+		assertFalse("Expect x to not be in X", predicate.evaluate(model));
 		predicate = MembershipPredicateFactory.createElement("y", "X");
-		assertFalse("Expect y to not be in X", predicate.evaluate(universe));
+		assertFalse("Expect y to not be in X", predicate.evaluate(model));
 		predicate = MembershipPredicateFactory.createElement("x", "Y");
-		assertTrue("Expect x to be in Y", predicate.evaluate(universe));
+		assertTrue("Expect x to be in Y", predicate.evaluate(model));
 		predicate = MembershipPredicateFactory.createElement("y", "Y");
-		assertTrue("Expect x to be in Y", predicate.evaluate(universe));
+		assertTrue("Expect x to be in Y", predicate.evaluate(model));
 	}
 }

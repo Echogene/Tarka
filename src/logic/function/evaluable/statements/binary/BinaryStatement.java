@@ -2,7 +2,7 @@ package logic.function.evaluable.statements.binary;
 
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * @author Steven Weston
@@ -19,8 +19,8 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		return connective.apply(firstEvaluable.evaluate(universe), secondEvaluable.evaluate(universe));
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		return connective.apply(firstEvaluable.evaluate(model), secondEvaluable.evaluate(model));
 	}
 
 	@Override

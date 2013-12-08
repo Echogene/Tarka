@@ -6,7 +6,7 @@ import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.statements.quantified.standard.QuantifiedStatement;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 
 /**
@@ -27,12 +27,12 @@ public class RestrictedQuantifiedStatement<T extends Nameable> extends Quantifie
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		Set<T> restrictedSet = setFunction.evaluate(universe);
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		Set<T> restrictedSet = setFunction.evaluate(model);
 		return getQuantifier().apply(
 				getVariableSymbol(),
 				getEvaluable(),
-				universe,
+				model,
 				restrictedSet
 		);
 	}

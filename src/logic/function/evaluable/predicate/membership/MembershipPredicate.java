@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.evaluable.predicate.Predicate;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.model.universe.Universe;
+import logic.model.Model;
 import logic.set.Set;
 
 /**
@@ -31,9 +31,9 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		Set<T> set = setFunction.evaluate(universe);
-		T member = memberFunction.evaluate(universe);
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		Set<T> set = setFunction.evaluate(model);
+		T member = memberFunction.evaluate(model);
 		return set.containsValue(member);
 	}
 

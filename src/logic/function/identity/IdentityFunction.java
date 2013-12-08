@@ -2,7 +2,7 @@ package logic.function.identity;
 
 import logic.Nameable;
 import logic.function.Function;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * @author Steven Weston
@@ -23,11 +23,11 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public C evaluate(Universe<D> universe) throws Exception {
+	public C evaluate(Model<D, ?, ?> model) throws Exception {
 		if (function != null) {
-			return function.evaluate(universe);
+			return function.evaluate(model);
 		}
-		return (C) universe.get(parameter);
+		return (C) model.getUniverse().get(parameter);
 
 	}
 

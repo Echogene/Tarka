@@ -2,7 +2,7 @@ package logic.function.assignment;
 
 import logic.Nameable;
 import logic.function.Function;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 import static java.text.MessageFormat.format;
 
@@ -25,11 +25,11 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public C evaluate(Universe<D> universe) throws Exception {
-		universe.assignVariable(assignee);
-		universe.setVariable(assignee, assingment.evaluate(universe));
-		C result = evaluee.evaluate(universe);
-		universe.unassignVariable(assignee);
+	public C evaluate(Model<D, ?, ?> model) throws Exception {
+		model.assignVariable(assignee);
+		model.setVariable(assignee, assingment.evaluate(model));
+		C result = evaluee.evaluate(model);
+		model.unassignVariable(assignee);
 		return result;
 	}
 

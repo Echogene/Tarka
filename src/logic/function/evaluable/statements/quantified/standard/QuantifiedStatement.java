@@ -2,7 +2,7 @@ package logic.function.evaluable.statements.quantified.standard;
 
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
-import logic.model.universe.Universe;
+import logic.model.Model;
 
 /**
  * @author Steven Weston
@@ -20,8 +20,8 @@ public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public Boolean evaluate(Universe<T> universe) throws Exception {
-		return quantifier.apply(variableSymbol, evaluable, universe);
+	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
+		return quantifier.apply(variableSymbol, evaluable, model);
 	}
 
 	@Override
