@@ -34,6 +34,17 @@ public class SimplePrimalityCheckerTest {
 		checkPrime(11);
 		checkNotPrime(12);
 		checkPrime(13);
+		checkNotPrime(14);
+		checkNotPrime(15);
+		checkNotPrime(16);
+		checkPrime(17);
+		checkNotPrime(18);
+		checkPrime(19);
+		checkNotPrime(20);
+		checkNotPrime(21);
+		checkNotPrime(22);
+		checkPrime(23);
+		checkNotPrime(24);
 		checkNotPrime(25);
 		checkNotPrime(35);
 		checkNotPrime(121);
