@@ -50,7 +50,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 	}
 
 	@Override
-	public IntervalFunction<N> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+	public IntervalFunction<N> construct(List<Token> tokens, List<Function<N, ?>> functions) {
 		String openingBracket = first(tokens).getValue();
 		BoundType lowerType;
 		if ("[".equals(openingBracket)) {

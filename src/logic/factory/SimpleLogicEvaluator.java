@@ -123,7 +123,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 	private List<FunctionFactory<T, ?, ?>> validateFunctions(
 			List<FunctionFactory<T, ?, ?>> factories,
-			List<Function<?, ?>> functions
+			List<Function<T, ?>> functions
 	) throws EvaluatorException {
 
 		return validate(factories, (functionFactory) -> functionFactory.validateFunctions(functions));
@@ -175,7 +175,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactoriesMap
 	) throws EvaluatorException {
 
-		final List<Function<?, ?>> functions = new ArrayList<>();
+		final List<Function<T, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
 			if (shouldWalkDownAt(n)) {
 				functions.add(evaluate(n.getChildren(), identityFunctions, passedFactoriesMap));

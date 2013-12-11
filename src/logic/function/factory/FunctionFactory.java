@@ -39,8 +39,8 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		implements
 				TokenValidator,
 				TypeMatcher,
-				FunctionValidator,
-				FunctionConstructor<F>,
+				FunctionValidator<D>,
+				FunctionConstructor<D, F>,
 				Factory<F>
 {
 
@@ -52,13 +52,13 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	);
 
 	private final TokenValidator tokenValidator;
-	private final FunctionValidator functionValidator;
+	private final FunctionValidator<D> functionValidator;
 	private final Class<D> universeType;
 
 	protected FunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<D> universeType) {
 		this.universeType = universeType;
 		tokenValidator = new SimpleLogicTokenValidator(checkers, acceptedBracketPairs);
-		functionValidator = new SimpleLogicFunctionValidator(extractFunctionCheckers(checkers));
+		functionValidator = new SimpleLogicFunctionValidator<>(extractFunctionCheckers(checkers));
 	}
 
 	private List<CheckerWithNumber> extractFunctionCheckers(List<CheckerWithNumber> checkers) {
@@ -94,7 +94,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	}
 
 	@Override
-	public MapToErrors<Function<?, ?>> validateFunctions(List<Function<?, ?>> functions) throws FunctionValidationException {
+	public MapToErrors<Function<D, ?>> validateFunctions(List<Function<D, ?>> functions) throws FunctionValidationException {
 		return functionValidator.validateFunctions(functions);
 	}
 
@@ -103,7 +103,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		return createElement(tokens, null);
 	}
 
-	public final F createElement(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public final F createElement(List<Token> tokens, List<Function<D, ?>> functions) throws FactoryException {
 		return construct(tokens, functions);
 	}
 

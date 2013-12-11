@@ -22,7 +22,7 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	}
 
 	@Override
-	public Intersection<T> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+	public Intersection<T> construct(List<Token> tokens, List<Function<T, ?>> functions) {
 		java.util.Set<SetFunction<T>> sets = new HashSet<>();
 		for (Function<?, ?> function : functions) {
 			sets.add((SetFunction<T>) function);

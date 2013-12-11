@@ -8,5 +8,6 @@ import logic.model.Model;
  * @author Steven Weston
  */
 public interface Function<D extends Nameable, C> {
+
 	public C evaluate(Model<D, ?, ?> model) throws Exception;
 }

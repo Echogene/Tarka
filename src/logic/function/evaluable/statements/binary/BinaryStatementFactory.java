@@ -37,7 +37,7 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	}
 
 	@Override
-	public BinaryStatement<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public BinaryStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		Boolean firstBracket = tokens.get(1).isOfType(OPEN_BRACKET);
 		String connectieString = tokens.get(firstBracket ? 3 : 2).getValue();
 		BinaryConnective connective = binaryConnectiveFactory.createElement(connectieString);

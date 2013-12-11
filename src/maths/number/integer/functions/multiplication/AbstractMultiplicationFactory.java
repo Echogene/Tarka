@@ -31,7 +31,7 @@ abstract class AbstractMultiplicationFactory<N extends Number> extends Reflexive
 	}
 
 	@Override
-	public Multiplication<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public Multiplication<N> construct(List<Token> tokens, List<Function<N, ?>> functions) throws FactoryException {
 		List<ReflexiveFunction<N>> parameters = new ArrayList<>(functions.size());
 		for (Function<?, ?> function : functions) {
 			parameters.add((ReflexiveFunction<N>) function);

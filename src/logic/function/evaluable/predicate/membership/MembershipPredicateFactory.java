@@ -41,7 +41,7 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 	}
 
 	@Override
-	public MembershipPredicate<T> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public MembershipPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
 		SetFunction<T> equand = (SetFunction<T>) functions.get(1);
 		return new MembershipPredicate<>(equor, equand);

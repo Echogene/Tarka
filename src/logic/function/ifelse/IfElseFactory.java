@@ -49,7 +49,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	@Override
-	public IfElse<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public IfElse<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		Function<?, ?> ifTrue = functions.get(0);
 		Function<?, ?> condition = functions.get(1);
 		Function<?, ?> ifFalse = functions.get(2);

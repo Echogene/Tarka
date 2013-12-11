@@ -48,7 +48,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	}
 
 	@Override
-	public Assignment<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public Assignment<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		if (functions.size() != 2) {
 			throw new FactoryException("There were not the correct number of functions.");
 		}

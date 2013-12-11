@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class FunctionDefinition<D extends Nameable, C> implements VoidFunction<D> {
+public abstract class FunctionDefinition<D extends Nameable, C> implements VoidFunction<D> {
 
 	private final String functionName;
 	private final List<String> parameters;
@@ -25,9 +25,8 @@ public class FunctionDefinition<D extends Nameable, C> implements VoidFunction<D
 	@Override
 	public Void evaluate(Model<D, ?, ?> model) throws Exception {
 		model.addFactory(
-				new DefinedFunctionFactory<>(
-						model.getUniverse().getTypeOfUniverse(),
-						definition
+				DefinedFunctionFactoryFactory.create(
+						definition, parameters, null, model.getUniverse().getTypeOfUniverse()
 				)
 		);
 		return null;

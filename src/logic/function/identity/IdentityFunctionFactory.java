@@ -57,7 +57,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		Function<?, ?> function = CollectionUtils.safeGet(functions, 0);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?>) {

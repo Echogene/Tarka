@@ -36,7 +36,7 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	}
 
 	@Override
-	public Subtraction<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public Subtraction<N> construct(List<Token> tokens, List<Function<N, ?>> functions) throws FactoryException {
 		return new Subtraction<>((ReflexiveFunction<N>) functions.get(0), (ReflexiveFunction<N>) functions.get(1), subtractor);
 	}
 

@@ -1,5 +1,6 @@
 package logic.function.factory.validation.function;
 
+import logic.Nameable;
 import logic.function.Function;
 import logic.type.map.MapToErrors;
 
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public interface FunctionValidator {
+public interface FunctionValidator<T extends Nameable> {
 
-	MapToErrors<Function<?, ?>> validateFunctions(List<Function<?, ?>> functions) throws FunctionValidationException;
+	MapToErrors<Function<T, ?>> validateFunctions(List<Function<T, ?>> functions) throws FunctionValidationException;
 }

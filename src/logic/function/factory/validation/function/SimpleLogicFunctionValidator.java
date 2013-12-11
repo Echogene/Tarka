@@ -1,5 +1,6 @@
 package logic.function.factory.validation.function;
 
+import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.type.map.MapToErrors;
@@ -12,7 +13,7 @@ import static logic.function.factory.validation.checking.CheckerWithNumber.Numbe
 /**
  * @author Steven Weston
  */
-public class SimpleLogicFunctionValidator implements FunctionValidator {
+public class SimpleLogicFunctionValidator<T extends Nameable> implements FunctionValidator<T> {
 
 	private final List<CheckerWithNumber> checkers;
 	private CurrentIterator<CheckerWithNumber> currentChecker;
@@ -22,10 +23,9 @@ public class SimpleLogicFunctionValidator implements FunctionValidator {
 	}
 
 	@Override
-	public synchronized MapToErrors<Function<?, ?>> validateFunctions(List<Function<?, ?>> functions) throws FunctionValidationException {
+	public synchronized MapToErrors<Function<T, ?>> validateFunctions(List<Function<T, ?>> functions) throws FunctionValidationException {
 		resetIterator();
-		MapToErrors<Function<?, ?>> errors = new MapToErrors<>(functions, this::checkFunction);
-		return errors;
+		return new MapToErrors<>(functions, this::checkFunction);
 	}
 
 	private synchronized void checkFunction(Function<?, ?> function) throws FunctionValidationException {

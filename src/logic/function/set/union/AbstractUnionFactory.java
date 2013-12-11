@@ -22,7 +22,7 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 	}
 
 	@Override
-	public Union<T> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+	public Union<T> construct(List<Token> tokens, List<Function<T, ?>> functions) {
 		java.util.Set<SetFunction<T>> sets = new HashSet<>();
 		for (Function<?, ?> function : functions) {
 			sets.add((SetFunction<T>) function);

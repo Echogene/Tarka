@@ -66,7 +66,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	}
 
 	@Override
-	public Definition<T, ?> construct(List<Token> tokens, List<Function<?, ?>> functions) {
+	public Definition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) {
 		Function<?, ?> definition = functions.get(0);
 		String variableName = tokens.get(1).getValue();
 		if (definition instanceof ReflexiveFunction<?>) {

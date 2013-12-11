@@ -36,7 +36,7 @@ public class SetTotalFactory<N extends Number> extends ReflexiveFunctionFactory<
 	}
 
 	@Override
-	public SetTotal<N> construct(List<Token> tokens, List<Function<?, ?>> functions) throws FactoryException {
+	public SetTotal<N> construct(List<Token> tokens, List<Function<N, ?>> functions) throws FactoryException {
 		return new SetTotal<>((SetFunction<N>) functions.get(0), summor);
 	}
 
