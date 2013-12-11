@@ -1,4 +1,4 @@
-package logic.function.voidfunction.definition.function;
+package logic.function.voidfunction.definition.function.definedfunction;
 
 import logic.Nameable;
 import logic.factory.FactoryException;
