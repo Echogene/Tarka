@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class DefinedFunctionFactoryFactory {
 
-	public static <T extends Nameable> AbstractDefinedFunctionFactory create(Function<T, ?> definition,
+	public static <T extends Nameable> AbstractDefinedFunctionFactory<T, ?, ?> create(Function<T, ?> definition,
 	                                                    List<String> parameters,
 	                                                    List<CheckerWithNumber> checkers,
 	                                                    Class<T> universeType) {
