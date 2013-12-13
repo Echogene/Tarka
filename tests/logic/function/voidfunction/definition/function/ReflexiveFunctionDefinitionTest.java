@@ -8,6 +8,7 @@ import logic.function.Function;
 import logic.function.FunctionTest;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -41,6 +42,17 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		function.evaluate(model);
 
 		Function<TestClass, ?> definedFunction = reader.read("(f x)");
+		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
+	}
+
+	@Ignore
+	@Test
+	public void testNestedEvaluate() throws Exception {
+		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
+		function = new ReflexiveFunctionDefinition<>("f", Arrays.asList("a"), identityFunction);
+		function.evaluate(model);
+
+		Function<TestClass, ?> definedFunction = reader.read("(f (f x))");
 		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
 	}
 }
