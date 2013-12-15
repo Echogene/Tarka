@@ -72,7 +72,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 		if (definition instanceof ReflexiveFunction<?>) {
 			return new MemberDefinition<>(variableName, (ReflexiveFunction<T>) definition);
 		} else if (definition instanceof Evaluable<?>) {
-			return new EvaluableDefinition<>(variableName, (Evaluable<T>) definition);
+			return new BooleanDefinition<>(variableName, (Evaluable<T>) definition);
 		} else {
 			return new SetDefinition<>(variableName, (SetFunction<T>) definition);
 		}

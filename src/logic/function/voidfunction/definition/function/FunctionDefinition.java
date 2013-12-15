@@ -17,6 +17,8 @@ import java.util.List;
  */
 abstract class FunctionDefinition<D extends Nameable, C> implements VoidFunction<D> {
 
+	public static final String DEFINITION_SYMBOL = "≝";
+
 	private final String functionName;
 	private final List<String> parameters;
 	private final Function<D, C> definition;
