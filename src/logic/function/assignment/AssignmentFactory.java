@@ -79,7 +79,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable;
 		Type type;
 		if (nodes.get(1).getToken().isOfType(OPEN_BRACKET)) {

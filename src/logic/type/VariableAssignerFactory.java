@@ -6,6 +6,7 @@ import reading.parsing.ParseTreeNode;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -17,12 +18,14 @@ public interface VariableAssignerFactory {
 	 *
 	 * @param nodes the nodes to analyse (including surrounding brackets)
 	 * @param functionTypes
+	 * @param freeVariables
 	 * @return
 	 * @throws VariableAssignmentTypeException
 	 */
 	Map<String, Type> assignVariableTypes(
 			List<ParseTreeNode> nodes,
-			MapWithErrors<ParseTreeNode, Type> functionTypes
+			MapWithErrors<ParseTreeNode, Type> functionTypes,
+			Map<String, Set<Type>> freeVariables
 	) throws VariableAssignmentTypeException;
 
 	boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes);

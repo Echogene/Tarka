@@ -19,14 +19,10 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 import static logic.function.voidfunction.definition.function.FunctionDefinition.DEFINITION_SYMBOL;
@@ -53,16 +49,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
-		boolean definitionSymbolReached = false;
-		List<ParseTreeNode> output = new ArrayList<>();
-		for (ParseTreeNode node : nodes) {
-			if (DEFINITION_SYMBOL.equals(node.getToken().getValue())) {
-				definitionSymbolReached = true;
-			} else if (definitionSymbolReached) {
-				output.add(node);
-			}
-		}
-		return output;
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -101,8 +88,21 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
-		throw new NotImplementedException();
+	public Map<String, Type> assignVariableTypes(
+			List<ParseTreeNode> nodes,
+			MapWithErrors<ParseTreeNode, Type> functionTypes,
+			Map<String, Set<Type>> freeVariables
+	) throws VariableAssignmentTypeException {
+		Map<String, Type> output = new HashMap<>();
+		for (int i = 2; i < nodes.size(); i++) {
+			ParseTreeNode node = nodes.get(i);
+			String nodeValue = node.getToken().getValue();
+			if (DEFINITION_SYMBOL.equals(nodeValue)) {
+				break;
+			}
+			output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't user iterator
+		}
+		return output;
 	}
 
 	@Override

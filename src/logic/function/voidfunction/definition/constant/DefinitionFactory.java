@@ -18,10 +18,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static logic.function.voidfunction.definition.constant.MemberDefinition.DEFINITION_SYMBOL;
 
@@ -49,7 +46,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variableName = nodes.get(1).getToken().getValue();
 		Type type = functionTypes.getPassedValues().get(nodes.get(3));
 		return Collections.singletonMap(variableName, type);

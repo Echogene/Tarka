@@ -16,10 +16,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static logic.function.evaluable.statements.quantified.standard.Quantifier.QUANTIFIER_SYMBOL_LIST;
 
@@ -46,8 +43,8 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	@Override
 	public Map<String, Type> assignVariableTypes(
 			List<ParseTreeNode> nodes,
-			MapWithErrors<ParseTreeNode, Type> functionTypes
-	) throws VariableAssignmentTypeException {
+			MapWithErrors<ParseTreeNode, Type> functionTypes,
+			Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
 		return Collections.<String, Type>singletonMap(variable, getUniverseType());
 	}

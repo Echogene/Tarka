@@ -19,10 +19,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -55,7 +52,7 @@ public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T,
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(1).getToken().getValue();
 		return Collections.<String, Type>singletonMap(variable, getUniverseType());
 	}

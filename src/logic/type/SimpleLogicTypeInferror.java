@@ -8,6 +8,7 @@ import logic.type.map.MapWithErrors;
 import logic.type.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
@@ -62,8 +63,10 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		final MapWithErrors<ParseTreeNode, Type> functionTypes
 				= inferChildTypes(nodes, variablesTypes);
 
+		final Map<String, Set<Type>> freeVariables = guessFreeVariableTypes();
+
 		final MapWithErrors<VariableAssignerFactory, Map<String, Type>> variableAssignments
-				= assignVariableTypes(surroundWithParentNodes(nodes), functionTypes);
+				= assignVariableTypes(surroundWithParentNodes(nodes), functionTypes, freeVariables);
 
 		final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment
 				= inferChildTypesAfterVariableAssignment(nodes, variablesTypes, functionTypes, variableAssignments);
@@ -72,6 +75,11 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				= matchTypes(surroundWithParentNodes(nodes), typeMap, functionTypesAfterAssignment);
 
 		return matchedTypes.getUniquePassedValue();
+	}
+
+	private Map<String, Set<Type>> guessFreeVariableTypes() {
+		// todo: fill out this function
+		return CollectionUtils.createMap(Arrays.asList("a", "b"), Collections.<Type>singleton(universe.getTypeOfUniverse()));
 	}
 
 	private MapWithErrors<ParseTreeNode, Type> inferChildTypes(
@@ -101,7 +109,8 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 	private MapWithErrors<VariableAssignerFactory, Map<String, Type>> assignVariableTypes(
 			final List<ParseTreeNode> surroundedNodes,
-			final MapWithErrors<ParseTreeNode, Type> functionTypes
+			final MapWithErrors<ParseTreeNode, Type> functionTypes,
+			final Map<String, Set<Type>> freeVariables
 	) throws TypeInferrorException {
 
 		final MapWithErrors<
@@ -109,7 +118,8 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				Map<String, Type>
 		> variableAssignments = new MapWithErrors<>(
 				passedAssigners.get(first(surroundedNodes)),
-				(VariableAssignerFactory factory) -> factory.assignVariableTypes(surroundedNodes, functionTypes)
+				(VariableAssignerFactory factory)
+						-> factory.assignVariableTypes(surroundedNodes, functionTypes, freeVariables)
 		);
 		if (variableAssignments.hasAmbiguousPasses()) {
 			throw new TypeInferrorException(

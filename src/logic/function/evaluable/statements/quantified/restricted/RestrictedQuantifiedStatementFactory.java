@@ -51,7 +51,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws VariableAssignmentTypeException {
+	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
 		return Collections.<String, Type>singletonMap(variable, getUniverseType());
 	}
