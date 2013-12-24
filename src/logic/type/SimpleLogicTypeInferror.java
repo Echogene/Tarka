@@ -72,7 +72,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 				= inferChildTypesAfterVariableAssignment(nodes, variablesTypes, functionTypes, variableAssignments);
 
 		final MapWithErrors<TypeMatcher, Type> matchedTypes
-				= matchTypes(surroundWithParentNodes(nodes), typeMap, functionTypesAfterAssignment);
+				= matchTypes(surroundWithParentNodes(nodes), functionTypesAfterAssignment);
 
 		return matchedTypes.getUniquePassedValue();
 	}
@@ -146,7 +146,8 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			assignedVariableTypes.putAll(variablesTypes);
 			List<ParseTreeNode> childrenNodes = new ArrayList<>();
 			for (ParseTreeNode node : nodes) {
-				if (factory.shouldWalkDownAt(node, surroundWithParentNodes(nodes))) {
+				List<ParseTreeNode> surroundedNodes = surroundWithParentNodes(nodes);
+				if (factory.shouldWalkDownAt(node, surroundedNodes)) {
 					childrenNodes.add(node);
 				}
 			}
@@ -168,7 +169,6 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 	private MapWithErrors<TypeMatcher, Type> matchTypes(
 			final List<ParseTreeNode> surroundedNodes,
-			Map<ParseTreeNode, Type> typeMap,
 			final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment
 	) throws TypeInferrorException {
 
