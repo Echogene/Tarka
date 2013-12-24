@@ -36,6 +36,7 @@ import static org.junit.Assert.*;
 /**
  * @author Steven Weston
  */
+@SuppressWarnings("Convert2Diamond")
 public class SimpleLogicReaderTest {
 
 	private static SimpleLogicReader reader;
@@ -169,7 +170,7 @@ public class SimpleLogicReaderTest {
 
 		expected = new UnaryStatement<>(
 				unaryConnectiveFactory.createElement("¬"),
-				new EvaluableIdentityFunction<>("⊤")
+				new EvaluableIdentityFunction<TestClass>("⊤")
 		);
 		actual = reader.read("(¬⊤)");
 		assertEquals(expected, actual);
@@ -196,7 +197,7 @@ public class SimpleLogicReaderTest {
 		expected = new QuantifiedStatement<>(
 				quantifierFactory.createElement("∀"),
 				"a",
-				new EvaluableIdentityFunction<>("⊤")
+				new EvaluableIdentityFunction<TestClass>("⊤")
 		);
 		actual = reader.read("(∀a ⊤)");
 		assertEquals(expected, actual);
@@ -288,7 +289,7 @@ public class SimpleLogicReaderTest {
 						new MemberIdentityFunction<>("a")
 				),
 				"a",
-				new MemberIdentityFunction<>("x")
+				new MemberIdentityFunction<TestClass>("x")
 		);
 		actual = reader.read("((b where b is a) where a is x)");
 		assertEquals(expected, actual);
@@ -305,7 +306,7 @@ public class SimpleLogicReaderTest {
 				new ReflexiveAssignment<TestClass>(
 						new MemberIdentityFunction<>("b"),
 						"b",
-						new MemberIdentityFunction<>("x")
+						new MemberIdentityFunction<TestClass>("x")
 				)
 		);
 		actual = reader.read("(a where a is (b where b is x))");
@@ -360,7 +361,7 @@ public class SimpleLogicReaderTest {
 						new SetIdentityFunction<>("a")
 				),
 				"a",
-				new SetIdentityFunction<>("X")
+				new SetIdentityFunction<TestClass>("X")
 		);
 		actual = reader.read("((b where b is a) where a is X)");
 		assertEquals(expected, actual);
@@ -375,7 +376,7 @@ public class SimpleLogicReaderTest {
 				new SetIdentityFunction<>("a"),
 				"a",
 				new SetAssignment<TestClass>(
-						new SetIdentityFunction<>("b"),
+						new SetIdentityFunction<TestClass>("b"),
 						"b",
 						new SetIdentityFunction<>("X")
 				)
@@ -432,7 +433,7 @@ public class SimpleLogicReaderTest {
 						new EvaluableIdentityFunction<>("a")
 				),
 				"a",
-				new EvaluableIdentityFunction<>("⊤")
+				new EvaluableIdentityFunction<TestClass>("⊤")
 		);
 		actual = reader.read("((b where b is a) where a is ⊤)");
 		assertEquals(expected, actual);
@@ -447,7 +448,7 @@ public class SimpleLogicReaderTest {
 				new EvaluableIdentityFunction<>("a"),
 				"a",
 				new EvaluableAssignment<TestClass>(
-						new EvaluableIdentityFunction<>("b"),
+						new EvaluableIdentityFunction<TestClass>("b"),
 						"b",
 						new EvaluableIdentityFunction<>("⊤")
 				)
@@ -529,7 +530,7 @@ public class SimpleLogicReaderTest {
 
 		expected = new MemberDefinition<>(
 				"a",
-				new MemberIdentityFunction<>("x")
+				new MemberIdentityFunction<TestClass>("x")
 		);
 		actual = reader.read("(a ≔ x)");
 		assertEquals(expected, actual);
@@ -599,7 +600,7 @@ public class SimpleLogicReaderTest {
 		Function<?, ?> actual;
 
 		expected = new ReflexiveIfElse<>(
-				new EvaluableIdentityFunction<>("⊤"),
+				new EvaluableIdentityFunction<TestClass>("⊤"),
 				new ReflexiveAssignment<TestClass>(
 						new MemberIdentityFunction<TestClass>("a"),
 						"a",
