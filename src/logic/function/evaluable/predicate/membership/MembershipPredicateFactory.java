@@ -13,10 +13,10 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +57,10 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
-		throw new NotImplementedException();
+		if (nodes.indexOf(variable) < 2) {
+			return Collections.singleton(getUniverseType());
+		} else {
+			return Collections.singleton(logic.set.Set.class);
+		}
 	}
 }

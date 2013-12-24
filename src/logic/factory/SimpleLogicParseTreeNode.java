@@ -67,11 +67,21 @@ public class SimpleLogicParseTreeNode implements ParseTreeNode {
 		spouse.spouse = this;
 	}
 
-	public List<ParseTreeNode> getAllDescendants() {
+	public List<ParseTreeNode> getDescendants() {
 		List<ParseTreeNode> output = new ArrayList<>();
 		for (ParseTreeNode n : children) {
 			output.add(n);
-			output.addAll(n.getAllDescendants());
+			output.addAll(n.getDescendants());
+		}
+		return output;
+	}
+
+	@Override
+	public List<ParseTreeNode> getMaternalAncestors() {
+		List<ParseTreeNode> output = new ArrayList<>();
+		if (getMother() != null) {
+			output.add(getMother());
+			output.addAll(getMother().getMaternalAncestors());
 		}
 		return output;
 	}

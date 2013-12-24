@@ -15,7 +15,8 @@ public interface ParseTreeNode {
 	public Token getToken();
 	public ParseTreeNode getSpouse();
 	public int getDepth();
-	public List<ParseTreeNode> getAllDescendants();
+	public List<ParseTreeNode> getDescendants();
+	public List<ParseTreeNode> getMaternalAncestors();
 
 	/**
 	 * @return the parents of this node in the form (mother, father).

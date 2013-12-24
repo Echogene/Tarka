@@ -51,7 +51,7 @@ public class SimpleLogicReaderTest {
 		universe.put("y");
 		universe.putSet("X", "x");
 		universe.putSet("Y", "y");
-		reader = StandardReader.createStandardReader(universe);
+		reader = StandardReader.<TestClass>createStandardReader(universe);
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class SimpleLogicReaderTest {
 		Function<TestClass, ?> expected;
 		Function<?, ?> actual;
 
-		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<>("x"));
+		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<TestClass>("x"));
 		actual = reader.read("((x))");
 		assertEquals(expected, actual);
 	}
@@ -89,7 +89,7 @@ public class SimpleLogicReaderTest {
 		Function<TestClass, ?> expected;
 		Function<?, ?> actual;
 
-		expected = new SetIdentityFunction<>(new SetIdentityFunction<>("X"));
+		expected = new SetIdentityFunction<>(new SetIdentityFunction<TestClass>("X"));
 		actual = reader.read("((X))");
 		assertEquals(expected, actual);
 	}
@@ -109,7 +109,7 @@ public class SimpleLogicReaderTest {
 		Function<TestClass, ?> expected;
 		Function<?, ?> actual;
 
-		expected = new EvaluableIdentityFunction<>(new EvaluableIdentityFunction<>("⊥"));
+		expected = new EvaluableIdentityFunction<>(new EvaluableIdentityFunction<TestClass>("⊥"));
 		actual = reader.read("((⊥))");
 		assertEquals(expected, actual);
 	}
@@ -283,7 +283,7 @@ public class SimpleLogicReaderTest {
 
 		expected = new ReflexiveAssignment<>(
 				new ReflexiveAssignment<TestClass>(
-						new MemberIdentityFunction<>("b"),
+						new MemberIdentityFunction<TestClass>("b"),
 						"b",
 						new MemberIdentityFunction<>("a")
 				),
@@ -355,7 +355,7 @@ public class SimpleLogicReaderTest {
 
 		expected = new SetAssignment<>(
 				new SetAssignment<TestClass>(
-						new SetIdentityFunction<>("b"),
+						new SetIdentityFunction<TestClass>("b"),
 						"b",
 						new SetIdentityFunction<>("a")
 				),
@@ -427,7 +427,7 @@ public class SimpleLogicReaderTest {
 
 		expected = new EvaluableAssignment<>(
 				new EvaluableAssignment<TestClass>(
-						new EvaluableIdentityFunction<>("b"),
+						new EvaluableIdentityFunction<TestClass>("b"),
 						"b",
 						new EvaluableIdentityFunction<>("a")
 				),
@@ -601,11 +601,11 @@ public class SimpleLogicReaderTest {
 		expected = new ReflexiveIfElse<>(
 				new EvaluableIdentityFunction<>("⊤"),
 				new ReflexiveAssignment<TestClass>(
-						new MemberIdentityFunction<>("a"),
+						new MemberIdentityFunction<TestClass>("a"),
 						"a",
 						new MemberIdentityFunction<>("x")
 				),
-				new MemberIdentityFunction<>("y")
+				new MemberIdentityFunction<TestClass>("y")
 		);
 		actual = reader.read("((a where a is x) if ⊤ otherwise y)");
 		assertEquals(expected, actual);
@@ -632,11 +632,11 @@ public class SimpleLogicReaderTest {
 
 		expected = new ReflexiveIfElse<>(
 				new EvaluableIdentityFunction<>("⊤"),
-				new MemberIdentityFunction<>("x"),
+				new MemberIdentityFunction<TestClass>("x"),
 				new ReflexiveAssignment<TestClass>(
-						new MemberIdentityFunction<>("a"),
+						new MemberIdentityFunction<TestClass>("a"),
 						"a",
-						new MemberIdentityFunction<>("y")
+						new MemberIdentityFunction<TestClass>("y")
 				)
 		);
 		actual = reader.read("(x if ⊤ otherwise (a where a is y))");

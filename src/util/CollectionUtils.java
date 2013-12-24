@@ -112,4 +112,32 @@ public class CollectionUtils {
 		Collections.addAll(output, elements);
 		return output;
 	}
+
+	/**
+	 * Overlay onto a given map—whose values are sets—another such that:<ol>
+	 *     <li>The first map will obtain all keys that it does not have already and values from the overlay</li>
+	 *     <li>For each key contained in both maps, the first map's corresponding value set will be intersected with
+	 *     value set of the overlay</li>
+	 *     <li>The first map will retain all keys that the overlay does not contain</li>
+	 * </ol>
+	 *
+	 * @param underlay
+	 * @param overlay
+	 * @param <K>
+	 * @param <V>
+	 */
+	public static <K, V, S extends Set<? extends V>> void overlay(
+			Map<K, S> underlay,
+			Map<K, S> overlay
+	) {
+		for (Map.Entry<K, S> entry : overlay.entrySet()) {
+			K key = entry.getKey();
+			S value = entry.getValue();
+			if (underlay.containsKey(key)) {
+				underlay.get(key).retainAll(value);
+			} else {
+				underlay.put(key, value);
+			}
+		}
+	}
 }

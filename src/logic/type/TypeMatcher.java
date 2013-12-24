@@ -31,7 +31,7 @@ public interface TypeMatcher {
 	/**
 	 * Guess the possible types of the free variable based on its position within the given nodes.
 	 * @param variable
-	 * @param nodes
+	 * @param nodes the list of nodes (including surrounding brackets)
 	 * @return
 	 */
 	Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes);
