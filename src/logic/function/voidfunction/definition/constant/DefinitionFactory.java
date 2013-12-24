@@ -79,4 +79,9 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getSingleVariableWithIndex(nodes, 3);
 	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return nonVoidTypes;
+	}
 }

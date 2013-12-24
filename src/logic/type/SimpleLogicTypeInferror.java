@@ -8,7 +8,6 @@ import logic.type.map.MapWithErrors;
 import logic.type.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
@@ -29,7 +28,12 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 	private final Universe<T> universe;
 
-	private HashMap<ParseTreeNode,Type> typeMap;
+	private Map<ParseTreeNode, Type> typeMap;
+
+	/**
+	 * For each node, collect a map of free variables to their possible types.
+	 */
+	private Map<ParseTreeNode, Map<String, Set<Type>>> freeVariables;
 	private Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers;
 	private Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners;
 
@@ -46,7 +50,8 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (tree == null) {
 			return null;
 		}
-		typeMap = new HashMap<>();
+		typeMap = new HashMap<>(tree.getNodes().size());
+		freeVariables =  new HashMap<>(tree.getNodes().size());
 		this.passedMatchers = passedMatchers;
 		this.passedAssigners = passedAssigners;
 		ParseTreeNode firstNode = tree.getFirstNode();
@@ -63,23 +68,44 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		final MapWithErrors<ParseTreeNode, Type> functionTypes
 				= inferChildTypes(nodes, variablesTypes);
 
-		final Map<String, Set<Type>> freeVariables = guessFreeVariableTypes();
+		List<ParseTreeNode> surroundedNodes = surroundWithParentNodes(nodes);
+		final Map<String, Set<Type>> freeVariables = guessFreeVariableTypes(surroundedNodes, functionTypes);
 
 		final MapWithErrors<VariableAssignerFactory, Map<String, Type>> variableAssignments
-				= assignVariableTypes(surroundWithParentNodes(nodes), functionTypes, freeVariables);
+				= assignVariableTypes(surroundedNodes, functionTypes, freeVariables);
 
 		final MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment
 				= inferChildTypesAfterVariableAssignment(nodes, variablesTypes, functionTypes, variableAssignments);
 
 		final MapWithErrors<TypeMatcher, Type> matchedTypes
-				= matchTypes(surroundWithParentNodes(nodes), functionTypesAfterAssignment);
+				= matchTypes(surroundedNodes, functionTypesAfterAssignment);
 
 		return matchedTypes.getUniquePassedValue();
 	}
 
-	private Map<String, Set<Type>> guessFreeVariableTypes() {
-		// todo: fill out this function
-		return CollectionUtils.createMap(Arrays.asList("a", "b"), Collections.<Type>singleton(universe.getTypeOfUniverse()));
+	private Map<String, Set<Type>> guessFreeVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes) throws TypeInferrorException {
+		MapWithErrors<TypeMatcher, Map<String, Set<Type>>> map = new MapWithErrors<>(
+				passedMatchers.get(first(nodes)),
+				matcher -> {
+					Map<String, Set<Type>> output = new HashMap<>();
+					List<ParseTreeNode> variables = matcher.getVariables(nodes);
+					for (ParseTreeNode variable : variables) {
+						if (!functionTypes.getPassedValues().containsKey(variable)) {
+							output.put(
+									variable.getToken().getValue(),
+									matcher.guessTypes(variable, nodes)
+							);
+						}
+					}
+					return output;
+				}
+		);
+
+		if (map.hasUniquePass()) {
+			return map.getUniquePassedValue();
+		} else {
+			throw new TypeInferrorException(format("Ambiguous free variables for {0}.", nodes));
+		}
 	}
 
 	private MapWithErrors<ParseTreeNode, Type> inferChildTypes(
@@ -87,9 +113,9 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			final Map<String, Type> variableTypes
 	) throws TypeInferrorException {
 
-		MapWithErrors<ParseTreeNode, Type> functionTypesAfterAssignment;
+		MapWithErrors<ParseTreeNode, Type> functionTypes;
 		//noinspection unchecked
-		functionTypesAfterAssignment = new MapWithErrors<>(
+		functionTypes = new MapWithErrors<>(
 				nodes,
 				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Type>>(
 						this::shouldWalkDownAt,
@@ -104,7 +130,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 						(ParseTreeNode node) -> universe.getTypeOfElement(node.getToken().getValue())
 				)
 		);
-		return functionTypesAfterAssignment;
+		return functionTypes;
 	}
 
 	private MapWithErrors<VariableAssignerFactory, Map<String, Type>> assignVariableTypes(
@@ -158,10 +184,13 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 		if (!functionTypesAfterAssignment.allPassed()) {
 			throw new TypeInferrorException(
-					"Not all types could be determined from "
-							+ nodes.toString()
-							+ " because:\n"
-							+ StringUtils.addCharacterAfterEveryNewline(functionTypesAfterAssignment.concatenateErrorMessages(), '\t')
+					format(
+							"Not all types could be determined from {0} because:\n{1}",
+							nodes.toString(),
+							StringUtils.addCharacterAfterEveryNewline(
+									functionTypesAfterAssignment.concatenateErrorMessages(), '\t'
+							)
+					)
 			);
 		}
 		return functionTypesAfterAssignment;

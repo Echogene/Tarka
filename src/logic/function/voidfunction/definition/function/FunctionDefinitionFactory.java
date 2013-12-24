@@ -53,6 +53,11 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return new HashSet<>();
+	}
+
+	@Override
 	public FunctionDefinition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		String functionName = tokens.get(1).getValue();
 		List<String> parameters = new ArrayList<>();
@@ -100,7 +105,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (DEFINITION_SYMBOL.equals(nodeValue)) {
 				break;
 			}
-			output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't user iterator
+			output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't use iterator
 		}
 		return output;
 	}

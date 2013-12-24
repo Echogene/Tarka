@@ -11,8 +11,11 @@ import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -47,5 +50,10 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(Boolean.class);
 	}
 }

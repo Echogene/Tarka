@@ -11,8 +11,11 @@ import maths.number.integer.sets.interval.IntervalFactory;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType;
@@ -78,5 +81,10 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(getUniverseType());
 	}
 }

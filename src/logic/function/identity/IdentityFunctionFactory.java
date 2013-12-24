@@ -87,4 +87,9 @@ public class IdentityFunctionFactory<T extends Nameable>
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getSingleVariableWithIndex(nodes, 1);
 	}
+
+	@Override
+	public java.util.Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return nonVoidTypes;
+	}
 }

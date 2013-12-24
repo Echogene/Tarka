@@ -106,4 +106,10 @@ public class CollectionUtils {
 		}
 		return output;
 	}
+
+	public static <T> Set<T> createSet(T... elements) {
+		HashSet<T> output = new HashSet<>();
+		Collections.addAll(output, elements);
+		return output;
+	}
 }

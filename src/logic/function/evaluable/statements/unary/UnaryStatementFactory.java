@@ -11,8 +11,11 @@ import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static logic.function.evaluable.statements.unary.UnaryConnective.UNARY_CONNECTIVE_SYMBOL_LIST;
 
@@ -45,5 +48,10 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getSingleVariableWithIndex(nodes, 2);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(Boolean.class);
 	}
 }

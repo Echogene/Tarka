@@ -12,9 +12,8 @@ import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.util.*;
 
 import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 
@@ -62,6 +61,11 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(getUniverseType());
 	}
 
 }

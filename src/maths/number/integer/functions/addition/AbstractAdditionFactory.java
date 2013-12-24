@@ -10,8 +10,11 @@ import maths.number.Summor;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -37,5 +40,10 @@ public abstract class AbstractAdditionFactory<N extends Number> extends Reflexiv
 			parameters.add((ReflexiveFunction<N>) function);
 		}
 		return new Addition<>(parameters, summor);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(getUniverseType());
 	}
 }

@@ -5,6 +5,7 @@ import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -19,4 +20,19 @@ public interface TypeMatcher {
 	 * @return The type if the type was found, null otherwise.
 	 */
 	Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException;
+
+	/**
+	 * Given a list of nodes, return a sublist of those who represent variables
+	 * @param nodes the list of nodes (including surrounding brackets)
+	 * @return
+	 */
+	List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes);
+
+	/**
+	 * Guess the possible types of the free variable based on its position within the given nodes.
+	 * @param variable
+	 * @param nodes
+	 * @return
+	 */
+	Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes);
 }

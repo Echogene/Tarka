@@ -7,10 +7,13 @@ import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -48,4 +51,9 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 	}
 
 	protected abstract F construct(Map<String, Function<D, ?>> parameters);
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		throw new NotImplementedException();
+	}
 }

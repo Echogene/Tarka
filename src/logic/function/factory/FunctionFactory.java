@@ -25,10 +25,13 @@ import logic.type.TypeMatcher;
 import logic.type.map.MapToErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 
@@ -50,6 +53,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 			Evaluable.class,
 			SetFunction.class
 	);
+	protected final Set<Type> nonVoidTypes;
 
 	private final TokenValidator tokenValidator;
 	private final FunctionValidator<D> functionValidator;
@@ -59,6 +63,8 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		this.universeType = universeType;
 		tokenValidator = new SimpleLogicTokenValidator(checkers, acceptedBracketPairs);
 		functionValidator = new SimpleLogicFunctionValidator<>(extractFunctionCheckers(checkers));
+
+		nonVoidTypes = CollectionUtils.createSet(getUniverseType(), Boolean.class, logic.set.Set.class);
 	}
 
 	private List<CheckerWithNumber> extractFunctionCheckers(List<CheckerWithNumber> checkers) {
@@ -115,13 +121,6 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	protected Class<D> getUniverseType() {
 		return universeType;
 	}
-
-	/**
-	 * Given a list of nodes, return a sublist of those who represent variables
-	 * @param nodes the list of nodes (including surrounding brackets)
-	 * @return
-	 */
-	public abstract List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes);
 
 	protected List<ParseTreeNode> getSingleVariableWithIndex(List<ParseTreeNode> nodes, int index) {
 		ParseTreeNode node = nodes.get(index);

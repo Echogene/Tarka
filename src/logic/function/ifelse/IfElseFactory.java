@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -117,5 +118,11 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 				}
 			}
 		}
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		// The type of a variable cannot be void.
+		return nonVoidTypes;
 	}
 }

@@ -121,4 +121,9 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 			}
 		}
 	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return nonVoidTypes;
+	}
 }

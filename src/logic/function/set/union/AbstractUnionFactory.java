@@ -9,8 +9,11 @@ import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -50,5 +53,10 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 			sets.add(setFunction);
 		}
 		return new Union<>(sets);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(logic.set.Set.class);
 	}
 }

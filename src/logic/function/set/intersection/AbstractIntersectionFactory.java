@@ -9,8 +9,11 @@ import logic.function.set.SetFunctionFactory;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -52,4 +55,8 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 		return new Intersection<>(sets);
 	}
 
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return Collections.singleton(logic.set.Set.class);
+	}
 }

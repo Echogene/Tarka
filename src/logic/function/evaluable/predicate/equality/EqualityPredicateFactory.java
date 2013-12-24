@@ -11,8 +11,10 @@ import logic.function.identity.MemberIdentityFunction;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A {@code Factory} for creating {@code EqualityPredicate}s.
@@ -54,5 +56,10 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		return nonVoidTypes;
 	}
 }

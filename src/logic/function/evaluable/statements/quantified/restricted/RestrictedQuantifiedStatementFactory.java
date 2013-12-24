@@ -19,6 +19,7 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -88,5 +89,10 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 				return Arrays.asList(firstNode, secondNode);
 			}
 		}
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		throw new NotImplementedException();
 	}
 }

@@ -13,9 +13,12 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -50,5 +53,10 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		return getAllVariables(nodes);
+	}
+
+	@Override
+	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
+		throw new NotImplementedException();
 	}
 }
