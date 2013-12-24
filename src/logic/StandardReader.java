@@ -18,6 +18,7 @@ import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.BinaryUnionFactory;
 import logic.function.set.union.MultaryUnionFactory;
 import logic.function.voidfunction.definition.constant.DefinitionFactory;
+import logic.function.voidfunction.definition.function.FunctionDefinitionFactory;
 import logic.model.universe.Universe;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class StandardReader {
 		output.add(new SimpleSetFactory<>(universeType));
 		output.add(new IfElseFactory<>(universeType));
 		output.add(new ComplexSetFactory<>(universeType));
+		output.add(new FunctionDefinitionFactory<>(universeType));
 		return output;
 	}
 }

@@ -34,7 +34,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		extends FunctionFactory<T, Void, FunctionDefinition<T, ?>>
 		implements VariableAssignerFactory {
 
-	protected FunctionDefinitionFactory(Class<T> universeType) {
+	public FunctionDefinitionFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
 	}
 
