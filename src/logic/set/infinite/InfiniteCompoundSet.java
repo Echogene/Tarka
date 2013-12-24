@@ -21,7 +21,7 @@ public class InfiniteCompoundSet<T extends Nameable> extends NamedSet<T> impleme
 	private final java.util.Set<InfiniteSet<T>> infinitePart;
 
 	public InfiniteCompoundSet(String name) {
-		this(name, new FiniteCompoundSet<>((String) null), new HashSet<>());
+		this(name, new FiniteCompoundSet<T>((String) null), new HashSet<InfiniteSet<T>>());
 	}
 
 	public InfiniteCompoundSet(String name, StandardSet<T> finitePart, InfiniteSet<T> infiniteSet) {
