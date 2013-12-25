@@ -303,7 +303,7 @@ public class SimpleLogicReaderTest {
 		ReflexiveAssignment<TestClass> actual;
 
 		expected = new ReflexiveAssignment<>(
-				new MemberIdentityFunction<>("a"),
+				new MemberIdentityFunction<TestClass>("a"),
 				"a",
 				new ReflexiveAssignment<TestClass>(
 						new MemberIdentityFunction<TestClass>("b"),
@@ -375,7 +375,7 @@ public class SimpleLogicReaderTest {
 		SetAssignment<TestClass> actual;
 
 		expected = new SetAssignment<>(
-				new SetIdentityFunction<>("a"),
+				new SetIdentityFunction<TestClass>("a"),
 				"a",
 				new SetAssignment<TestClass>(
 						new SetIdentityFunction<TestClass>("b"),
