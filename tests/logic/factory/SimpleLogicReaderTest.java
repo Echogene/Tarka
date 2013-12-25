@@ -3,11 +3,12 @@ package logic.factory;
 import logic.StandardReader;
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.function.Function;
 import logic.function.assignment.EvaluableAssignment;
 import logic.function.assignment.ReflexiveAssignment;
 import logic.function.assignment.SetAssignment;
+import logic.function.evaluable.predicate.equality.EqualityPredicate;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
+import logic.function.evaluable.predicate.membership.MembershipPredicate;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryConnectiveFactory;
 import logic.function.evaluable.statements.binary.BinaryStatement;
@@ -20,8 +21,10 @@ import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.identity.SetIdentityFunction;
 import logic.function.ifelse.ReflexiveIfElse;
+import logic.function.set.simple.SimpleSet;
 import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.AbstractUnionFactory;
+import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.constant.MemberDefinition;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,26 +42,25 @@ import static org.junit.Assert.*;
 @SuppressWarnings("Convert2Diamond")
 public class SimpleLogicReaderTest {
 
-	private static SimpleLogicReader reader;
-	private static TestClassUniverse universe;
+	private static SimpleLogicReader<TestClass> reader;
 	private static final BinaryConnectiveFactory binaryConnectiveFactory = new BinaryConnectiveFactory();
 	private static final UnaryConnectiveFactory unaryConnectiveFactory = new UnaryConnectiveFactory();
 	private static final QuantifierFactory quantifierFactory = new QuantifierFactory();
 
 	@BeforeClass
 	public static void setUp() {
-		universe = new TestClassUniverse();
+		TestClassUniverse universe = new TestClassUniverse();
 		universe.put("x");
 		universe.put("y");
 		universe.putSet("X", "x");
 		universe.putSet("Y", "y");
-		reader = StandardReader.<TestClass>createStandardReader(universe);
+		reader = StandardReader.createStandardReader(universe);
 	}
 
 	@Test
 	public void testCreateMemberIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		MemberIdentityFunction<TestClass> expected;
+		MemberIdentityFunction<TestClass> actual;
 
 		expected = new MemberIdentityFunction<>("x");
 		actual = reader.read("(x)");
@@ -67,8 +69,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedMemberIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		MemberIdentityFunction<TestClass> expected;
+		MemberIdentityFunction<TestClass> actual;
 
 		expected = new MemberIdentityFunction<>(new MemberIdentityFunction<TestClass>("x"));
 		actual = reader.read("((x))");
@@ -77,8 +79,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateSetIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetIdentityFunction<TestClass> expected;
+		SetIdentityFunction<TestClass> actual;
 
 		expected = new SetIdentityFunction<>("X");
 		actual = reader.read("(X)");
@@ -87,8 +89,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedSetIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetIdentityFunction<TestClass> expected;
+		SetIdentityFunction<TestClass> actual;
 
 		expected = new SetIdentityFunction<>(new SetIdentityFunction<TestClass>("X"));
 		actual = reader.read("((X))");
@@ -97,8 +99,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateEvaluableIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableIdentityFunction<TestClass> expected;
+		EvaluableIdentityFunction<TestClass> actual;
 
 		expected = new EvaluableIdentityFunction<>("⊤");
 		actual = reader.read("(⊤)");
@@ -107,8 +109,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedEvaluableIdentityFunction() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableIdentityFunction<TestClass> expected;
+		EvaluableIdentityFunction<TestClass> actual;
 
 		expected = new EvaluableIdentityFunction<>(new EvaluableIdentityFunction<TestClass>("⊥"));
 		actual = reader.read("((⊥))");
@@ -117,8 +119,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateEqualityPredicate() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EqualityPredicate<TestClass> expected;
+		EqualityPredicate<TestClass> actual;
 
 		expected = EqualityPredicateFactory.createElement("x", "y");
 		actual = reader.read("(x = y)");
@@ -127,8 +129,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateMembershipPredicate() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		MembershipPredicate<TestClass> expected;
+		MembershipPredicate<TestClass> actual;
 
 		expected = MembershipPredicateFactory.createElement("x", "X");
 		actual = reader.read("(x ∊ X)");
@@ -137,8 +139,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateBinaryStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		BinaryStatement<TestClass> expected;
+		BinaryStatement<TestClass> actual;
 
 		expected = new BinaryStatement<TestClass>(
 				new EvaluableIdentityFunction<>("⊤"),
@@ -151,8 +153,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedBinaryStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		BinaryStatement<TestClass> expected;
+		BinaryStatement<TestClass> actual;
 
 		expected = new BinaryStatement<>(
 				EqualityPredicateFactory.<TestClass>createElement("x", "y"),
@@ -165,8 +167,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateUnaryStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		UnaryStatement<TestClass> expected;
+		UnaryStatement<TestClass> actual;
 
 		expected = new UnaryStatement<>(
 				unaryConnectiveFactory.createElement("¬"),
@@ -178,8 +180,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedUnaryStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		UnaryStatement<TestClass> expected;
+		UnaryStatement<TestClass> actual;
 
 		expected = new UnaryStatement<>(
 				unaryConnectiveFactory.createElement("¬"),
@@ -191,8 +193,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateQuantifiedStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		QuantifiedStatement<TestClass> expected;
+		QuantifiedStatement<TestClass> actual;
 
 		expected = new QuantifiedStatement<>(
 				quantifierFactory.createElement("∀"),
@@ -205,8 +207,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedQuantifiedStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		QuantifiedStatement<TestClass> expected;
+		QuantifiedStatement<TestClass> actual;
 
 		expected = new QuantifiedStatement<>(
 				quantifierFactory.createElement("∀"),
@@ -219,8 +221,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateBinaryUnion() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		Union<TestClass> expected;
+		Union<TestClass> actual;
 
 		expected = AbstractUnionFactory.createElement("X", "Y");
 		actual = reader.read("(X ∪ Y)");
@@ -229,8 +231,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedBinaryUnion() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		Union<TestClass> expected;
+		Union<TestClass> actual;
 
 		expected = AbstractUnionFactory.createElement(
 				AbstractUnionFactory.<TestClass>createElement("X", "Y"),
@@ -242,8 +244,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateMultaryUnion() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		Union<TestClass> expected;
+		Union<TestClass> actual;
 
 		expected = AbstractUnionFactory.createElement("X", "Y");
 		actual = reader.read("(⋃ X Y)");
@@ -252,8 +254,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedMultaryUnion() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		Union<TestClass> expected;
+		Union<TestClass> actual;
 
 		expected = AbstractUnionFactory.createElement(
 				AbstractUnionFactory.<TestClass>createElement("X", "Y"),
@@ -265,8 +267,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateReflexiveAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveAssignment<TestClass> expected;
+		ReflexiveAssignment<TestClass> actual;
 
 		expected = new ReflexiveAssignment<TestClass>(
 				new MemberIdentityFunction<>("a"),
@@ -279,8 +281,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadNestedReflexiveAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveAssignment<TestClass> expected;
+		ReflexiveAssignment<TestClass> actual;
 
 		expected = new ReflexiveAssignment<>(
 				new ReflexiveAssignment<TestClass>(
@@ -297,8 +299,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateTailNestedReflexiveAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveAssignment<TestClass> expected;
+		ReflexiveAssignment<TestClass> actual;
 
 		expected = new ReflexiveAssignment<>(
 				new MemberIdentityFunction<>("a"),
@@ -315,8 +317,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadAndTailNestedReflexiveAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveAssignment<TestClass> expected;
+		ReflexiveAssignment<TestClass> actual;
 
 		expected = new ReflexiveAssignment<>(
 				new ReflexiveAssignment<TestClass>(
@@ -337,8 +339,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateSetAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetAssignment<TestClass> expected;
+		SetAssignment<TestClass> actual;
 
 		expected = new SetAssignment<TestClass>(
 				new SetIdentityFunction<>("a"),
@@ -351,8 +353,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadNestedSetAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetAssignment<TestClass> expected;
+		SetAssignment<TestClass> actual;
 
 		expected = new SetAssignment<>(
 				new SetAssignment<TestClass>(
@@ -369,8 +371,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateTailNestedSetAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetAssignment<TestClass> expected;
+		SetAssignment<TestClass> actual;
 
 		expected = new SetAssignment<>(
 				new SetIdentityFunction<>("a"),
@@ -387,8 +389,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadAndTailNestedSetAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SetAssignment<TestClass> expected;
+		SetAssignment<TestClass> actual;
 
 		expected = new SetAssignment<>(
 				new SetAssignment<TestClass>(
@@ -409,8 +411,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateEvaluableAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableAssignment<TestClass> expected;
+		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<TestClass>(
 				new EvaluableIdentityFunction<>("a"),
@@ -423,8 +425,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadNestedEvaluableAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableAssignment<TestClass> expected;
+		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<>(
 				new EvaluableAssignment<TestClass>(
@@ -441,8 +443,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateTailNestedEvaluableAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableAssignment<TestClass> expected;
+		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<>(
 				new EvaluableIdentityFunction<>("a"),
@@ -459,8 +461,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadAndTailNestedEvaluableAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableAssignment<TestClass> expected;
+		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<>(
 				new EvaluableAssignment<TestClass>(
@@ -481,8 +483,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateMixedAssignment() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		EvaluableAssignment<TestClass> expected;
+		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<>(
 				EqualityPredicateFactory.<TestClass>createElement("a",  "x"),
@@ -495,8 +497,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateRestrictedQuantifiedStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		RestrictedQuantifiedStatement<TestClass> expected;
+		RestrictedQuantifiedStatement<TestClass> actual;
 
 		expected = new RestrictedQuantifiedStatement<TestClass>(
 				quantifierFactory.createElement("∀"),
@@ -510,8 +512,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedRestrictedQuantifiedStatement() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		RestrictedQuantifiedStatement<TestClass> expected;
+		RestrictedQuantifiedStatement<TestClass> actual;
 
 		expected = new RestrictedQuantifiedStatement<TestClass>(
 				quantifierFactory.createElement("∀"),
@@ -525,8 +527,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateMemberDefinition() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		MemberDefinition<TestClass> expected;
+		MemberDefinition<TestClass> actual;
 
 		expected = new MemberDefinition<>(
 				"a",
@@ -538,8 +540,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedMemberDefinition() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		MemberDefinition<TestClass> expected;
+		MemberDefinition<TestClass> actual;
 
 		expected = new MemberDefinition<>(
 				"a",
@@ -555,8 +557,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateSimpleSet() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SimpleSet<TestClass> expected;
+		SimpleSet<TestClass> actual;
 
 		expected = SimpleSetFactory.createElement("x", "y");
 		actual = reader.read("{x y}");
@@ -565,8 +567,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateNestedSimpleSet() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		SimpleSet<TestClass> expected;
+		SimpleSet<TestClass> actual;
 
 		expected = SimpleSetFactory.createElement(
 				new MemberIdentityFunction<TestClass>("x"),
@@ -582,8 +584,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateReflexiveIfElse() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveIfElse<TestClass> expected;
+		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<TestClass>(
 				new EvaluableIdentityFunction<>("⊤"),
@@ -596,8 +598,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateHeadNestedReflexiveIfElse() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveIfElse<TestClass> expected;
+		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<>(
 				new EvaluableIdentityFunction<TestClass>("⊤"),
@@ -614,8 +616,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateMidNestedReflexiveIfElse() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveIfElse<TestClass> expected;
+		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<TestClass>(
 				EqualityPredicateFactory.createElement("x", "y"),
@@ -628,8 +630,8 @@ public class SimpleLogicReaderTest {
 
 	@Test
 	public void testCreateTailNestedReflexiveIfElse() throws Exception {
-		Function<TestClass, ?> expected;
-		Function<?, ?> actual;
+		ReflexiveIfElse<TestClass> expected;
+		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<>(
 				new EvaluableIdentityFunction<>("⊤"),
@@ -779,13 +781,4 @@ public class SimpleLogicReaderTest {
 			);
 		}
 	}
-
-//	@Test
-//	public void testRead() throws Exception {
-//		Function<TestClass, ?> expected;
-//		Function<?, ?> actual;
-//
-//		actual = reader.read("(∃!y(¬∀x∊(V ∪ W)(((z where z is x)∊X)∨(y∊(⋃ X Y {a b c})))))");
-//		System.out.println(actual);
-//	}
 }
