@@ -306,7 +306,7 @@ public class SimpleLogicReaderTest {
 				new MemberIdentityFunction<>("a"),
 				"a",
 				new ReflexiveAssignment<TestClass>(
-						new MemberIdentityFunction<>("b"),
+						new MemberIdentityFunction<TestClass>("b"),
 						"b",
 						new MemberIdentityFunction<TestClass>("x")
 				)
@@ -380,7 +380,7 @@ public class SimpleLogicReaderTest {
 				new SetAssignment<TestClass>(
 						new SetIdentityFunction<TestClass>("b"),
 						"b",
-						new SetIdentityFunction<>("X")
+						new SetIdentityFunction<TestClass>("X")
 				)
 		);
 		actual = reader.read("(a where a is (b where b is X))");
@@ -447,7 +447,7 @@ public class SimpleLogicReaderTest {
 		EvaluableAssignment<TestClass> actual;
 
 		expected = new EvaluableAssignment<>(
-				new EvaluableIdentityFunction<>("a"),
+				new EvaluableIdentityFunction<TestClass>("a"),
 				"a",
 				new EvaluableAssignment<TestClass>(
 						new EvaluableIdentityFunction<TestClass>("b"),
@@ -489,7 +489,7 @@ public class SimpleLogicReaderTest {
 		expected = new EvaluableAssignment<>(
 				EqualityPredicateFactory.<TestClass>createElement("a",  "x"),
 				"a",
-				new MemberIdentityFunction<>("x")
+				new MemberIdentityFunction<TestClass>("x")
 		);
 		actual = reader.read("((a = x) where a is x)");
 		assertEquals(expected, actual);
