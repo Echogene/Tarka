@@ -25,7 +25,7 @@ public class EqualityPredicateFactoryTest extends FactoryTest<TestClass, TestCla
 	@Test
 	public void testCreateWithUniverseMembers() throws Exception {
 		EqualityPredicate<TestClass> expected = EqualityPredicateFactory.createElement("x", "y");
-		EqualityPredicate<TestClass> actual = (EqualityPredicate<TestClass>) reader.read("(x = y)");
+		EqualityPredicate<TestClass> actual = reader.read("(x = y)");
 
 		assertEquals(expected, actual);
 	}
@@ -36,7 +36,7 @@ public class EqualityPredicateFactoryTest extends FactoryTest<TestClass, TestCla
 				new SetIdentityFunction<>("X"),
 				new SetIdentityFunction<>("Y")
 		);
-		EqualityPredicate<TestClass> actual = (EqualityPredicate<TestClass>) reader.read("(X = Y)");
+		EqualityPredicate<TestClass> actual = reader.read("(X = Y)");
 
 		assertEquals(expected, actual);
 	}
@@ -47,7 +47,7 @@ public class EqualityPredicateFactoryTest extends FactoryTest<TestClass, TestCla
 				new EvaluableIdentityFunction<>("⊤"),
 				new EvaluableIdentityFunction<>("⊥")
 		);
-		EqualityPredicate<TestClass> actual = (EqualityPredicate<TestClass>) reader.read("(⊤ = ⊥)");
+		EqualityPredicate<TestClass> actual = reader.read("(⊤ = ⊥)");
 
 		assertEquals(expected, actual);
 	}

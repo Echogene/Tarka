@@ -24,7 +24,7 @@ public class BinaryIntersectionFactoryTest extends FactoryTest<TestClass, TestCl
 	public void testCreateElement() throws Exception {
 		Intersection<TestClass> expected = BinaryIntersectionFactory.createElement("X", "Y");
 
-		Intersection<TestClass> actual = (Intersection<TestClass>) reader.read("(X ∩ Y)");
+		Intersection<TestClass> actual = reader.read("(X ∩ Y)");
 
 		assertEquals(expected, actual);
 	}

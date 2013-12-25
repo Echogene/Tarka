@@ -26,8 +26,8 @@ public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T,
 	}
 
 	@Override
-	public Function<T, ?> read(String string) throws ReadingException, TypeInferrorException {
-		return evaluator.evaluate(parser.parseTokens(lexer.tokeniseString(string)));
+	public <F extends Function<T, ?>> F read(String string) throws ReadingException, TypeInferrorException {
+		return (F) evaluator.evaluate(parser.parseTokens(lexer.tokeniseString(string)));
 	}
 
 	public void addFactory(FunctionFactory<T, ?, ?> factory) {

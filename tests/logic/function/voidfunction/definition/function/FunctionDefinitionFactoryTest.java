@@ -26,28 +26,28 @@ public class FunctionDefinitionFactoryTest extends FactoryTest<TestClass, TestCl
 
 	@Test
 	public void testCreate() throws Exception {
-		EvaluableDefinition<TestClass> definition = (EvaluableDefinition<TestClass>) reader.read("(f a b ≝ (a = b))");
+		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ (a = b))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = (DefinedEvaluableFunction<TestClass>) reader.read("(f x y)");
+		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
 		assertFalse(evaluable.evaluate(model));
 	}
 
 	@Test
 	public void testCreateWithParametersAppearingInTwoPlaces() throws Exception {
-		EvaluableDefinition<TestClass> definition = (EvaluableDefinition<TestClass>) reader.read("(f a b ≝ ((a = b) ∨ (b = a)))");
+		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ ((a = b) ∨ (b = a)))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = (DefinedEvaluableFunction<TestClass>) reader.read("(f x y)");
+		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
 		assertFalse(evaluable.evaluate(model));
 	}
 
 	@Test
 	public void testCreateWithUnusedParameter() throws Exception {
-		EvaluableDefinition<TestClass> definition = (EvaluableDefinition<TestClass>) reader.read("(f a b ≝ (a = a))");
+		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ (a = a))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = (DefinedEvaluableFunction<TestClass>) reader.read("(f x y)");
+		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
 		assertTrue(evaluable.evaluate(model));
 	}
 }
