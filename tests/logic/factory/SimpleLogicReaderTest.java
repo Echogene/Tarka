@@ -633,7 +633,7 @@ public class SimpleLogicReaderTest {
 		ReflexiveIfElse<TestClass> expected;
 		ReflexiveIfElse<TestClass> actual;
 
-		expected = new ReflexiveIfElse<>(
+		expected = new ReflexiveIfElse<TestClass>(
 				new EvaluableIdentityFunction<>("⊤"),
 				new MemberIdentityFunction<TestClass>("x"),
 				new ReflexiveAssignment<TestClass>(
