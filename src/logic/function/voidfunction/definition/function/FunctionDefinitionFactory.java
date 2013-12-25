@@ -104,8 +104,9 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			String nodeValue = node.getToken().getValue();
 			if (DEFINITION_SYMBOL.equals(nodeValue)) {
 				break;
+			} else if (freeVariables.containsKey(nodeValue)) {
+				output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't use iterator
 			}
-			output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't use iterator
 		}
 		return output;
 	}
