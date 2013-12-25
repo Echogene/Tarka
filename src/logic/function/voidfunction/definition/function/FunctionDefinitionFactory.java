@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.*;
 
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 import static logic.function.voidfunction.definition.function.FunctionDefinition.DEFINITION_SYMBOL;
 
@@ -34,8 +35,15 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		extends FunctionFactory<T, Void, FunctionDefinition<T, ?>>
 		implements VariableAssignerFactory {
 
+	/**
+	 * todo: this is bad and you should feel bad
+	 * todo: find a better way to do this; it's probably safe but it's downright fugly
+	 */
+	private final Map<String, Set<Type>> parameterTypes;
+
 	public FunctionDefinitionFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
+		parameterTypes = new HashMap<>();
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {
@@ -49,24 +57,35 @@ public class FunctionDefinitionFactory<T extends Nameable>
 
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
-		return new ArrayList<>();
+		List<ParseTreeNode> output = new ArrayList<>();
+		boolean definitionSymbolReached = false;
+		for (ParseTreeNode node : nodes) {
+			if (node.getToken().isOfType(NAME) && definitionSymbolReached) {
+				output.add(node);
+			}
+			if (DEFINITION_SYMBOL.equals(node.getToken().getValue())) {
+				definitionSymbolReached = true;
+			}
+		}
+		return output;
 	}
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
-		return new HashSet<>();
+		return nonVoidTypes;
 	}
 
 	@Override
 	public FunctionDefinition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
 		String functionName = tokens.get(1).getValue();
-		List<String> parameters = new ArrayList<>();
+		Map<String, Set<Type>> parameters = new HashMap<>();
 		for (int i = 2; i < tokens.size(); i++) {
 			Token token = tokens.get(i);
-			if (DEFINITION_SYMBOL.equals(token.getValue())) {
+			String tokenValue = token.getValue();
+			if (DEFINITION_SYMBOL.equals(tokenValue)) {
 				break;
 			}
-			parameters.add(token.getValue());// todo need to know the types of the parameters
+			parameters.put(tokenValue, parameterTypes.get(tokenValue));
 		}
 		Function<T, ?> definition = functions.get(0);
 		if (definition instanceof ReflexiveFunction) {
@@ -80,7 +99,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		} else {
 			throw new FactoryException(
 					MessageFormat.format(
-							"{0} is not supported by this factory.",
+							"{0} is not supported by this factory.  I hope you're not trying to obtain multiple return types.",
 							definition.getClass().getSimpleName()
 					)
 			);
@@ -88,24 +107,26 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Void.class;
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
+		return Collections.singleton(Void.class);
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(
+	public Map<String, Set<Type>> assignVariableTypes(
 			List<ParseTreeNode> nodes,
-			MapWithErrors<ParseTreeNode, Type> functionTypes,
+			MapWithErrors<ParseTreeNode, Set<Type>> functionTypes,
 			Map<String, Set<Type>> freeVariables
 	) throws VariableAssignmentTypeException {
-		Map<String, Type> output = new HashMap<>();
+		parameterTypes.clear();
+		Map<String, Set<Type>> output = new HashMap<>();
 		for (int i = 2; i < nodes.size(); i++) {
 			ParseTreeNode node = nodes.get(i);
 			String nodeValue = node.getToken().getValue();
 			if (DEFINITION_SYMBOL.equals(nodeValue)) {
 				break;
 			} else if (freeVariables.containsKey(nodeValue)) {
-				output.put(nodeValue, freeVariables.get(nodeValue).iterator().next()); //todo: don't use iterator
+				this.parameterTypes.put(nodeValue, freeVariables.get(nodeValue));
+				output.put(nodeValue, freeVariables.get(nodeValue));
 			}
 		}
 		return output;

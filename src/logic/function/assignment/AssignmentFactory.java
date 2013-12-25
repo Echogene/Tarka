@@ -74,22 +74,22 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
 		return types.getPassedValues().get(nodes.get(1));
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
+	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable;
-		Type type;
+		Set<Type> types;
 		if (nodes.get(1).getToken().isOfType(OPEN_BRACKET)) {
 			variable = nodes.get(4).getToken().getValue();
-			type = functionTypes.getPassedValues().get(nodes.get(6));
+			types = functionTypes.getPassedValues().get(nodes.get(6));
 		} else {
 			variable = nodes.get(3).getToken().getValue();
-			type = functionTypes.getPassedValues().get(nodes.get(5));
+			types = functionTypes.getPassedValues().get(nodes.get(5));
 		}
-		return Collections.singletonMap(variable, type);
+		return Collections.singletonMap(variable, types);
 	}
 
 	@Override

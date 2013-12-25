@@ -20,12 +20,12 @@ import java.util.Set;
  */
 public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F extends Function<D, C>> extends FunctionFactory<D, C, F> {
 
-	private final List<String> parameters;
+	private final Map<String, Set<Type>> parameters;
 	protected final F definition;
 
 	protected AbstractDefinedFunctionFactory(
 			F definition,
-			List<String> parameters,
+			Map<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<D> universeType
 	) {
@@ -43,8 +43,8 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 	public F construct(List<Token> tokens, List<Function<D, ?>> functions) throws FactoryException {
 		int i = 0;
 		Map<String, Function<D, ?>> parameterMap = new HashMap<>();
-		for (String parameter : parameters) {
-			parameterMap.put(parameter, functions.get(i));
+		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
+			parameterMap.put(parameter.getKey(), functions.get(i));
 			i++;
 		}
 		return construct(parameterMap);

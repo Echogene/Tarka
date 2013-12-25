@@ -45,7 +45,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
 		return types.getPassedValues().get(nodes.get(1));
 	}
 

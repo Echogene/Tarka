@@ -10,6 +10,7 @@ import logic.type.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class DefinedSetFunctionFactory<T extends Nameable> extends AbstractDefin
 
 	protected DefinedSetFunctionFactory(
 			SetFunction<T> definition,
-			List<String> parameters,
+			Map<String, java.util.Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
@@ -33,7 +34,7 @@ public class DefinedSetFunctionFactory<T extends Nameable> extends AbstractDefin
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Set.class;
+	public java.util.Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, java.util.Set<Type>> types) throws TypeInferrorException {
+		return Collections.singleton(Set.class);
 	}
 }

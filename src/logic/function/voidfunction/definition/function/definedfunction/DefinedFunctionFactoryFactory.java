@@ -9,7 +9,10 @@ import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -17,7 +20,7 @@ import java.util.List;
 public class DefinedFunctionFactoryFactory {
 
 	public static <T extends Nameable> AbstractDefinedFunctionFactory<T, ?, ?> create(Function<T, ?> definition,
-	                                                    List<String> parameters,
+	                                                    Map<String, Set<Type>> parameters,
 	                                                    List<CheckerWithNumber> checkers,
 	                                                    Class<T> universeType) {
 		if (definition instanceof ReflexiveFunction) {

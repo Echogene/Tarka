@@ -15,11 +15,13 @@ public interface TypeMatcher {
 	/**
 	 * Given a list of nodes and types, find out the type that is represented by the nodes.
 	 * todo: why does this have a map with errors
+	 *
+	 *
 	 * @param nodes The list of nodes (including surrounding brackets)
 	 * @param types The map of types
 	 * @return The type if the type was found, null otherwise.
 	 */
-	Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException;
+	Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException;
 
 	/**
 	 * Given a list of nodes, return a sublist of those who represent variables

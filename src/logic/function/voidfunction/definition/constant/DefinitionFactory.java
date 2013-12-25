@@ -46,10 +46,10 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
+	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variableName = nodes.get(1).getToken().getValue();
-		Type type = functionTypes.getPassedValues().get(nodes.get(3));
-		return Collections.singletonMap(variableName, type);
+		Set<Type> types = functionTypes.getPassedValues().get(nodes.get(3));
+		return Collections.singletonMap(variableName, types);
 	}
 
 	@Override
@@ -58,8 +58,8 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Void.class;
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
+		return Collections.singleton(Void.class);
 	}
 
 	@Override

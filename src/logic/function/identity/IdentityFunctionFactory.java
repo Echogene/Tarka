@@ -15,6 +15,7 @@ import logic.type.TypeInferrorException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import util.CollectionUtils;
 
 import java.lang.reflect.Type;
@@ -52,7 +53,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
+	public java.util.Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, java.util.Set<Type>> types) throws TypeInferrorException {
 		return types.getPassedValues().get(nodes.get(1));
 	}
 
@@ -73,13 +74,18 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public IdentityFunction<T, ?> create(String parameter, Type type) {
-		if (type == Boolean.class) {
-			return new EvaluableIdentityFunction<>(parameter);
-		} else if (type == Set.class || Set.class.isAssignableFrom((Class) type)) {
-			return new SetIdentityFunction<>(parameter);
+	public IdentityFunction<T, ?> create(String parameter, java.util.Set<Type> types) {
+		if (types.size() == 1) {
+			Type type = types.iterator().next();
+			if (type == Boolean.class) {
+				return new EvaluableIdentityFunction<>(parameter);
+			} else if (type == Set.class || Set.class.isAssignableFrom((Class) type)) {
+				return new SetIdentityFunction<>(parameter);
+			} else {
+				return new MemberIdentityFunction<>(parameter);
+			}
 		} else {
-			return new MemberIdentityFunction<>(parameter);
+			throw new NotImplementedException();
 		}
 	}
 

@@ -40,7 +40,7 @@ public class CollectionUtils {
 		return list.subList(1, list.size() - 1);
 	}
 
-	public static String simpleNames(List<Class> classes) {
+	public static String simpleNames(Collection<Class> classes) {
 		List<String> output = new ArrayList<>();
 		for (Class clazz : classes) {
 			output.add(clazz.getSimpleName());
@@ -137,6 +137,19 @@ public class CollectionUtils {
 				underlay.get(key).retainAll(value);
 			} else {
 				underlay.put(key, value);
+			}
+		}
+	}
+
+	public static <K, V> void overlaySingleValues(Map<K, Set<V>> underlay, Map<K, V> overlay) {
+		for (Map.Entry<K, V> entry : overlay.entrySet()) {
+			K key = entry.getKey();
+			V value = entry.getValue();
+			Set<V> valueSet = Collections.singleton(value);
+			if (underlay.containsKey(key)) {
+				underlay.get(key).retainAll(valueSet);
+			} else {
+				underlay.put(key, valueSet);
 			}
 		}
 	}

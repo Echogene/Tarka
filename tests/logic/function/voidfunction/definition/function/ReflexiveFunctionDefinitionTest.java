@@ -11,7 +11,9 @@ import logic.function.identity.MemberIdentityFunction;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +40,11 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 	@Test
 	public void testEvaluate() throws Exception {
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
-		function = new ReflexiveFunctionDefinition<>("f", Arrays.asList("a"), identityFunction);
+		function = new ReflexiveFunctionDefinition<>(
+				"f",
+				Collections.singletonMap("a", Collections.<Type>singleton(TestClass.class)),
+				identityFunction
+		);
 		function.evaluate(model);
 
 		Function<TestClass, ?> definedFunction = reader.read("(f x)");
@@ -49,7 +55,11 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 	@Test
 	public void testNestedEvaluate() throws Exception {
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
-		function = new ReflexiveFunctionDefinition<>("f", Arrays.asList("a"), identityFunction);
+		function = new ReflexiveFunctionDefinition<>(
+				"f",
+				Collections.singletonMap("a", Collections.<Type>singleton(TestClass.class)),
+				identityFunction
+		);
 		function.evaluate(model);
 
 		Function<TestClass, ?> definedFunction = reader.read("(f (f x))");

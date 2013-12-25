@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-abstract class AbstractDefinedFunction<D extends Nameable, C> implements Function<D, C> {
+public abstract class AbstractDefinedFunction<D extends Nameable, C> implements Function<D, C> {
 
 	private final Map<String, Function<D, ?>> parameters;
 	private final Function<D, C> definition;

@@ -41,12 +41,12 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(
+	public Map<String, Set<Type>> assignVariableTypes(
 			List<ParseTreeNode> nodes,
-			MapWithErrors<ParseTreeNode, Type> functionTypes,
+			MapWithErrors<ParseTreeNode, Set<Type>> functionTypes,
 			Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
-		return Collections.<String, Type>singletonMap(variable, getUniverseType());
+		return Collections.singletonMap(variable, Collections.singleton(getUniverseType()));
 	}
 
 	@Override

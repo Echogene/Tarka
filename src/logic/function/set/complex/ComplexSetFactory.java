@@ -58,9 +58,9 @@ public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T,
 	}
 
 	@Override
-	public Map<String, Type> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
+	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(1).getToken().getValue();
-		return Collections.<String, Type>singletonMap(variable, getUniverseType());
+		return Collections.singletonMap(variable, Collections.singleton(getUniverseType()));
 	}
 
 	@Override

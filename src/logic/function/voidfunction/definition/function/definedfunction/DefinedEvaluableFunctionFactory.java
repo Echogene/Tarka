@@ -9,8 +9,10 @@ import logic.type.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -19,7 +21,7 @@ public class DefinedEvaluableFunctionFactory<T extends Nameable> extends Abstrac
 
 	protected DefinedEvaluableFunctionFactory(
 			Evaluable<T> definition,
-			List<String> parameters,
+			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
@@ -32,7 +34,7 @@ public class DefinedEvaluableFunctionFactory<T extends Nameable> extends Abstrac
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return Boolean.class;
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
+		return Collections.singleton(Boolean.class);
 	}
 }

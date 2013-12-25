@@ -9,8 +9,11 @@ import logic.function.voidfunction.VoidFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedFunctionFactoryFactory;
 import logic.model.Model;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -20,10 +23,10 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 	public static final String DEFINITION_SYMBOL = "≝";
 
 	private final String functionName;
-	private final List<String> parameters;
+	private final Map<String, Set<Type>> parameters;
 	private final Function<D, C> definition;
 
-	FunctionDefinition(String functionName, List<String> parameters, Function<D, C> definition) {
+	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, Function<D, C> definition) {
 		this.functionName = functionName;
 		this.parameters = parameters;
 		this.definition = definition;
@@ -33,7 +36,7 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 	public Void evaluate(Model<D, ?, ?> model) throws Exception {
 		List<CheckerWithNumber> checkers = new ArrayList<>();
 		checkers.add(new StringChecker(functionName));
-		for (String parameter : parameters) {
+		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
 			checkers.add(new FunctionOrVariableChecker());//todo: need to know types of the parameters
 		}
 		model.addFactory(

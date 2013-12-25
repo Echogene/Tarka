@@ -9,7 +9,9 @@ import logic.type.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Steven Weston
@@ -22,7 +24,7 @@ public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends Ref
 	}
 
 	@Override
-	public Type getType(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Type> types) throws TypeInferrorException {
-		return getUniverseType();
+	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
+		return Collections.singleton(getUniverseType());
 	}
 }
