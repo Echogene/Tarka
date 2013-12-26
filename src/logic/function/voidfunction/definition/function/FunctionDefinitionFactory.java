@@ -99,7 +99,8 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		} else {
 			throw new FactoryException(
 					MessageFormat.format(
-							"{0} is not supported by this factory.  I hope you're not trying to obtain multiple return types.",
+							"The definition {0} had the unknown/unimplemented class {1}.\nAre you trying to obtain multiple return types?",
+							definition,
 							definition.getClass().getSimpleName()
 					)
 			);

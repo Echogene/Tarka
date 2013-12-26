@@ -51,7 +51,7 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
 	}
 
-	@Ignore
+	@Ignore("Until parameters can be redefined")
 	@Test
 	public void testNestedEvaluate() throws Exception {
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");

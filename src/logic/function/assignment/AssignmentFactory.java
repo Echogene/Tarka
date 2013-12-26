@@ -7,6 +7,7 @@ import logic.function.evaluable.Evaluable;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.NonVoidFunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.StringChecker;
 import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
@@ -20,6 +21,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
@@ -39,11 +41,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 				new StringChecker(Assignment.WHERE),
 				new VariableChecker(),
 				new StringChecker(Assignment.IS),
-				new FunctionOrVariableChecker(
-						ReflexiveFunction.class,
-						Evaluable.class,
-						SetFunction.class
-				)
+				new NonVoidFunctionOrVariableChecker()
 		);
 	}
 
@@ -59,7 +57,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 		} else {
 			assignee = tokens.get(3).getValue();
 		}
-		Function<T, ?> assignment = (Function<T, ?>) functions.get(1);
+		Function<T, ?> assignment = functions.get(1);
 		if (evaluee instanceof ReflexiveFunction) {
 			return new ReflexiveAssignment<>((ReflexiveFunction<T>) evaluee, assignee, assignment);
 		} else if (evaluee instanceof Evaluable) {
@@ -69,7 +67,13 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 		} else if (evaluee instanceof VoidFunction) {
 			return new VoidAssignment<>((VoidFunction<T>) evaluee, assignee, assignment);
 		} else {
-			throw new FactoryException("Unknown function type.");
+			throw new FactoryException(
+					MessageFormat.format(
+							"The evaluee {0} had the unknown/unimplemented class {1}.\nAre you trying to obtain multiple return types?",
+							evaluee,
+							evaluee.getClass().getSimpleName()
+					)
+			);
 		}
 	}
 
