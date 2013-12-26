@@ -15,7 +15,6 @@ import logic.type.TypeInferrorException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import util.CollectionUtils;
 
 import java.lang.reflect.Type;
@@ -85,7 +84,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 				return new MemberIdentityFunction<>(parameter);
 			}
 		} else {
-			throw new NotImplementedException();
+			return new IdentityFunction<>(parameter);
 		}
 	}
 
