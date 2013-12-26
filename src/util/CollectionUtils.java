@@ -153,4 +153,19 @@ public class CollectionUtils {
 			}
 		}
 	}
+
+	public static <K, S extends Set<?>> Map<K, S> intersect(Collection<Map<K, S>> maps) {
+		Iterator<Map<K, S>> iterator = maps.iterator();
+		Map<K, S> output = new HashMap<>(iterator.next());
+		while (iterator.hasNext()) {
+			Map<K, S> map = iterator.next();
+			output.keySet().retainAll(map.keySet());
+		}
+		for (Map.Entry<K, S> entry : output.entrySet()) {
+			for (Map<K, S> map : maps) {
+				entry.getValue().retainAll(map.get(entry.getKey()));
+			}
+		}
+		return output;
+	}
 }
