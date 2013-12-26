@@ -37,7 +37,10 @@ public class IntegerReaderRepl {
 
 	private static void evaluateInput(String in) {
 		try {
+			long beforeReading = System.currentTimeMillis();
 			Function<?, ?> function = model.getReader().read(in);
+			long afterReading = System.currentTimeMillis();
+//			System.out.println(MessageFormat.format("Reading took: {0}ms", afterReading - beforeReading));
 			if (function instanceof ReflexiveFunction) {
 				ReflexiveFunction<Integer> reflexiveFunction = (ReflexiveFunction<Integer>) function;
 				System.out.println(reflexiveFunction.evaluate(model));
