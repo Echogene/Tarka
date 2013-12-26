@@ -2,6 +2,7 @@ package maths.number.integer.sets.interval;
 
 import logic.set.NamedSet;
 import logic.set.finite.FiniteSet;
+import logic.set.finite.FiniteSetEquality;
 import maths.number.Subtractor;
 import maths.number.Summor;
 import maths.number.integer.Integer;
@@ -21,10 +22,10 @@ public class FiniteIntegerInterval extends NamedSet<Integer> implements Interval
 	private final Subtractor<Integer> subtractor = new IntegerSubtractor();
 	private final Summor<Integer> summor = new IntegerSummor();
 
-	private final IntervalBound<Integer> upperBound;
-	private final IntervalBound<Integer> lowerBound;
+	private final IntegerIntervalBound upperBound;
+	private final IntegerIntervalBound lowerBound;
 
-	public FiniteIntegerInterval(String name, IntervalBound<Integer> upperBound, IntervalBound<Integer> lowerBound) {
+	public FiniteIntegerInterval(String name, IntegerIntervalBound upperBound, IntegerIntervalBound lowerBound) {
 		super(name);
 		this.upperBound = upperBound;
 		this.lowerBound = lowerBound;
@@ -86,5 +87,18 @@ public class FiniteIntegerInterval extends NamedSet<Integer> implements Interval
 	@Override
 	public IntervalBound<Integer> getUpperBound() {
 		return upperBound;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof FiniteIntegerInterval) {
+			FiniteIntegerInterval other = (FiniteIntegerInterval) o;
+			return upperBound.equals(other.upperBound, false)
+					&& lowerBound.equals(other.lowerBound, true);
+		} else if (o instanceof FiniteSet) {
+			return FiniteSetEquality.areEqual(this, (FiniteSet<Integer>) o);
+		} else {
+			return false;
+		}
 	}
 }

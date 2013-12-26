@@ -22,8 +22,8 @@ public class FiniteIntegerIntervalFactory implements IntervalFactory<Integer> {
 	) {
 		return new FiniteIntegerInterval(
 				generateName(lowerType, lowerBound, upperBound, upperType),
-				new IntervalBound<>(upperBound, upperType),
-				new IntervalBound<>(lowerBound, lowerType)
+				new IntegerIntervalBound(upperBound, upperType),
+				new IntegerIntervalBound(lowerBound, lowerType)
 		);
 	}
 

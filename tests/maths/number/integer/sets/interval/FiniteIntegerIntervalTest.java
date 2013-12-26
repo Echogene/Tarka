@@ -96,4 +96,13 @@ public class FiniteIntegerIntervalTest {
 		assertEquals(new Integer(2), gatheredElements.get(0));
 		assertEquals(new Integer(3), gatheredElements.get(1));
 	}
+
+	@Test
+	public void testEquals() throws Exception {
+		FiniteIntegerInterval set1;
+		set1 = factory.createElement(OPEN, 1, 4, OPEN);
+		FiniteIntegerInterval set2;
+		set2 = factory.createElement(CLOSED, 2, 3, CLOSED);
+		assertEquals(set1, set2);
+	}
 }

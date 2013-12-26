@@ -30,7 +30,7 @@ public class DefinedEvaluableFunctionFactory<T extends Nameable> extends Abstrac
 
 	@Override
 	protected Evaluable<T> construct(Map<String, Function<T, ?>> parameters) {
-		return new DefinedEvaluableFunction<>(definition, parameters);
+		return new DefinedEvaluable<>(definition, parameters);
 	}
 
 	@Override

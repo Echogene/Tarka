@@ -5,7 +5,7 @@ import logic.TestClassUniverse;
 import logic.factory.FactoryTest;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryStatementFactory;
-import logic.function.voidfunction.definition.function.definedfunction.DefinedEvaluableFunction;
+import logic.function.voidfunction.definition.function.definedfunction.DefinedEvaluable;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -29,7 +29,7 @@ public class FunctionDefinitionFactoryTest extends FactoryTest<TestClass, TestCl
 		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ (a = b))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
+		DefinedEvaluable<TestClass> evaluable = reader.read("(f x y)");
 		assertFalse(evaluable.evaluate(model));
 	}
 
@@ -38,7 +38,7 @@ public class FunctionDefinitionFactoryTest extends FactoryTest<TestClass, TestCl
 		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ ((a = b) ∨ (b = a)))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
+		DefinedEvaluable<TestClass> evaluable = reader.read("(f x y)");
 		assertFalse(evaluable.evaluate(model));
 	}
 
@@ -47,7 +47,7 @@ public class FunctionDefinitionFactoryTest extends FactoryTest<TestClass, TestCl
 		EvaluableDefinition<TestClass> definition = reader.read("(f a b ≝ (a = a))");
 		definition.evaluate(model);
 
-		DefinedEvaluableFunction<TestClass> evaluable = reader.read("(f x y)");
+		DefinedEvaluable<TestClass> evaluable = reader.read("(f x y)");
 		assertTrue(evaluable.evaluate(model));
 	}
 }

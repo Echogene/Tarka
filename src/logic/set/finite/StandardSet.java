@@ -76,11 +76,14 @@ public class StandardSet<T> extends NamedSet<T> implements ModifiableSet<T>, Dic
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof StandardSet<?>)) {
+		if (o instanceof StandardSet<?>) {
+			StandardSet other = (StandardSet) o;
+			return getName().equals(other.getName()) && hashMap.equals(other.hashMap);
+		} else if (o instanceof FiniteSet) {
+			return FiniteSetEquality.areEqual(this, (FiniteSet<T>) o);
+		} else {
 			return false;
 		}
-		StandardSet other = (StandardSet) o;
-		return getName().equals(other.getName()) && hashMap.equals(other.hashMap);
 	}
 
 	public String toFullString() {

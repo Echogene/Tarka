@@ -2,12 +2,16 @@ package logic.function.voidfunction.definition.function;
 
 import logic.Nameable;
 import logic.function.Function;
+import logic.function.evaluable.Evaluable;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.NonVoidFunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.StringChecker;
+import logic.function.reflexive.ReflexiveFunction;
+import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedFunctionFactoryFactory;
 import logic.model.Model;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -37,7 +41,11 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 		List<CheckerWithNumber> checkers = new ArrayList<>();
 		checkers.add(new StringChecker(functionName));
 		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
-			checkers.add(new FunctionOrVariableChecker());//todo: need to know types of the parameters
+			checkers.add(
+					new NonVoidFunctionOrVariableChecker(
+							convertTypesToFunctionTypes(parameter.getValue(), model)
+					)
+			);
 		}
 		model.addFactory(
 				DefinedFunctionFactoryFactory.create(
@@ -48,5 +56,25 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 				)
 		);
 		return null;
+	}
+
+	private List<Class> convertTypesToFunctionTypes(Set<Type> types, Model<D, ?, ?> model) {
+		List<Class> output = new ArrayList<>();
+		for (Type type : types) {
+			output.add(convertTypeToFunctionType(type, model));
+		}
+		return output;
+	}
+
+	private Class convertTypeToFunctionType(Type type, Model<D, ?, ?> model) {
+		if (model.getUniverse().getTypeOfUniverse().equals(type)) {
+			return ReflexiveFunction.class;
+		} else if (Boolean.class.equals(type)) {
+			return Evaluable.class;
+		} else if (logic.set.Set.class.equals(type)) {
+			return SetFunction.class;
+		} else {
+			throw new NotImplementedException();
+		}
 	}
 }
