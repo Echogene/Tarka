@@ -6,6 +6,10 @@ import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
 /**
  * @author Steven Weston
  */
@@ -16,6 +20,17 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	private StandardSet<Set<TestClass>> universalSetOfSets;
 
 	private StandardSet<Object> variableSet;
+
+	private Map<String, Stack<Object>> boundParameters;
+
+	public TestClassUniverse() {
+		variableSet        = new StandardSet<>("variables");
+		universalSet       = new StandardSet<>("universalSet");
+		universalSetOfSets = new StandardSet<>("universalSetOfSets");
+		universalSetOfSets.put(universalSet);
+		universalSetOfSets.put(new EmptySet<>());
+		boundParameters = new HashMap<>();
+	}
 
 	@Override
 	public Dictionary<TestClass> getUniversalSet() {
@@ -37,12 +52,9 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 		return TestClass.class;
 	}
 
-	public TestClassUniverse() {
-		variableSet        = new StandardSet<>("variables");
-		universalSet       = new StandardSet<>("universalSet");
-		universalSetOfSets = new StandardSet<>("universalSetOfSets");
-		universalSetOfSets.put(universalSet);
-		universalSetOfSets.put(new EmptySet<>());
+	@Override
+	public Map<String, Stack<Object>> getBoundParameters() {
+		return boundParameters;
 	}
 
 	public void setVariables(StandardSet<Object> variables) {

@@ -10,6 +10,8 @@ import logic.set.finite.StandardSet;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author Steven Weston
@@ -69,6 +71,11 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T> {
 
 	@Override
 	public Object get(String value) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public Map<String, Stack<Object>> getBoundParameters() {
 		throw new NotImplementedException();
 	}
 }

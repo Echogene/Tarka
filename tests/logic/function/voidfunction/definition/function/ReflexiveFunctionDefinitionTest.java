@@ -8,7 +8,7 @@ import logic.function.Function;
 import logic.function.FunctionTest;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
-import org.junit.Ignore;
+import logic.function.voidfunction.definition.function.definedfunction.DefinedReflexiveFunction;
 import org.junit.Test;
 
 import java.lang.reflect.Type;
@@ -51,7 +51,6 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
 	}
 
-	@Ignore("Until parameters can be redefined")
 	@Test
 	public void testNestedEvaluate() throws Exception {
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
@@ -62,7 +61,7 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		);
 		function.evaluate(model);
 
-		Function<TestClass, ?> definedFunction = reader.read("(f (f x))");
+		DefinedReflexiveFunction<TestClass> definedFunction = reader.read("(f (f x))");
 		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
 	}
 }

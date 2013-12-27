@@ -6,6 +6,8 @@ import logic.set.Set;
 import logic.set.finite.StandardSet;
 
 import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author Steven Weston
@@ -16,6 +18,7 @@ public interface Universe<T extends Nameable> {
 
 	Dictionary<Set<T>> getUniversalSetOfSets();
 
+	//todo: make this a data structure and put the three below methods on it
 	StandardSet<Object> getVariables();
 
 	Class<T> getTypeOfUniverse();
@@ -52,4 +55,6 @@ public interface Universe<T extends Nameable> {
 	Type getTypeOfElement(String value);
 
 	Object get(String value);
+
+	Map<String, Stack<Object>> getBoundParameters();
 }

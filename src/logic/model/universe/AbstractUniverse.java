@@ -40,7 +40,8 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 
 	@Override
 	public final boolean contains(String value) {
-		return getVariables().contains(value)
+		return getBoundParameters().containsKey(value)
+				|| getVariables().contains(value)
 				|| getUniversalSet().contains(value)
 				|| getUniversalSetOfSets().contains(value)
 				|| logicalConstants.contains(value);
@@ -48,7 +49,9 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 
 	@Override
 	public final Type getTypeOfElement(String value) {
-		if (getVariables().contains(value)) {
+		if (getBoundParameters().containsKey(value)) {
+			return getBoundParameters().get(value).peek().getClass();
+		} else if (getVariables().contains(value)) {
 			return getVariables().get(value).getClass();
 		} else if (getUniversalSet().contains(value)) {
 			return getTypeOfUniverse();
@@ -63,7 +66,9 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 
 	@Override
 	public final Object get(String value) {
-		if (getVariables().contains(value)) {
+		if (getBoundParameters().containsKey(value)) {
+			return getBoundParameters().get(value).peek();
+		} else if (getVariables().contains(value)) {
 			return getVariables().get(value);
 		} else if (getUniversalSet().contains(value)) {
 			return getUniversalSet().get(value);
