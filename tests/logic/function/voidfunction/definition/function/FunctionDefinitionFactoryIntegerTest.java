@@ -30,6 +30,15 @@ public class FunctionDefinitionFactoryIntegerTest {
 	}
 
 	@Test
+	public void testDefineWithNoParameters() throws Exception {
+		ReflexiveFunctionDefinition<Integer> definition = reader.read("(f ≝ 1)");
+		definition.evaluate(model);
+
+		AbstractDefinedFunction<Integer, ?> function = reader.read("(f)");
+		assertEquals(universe.get("1"), function.evaluate(model));
+	}
+
+	@Test
 	@Ignore("Until multitype returns are implemented")
 	public void testDefineMultitypeIdentityFunction() throws Exception {
 		FunctionDefinition<Integer, ?> definition = reader.read("(f x ≝ x)");
