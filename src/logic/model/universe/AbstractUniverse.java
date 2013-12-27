@@ -5,6 +5,7 @@ import logic.factory.SimpleLogicReader;
 import logic.set.Set;
 
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public abstract class AbstractUniverse<T extends Nameable> implements Universe<T
 		} else if (logicalConstants.contains(value)) {
 			return value.equals("⊤");
 		}
-		throw new UniverseException("Unknown value.");
+		throw new UniverseException(MessageFormat.format("Unknown value {0} when getting object from universe.", value));
 	}
 
 	private static class UniverseException extends RuntimeException {

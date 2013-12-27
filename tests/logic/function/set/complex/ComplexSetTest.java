@@ -1,9 +1,12 @@
 package logic.function.set.complex;
 
+import logic.StandardReader;
 import logic.TestClass;
 import logic.TestClassModel;
 import logic.TestClassUniverse;
+import logic.factory.SimpleLogicReader;
 import logic.function.FunctionTest;
+import logic.function.assignment.SetAssignment;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.identity.SetIdentityFunction;
 import logic.set.Set;
@@ -11,6 +14,7 @@ import logic.set.filtered.FiniteFilteredSet;
 import logic.set.finite.FiniteSet;
 import logic.set.finite.StandardSet;
 import logic.set.infinite.InfiniteSet;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -20,6 +24,8 @@ import static org.junit.Assert.assertTrue;
  * @author Steven Weston
  */
 public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, TestClassModel, ComplexSet<TestClass>> {
+
+	private final SimpleLogicReader<TestClass> reader;
 
 	public ComplexSetTest() {
 		super(new TestClassModel());
@@ -40,6 +46,8 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, T
 				return "Z";
 			}
 		});
+		model.setReader(StandardReader.createStandardReader(universe));
+		reader = model.getReader();
 	}
 
 	@Test
@@ -71,6 +79,18 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, T
 
 		assertFalse(filteredSet.containsValue(new TestClass("x")));
 		assertTrue(filteredSet.containsValue(new TestClass("y")));
+		assertFalse(filteredSet.containsValue(new TestClass("z")));
+	}
+
+	@Test
+	@Ignore("Until the bug with complex sets is fixed")
+	public void testEvaluateWhenSuchThatClauseUsesVariable() throws Exception {
+		SetAssignment<TestClass> function = reader.read("({a ∊ X | (a = b)} where b is x)");
+
+		Set<TestClass> filteredSet = function.evaluate(model);
+
+		assertTrue(filteredSet.containsValue(new TestClass("x")));
+		assertFalse(filteredSet.containsValue(new TestClass("y")));
 		assertFalse(filteredSet.containsValue(new TestClass("z")));
 	}
 }
