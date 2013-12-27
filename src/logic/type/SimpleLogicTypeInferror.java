@@ -136,7 +136,8 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (map.hasUniquePass()) {
 			return map.getUniquePassedValue();
 		} else {
-			throw new TypeInferrorException(format("Ambiguous free variables for {0}.", nodes));
+			// Return the intersection of the guesses
+			return CollectionUtils.intersect(map.getPassedValues().values());
 		}
 	}
 

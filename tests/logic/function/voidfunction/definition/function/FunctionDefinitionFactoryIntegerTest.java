@@ -66,6 +66,46 @@ public class FunctionDefinitionFactoryIntegerTest {
 	}
 
 	@Test
+	public void testDefineMembershipPredicate() throws Exception {
+		EvaluableDefinition<Integer> definition = reader.read("(f x X ≝ (x ∊ X))");
+		definition.evaluate(model);
+
+		DefinedEvaluable<Integer> function;
+		function = reader.read("(f 1 {1})");
+		assertTrue(function.evaluate(model));
+	}
+
+	@Test
+	public void testDefineBinaryStatement() throws Exception {
+		EvaluableDefinition<Integer> definition = reader.read("(f x X ≝ ((x ∊ X) ∧ ((x + 1) ∊ X)))");
+		definition.evaluate(model);
+
+		DefinedEvaluable<Integer> function;
+		function = reader.read("(f 1 {1})");
+		assertFalse(function.evaluate(model));
+		function = reader.read("(f 1 {1 2})");
+		assertTrue(function.evaluate(model));
+	}
+
+	@Test
+	public void testDefineUnaryStatement() throws Exception {
+		EvaluableDefinition<Integer> definition = reader.read("(f x X ≝ (¬(x ∊ X)))");
+		definition.evaluate(model);
+
+		DefinedEvaluable<Integer> function;
+		function = reader.read("(f 1 {1})");
+		assertFalse(function.evaluate(model));
+	}
+
+	@Test
+	public void testDefineQuantifiedStatement() throws Exception {
+		EvaluableDefinition<Integer> definition = reader.read("(f X ≝ (∀y (y ∊ X)))");
+		definition.evaluate(model);
+
+		reader.read("(f {1})");
+	}
+
+	@Test
 	@Ignore("Until multitype returns are implemented")
 	public void testDefineAssignment() throws Exception {
 		FunctionDefinition<Integer, ?> definition = reader.read("(f x ≝ (y where y is x))");

@@ -83,27 +83,35 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	private Map<ParseTreeNode, Function<T, ?>> createIdentityFunctionsForVariables(List<ParseTreeNode> firstChildren, Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories, Map<ParseTreeNode, Set<Type>> types) throws EvaluatorException {
 		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
 		headRecurse(firstChildren, children -> {
-			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(children.get(0).getMother());
-			for (FunctionFactory<T, ?, ?> factory : passedFactoriesForNode) {
-				List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
-				for (ParseTreeNode variable : variables) {
-					if (!types.containsKey(variable) || types.get(variable) == null) {
-						throw new EvaluatorException(
-								MessageFormat.format(
-										"{0} had no type bound to it after type inference.",
-										variable.getToken().getValue()
-								)
-						);
+			ParseTreeNode mother = children.get(0).getMother();
+			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(mother);
+			MapToErrors<FunctionFactory<T, ?, ?>> errors = new MapToErrors<>(
+					passedFactoriesForNode,
+					factory -> {
+						List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
+						for (ParseTreeNode variable : variables) {
+							if (!types.containsKey(variable) || types.get(variable) == null) {
+								throw new EvaluatorException(
+										MessageFormat.format(
+												"{0} had no type bound to it after type inference.",
+												variable.getToken().getValue()
+										)
+								);
+							}
+							identityFunctions.put(
+									variable,
+									identityConstructorFromType.create(
+											variable.getToken().getValue(),
+											types.get(variable)
+									)
+							);
+						}
 					}
-					identityFunctions.put(
-							variable,
-							identityConstructorFromType.create(
-									variable.getToken().getValue(),
-									types.get(variable)
-							)
-					);
-				}
+			);
+			if (errors.allFailed()) {
+				throw new EvaluatorException(errors.concatenateErrorMessages());
 			}
+			passedFactories.get(mother).retainAll(errors.getPassedKeys());
 		});
 		return identityFunctions;
 	}
