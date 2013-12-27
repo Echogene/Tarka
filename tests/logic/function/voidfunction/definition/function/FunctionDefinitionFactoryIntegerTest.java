@@ -289,7 +289,7 @@ public class FunctionDefinitionFactoryIntegerTest {
 	}
 
 	@Test
-	@Ignore("Until parameters are stored in their own structure and not in the variables")
+	@Ignore("Until the bug with complex sets is fixed")
 	public void testDefineComplexSetWithBooleanParameter() throws Exception {
 		SetFunctionDefinition<Integer> definition = reader.read("(f x ≝ {y ∊ [0 5] | x})");
 		definition.evaluate(model);
