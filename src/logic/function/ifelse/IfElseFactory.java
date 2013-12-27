@@ -17,6 +17,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -76,7 +77,13 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 			}
 			return new SetIfElse<>((Evaluable<T>) condition, (SetFunction<T>) ifTrue, (SetFunction<T>) ifFalse);
 		} else {
-			throw new FactoryException("Unknown function type.");
+			throw new FactoryException(
+					MessageFormat.format(
+							"The if-true case {0} had the unknown/unimplemented class {1}.\nAre you trying to obtain multiple return types?",
+							ifTrue,
+							ifFalse.getClass().getSimpleName()
+					)
+			);
 		}
 	}
 

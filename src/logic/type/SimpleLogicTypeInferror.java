@@ -106,11 +106,17 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 	private void bindVariables(MapWithErrors<VariableAssignerFactory, Map<String, Set<Type>>> variableAssignments, List<ParseTreeNode> surroundedNodes) {
 		Set<String> boundVariables = variableAssignments.getUniquePassedValue().keySet();
-		for (ParseTreeNode descendant : first(surroundedNodes).getDescendants()) {
-			if (freeVariableMap.containsKey(descendant)) {
-				for (String boundVariable : boundVariables) {
-					freeVariableMap.get(descendant).remove(boundVariable);
-				}
+		ParseTreeNode mother = first(surroundedNodes);
+		bindVariablesToNode(boundVariables, mother);
+		for (ParseTreeNode descendant : mother.getDescendants()) {
+			bindVariablesToNode(boundVariables, descendant);
+		}
+	}
+
+	private void bindVariablesToNode(Set<String> boundVariables, ParseTreeNode descendant) {
+		if (freeVariableMap.containsKey(descendant)) {
+			for (String boundVariable : boundVariables) {
+				freeVariableMap.get(descendant).remove(boundVariable);
 			}
 		}
 	}

@@ -37,7 +37,8 @@ public class FunctionDefinitionFactory<T extends Nameable>
 
 	/**
 	 * todo: this is bad and you should feel bad
-	 * todo: find a better way to do this; it's probably safe but it's downright fugly
+	 * todo: it isn't even safe
+	 * todo: what are you doing?
 	 */
 	private final Map<String, Set<Type>> parameterTypes;
 
@@ -85,7 +86,11 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (DEFINITION_SYMBOL.equals(tokenValue)) {
 				break;
 			}
-			parameters.put(tokenValue, parameterTypes.get(tokenValue));
+			if (parameterTypes.containsKey(tokenValue)) {
+				parameters.put(tokenValue, parameterTypes.get(tokenValue));
+			} else {
+				parameters.put(tokenValue, nonVoidTypes);
+			}
 		}
 		Function<T, ?> definition = functions.get(0);
 		if (definition instanceof ReflexiveFunction) {

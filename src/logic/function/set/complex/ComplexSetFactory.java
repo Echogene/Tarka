@@ -17,7 +17,6 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -48,7 +47,11 @@ public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T,
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
-		throw new NotImplementedException();
+		if (nodes.indexOf(variable) < 4) {
+			return Collections.singleton(logic.set.Set.class);
+		} else {
+			return Collections.singleton(Boolean.class);
+		}
 	}
 
 	@Override

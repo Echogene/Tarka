@@ -5,7 +5,7 @@ import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
+import logic.function.factory.validation.checking.checkers.NonVoidFunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
@@ -35,13 +35,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 		return Arrays.asList(
 				new VariableChecker(),
 				new OperatorChecker(DEFINITION_SYMBOL),
-				new FunctionOrVariableChecker(
-						Arrays.<Class>asList(
-								ReflexiveFunction.class,
-								Evaluable.class,
-								SetFunction.class
-						)
-				)
+				new NonVoidFunctionOrVariableChecker()
 		);
 	}
 
@@ -64,14 +58,16 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 
 	@Override
 	public Definition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) {
-		Function<?, ?> definition = functions.get(0);
+		Function<T, ?> definition = functions.get(0);
 		String variableName = tokens.get(1).getValue();
 		if (definition instanceof ReflexiveFunction<?>) {
 			return new MemberDefinition<>(variableName, (ReflexiveFunction<T>) definition);
 		} else if (definition instanceof Evaluable<?>) {
 			return new BooleanDefinition<>(variableName, (Evaluable<T>) definition);
-		} else {
+		} else if (definition instanceof SetFunction<?>) {
 			return new SetDefinition<>(variableName, (SetFunction<T>) definition);
+		} else {
+			return new Definition<>(variableName, definition);
 		}
 	}
 
