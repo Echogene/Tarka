@@ -31,7 +31,7 @@ public class FunctionDefinitionFactoryIntegerTest {
 
 	@Test
 	@Ignore("Until multitype returns are implemented")
-	public void testDefineIdentityFunction() throws Exception {
+	public void testDefineMultitypeIdentityFunction() throws Exception {
 		FunctionDefinition<Integer, ?> definition = reader.read("(f x ≝ x)");
 		definition.evaluate(model);
 
@@ -41,7 +41,7 @@ public class FunctionDefinitionFactoryIntegerTest {
 
 	@Test
 	@Ignore("Until multitype returns are implemented")
-	public void testDefineNestedIdentityFunction() throws Exception {
+	public void testDefineMultitypeNestedIdentityFunction() throws Exception {
 		FunctionDefinition<Integer, ?> definition = reader.read("(f x ≝ (x))");
 		definition.evaluate(model);
 
