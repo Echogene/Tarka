@@ -189,7 +189,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			}
 		}
 
-		List<FunctionFactory<T, ?, ?>> passedFactories = passedFactoriesMap.get(first(nodes).getMother());
+		ParseTreeNode mother = first(nodes).getMother();
+		List<FunctionFactory<T, ?, ?>> passedFactories = passedFactoriesMap.get(mother);
 		List<FunctionFactory<T, ?, ?>> remainingFactories = validateFunctions(passedFactories, functions);
 		if (remainingFactories.size() > 1) {
 			throw new EvaluatorException("The functions " + functions.toString() + " were ambiguous.");
@@ -198,8 +199,9 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		FunctionFactory<T, ?, ?> factory = first(remainingFactories);
 
 		List<Token> tokens = extractTokens(nodes);
+		Map<String, Set<Type>> boundVariables = typeInferror.getBoundVariableMap().get(mother);
 		try {
-			return factory.createElement(tokens, functions);
+			return factory.createElement(tokens, functions, boundVariables);
 		} catch (FactoryException e) {
 			throw new EvaluatorException("Something went wrong when creating the function for "
 					+ tokens.toString()

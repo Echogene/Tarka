@@ -12,10 +12,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -40,7 +37,7 @@ public class BinaryStatementFactory<T extends Nameable> extends EvaluableFactory
 	}
 
 	@Override
-	public BinaryStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public BinaryStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Boolean firstBracket = tokens.get(1).isOfType(OPEN_BRACKET);
 		String connectieString = tokens.get(firstBracket ? 3 : 2).getValue();
 		BinaryConnective connective = binaryConnectiveFactory.createElement(connectieString);

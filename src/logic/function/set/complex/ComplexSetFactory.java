@@ -55,7 +55,7 @@ public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T,
 	}
 
 	@Override
-	public ComplexSet<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public ComplexSet<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		String variable = tokens.get(1).getValue();
 		return new ComplexSet<>(variable, (SetFunction<T>) functions.get(0), (Evaluable<T>) functions.get(1));
 	}

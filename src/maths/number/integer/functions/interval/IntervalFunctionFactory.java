@@ -12,10 +12,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType;
@@ -53,7 +50,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 	}
 
 	@Override
-	public IntervalFunction<N> construct(List<Token> tokens, List<Function<N, ?>> functions) {
+	public IntervalFunction<N> construct(List<Token> tokens, List<Function<N, ?>> functions, Map<String, Set<Type>> boundVariables) {
 		String openingBracket = first(tokens).getValue();
 		BoundType lowerType;
 		if ("[".equals(openingBracket)) {

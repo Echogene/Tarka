@@ -18,10 +18,7 @@ import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -51,7 +48,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	@Override
-	public IfElse<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public IfElse<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Function<?, ?> ifTrue = functions.get(0);
 		Function<?, ?> condition = functions.get(1);
 		Function<?, ?> ifFalse = functions.get(2);

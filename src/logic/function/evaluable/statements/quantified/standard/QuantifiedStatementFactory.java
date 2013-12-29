@@ -55,7 +55,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	}
 
 	@Override
-	public QuantifiedStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public QuantifiedStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();
 		Evaluable<T> evaluable = (Evaluable<T>) functions.get(0);

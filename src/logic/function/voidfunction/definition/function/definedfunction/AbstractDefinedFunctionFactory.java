@@ -40,7 +40,7 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 	}
 
 	@Override
-	public F construct(List<Token> tokens, List<Function<D, ?>> functions) throws FactoryException {
+	public F construct(List<Token> tokens, List<Function<D, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		int i = 0;
 		Map<String, Function<D, ?>> parameterMap = new HashMap<>();
 		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {

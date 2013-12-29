@@ -11,10 +11,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -34,7 +31,7 @@ abstract class AbstractMultiplicationFactory<N extends Number> extends Reflexive
 	}
 
 	@Override
-	public Multiplication<N> construct(List<Token> tokens, List<Function<N, ?>> functions) throws FactoryException {
+	public Multiplication<N> construct(List<Token> tokens, List<Function<N, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		List<ReflexiveFunction<N>> parameters = new ArrayList<>(functions.size());
 		for (Function<?, ?> function : functions) {
 			parameters.add((ReflexiveFunction<N>) function);

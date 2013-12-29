@@ -14,6 +14,7 @@ import reading.parsing.ParseTreeNode;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -47,7 +48,7 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	@Override
-	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Function<T, ?> equor  = functions.get(0);
 		Function<T, ?> equand = functions.get(1);
 		return new EqualityPredicate<>(equor, equand);

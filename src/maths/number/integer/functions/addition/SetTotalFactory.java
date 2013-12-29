@@ -13,10 +13,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -39,7 +36,7 @@ public class SetTotalFactory<N extends Number> extends ReflexiveFunctionFactory<
 	}
 
 	@Override
-	public SetTotal<N> construct(List<Token> tokens, List<Function<N, ?>> functions) throws FactoryException {
+	public SetTotal<N> construct(List<Token> tokens, List<Function<N, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		return new SetTotal<>((SetFunction<N>) functions.get(0), summor);
 	}
 

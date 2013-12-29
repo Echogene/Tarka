@@ -28,10 +28,7 @@ import reading.parsing.ParseTreeNode;
 import util.CollectionUtils;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
 
@@ -106,11 +103,11 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 
 	@Override
 	public final F createElement(List<Token> tokens) throws FactoryException {
-		return createElement(tokens, null);
+		return createElement(tokens, null, null);
 	}
 
-	public final F createElement(List<Token> tokens, List<Function<D, ?>> functions) throws FactoryException {
-		return construct(tokens, functions);
+	public final F createElement(List<Token> tokens, List<Function<D, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+		return construct(tokens, functions, boundVariables);
 	}
 
 	@Override

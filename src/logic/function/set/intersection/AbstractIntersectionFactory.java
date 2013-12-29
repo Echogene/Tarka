@@ -10,10 +10,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -25,7 +22,7 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	}
 
 	@Override
-	public Intersection<T> construct(List<Token> tokens, List<Function<T, ?>> functions) {
+	public Intersection<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) {
 		java.util.Set<SetFunction<T>> sets = new HashSet<>();
 		for (Function<?, ?> function : functions) {
 			sets.add((SetFunction<T>) function);

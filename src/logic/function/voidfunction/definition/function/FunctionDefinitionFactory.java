@@ -35,16 +35,8 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		extends FunctionFactory<T, Void, FunctionDefinition<T, ?>>
 		implements VariableAssignerFactory {
 
-	/**
-	 * todo: this is bad and you should feel bad
-	 * todo: it isn't even safe
-	 * todo: what are you doing?
-	 */
-	private final Map<String, Set<Type>> parameterTypes;
-
 	public FunctionDefinitionFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
-		parameterTypes = new HashMap<>();
 	}
 
 	private static List<CheckerWithNumber> getCheckers() {
@@ -77,7 +69,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public FunctionDefinition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public FunctionDefinition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		String functionName = tokens.get(1).getValue();
 		Map<String, Set<Type>> parameters = new HashMap<>();
 		for (int i = 2; i < tokens.size(); i++) {
@@ -86,8 +78,8 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (DEFINITION_SYMBOL.equals(tokenValue)) {
 				break;
 			}
-			if (parameterTypes.containsKey(tokenValue)) {
-				parameters.put(tokenValue, parameterTypes.get(tokenValue));
+			if (boundVariables.containsKey(tokenValue)) {
+				parameters.put(tokenValue, boundVariables.get(tokenValue));
 			} else {
 				parameters.put(tokenValue, nonVoidTypes);
 			}
@@ -123,7 +115,6 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			MapWithErrors<ParseTreeNode, Set<Type>> functionTypes,
 			Map<String, Set<Type>> freeVariables
 	) throws VariableAssignmentTypeException {
-		parameterTypes.clear();
 		Map<String, Set<Type>> output = new HashMap<>();
 		for (int i = 2; i < nodes.size(); i++) {
 			ParseTreeNode node = nodes.get(i);
@@ -131,7 +122,6 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (DEFINITION_SYMBOL.equals(nodeValue)) {
 				break;
 			} else if (freeVariables.containsKey(nodeValue)) {
-				this.parameterTypes.put(nodeValue, freeVariables.get(nodeValue));
 				output.put(nodeValue, freeVariables.get(nodeValue));
 			}
 		}

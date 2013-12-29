@@ -20,6 +20,7 @@ import util.CollectionUtils;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
@@ -57,7 +58,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
 		Function<?, ?> function = CollectionUtils.safeGet(functions, 0);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?>) {

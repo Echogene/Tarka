@@ -15,10 +15,7 @@ import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -44,7 +41,7 @@ public class MembershipPredicateFactory<T extends Nameable> extends PredicateFac
 	}
 
 	@Override
-	public MembershipPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions) throws FactoryException {
+	public MembershipPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		ReflexiveFunction<T> equor = (ReflexiveFunction<T>) functions.get(0);
 		SetFunction<T> equand = (SetFunction<T>) functions.get(1);
 		return new MembershipPredicate<>(equor, equand);

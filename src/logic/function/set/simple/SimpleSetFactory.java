@@ -50,7 +50,7 @@ public class SimpleSetFactory<T extends Nameable> extends SetFunctionFactory<T, 
 	}
 
 	@Override
-	public SimpleSet<T> construct(List<Token> tokens, List<Function<T, ?>> functions) {
+	public SimpleSet<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) {
 		java.util.Set<ReflexiveFunction<T>> members = new HashSet<>();
 		for (Function<?, ?> function : functions) {
 			members.add((ReflexiveFunction<T>) function);
