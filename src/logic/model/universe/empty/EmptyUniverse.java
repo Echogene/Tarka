@@ -16,7 +16,7 @@ import java.util.Stack;
 /**
  * @author Steven Weston
  */
-public class EmptyUniverse<T extends Nameable> implements Universe<T> {
+public class EmptyUniverse<T extends Nameable> implements Universe<T, Dictionary<T>, Dictionary<Set<T>>> {
 
 	private final Class<T> clazz;
 

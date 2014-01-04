@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * @author Steven Weston
  */
-public abstract class FactoryTest<T extends Nameable, U extends Universe<T>, F extends FunctionFactory<T, ?, ?>> {
+public abstract class FactoryTest<T extends Nameable, U extends Universe<T, ?, ?>, F extends FunctionFactory<T, ?, ?>> {
 
 	protected final U universe;
 	protected final SimpleLogicReader<T> reader;

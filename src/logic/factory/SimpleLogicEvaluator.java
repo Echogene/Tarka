@@ -37,7 +37,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	private final SimpleLogicTypeInferror<T> typeInferror;
 	private final IdentityConstructorFromType<T> identityConstructorFromType;
 
-	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
+	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T, ?, ?> universe) {
 		this.factories = new ArrayList<>(factories);
 
 		identityConstructorFromType = getIdentityConstructorFromType(factories);

@@ -14,6 +14,7 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -46,7 +47,7 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 			MapWithErrors<ParseTreeNode, Set<Type>> functionTypes,
 			Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
-		return Collections.singletonMap(variable, Collections.singleton(getUniverseType()));
+		return CollectionUtils.createMap(variable, Collections.singleton(getUniverseType()));
 	}
 
 	@Override

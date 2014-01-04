@@ -89,6 +89,12 @@ public class CollectionUtils {
 		return output;
 	}
 
+	public static <K, V> Map<K, V> createMap(K key, V value) {
+		Map<K, V> output = new HashMap<>();
+		output.put(key, value);
+		return output;
+	}
+
 	public static <K, V> Map<K, V> createMap(List<K> keys, List<V> values) {
 		Map<K, V> output = new HashMap<>();
 		int index = 0;

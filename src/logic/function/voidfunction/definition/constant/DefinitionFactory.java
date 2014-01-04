@@ -16,6 +16,7 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -43,7 +44,7 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variableName = nodes.get(1).getToken().getValue();
 		Set<Type> types = functionTypes.getPassedValues().get(nodes.get(3));
-		return Collections.singletonMap(variableName, types);
+		return CollectionUtils.createMap(variableName, types);
 	}
 
 	@Override

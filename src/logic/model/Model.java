@@ -11,7 +11,7 @@ import reading.reading.Reader;
 /**
  * @author Steven Weston
  */
-public interface Model<T extends Nameable, U extends Universe<T>, R extends Reader<? extends Function<T, ?>>> {
+public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extends Reader<? extends Function<T, ?>>> {
 
 	public U getUniverse();
 

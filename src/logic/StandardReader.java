@@ -28,7 +28,7 @@ import java.util.List;
  * @author Steven Weston
  */
 public class StandardReader {
-	public static <T extends Nameable> SimpleLogicReader<T> createStandardReader(Universe<T> universe) {
+	public static <T extends Nameable> SimpleLogicReader<T> createStandardReader(Universe<T, ?, ?> universe) {
 		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories(universe.getTypeOfUniverse());
 		return new SimpleLogicReader<>(factories, universe);
 	}

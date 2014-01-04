@@ -13,7 +13,7 @@ import java.util.Stack;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractModel<T extends Nameable, U extends Universe<T>> implements Model<T, U, SimpleLogicReader<T>> {
+public abstract class AbstractModel<T extends Nameable, U extends Universe<T, ?, ?>> implements Model<T, U, SimpleLogicReader<T>> {
 
 	private final U universe;
 

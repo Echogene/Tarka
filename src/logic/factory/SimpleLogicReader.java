@@ -19,7 +19,7 @@ public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T,
 	private final SimpleLogicParser parser;
 	private final SimpleLogicEvaluator<T> evaluator;
 
-	public SimpleLogicReader(List<FunctionFactory<T, ?, ?>> factories, Universe<T> universe) {
+	public SimpleLogicReader(List<FunctionFactory<T, ?, ?>> factories, Universe<T, ?, ?> universe) {
 		lexer = new SimpleLogicLexer();
 		parser = new SimpleLogicParser();
 		evaluator = new SimpleLogicEvaluator<>(factories, universe);
