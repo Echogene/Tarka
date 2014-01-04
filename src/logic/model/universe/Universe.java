@@ -12,11 +12,11 @@ import java.util.Stack;
 /**
  * @author Steven Weston
  */
-public interface Universe<T extends Nameable> {
+public interface Universe<T extends Nameable, D extends Dictionary<T>, E extends Dictionary<Set<T>>> {
 
-	Dictionary<T> getUniversalSet();
+	D getUniversalSet();
 
-	Dictionary<Set<T>> getUniversalSetOfSets();
+	E getUniversalSetOfSets();
 
 	//todo: make this a data structure and put the three below methods on it
 	StandardSet<Object> getVariables();

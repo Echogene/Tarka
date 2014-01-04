@@ -1,8 +1,6 @@
 package maths.number.integer.model.universe;
 
 import logic.model.universe.AbstractUniverse;
-import logic.set.Dictionary;
-import logic.set.Set;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
 
@@ -13,7 +11,7 @@ import java.util.Stack;
 /**
  * @author Steven Weston
  */
-public class IntegerUniverse extends AbstractUniverse<Integer> {
+public class IntegerUniverse extends AbstractUniverse<Integer, IntegerSet, IntegerUniverseSetOfSets> {
 
 	private final IntegerSet ℤ;
 	private final StandardSet<Object> variables;
@@ -31,12 +29,12 @@ public class IntegerUniverse extends AbstractUniverse<Integer> {
 	}
 
 	@Override
-	public Dictionary<Integer> getUniversalSet() {
+	public IntegerSet getUniversalSet() {
 		return ℤ;
 	}
 
 	@Override
-	public Dictionary<Set<Integer>> getUniversalSetOfSets() {
+	public IntegerUniverseSetOfSets getUniversalSetOfSets() {
 		return universalSetOfSets;
 	}
 

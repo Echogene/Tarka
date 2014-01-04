@@ -2,6 +2,7 @@ package logic.model.universe;
 
 import logic.Nameable;
 import logic.factory.SimpleLogicReader;
+import logic.set.Dictionary;
 import logic.set.Set;
 
 import java.lang.reflect.Type;
@@ -12,7 +13,8 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractUniverse<T extends Nameable> implements Universe<T> {
+public abstract class AbstractUniverse<T extends Nameable, D extends Dictionary<T>, E extends Dictionary<Set<T>>>
+		implements Universe<T, D, E> {
 
 	protected final List<String> logicalConstants = Arrays.asList("⊤", "⊥");
 

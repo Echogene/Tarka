@@ -2,7 +2,6 @@ package logic;
 
 import logic.model.universe.AbstractUniverse;
 import logic.model.universe.empty.EmptySet;
-import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 
@@ -13,7 +12,7 @@ import java.util.Stack;
 /**
  * @author Steven Weston
  */
-public class TestClassUniverse extends AbstractUniverse<TestClass> {
+public class TestClassUniverse extends AbstractUniverse<TestClass, StandardSet<TestClass>, StandardSet<Set<TestClass>>> {
 
 	private StandardSet<TestClass> universalSet;
 
@@ -33,12 +32,12 @@ public class TestClassUniverse extends AbstractUniverse<TestClass> {
 	}
 
 	@Override
-	public Dictionary<TestClass> getUniversalSet() {
+	public StandardSet<TestClass> getUniversalSet() {
 		return universalSet;
 	}
 
 	@Override
-	public Dictionary<Set<TestClass>> getUniversalSetOfSets() {
+	public StandardSet<Set<TestClass>> getUniversalSetOfSets() {
 		return universalSetOfSets;
 	}
 
