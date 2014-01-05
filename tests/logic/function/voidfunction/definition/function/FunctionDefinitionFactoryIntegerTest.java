@@ -1,6 +1,7 @@
 package logic.function.voidfunction.definition.function;
 
 import logic.factory.SimpleLogicReader;
+import logic.function.assignment.VoidAssignment;
 import logic.function.voidfunction.definition.function.definedfunction.*;
 import logic.set.finite.FiniteSet;
 import maths.number.integer.Integer;
@@ -304,8 +305,6 @@ public class FunctionDefinitionFactoryIntegerTest {
 
 		DefinedSetFunction<Integer> function;
 		function = reader.read("(f ⊤)");
-		// This is not working because by the time the filtered set is asked whether it contains 5, the parameter
-		// (variable) x containing ⊤ has already been unassigned
 		assertTrue(function.evaluate(model).containsValue(ℤ.get("5")));
 	}
 
@@ -389,5 +388,15 @@ public class FunctionDefinitionFactoryIntegerTest {
 		DefinedSetFunction<Integer> function;
 		function = reader.read("(f 1 2)");
 		assertEquals(ℤ.get("0"), ((FiniteSet<Integer>) function.evaluate(model)).size());
+	}
+
+	@Test
+	public void testDefineEqualityPredicateSurroundedByAssignment() throws Exception {
+		VoidAssignment<Integer> definition = reader.read("((f x ≝ (x = y)) where y is 2)");
+		definition.evaluate(model);
+
+		DefinedEvaluable<Integer> function;
+		function = reader.read("(f 2)");
+		assertTrue(function.evaluate(model));
 	}
 }
