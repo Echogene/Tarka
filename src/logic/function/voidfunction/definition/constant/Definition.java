@@ -5,6 +5,8 @@ import logic.function.Function;
 import logic.function.voidfunction.VoidFunction;
 import logic.model.Model;
 
+import java.util.Map;
+
 /**
  * @author Steven Weston
  */
@@ -25,6 +27,11 @@ class Definition<D extends Nameable, C> implements VoidFunction<D> {
 		model.assignVariable(variableName);
 		model.setVariable(variableName, definition.evaluate(model));
 		return null;
+	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		definition.reduce(reductions);
 	}
 
 	@Override

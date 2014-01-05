@@ -5,6 +5,8 @@ import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.model.Model;
 
+import java.util.Map;
+
 import static java.text.MessageFormat.format;
 
 /**
@@ -32,6 +34,13 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 		} else {
 			return ifFalse.evaluate(model);
 		}
+	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		condition.reduce(reductions);
+		ifTrue.reduce(reductions);
+		ifFalse.reduce(reductions);
 	}
 
 	@Override

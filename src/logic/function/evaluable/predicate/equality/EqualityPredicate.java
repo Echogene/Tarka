@@ -5,6 +5,8 @@ import logic.function.Function;
 import logic.function.evaluable.predicate.Predicate;
 import logic.model.Model;
 
+import java.util.Map;
+
 /**
  * A class that represents an equality predicate.  An equality predicate is of the form "x = y" and either evaluates to
  * true or false, depending on whether "x" represents the same thing as "y".  It can also take the form "f = g" for
@@ -52,6 +54,12 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 		Object equor = getEquorFunction().evaluate(model);
 		Object equand = getEquandFunction().evaluate(model);
 		return equor.equals(equand);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		equorFunction.reduce(reductions);
+		equandFunction.reduce(reductions);
 	}
 
 	@Override

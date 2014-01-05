@@ -1,5 +1,6 @@
 package maths.number.integer.functions.addition;
 
+import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.Model;
 import maths.number.Number;
@@ -7,6 +8,7 @@ import maths.number.Summor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -33,6 +35,13 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 			numbers.add(function.evaluate(model));
 		}
 		return summor.sum(numbers);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<N, ?>> reductions) {
+		for (ReflexiveFunction<N> summand : summands) {
+			summand.reduce(reductions);
+		}
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.FiniteSet;
 import logic.set.undeterminable.NotCertainlyFiniteSetException;
+import util.FunctionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,6 @@ public class Quantifier extends Connective {
 			Model<T, ?, ?> model,
 			Set<T> set) throws Exception {
 
-		model.assignVariable(variableSymbol);
 		int existCount = 0;
 		Boolean output = null;
 		if (!(set instanceof FiniteSet<?>)) {
@@ -59,7 +59,7 @@ public class Quantifier extends Connective {
 		}
 		FiniteSet<T> finiteSet = (FiniteSet<T>) set;
 		for (T t : finiteSet) {
-			model.setVariable(variableSymbol, t);
+			FunctionUtils.reduce(evaluable, variableSymbol, t);
 			if (evaluable.evaluate(model)) {
 				if (type.equals(QuantifierType.EXISTS)) {
 					output = true;
@@ -88,7 +88,6 @@ public class Quantifier extends Connective {
 				}
 			}
 		}
-		model.unassignVariable(variableSymbol);
 		if (output != null) {
 			return output;
 		} else if (type.equals(QuantifierType.EXISTS)) {

@@ -298,7 +298,6 @@ public class FunctionDefinitionFactoryIntegerTest {
 	}
 
 	@Test
-	@Ignore("Until the bug with complex sets is fixed")
 	public void testDefineComplexSetWithBooleanParameter() throws Exception {
 		SetFunctionDefinition<Integer> definition = reader.read("(f x ≝ {y ∊ [0 5] | x})");
 		definition.evaluate(model);
@@ -311,7 +310,6 @@ public class FunctionDefinitionFactoryIntegerTest {
 	}
 
 	@Test
-	@Ignore("Until the ugly unsafe map is removed from FunctionDefinitionFactory")
 	public void testDefineFunctionDefinition() throws Exception {
 		VoidFunctionDefinition<Integer> definition = reader.read("(f X ≝ (g Y ≝ (Y = X)))");
 		definition.evaluate(model);

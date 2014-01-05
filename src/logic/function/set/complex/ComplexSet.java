@@ -1,6 +1,7 @@
 package logic.function.set.complex;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.set.SetFunction;
 import logic.model.Model;
@@ -9,8 +10,10 @@ import logic.set.filtered.FiniteFilteredSet;
 import logic.set.filtered.UndeterminableFilteredSet;
 import logic.set.finite.Filter;
 import logic.set.finite.FiniteSet;
+import util.FunctionUtils;
 
 import java.text.MessageFormat;
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -31,11 +34,8 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 	@Override
 	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		Filter<T> filter = t -> {
-			model.assignVariable(variable);
-			model.setVariable(variable, t);
-			Boolean output = evaluable.evaluate(model);
-			model.unassignVariable(variable);
-			return output;
+			FunctionUtils.reduce(evaluable, variable, t);
+			return evaluable.evaluate(model);
 		};
 		Set<T> set = boundingSet.evaluate(model);
 		if (set instanceof FiniteSet) {
@@ -43,6 +43,12 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 		} else {
 			return new UndeterminableFilteredSet<>(toString(), set, filter);
 		}
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		boundingSet.reduce(reductions);
+		evaluable.reduce(reductions);
 	}
 
 	@Override

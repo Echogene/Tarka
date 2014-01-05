@@ -1,6 +1,7 @@
 package logic.function.set.union;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
@@ -8,6 +9,7 @@ import logic.set.operators.Uniter;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 
@@ -34,6 +36,13 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 			setsToUnion.add(function.evaluate(model));
 		}
 		return Uniter.unite(setsToUnion);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		for (SetFunction<T> parameter : parameters) {
+			parameter.reduce(reductions);
+		}
 	}
 
 	public java.util.Set<SetFunction<T>> getParameters() {

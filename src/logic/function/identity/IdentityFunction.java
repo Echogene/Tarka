@@ -4,13 +4,17 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.model.Model;
 
+import java.util.Map;
+
 /**
+ * The basic function from which all other functions are built.  This wraps another function or maps to an element of
+ * the model's universe.
  * @author Steven Weston
  */
 class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
 	private final String parameter;
-	private final Function<D, C> function;
+	private Function<D, C> function;
 
 	IdentityFunction(String parameter) {
 		this.parameter = parameter;
@@ -29,6 +33,13 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 		}
 		return (C) model.getUniverse().get(parameter);
 
+	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		if (parameter != null && reductions.containsKey(parameter)) {
+			function = (Function<D, C>) reductions.get(parameter);
+		}
 	}
 
 	public String getParameter() {

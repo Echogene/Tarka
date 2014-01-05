@@ -14,7 +14,6 @@ import logic.set.filtered.FiniteFilteredSet;
 import logic.set.finite.FiniteSet;
 import logic.set.finite.StandardSet;
 import logic.set.infinite.InfiniteSet;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -83,7 +82,6 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, T
 	}
 
 	@Test
-	@Ignore("Until the bug with complex sets is fixed")
 	public void testEvaluateWhenSuchThatClauseUsesVariable() throws Exception {
 		SetAssignment<TestClass> function = reader.read("({a ∊ X | (a = b)} where b is x)");
 

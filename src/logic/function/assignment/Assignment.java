@@ -3,6 +3,9 @@ package logic.function.assignment;
 import logic.Nameable;
 import logic.function.Function;
 import logic.model.Model;
+import util.FunctionUtils;
+
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 
@@ -26,11 +29,14 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 
 	@Override
 	public C evaluate(Model<D, ?, ?> model) throws Exception {
-		model.assignVariable(assignee);
-		model.setVariable(assignee, assingment.evaluate(model));
-		C result = evaluee.evaluate(model);
-		model.unassignVariable(assignee);
-		return result;
+		FunctionUtils.reduce(evaluee, assignee, assingment);
+		return evaluee.evaluate(model);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		evaluee.reduce(reductions);
+		assingment.reduce(reductions);
 	}
 
 	@Override

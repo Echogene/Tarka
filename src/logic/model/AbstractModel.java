@@ -8,8 +8,6 @@ import logic.model.universe.Universe;
 import logic.model.universe.VariableAlreadyExistsException;
 import logic.model.universe.VariableNotAssignedException;
 
-import java.util.Stack;
-
 /**
  * @author Steven Weston
  */
@@ -54,21 +52,5 @@ public abstract class AbstractModel<T extends Nameable, U extends Universe<T, ?,
 
 	public void setReader(SimpleLogicReader<T> reader) {
 		this.reader = reader;
-	}
-
-	@Override
-	public Object pushParameter(String parameterSymbol, Object value) {
-		if (!universe.getBoundParameters().containsKey(parameterSymbol)) {
-			universe.getBoundParameters().put(parameterSymbol, new Stack<>());
-		}
-		return universe.getBoundParameters().get(parameterSymbol).push(value);
-	}
-
-	@Override
-	public Object popParameter(String parameterSymbol) throws VariableNotAssignedException {
-		if (!universe.getBoundParameters().containsKey(parameterSymbol)) {
-			throw new VariableNotAssignedException("The parameter " + parameterSymbol + " has not yet been assigned.");
-		}
-		return universe.getBoundParameters().get(parameterSymbol).pop();
 	}
 }

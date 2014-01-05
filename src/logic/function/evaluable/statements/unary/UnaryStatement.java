@@ -1,8 +1,11 @@
 package logic.function.evaluable.statements.unary;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.model.Model;
+
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -25,6 +28,11 @@ public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
 	@Override
 	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
 		return connective.apply(evaluable.evaluate(model));
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		evaluable.reduce(reductions);
 	}
 
 	@Override

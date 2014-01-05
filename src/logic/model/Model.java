@@ -25,7 +25,4 @@ public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extend
 
 	void addFactory(FunctionFactory<T, ?, ? extends Function<T, ?>> factory);
 
-	Object pushParameter(String parameterSymbol, Object value);
-
-	Object popParameter(String parameterSymbol) throws VariableNotAssignedException;
 }

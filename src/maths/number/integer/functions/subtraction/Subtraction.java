@@ -1,5 +1,6 @@
 package maths.number.integer.functions.subtraction;
 
+import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.Model;
 import maths.number.Number;
@@ -7,6 +8,7 @@ import maths.number.Subtractor;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -32,6 +34,12 @@ public class Subtraction<N extends Number> implements ReflexiveFunction<N> {
 	@Override
 	public N evaluate(Model<N, ?, ?> model) throws Exception {
 		return subtractor.subtract(minuend.evaluate(model), subtrahend.evaluate(model));
+	}
+
+	@Override
+	public void reduce(Map<String, Function<N, ?>> reductions) {
+		minuend.reduce(reductions);
+		subtrahend.reduce(reductions);
 	}
 
 	@Override

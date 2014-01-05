@@ -1,5 +1,6 @@
 package maths.number.integer.functions.addition;
 
+import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.model.Model;
@@ -10,6 +11,7 @@ import maths.number.Number;
 import maths.number.Summor;
 
 import java.text.MessageFormat;
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -32,6 +34,11 @@ public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
 		} else {
 			throw new NotCertainlyFiniteSetException("Cannot total a set that is not certainly finite.");
 		}
+	}
+
+	@Override
+	public void reduce(Map<String, Function<N, ?>> reductions) {
+		set.reduce(reductions);
 	}
 
 	@Override

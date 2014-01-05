@@ -1,13 +1,17 @@
 package logic.function.evaluable.statements.binary;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.model.Model;
+
+import java.util.Map;
 
 /**
  * @author Steven Weston
  */
 public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
+
 	private final Evaluable<T> firstEvaluable;
 	private final BinaryConnective connective;
 	private final Evaluable<T> secondEvaluable;
@@ -21,6 +25,12 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 	@Override
 	public Boolean evaluate(Model<T, ?, ?> model) throws Exception {
 		return connective.apply(firstEvaluable.evaluate(model), secondEvaluable.evaluate(model));
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		firstEvaluable.reduce(reductions);
+		secondEvaluable.reduce(reductions);
 	}
 
 	@Override

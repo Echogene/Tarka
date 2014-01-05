@@ -77,4 +77,9 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 			throw new NotImplementedException();
 		}
 	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		definition.reduce(reductions);
+	}
 }

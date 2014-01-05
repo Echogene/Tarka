@@ -1,11 +1,14 @@
 package logic.function.evaluable.predicate.membership;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.predicate.Predicate;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
+
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -35,6 +38,12 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 		Set<T> set = setFunction.evaluate(model);
 		T member = memberFunction.evaluate(model);
 		return set.containsValue(member);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		memberFunction.reduce(reductions);
+		setFunction.reduce(reductions);
 	}
 
 	@Override

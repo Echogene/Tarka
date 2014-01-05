@@ -1,11 +1,14 @@
 package logic.function.set.simple;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
+
+import java.util.Map;
 
 /**
  * @author Steven Weston
@@ -24,6 +27,13 @@ public class SimpleSet<T extends Nameable> implements SetFunction<T> {
 			output.put(member.evaluate(model));
 		}
 		return output;
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		for (ReflexiveFunction<T> member : members) {
+			member.reduce(reductions);
+		}
 	}
 
 	@Override

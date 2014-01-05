@@ -1,6 +1,7 @@
 package logic.function.set.intersection;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
@@ -8,6 +9,7 @@ import logic.set.operators.Intersector;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 
@@ -33,6 +35,13 @@ public class Intersection<T extends Nameable> implements SetFunction<T> {
 			setsToIntersect.add(function.evaluate(model));
 		}
 		return Intersector.intersect(setsToIntersect);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?>> reductions) {
+		for (SetFunction<T> parameter : parameters) {
+			parameter.reduce(reductions);
+		}
 	}
 
 

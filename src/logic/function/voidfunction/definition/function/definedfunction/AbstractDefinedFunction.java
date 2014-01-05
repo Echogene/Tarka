@@ -21,13 +21,12 @@ public abstract class AbstractDefinedFunction<D extends Nameable, C> implements 
 
 	@Override
 	public C evaluate(Model<D, ?, ?> model) throws Exception {
-		for (Map.Entry<String, Function<D, ?>> entry : parameters.entrySet()) {
-			model.pushParameter(entry.getKey(), entry.getValue().evaluate(model));
-		}
-		C output = definition.evaluate(model);
-		for (String variable : parameters.keySet()) {
-			model.popParameter(variable);
-		}
-		return output;
+		definition.reduce(parameters);
+		return definition.evaluate(model);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<D, ?>> reductions) {
+		definition.reduce(reductions);
 	}
 }
