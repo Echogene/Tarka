@@ -17,9 +17,9 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 	public static final String IF = "if";
 	public static final String OTHERWISE = "otherwise";
 
-	private final Evaluable<D> condition;
-	private final Function<D, C> ifTrue;
-	private final Function<D, C> ifFalse;
+	final Evaluable<D> condition;
+	final Function<D, C> ifTrue;
+	final Function<D, C> ifFalse;
 
 	IfElse(Evaluable<D> condition, Function<D, C> ifTrue, Function<D, C> ifFalse) {
 		this.condition = condition;
@@ -41,6 +41,11 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 		condition.reduce(reductions);
 		ifTrue.reduce(reductions);
 		ifFalse.reduce(reductions);
+	}
+
+	@Override
+	public IfElse<D, C> copy() {
+		return new IfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
 	}
 
 	@Override

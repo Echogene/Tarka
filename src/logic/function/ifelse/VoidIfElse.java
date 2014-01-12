@@ -12,4 +12,9 @@ public class VoidIfElse<T extends Nameable> extends IfElse<T, Void> implements V
 	public VoidIfElse(Evaluable<T> condition, VoidFunction<T> ifTrue, VoidFunction<T> ifFalse) {
 		super(condition, ifTrue, ifFalse);
 	}
+
+	@Override
+	public VoidIfElse<T> copy() {
+		return new VoidIfElse<>(condition.copy(), (VoidFunction<T>) ifTrue, (VoidFunction<T>) ifFalse);
+	}
 }

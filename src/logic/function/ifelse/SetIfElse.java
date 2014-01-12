@@ -13,4 +13,9 @@ public class SetIfElse<T extends Nameable> extends IfElse<T, Set<T>> implements 
 	public SetIfElse(Evaluable<T> condition, SetFunction<T> ifTrue, SetFunction<T> ifFalse) {
 		super(condition, ifTrue, ifFalse);
 	}
+
+	@Override
+	public SetIfElse<T> copy() {
+		return new SetIfElse<>(condition.copy(), (SetFunction<T>) ifTrue, (SetFunction<T>) ifFalse);
+	}
 }

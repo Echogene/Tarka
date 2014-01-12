@@ -12,4 +12,9 @@ public class ReflexiveIfElse<T extends Nameable> extends IfElse<T, T> implements
 	public ReflexiveIfElse(Evaluable<T> condition, ReflexiveFunction<T> ifTrue, ReflexiveFunction<T> ifFalse) {
 		super(condition, ifTrue, ifFalse);
 	}
+
+	@Override
+	public ReflexiveIfElse<T> copy() {
+		return new ReflexiveIfElse<>(condition.copy(), (ReflexiveFunction<T>) ifTrue, (ReflexiveFunction<T>) ifFalse);
+	}
 }
