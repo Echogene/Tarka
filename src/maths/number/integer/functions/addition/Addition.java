@@ -31,8 +31,8 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 	@Override
 	public N evaluate(Model<N, ?, ?> model) throws Exception {
 		List<N> numbers = new ArrayList<>();
-		for(ReflexiveFunction<N> function : summands) {
-			numbers.add(function.evaluate(model));
+		for(ReflexiveFunction<N> summand : summands) {
+			numbers.add(summand.evaluate(model));
 		}
 		return summor.sum(numbers);
 	}
@@ -50,8 +50,8 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 			return "(" + summands.get(0).toString() + " " + PLUS_SYMBOL + " " + summands.get(1).toString() + ")";
 		} else {
 			String output = "(" + SUM_SYMBOL;
-			for (ReflexiveFunction<N> function : summands) {
-				output += " " + function.toString();
+			for (ReflexiveFunction<N> summand : summands) {
+				output += " " + summand.toString();
 			}
 			return output + ")";
 		}
@@ -64,5 +64,14 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 		}
 		Addition<?> other = (Addition<?>) o;
 		return summands.equals(other.summands);
+	}
+
+	@Override
+	public Addition<N> copy() {
+		List<ReflexiveFunction<N>> newSummands = new ArrayList<>();
+		for (ReflexiveFunction<N> summand : summands) {
+			newSummands.add(summand.copy());
+		}
+		return new Addition<>(newSummands, summor);
 	}
 }

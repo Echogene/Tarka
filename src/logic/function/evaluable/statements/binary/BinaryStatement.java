@@ -60,4 +60,9 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 				&& getConnective().equals(other.getConnective())
 				&& getSecondEvaluable().equals(other.getSecondEvaluable());
 	}
+
+	@Override
+	public BinaryStatement<T> copy() {
+		return new BinaryStatement<>(firstEvaluable.copy(), connective, secondEvaluable.copy());
+	}
 }

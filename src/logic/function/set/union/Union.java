@@ -76,4 +76,13 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 			return output + ")";
 		}
 	}
+
+	@Override
+	public Union<T> copy() {
+		java.util.Set<SetFunction<T>> newParameters = new HashSet<>();
+		for (SetFunction<T> parameter : parameters) {
+			newParameters.add(parameter.copy());
+		}
+		return new Union<>(newParameters);
+	}
 }

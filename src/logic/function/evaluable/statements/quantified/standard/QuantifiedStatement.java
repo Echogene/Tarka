@@ -59,4 +59,9 @@ public class QuantifiedStatement<T extends Nameable> implements Evaluable<T> {
 				&& getVariableSymbol().equals(other.getVariableSymbol())
 				&& getEvaluable().equals(other.getEvaluable());
 	}
+
+	@Override
+	public QuantifiedStatement<T> copy() {
+		return new QuantifiedStatement<>(quantifier, variableSymbol, evaluable.copy());
+	}
 }

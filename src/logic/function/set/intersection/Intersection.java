@@ -73,4 +73,12 @@ public class Intersection<T extends Nameable> implements SetFunction<T> {
 		}
 	}
 
+	@Override
+	public Intersection<T> copy() {
+		java.util.Set<SetFunction<T>> newParameters = new HashSet<>();
+		for (SetFunction<T> parameter : parameters) {
+			newParameters.add(parameter.copy());
+		}
+		return new Intersection<>(newParameters);
+	}
 }
