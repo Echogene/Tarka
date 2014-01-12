@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class DefinedReflexiveFunction<T extends Nameable> extends AbstractDefinedFunction<T, T> implements ReflexiveFunction<T> {
 
-	public DefinedReflexiveFunction(ReflexiveFunction<T> definition, Map<String, Function<T, ?>> parameters) {
-		super(definition, parameters);
+	public DefinedReflexiveFunction(String functionSymbol, ReflexiveFunction<T> definition, Map<String, Function<T, ?>> parameters) {
+		super(functionSymbol, definition, parameters);
 	}
 }

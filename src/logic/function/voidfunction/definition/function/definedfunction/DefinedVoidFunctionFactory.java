@@ -20,17 +20,18 @@ import java.util.Set;
 public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Void, VoidFunction<T>> {
 
 	protected DefinedVoidFunctionFactory(
+			String functionSymbol,
 			VoidFunction<T> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
-		super(definition, parameters, checkers, universeType);
+		super(functionSymbol, definition, parameters, checkers, universeType);
 	}
 
 	@Override
 	protected VoidFunction<T> construct(Map<String, Function<T, ?>> parameters) {
-		return new DefinedVoidFunction<>(definition, parameters);
+		return new DefinedVoidFunction<>(functionSymbol, definition, parameters);
 	}
 
 	@Override

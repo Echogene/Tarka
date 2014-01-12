@@ -20,12 +20,13 @@ import java.util.Set;
 public class DefinedReflexiveFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, T, ReflexiveFunction<T>> {
 
 	protected DefinedReflexiveFunctionFactory(
+			String functionSymbol,
 			ReflexiveFunction<T> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
-		super(definition, parameters, checkers, universeType);
+		super(functionSymbol, definition, parameters, checkers, universeType);
 	}
 
 	@Override
@@ -35,6 +36,6 @@ public class DefinedReflexiveFunctionFactory<T extends Nameable> extends Abstrac
 
 	@Override
 	protected ReflexiveFunction<T> construct(Map<String, Function<T, ?>> parameters) {
-		return new DefinedReflexiveFunction<>(definition, parameters);
+		return new DefinedReflexiveFunction<>(functionSymbol, definition, parameters);
 	}
 }

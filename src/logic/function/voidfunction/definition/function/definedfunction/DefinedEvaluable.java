@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class DefinedEvaluable<T extends Nameable> extends AbstractDefinedFunction<T, Boolean> implements Evaluable<T> {
 
-	public DefinedEvaluable(Evaluable<T> definition, Map<String, Function<T, ?>> parameters) {
-		super(definition, parameters);
+	public DefinedEvaluable(String functionSymbol, Evaluable<T> definition, Map<String, Function<T, ?>> parameters) {
+		super(functionSymbol, definition, parameters);
 	}
 }

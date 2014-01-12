@@ -21,15 +21,18 @@ import java.util.Set;
 public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F extends Function<D, C>> extends FunctionFactory<D, C, F> {
 
 	private final Map<String, Set<Type>> parameters;
+	protected final String functionSymbol;
 	protected final F definition;
 
 	protected AbstractDefinedFunctionFactory(
+			String functionSymbol,
 			F definition,
 			Map<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<D> universeType
 	) {
 		super(checkers, STANDARD_BRACKETS, universeType);
+		this.functionSymbol = functionSymbol;
 		this.definition = definition;
 		this.parameters = parameters;
 	}

@@ -49,6 +49,7 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 		}
 		model.addFactory(
 				DefinedFunctionFactoryFactory.create(
+						functionName,
 						definition,
 						parameters,
 						checkers,

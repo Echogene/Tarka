@@ -20,17 +20,18 @@ import java.util.Set;
 public class DefinedEvaluableFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Boolean, Evaluable<T>> {
 
 	protected DefinedEvaluableFunctionFactory(
+			String functionSymbol,
 			Evaluable<T> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
-		super(definition, parameters, checkers, universeType);
+		super(functionSymbol, definition, parameters, checkers, universeType);
 	}
 
 	@Override
 	protected Evaluable<T> construct(Map<String, Function<T, ?>> parameters) {
-		return new DefinedEvaluable<>(definition, parameters);
+		return new DefinedEvaluable<>(functionSymbol, definition, parameters);
 	}
 
 	@Override

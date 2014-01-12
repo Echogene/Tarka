@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class DefinedVoidFunction<T extends Nameable> extends AbstractDefinedFunction<T, Void> implements VoidFunction<T> {
 
-	public DefinedVoidFunction(VoidFunction<T> definition, Map<String, Function<T, ?>> parameters) {
-		super(definition, parameters);
+	public DefinedVoidFunction(String functionSymbol, VoidFunction<T> definition, Map<String, Function<T, ?>> parameters) {
+		super(functionSymbol, definition, parameters);
 	}
 }

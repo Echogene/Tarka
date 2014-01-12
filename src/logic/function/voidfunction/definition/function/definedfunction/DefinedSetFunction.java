@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class DefinedSetFunction<T extends Nameable> extends AbstractDefinedFunction<T, Set<T>> implements SetFunction<T> {
 
-	public DefinedSetFunction(SetFunction<T> definition, Map<String, Function<T, ?>> parameters) {
-		super(definition, parameters);
+	public DefinedSetFunction(String functionSymbol, SetFunction<T> definition, Map<String, Function<T, ?>> parameters) {
+		super(functionSymbol, definition, parameters);
 	}
 }

@@ -20,17 +20,18 @@ import java.util.Map;
 public class DefinedSetFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Set<T>, SetFunction<T>> {
 
 	protected DefinedSetFunctionFactory(
+			String functionSymbol,
 			SetFunction<T> definition,
 			Map<String, java.util.Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
-		super(definition, parameters, checkers, universeType);
+		super(functionSymbol, definition, parameters, checkers, universeType);
 	}
 
 	@Override
 	protected SetFunction<T> construct(Map<String, Function<T, ?>> parameters) {
-		return new DefinedSetFunction<>(definition, parameters);
+		return new DefinedSetFunction<>(functionSymbol, definition, parameters);
 	}
 
 	@Override
