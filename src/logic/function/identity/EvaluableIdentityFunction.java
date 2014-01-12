@@ -16,7 +16,16 @@ public class EvaluableIdentityFunction<T extends Nameable> extends IdentityFunct
 		super(function);
 	}
 
+	EvaluableIdentityFunction(String parameter, Evaluable<T> function) {
+		super(parameter, function);
+	}
+
 	public EvaluableIdentityFunction(Boolean bool) {
 		super(bool ? "⊤" : "⊥");
+	}
+
+	@Override
+	public EvaluableIdentityFunction<T> copy() {
+		return new EvaluableIdentityFunction<>(parameter, (Evaluable<T>) function.copy());
 	}
 }

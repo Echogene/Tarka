@@ -12,8 +12,8 @@ import java.util.Map;
  */
 class Definition<D extends Nameable, C> implements VoidFunction<D> {
 
-	private final String variableName;
-	private final Function<D, C> definition;
+	final String variableName;
+	final Function<D, C> definition;
 
 	public static final String DEFINITION_SYMBOL = "≔";
 
@@ -32,6 +32,11 @@ class Definition<D extends Nameable, C> implements VoidFunction<D> {
 	@Override
 	public void reduce(Map<String, Function<D, ?>> reductions) {
 		definition.reduce(reductions);
+	}
+
+	@Override
+	public Definition<D, C> copy() {
+		return new Definition<>(variableName, definition.copy());
 	}
 
 	@Override

@@ -11,4 +11,9 @@ public class BooleanDefinition<T extends Nameable> extends Definition<T, Boolean
 	public BooleanDefinition(String variableName, Evaluable<T> definition) {
 		super(variableName, definition);
 	}
+
+	@Override
+	public BooleanDefinition<T> copy() {
+		return new BooleanDefinition<>(variableName, (Evaluable<T>) definition.copy());
+	}
 }

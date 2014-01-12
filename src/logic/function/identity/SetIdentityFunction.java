@@ -16,4 +16,13 @@ public class SetIdentityFunction<T extends Nameable> extends IdentityFunction<T,
 	public SetIdentityFunction(SetFunction<T> function) {
 		super(function);
 	}
+
+	SetIdentityFunction(String parameter, SetFunction<T> function) {
+		super(parameter, function);
+	}
+
+	@Override
+	public IdentityFunction<T, Set<T>> copy() {
+		return new SetIdentityFunction<>(parameter, (SetFunction<T>) function.copy());
+	}
 }

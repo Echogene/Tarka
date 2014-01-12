@@ -12,4 +12,9 @@ public class SetDefinition<T extends Nameable> extends Definition<T, Set<T>> {
 	public SetDefinition(String variableName, SetFunction<T> definition) {
 		super(variableName, definition);
 	}
+
+	@Override
+	public SetDefinition<T> copy() {
+		return new SetDefinition<>(variableName, (SetFunction<T>) definition.copy());
+	}
 }

@@ -13,16 +13,19 @@ import java.util.Map;
  */
 class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
-	private final String parameter;
-	private Function<D, C> function;
+	final String parameter;
+	Function<D, C> function;
 
 	IdentityFunction(String parameter) {
-		this.parameter = parameter;
-		this.function  = null;
+		this(parameter, null);
 	}
 
 	IdentityFunction(Function<D, C> function) {
-		this.parameter = null;
+		this(null, function);
+	}
+
+	IdentityFunction(String parameter, Function<D, C> function) {
+		this.parameter = parameter;
 		this.function  = function;
 	}
 
@@ -40,6 +43,11 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 		if (parameter != null && reductions.containsKey(parameter)) {
 			function = (Function<D, C>) reductions.get(parameter);
 		}
+	}
+
+	@Override
+	public IdentityFunction<D, C> copy() {
+		return new IdentityFunction<>(parameter, function.copy());
 	}
 
 	public String getParameter() {

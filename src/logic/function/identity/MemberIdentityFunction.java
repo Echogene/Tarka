@@ -15,4 +15,13 @@ public class MemberIdentityFunction<T extends Nameable> extends IdentityFunction
 	public MemberIdentityFunction(ReflexiveFunction<T> function) {
 		super(function);
 	}
+
+	MemberIdentityFunction(String parameter, ReflexiveFunction<T> function) {
+		super(parameter, function);
+	}
+
+	@Override
+	public MemberIdentityFunction<T> copy() {
+		return new MemberIdentityFunction<>(parameter, (ReflexiveFunction<T>) function.copy());
+	}
 }

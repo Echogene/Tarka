@@ -11,4 +11,9 @@ public class MemberDefinition<T extends Nameable> extends Definition<T, T> {
 	public MemberDefinition(String variableName, ReflexiveFunction<T> definition) {
 		super(variableName, definition);
 	}
+
+	@Override
+	public MemberDefinition<T> copy() {
+		return new MemberDefinition<>(variableName, (ReflexiveFunction<T>) definition.copy());
+	}
 }

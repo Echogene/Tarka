@@ -19,4 +19,9 @@ public interface Function<D extends Nameable, C> {
 	 * @param reductions
 	 */
 	void reduce(Map<String, Function<D, ?>> reductions);
+
+	/**
+	 * Create a deep copy of this function.
+	 */
+	Function<D, C> copy();
 }
