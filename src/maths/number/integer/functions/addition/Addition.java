@@ -23,7 +23,7 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 
 	private final Summor<N> summor;
 
-	Addition(List<ReflexiveFunction<N>> summands, Summor<N> summor) {
+	public Addition(List<ReflexiveFunction<N>> summands, Summor<N> summor) {
 		this.summands = summands;
 		this.summor = summor;
 	}
