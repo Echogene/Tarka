@@ -8,4 +8,7 @@ import logic.set.Set;
  * @author Steven Weston
  */
 public interface SetFunction<T extends Nameable> extends Function<T, Set<T>> {
+
+	@Override
+	SetFunction<T> copy();
 }

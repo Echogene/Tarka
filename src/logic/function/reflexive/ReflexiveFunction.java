@@ -8,4 +8,7 @@ import logic.function.Function;
  * @author Steven Weston
  */
 public interface ReflexiveFunction<T extends Nameable> extends Function<T, T> {
+
+	@Override
+	ReflexiveFunction<T> copy();
 }

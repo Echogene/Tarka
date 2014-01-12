@@ -45,6 +45,15 @@ public class Multiplication<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
+	public Multiplication<N> copy() {
+		List<ReflexiveFunction<N>> newFactors = new ArrayList<>();
+		for (ReflexiveFunction<N> factor : factors) {
+			newFactors.add(factor.copy());
+		}
+		return new Multiplication<>(newFactors, multiplior);
+	}
+
+	@Override
 	public String toString() {
 		if (factors.size() == 2) {
 			return "(" + factors.get(0).toString() + " " + TIMES_SYMBOL + " " + factors.get(1).toString() + ")";
