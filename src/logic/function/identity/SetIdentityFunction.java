@@ -22,7 +22,7 @@ public class SetIdentityFunction<T extends Nameable> extends IdentityFunction<T,
 	}
 
 	@Override
-	public IdentityFunction<T, Set<T>> copy() {
+	public SetIdentityFunction<T> copy() {
 		return new SetIdentityFunction<>(parameter, (SetFunction<T>) function.copy());
 	}
 }
