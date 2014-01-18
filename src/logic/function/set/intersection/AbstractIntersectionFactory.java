@@ -46,9 +46,7 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	@SafeVarargs
 	public static <T extends Nameable> Intersection<T> createElement(SetFunction<T, ?>... setFunctions) {
 		java.util.Set<SetFunction<T, ?>> sets = new HashSet<>();
-		for (SetFunction<T, ?> setFunction : setFunctions) {
-			sets.add(setFunction);
-		}
+		Collections.addAll(sets, setFunctions);
 		return new Intersection<>(sets);
 	}
 

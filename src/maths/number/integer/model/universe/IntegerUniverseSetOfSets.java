@@ -33,21 +33,12 @@ public class IntegerUniverseSetOfSets implements Dictionary<Set<Integer>> {
 
 	@Override
 	public boolean contains(String string) {
-		if (simpleSets.contains(string)) {
-			return true;
-		}
-		return stringRepresentsIntegerSetMultiple(string);
+		return simpleSets.contains(string) || stringRepresentsIntegerSetMultiple(string);
 	}
 
 	@Override
 	public boolean containsValue(Set<Integer> thing) {
-		if (simpleSets.containsValue(thing)) {
-			return true;
-		}
-		if (thing instanceof IntegerSetMultiple) {
-			return true;
-		}
-		return false;
+		return simpleSets.containsValue(thing) || thing instanceof IntegerSetMultiple;
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 
 	@Override
 	public AbstractIdentityFunction<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
-		Function<T, ?, ?> function = CollectionUtils.safeGet(functions, 0);
+		Function<T, ?, ?> function = CollectionUtils.first(functions);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?, ?>) {
 				return new MemberIdentityFunction<>((ReflexiveFunction<T, ?>) function);

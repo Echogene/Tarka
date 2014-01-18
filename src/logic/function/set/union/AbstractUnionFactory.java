@@ -46,9 +46,7 @@ public abstract class AbstractUnionFactory<T extends Nameable> extends SetFuncti
 	@SafeVarargs
 	public static <T extends Nameable> Union<T> createElement(SetFunction<T, ?>... setFunctions) {
 		java.util.Set<SetFunction<T, ?>> sets = new HashSet<>();
-		for (SetFunction<T, ?> setFunction : setFunctions) {
-			sets.add(setFunction);
-		}
+		Collections.addAll(sets, setFunctions);
 		return new Union<>(sets);
 	}
 
