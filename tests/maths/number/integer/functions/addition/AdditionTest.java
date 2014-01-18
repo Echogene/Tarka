@@ -5,7 +5,6 @@ import logic.function.reflexive.ReflexiveFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.model.IntegerModel;
-import maths.number.integer.model.universe.IntegerUniverse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ public class AdditionTest {
 		assertEquals("(2 + 2)", sum.toString());
 
 		IntegerModel model = new IntegerModel();
-		IntegerUniverse universe = model.getUniverse();
 		assertEquals("2 + 2 = 4", new Integer(4), sum.evaluate(model));
 
 		parameters.clear();

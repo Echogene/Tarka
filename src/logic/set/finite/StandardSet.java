@@ -45,7 +45,7 @@ public class StandardSet<T> extends NamedSet<T> implements ModifiableSet<T>, Dic
 				hashMap.put(thing.toString(), thing);
 			}
 		} else {
-			hashMap.put("null", thing);
+			hashMap.put("null", null);
 		}
 	}
 

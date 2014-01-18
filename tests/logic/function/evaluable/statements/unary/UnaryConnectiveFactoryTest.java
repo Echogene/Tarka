@@ -48,8 +48,7 @@ public class UnaryConnectiveFactoryTest {
 		setUpTokens("¬");
 		assertTrue("Expect standard token to match", factory.matchesTokens(tokens));
 
-		tokens = null;
-		assertFalse("Expect null tokens to not match", factory.matchesTokens(tokens));
+		assertFalse("Expect null tokens to not match", factory.matchesTokens(null));
 
 		setUpTokens("¬ ¬");
 		assertFalse("Expect wrong number of tokens to not match", factory.matchesTokens(tokens));

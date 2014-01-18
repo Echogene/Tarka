@@ -26,7 +26,7 @@ public class FunctionDefinitionFactoryIntegerTest {
 	public FunctionDefinitionFactoryIntegerTest() {
 		model = new IntegerModel();
 		universe = model.getUniverse();
-		ℤ = (IntegerSet) universe.getUniversalSet();
+		ℤ = universe.getUniversalSet();
 		reader = model.getReader();
 	}
 

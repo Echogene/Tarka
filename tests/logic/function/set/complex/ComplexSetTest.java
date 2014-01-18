@@ -33,7 +33,7 @@ public class ComplexSetTest extends FunctionTest<TestClass, TestClassUniverse, T
 		universe.put("z");
 		universe.putSet("X", "x", "y", "z");
 		universe.putSet("Y", "y");
-		StandardSet<Set<TestClass>> sets = (StandardSet<Set<TestClass>>) universe.getUniversalSetOfSets();
+		StandardSet<Set<TestClass>> sets = universe.getUniversalSetOfSets();
 		sets.put("Z", new InfiniteSet<TestClass>() {
 			@Override
 			public boolean containsValue(TestClass thing) {
