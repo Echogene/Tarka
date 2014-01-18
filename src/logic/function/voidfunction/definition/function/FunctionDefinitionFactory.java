@@ -32,7 +32,7 @@ import static logic.function.voidfunction.definition.function.FunctionDefinition
  * @author Steven Weston
  */
 public class FunctionDefinitionFactory<T extends Nameable>
-		extends FunctionFactory<T, Void, FunctionDefinition<T, ?>>
+		extends FunctionFactory<T, Void, FunctionDefinition<T, ?, ?>>
 		implements VariableAssignerFactory {
 
 	public FunctionDefinitionFactory(Class<T> universeType) {
@@ -69,7 +69,11 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public FunctionDefinition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public FunctionDefinition<T, ?, ?> construct(
+			List<Token> tokens,
+			List<Function<T, ?, ?>> functions,
+			Map<String, Set<Type>> boundVariables
+	) throws FactoryException {
 		String functionName = tokens.get(1).getValue();
 		Map<String, Set<Type>> parameters = new HashMap<>();
 		for (int i = 2; i < tokens.size(); i++) {
@@ -84,15 +88,15 @@ public class FunctionDefinitionFactory<T extends Nameable>
 				parameters.put(tokenValue, nonVoidTypes);
 			}
 		}
-		Function<T, ?> definition = functions.get(0);
+		Function<T, ?, ?> definition = functions.get(0);
 		if (definition instanceof ReflexiveFunction) {
-			return new ReflexiveFunctionDefinition<>(functionName, parameters, (ReflexiveFunction<T>) definition);
+			return new ReflexiveFunctionDefinition<>(functionName, parameters, (ReflexiveFunction<T, ?>) definition);
 		} else if (definition instanceof Evaluable) {
-			return new EvaluableDefinition<>(functionName, parameters, (Evaluable<T>) definition);
+			return new EvaluableDefinition<>(functionName, parameters, (Evaluable<T, ?>) definition);
 		} else if (definition instanceof SetFunction) {
-			return new SetFunctionDefinition<>(functionName, parameters, (SetFunction<T>) definition);
+			return new SetFunctionDefinition<>(functionName, parameters, (SetFunction<T, ?>) definition);
 		} else if (definition instanceof VoidFunction) {
-			return new VoidFunctionDefinition<>(functionName, parameters, (VoidFunction<T>) definition);
+			return new VoidFunctionDefinition<>(functionName, parameters, (VoidFunction<T, ?>) definition);
 		} else {
 			throw new FactoryException(
 					MessageFormat.format(

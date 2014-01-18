@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class EvaluableFactory<T extends Nameable, F extends Evaluable<T>> extends FunctionFactory<T, Boolean, F> {
+public abstract class EvaluableFactory<T extends Nameable, F extends Evaluable<T, F>> extends FunctionFactory<T, Boolean, F> {
 
 	protected EvaluableFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<T> universeType) {
 		super(checkers, acceptedBracketPairs, universeType);

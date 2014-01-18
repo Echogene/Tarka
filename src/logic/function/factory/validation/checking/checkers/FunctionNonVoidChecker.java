@@ -24,7 +24,7 @@ public class FunctionNonVoidChecker extends FunctionfulChecker {
 	}
 
 	@Override
-	public void check(Function<?, ?> function) throws FunctionValidationException {
+	public void check(Function<?, ?, ?> function) throws FunctionValidationException {
 		super.check(function);
 		if (function instanceof VoidFunction) {
 			throw new FunctionValidationException(

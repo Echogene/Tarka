@@ -18,14 +18,14 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class ComplexSet<T extends Nameable> implements SetFunction<T> {
+public class ComplexSet<T extends Nameable> implements SetFunction<T, ComplexSet<T>> {
 
 	public static final String SUCH_THAT = "|";
 	private final String variable;
-	private final SetFunction<T> boundingSet;
-	private final Evaluable<T> evaluable;
+	private final SetFunction<T, ?> boundingSet;
+	private final Evaluable<T, ?> evaluable;
 
-	public ComplexSet(String variable, SetFunction<T> boundingSet, Evaluable<T> evaluable) {
+	public ComplexSet(String variable, SetFunction<T, ?> boundingSet, Evaluable<T, ?> evaluable) {
 		this.variable = variable;
 		this.boundingSet = boundingSet;
 		this.evaluable = evaluable;
@@ -46,7 +46,7 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
 		boundingSet.reduce(reductions);
 		evaluable.reduce(reductions);
 	}
@@ -76,5 +76,10 @@ public class ComplexSet<T extends Nameable> implements SetFunction<T> {
 		result = 31 * result + (boundingSet != null ? boundingSet.hashCode() : 0);
 		result = 31 * result + (evaluable != null ? evaluable.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public ComplexSet<T> copy() {
+		return new ComplexSet<>(variable, boundingSet.copy(), evaluable.copy());
 	}
 }

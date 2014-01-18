@@ -31,7 +31,7 @@ import static util.TreeUtils.surroundWithParentNodes;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Function<T, ?>> {
+public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Function<T, ?, ?>> {
 
 	private final List<FunctionFactory<T, ?, ?>> factories;
 	private final SimpleLogicTypeInferror<T> typeInferror;
@@ -54,7 +54,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	}
 
 	@Override
-	public Function<T, ?> evaluate(ParseTree tree) throws EvaluatorException, TypeInferrorException {
+	public Function<T, ?, ?> evaluate(ParseTree tree) throws EvaluatorException, TypeInferrorException {
 		if (tree == null) {
 			return null;
 		}
@@ -74,14 +74,14 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		final Map<ParseTreeNode, Set<Type>> types = typeInferror.inferTypes(tree, passedFactories, passedAssigners);
 
 		// Create functions for the typed nodes
-		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = createIdentityFunctionsForVariables(firstChildren, passedFactories, types);
+		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions = createIdentityFunctionsForVariables(firstChildren, passedFactories, types);
 
 		// Validate and construct functions recursively and return the function
 		return evaluate(firstChildren, identityFunctions, passedFactories);
 	}
 
-	private Map<ParseTreeNode, Function<T, ?>> createIdentityFunctionsForVariables(List<ParseTreeNode> firstChildren, Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories, Map<ParseTreeNode, Set<Type>> types) throws EvaluatorException {
-		final Map<ParseTreeNode, Function<T, ?>> identityFunctions = new HashMap<>();
+	private Map<ParseTreeNode, Function<T, ?, ?>> createIdentityFunctionsForVariables(List<ParseTreeNode> firstChildren, Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories, Map<ParseTreeNode, Set<Type>> types) throws EvaluatorException {
+		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions = new HashMap<>();
 		headRecurse(firstChildren, children -> {
 			ParseTreeNode mother = children.get(0).getMother();
 			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(mother);
@@ -128,7 +128,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 	private List<FunctionFactory<T, ?, ?>> validateFunctions(
 			List<FunctionFactory<T, ?, ?>> factories,
-			List<Function<T, ?>> functions
+			List<Function<T, ?, ?>> functions
 	) throws EvaluatorException {
 
 		return validate(factories, (functionFactory) -> functionFactory.validateFunctions(functions));
@@ -174,13 +174,13 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		void process(List<ParseTreeNode> nodes) throws EvaluatorException;
 	}
 
-	private Function<T, ?> evaluate(
+	private Function<T, ?, ?> evaluate(
 			List<ParseTreeNode> nodes,
-			Map<ParseTreeNode, Function<T, ?>> identityFunctions,
+			Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions,
 			Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactoriesMap
 	) throws EvaluatorException {
 
-		final List<Function<T, ?>> functions = new ArrayList<>();
+		final List<Function<T, ?, ?>> functions = new ArrayList<>();
 		for (ParseTreeNode n : nodes) {
 			if (shouldWalkDownAt(n)) {
 				functions.add(evaluate(n.getChildren(), identityFunctions, passedFactoriesMap));

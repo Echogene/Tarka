@@ -16,7 +16,8 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public abstract class SetFunctionFactory<T extends Nameable, F extends SetFunction<T>> extends FunctionFactory<T, Set<T>, F> {
+public abstract class SetFunctionFactory<T extends Nameable, F extends SetFunction<T, ?>>
+		extends FunctionFactory<T, Set<T>, F> {
 
 	protected SetFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<T> universeType) {
 		super(checkers, acceptedBracketPairs, universeType);

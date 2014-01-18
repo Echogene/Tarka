@@ -11,11 +11,11 @@ import java.util.Collections;
  */
 public class FunctionUtils {
 
-	public static <D extends Nameable, C> void reduce(Function<D, C> function, String variable, Function<D, ?> assignment) {
+	public static <D extends Nameable, C> void reduce(Function<D, C, ?> function, String variable, Function<D, ?, ?> assignment) {
 		function.reduce(Collections.singletonMap(variable, assignment));
 	}
 
-	public static <D extends Nameable, C> void reduce(Function<D, C> function, String variable, D assignment) {
+	public static <D extends Nameable, C> void reduce(Function<D, C, ?> function, String variable, D assignment) {
 		reduce(function, variable, new ObjectFunction<>(assignment));
 	}
 }

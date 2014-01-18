@@ -42,13 +42,13 @@ public class Quantifier extends Connective {
 		this.type = type;
 	}
 
-	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T> evaluable, Model<T, ?, ?> model) throws Exception {
+	public <T extends Nameable> boolean apply(String variableSymbol, Evaluable<T, ?> evaluable, Model<T, ?, ?> model) throws Exception {
 		return apply(variableSymbol, evaluable, model, model.getUniverse().getUniversalSet());
 	}
 
 	public <T extends Nameable> boolean apply(
 			String variableSymbol,
-			Evaluable<T> evaluable,
+			Evaluable<T, ?> evaluable,
 			Model<T, ?, ?> model,
 			Set<T> set) throws Exception {
 

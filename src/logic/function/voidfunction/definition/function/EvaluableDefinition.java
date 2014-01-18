@@ -10,9 +10,14 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public class EvaluableDefinition<T extends Nameable> extends FunctionDefinition<T, Boolean> {
+public class EvaluableDefinition<T extends Nameable> extends FunctionDefinition<T, Boolean, EvaluableDefinition<T>> {
 
-	EvaluableDefinition(String functionName, Map<String, Set<Type>> parameters, Evaluable<T> definition) {
+	EvaluableDefinition(String functionName, Map<String, Set<Type>> parameters, Evaluable<T, ?> definition) {
 		super(functionName, parameters, definition);
+	}
+
+	@Override
+	public EvaluableDefinition<T> copy() {
+		return new EvaluableDefinition<>(functionName, parameters, (Evaluable<T, ?>) definition.copy());
 	}
 }

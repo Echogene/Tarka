@@ -3,7 +3,6 @@ package logic.function.set.complex;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.factory.FactoryTest;
-import logic.function.Function;
 import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.identity.EvaluableIdentityFunction;
 import logic.function.identity.SetIdentityFunction;
@@ -33,7 +32,7 @@ public class ComplexSetFactoryTest extends FactoryTest<TestClass, TestClassUnive
 				new EvaluableIdentityFunction<>("⊤")
 		);
 
-		Function<?,?> actual = reader.read("{a ∊ X | ⊤}");
+		ComplexSet<TestClass> actual = reader.read("{a ∊ X | ⊤}");
 
 		assertEquals(expected, actual);
 	}
@@ -46,7 +45,7 @@ public class ComplexSetFactoryTest extends FactoryTest<TestClass, TestClassUnive
 				MembershipPredicateFactory.createElement("a", "Y")
 		);
 
-		Function<?,?> actual = reader.read("{a ∊ X | (a ∊ Y)}");
+		ComplexSet<TestClass> actual = reader.read("{a ∊ X | (a ∊ Y)}");
 
 		assertEquals(expected, actual);
 	}

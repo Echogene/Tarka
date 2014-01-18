@@ -42,7 +42,7 @@ public class DisjunctiveChecker extends CheckerWithNumber {
 	}
 
 	@Override
-	public void check(Function<?, ?> function) throws FunctionValidationException {
+	public void check(Function<?, ?, ?> function) throws FunctionValidationException {
 		MapToErrors<Checker> map = new MapToErrors<>(
 				subCheckers,
 				checker -> checker.check(function)

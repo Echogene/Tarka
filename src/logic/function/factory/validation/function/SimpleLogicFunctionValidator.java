@@ -23,12 +23,12 @@ public class SimpleLogicFunctionValidator<T extends Nameable> implements Functio
 	}
 
 	@Override
-	public synchronized MapToErrors<Function<T, ?>> validateFunctions(List<Function<T, ?>> functions) throws FunctionValidationException {
+	public synchronized MapToErrors<Function<T, ?, ?>> validateFunctions(List<Function<T, ?, ?>> functions) throws FunctionValidationException {
 		resetIterator();
 		return new MapToErrors<>(functions, this::checkFunction);
 	}
 
-	private synchronized void checkFunction(Function<?, ?> function) throws FunctionValidationException {
+	private synchronized void checkFunction(Function<?, ?, ?> function) throws FunctionValidationException {
 		while (true) {
 			CheckerWithNumber current = currentChecker.current();
 			if (current == null) {

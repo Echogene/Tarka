@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class ObjectFunction<D extends Nameable, C> implements Function<D, C> {
+public class ObjectFunction<D extends Nameable, C> implements Function<D, C, ObjectFunction<D, C>> {
 
 	private final C object;
 
@@ -23,7 +23,12 @@ public class ObjectFunction<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		// Do nothing
+	}
+
+	@Override
+	public ObjectFunction<D, C> copy() {
+		return new ObjectFunction<>(object);
 	}
 }

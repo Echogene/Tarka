@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface FunctionValidator<T extends Nameable> {
 
-	MapToErrors<Function<T, ?>> validateFunctions(List<Function<T, ?>> functions) throws FunctionValidationException;
+	MapToErrors<Function<T, ?, ?>> validateFunctions(List<Function<T, ?, ?>> functions) throws FunctionValidationException;
 }

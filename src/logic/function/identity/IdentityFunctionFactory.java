@@ -28,7 +28,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  * @author Steven Weston
  */
 public class IdentityFunctionFactory<T extends Nameable>
-		extends FunctionFactory<T, Object, IdentityFunction<T, ?>>
+		extends FunctionFactory<T, Object, AbstractIdentityFunction<T, ?, ?>>
 		implements
 				ConstructorFromString<MemberIdentityFunction<T>>,
 				IdentityConstructorFromType<T>  {
@@ -58,23 +58,23 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public IdentityFunction<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
-		Function<?, ?> function = CollectionUtils.safeGet(functions, 0);
+	public AbstractIdentityFunction<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
+		Function<T, ?, ?> function = CollectionUtils.safeGet(functions, 0);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
-			if (function instanceof ReflexiveFunction<?>) {
-				return new MemberIdentityFunction<>((ReflexiveFunction<T>) function);
-			} else if (function instanceof Evaluable<?>) {
-				return new EvaluableIdentityFunction<>((Evaluable<T>) function);
+			if (function instanceof ReflexiveFunction<?, ?>) {
+				return new MemberIdentityFunction<>((ReflexiveFunction<T, ?>) function);
+			} else if (function instanceof Evaluable<?, ?>) {
+				return new EvaluableIdentityFunction<>((Evaluable<T, ?>) function);
 			} else {
-				return new SetIdentityFunction<>((SetFunction<T>) function);
+				return new SetIdentityFunction<>((SetFunction<T, ?>) function);
 			}
 		} else {
-			return (IdentityFunction<T, ?>) function;
+			return (AbstractIdentityFunction<T, ?, ?>) function;
 		}
 	}
 
 	@Override
-	public IdentityFunction<T, ?> create(String parameter, java.util.Set<Type> types) {
+	public AbstractIdentityFunction<T, ?, ?> create(String parameter, java.util.Set<Type> types) {
 		if (types.size() == 1) {
 			Type type = types.iterator().next();
 			if (type == Boolean.class) {
@@ -85,7 +85,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 				return new MemberIdentityFunction<>(parameter);
 			}
 		} else {
-			return new IdentityFunction<>(parameter);
+			return new MultitypeIdentityFunction<>(parameter);
 		}
 	}
 

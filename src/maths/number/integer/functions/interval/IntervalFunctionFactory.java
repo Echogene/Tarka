@@ -50,7 +50,7 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 	}
 
 	@Override
-	public IntervalFunction<N> construct(List<Token> tokens, List<Function<N, ?>> functions, Map<String, Set<Type>> boundVariables) {
+	public IntervalFunction<N> construct(List<Token> tokens, List<Function<N, ?, ?>> functions, Map<String, Set<Type>> boundVariables) {
 		String openingBracket = first(tokens).getValue();
 		BoundType lowerType;
 		if ("[".equals(openingBracket)) {
@@ -68,8 +68,8 @@ public class IntervalFunctionFactory<N extends Number> extends SetFunctionFactor
 
 		return new IntervalFunction<>(
 				lowerType,
-				(ReflexiveFunction<N>) functions.get(0),
-				(ReflexiveFunction<N>) functions.get(1),
+				(ReflexiveFunction<N, ?>) functions.get(0),
+				(ReflexiveFunction<N, ?>) functions.get(1),
 				upperType,
 				factory
 		);

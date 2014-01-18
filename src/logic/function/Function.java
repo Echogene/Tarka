@@ -9,7 +9,7 @@ import java.util.Map;
  * A {@code Function} represents a function from one class to another.  It is of the form F(a, b, ...).
  * @author Steven Weston
  */
-public interface Function<D extends Nameable, C> {
+public interface Function<D extends Nameable, C, F extends Function<D, C, F>> {
 
 	C evaluate(Model<D, ?, ?> model) throws Exception;
 
@@ -18,10 +18,10 @@ public interface Function<D extends Nameable, C> {
 	 * corresponding value in the map.
 	 * @param reductions
 	 */
-	void reduce(Map<String, Function<D, ?>> reductions);
+	void reduce(Map<String, Function<D, ?, ?>> reductions);
 
 	/**
 	 * Create a deep copy of this function.
 	 */
-	Function<D, C> copy();
+	F copy();
 }

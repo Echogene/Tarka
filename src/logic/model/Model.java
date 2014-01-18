@@ -11,7 +11,7 @@ import reading.reading.Reader;
 /**
  * @author Steven Weston
  */
-public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extends Reader<? extends Function<T, ?>>> {
+public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extends Reader<? extends Function<T, ?, ?>>> {
 
 	public U getUniverse();
 
@@ -23,6 +23,5 @@ public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extend
 
 	void unassignVariable(String assignee);
 
-	void addFactory(FunctionFactory<T, ?, ? extends Function<T, ?>> factory);
-
+	void addFactory(FunctionFactory<T, ?, ?> factory);
 }

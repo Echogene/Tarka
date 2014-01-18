@@ -11,20 +11,20 @@ import java.util.Map;
  * the model's universe.
  * @author Steven Weston
  */
-class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
+abstract class AbstractIdentityFunction<D extends Nameable, C, F extends AbstractIdentityFunction<D, C, F>> implements Function<D, C, F> {
 
 	final String parameter;
-	Function<D, C> function;
+	Function<D, C, ?> function;
 
-	IdentityFunction(String parameter) {
+	AbstractIdentityFunction(String parameter) {
 		this(parameter, null);
 	}
 
-	IdentityFunction(Function<D, C> function) {
+	AbstractIdentityFunction(Function<D, C, ?> function) {
 		this(null, function);
 	}
 
-	IdentityFunction(String parameter, Function<D, C> function) {
+	AbstractIdentityFunction(String parameter, Function<D, C, ?> function) {
 		this.parameter = parameter;
 		this.function  = function;
 	}
@@ -39,15 +39,10 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		if (parameter != null && reductions.containsKey(parameter)) {
-			function = (Function<D, C>) reductions.get(parameter);
+			function = (Function<D, C, ?>) reductions.get(parameter);
 		}
-	}
-
-	@Override
-	public IdentityFunction<D, C> copy() {
-		return new IdentityFunction<>(parameter, function.copy());
 	}
 
 	public String getParameter() {
@@ -61,10 +56,10 @@ class IdentityFunction<D extends Nameable, C> implements Function<D, C> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof IdentityFunction<?, ?>)) {
+		if (!(o instanceof AbstractIdentityFunction<?, ?, ?>)) {
 			return false;
 		}
-		IdentityFunction<?, ?> other = (IdentityFunction<?, ?>) o;
+		AbstractIdentityFunction<?, ?, ?> other = (AbstractIdentityFunction<?, ?, ?>) o;
 		boolean areParametersBothNull = getParameter() == null && other.getParameter() == null;
 		boolean areParametersEqual = areParametersBothNull
 				|| (getParameter() != null && getParameter().equals(other.getParameter()));

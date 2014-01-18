@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 public class SimpleLogicEvaluatorTest {
 	private static SimpleLogicLexer lexer;
 	private static SimpleLogicParser parser;
-	private static SimpleLogicEvaluator evaluator;
+	private static SimpleLogicEvaluator<TestClass> evaluator;
 
 	private static ParseTree tree;
 	private static List<Token> tokens;
@@ -72,10 +72,10 @@ public class SimpleLogicEvaluatorTest {
 
 	@Test
 	public void testEvaluate() throws Exception {
-		Function<?, ?> expected;
-		Function<?, ?> actual;
-		Evaluable<TestClass> evaluable1;
-		Evaluable<TestClass> evaluable2;
+		Function<?, ?, ?> expected;
+		Function<?, ?, ?> actual;
+		Evaluable<TestClass, ?> evaluable1;
+		Evaluable<TestClass, ?> evaluable2;
 
 		expected = EqualityPredicateFactory.createElement("x", "y");
 		tokens = lexer.tokeniseString("(x=y)");

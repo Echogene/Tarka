@@ -7,9 +7,16 @@ import logic.function.evaluable.Evaluable;
 /**
  * @author Steven Weston
  */
-public class EvaluableAssignment<T extends Nameable> extends Assignment<T, Boolean> implements Evaluable<T> {
+public class EvaluableAssignment<T extends Nameable>
+		extends AbstractAssignment<T, Boolean, EvaluableAssignment<T>>
+		implements Evaluable<T, EvaluableAssignment<T>> {
 
-	public EvaluableAssignment(Evaluable<T> evaluee, String assignee, Function<T, ?> assingment) {
-		super(evaluee, assignee, assingment);
+	public EvaluableAssignment(Evaluable<T, ?> evaluee, String assignee, Function<T, ?, ?> assignment) {
+		super(evaluee, assignee, assignment);
+	}
+
+	@Override
+	public EvaluableAssignment<T> copy() {
+		return new EvaluableAssignment<>((Evaluable<T, ?>) evaluee.copy(), assignee, assignment.copy());
 	}
 }

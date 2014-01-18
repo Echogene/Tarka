@@ -14,7 +14,7 @@ import java.util.Map;
  * evaluations of "f" and "g" are the same thing.
  * @author Steven Weston
  */
-public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
+public class EqualityPredicate<T extends Nameable> extends Predicate<T, EqualityPredicate<T>> {
 
 	/**
 	 * The symbol used to represent equality.  Surprisingly, it is an equals symbol.
@@ -24,18 +24,18 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	/**
 	 * The function that precedes the equals symbol in the expression.
 	 */
-	private final Function<T, ?> equorFunction;
+	private final Function<T, ?, ?> equorFunction;
 
 	/**
 	 * The function that follows the equals symbol in the expression.
 	 */
-	private final Function<T, ?> equandFunction;
+	private final Function<T, ?, ?> equandFunction;
 
-	public Function<T, ?> getEquandFunction() {
+	public Function<T, ?, ?> getEquandFunction() {
 		return equandFunction;
 	}
 
-	public Function<T, ?> getEquorFunction() {
+	public Function<T, ?, ?> getEquorFunction() {
 		return equorFunction;
 	}
 
@@ -44,7 +44,7 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	 * @param equorFunction The function that precedes the equals symbol.
 	 * @param equandFunction The function that follows the equals symbol.
 	 */
-	public EqualityPredicate(Function<T, ?> equorFunction, Function<T, ?> equandFunction) {
+	public EqualityPredicate(Function<T, ?, ?> equorFunction, Function<T, ?, ?> equandFunction) {
 		this.equorFunction  = equorFunction;
 		this.equandFunction = equandFunction;
 	}
@@ -57,7 +57,7 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
 		equorFunction.reduce(reductions);
 		equandFunction.reduce(reductions);
 	}
@@ -75,5 +75,10 @@ public class EqualityPredicate<T extends Nameable> extends Predicate<T> {
 		EqualityPredicate<?> other = (EqualityPredicate<?>) o;
 		return getEquorFunction().equals(other.getEquorFunction())
 				&& getEquandFunction().equals(other.getEquandFunction());
+	}
+
+	@Override
+	public EqualityPredicate<T> copy() {
+		return new EqualityPredicate<>(equorFunction.copy(), equandFunction.copy());
 	}
 }

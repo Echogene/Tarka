@@ -11,7 +11,7 @@ import java.text.MessageFormat;
 public abstract class FunctionlessChecker extends AtomicChecker {
 
 	@Override
-	public void check(Function<?, ?> function) throws FunctionValidationException {
+	public void check(Function<?, ?, ?> function) throws FunctionValidationException {
 		throw new FunctionValidationException(MessageFormat.format("The function {0} wasn''t expected", function.toString()));
 	}
 }

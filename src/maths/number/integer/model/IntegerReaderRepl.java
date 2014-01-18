@@ -38,17 +38,17 @@ public class IntegerReaderRepl {
 	private static void evaluateInput(String in) {
 		try {
 			long beforeReading = System.currentTimeMillis();
-			Function<?, ?> function = model.getReader().read(in);
+			Function<?, ?, ?> function = model.getReader().read(in);
 			long afterReading = System.currentTimeMillis();
 //			System.out.println(MessageFormat.format("Reading took: {0}ms", afterReading - beforeReading));
 			if (function instanceof ReflexiveFunction) {
-				ReflexiveFunction<Integer> reflexiveFunction = (ReflexiveFunction<Integer>) function;
+				ReflexiveFunction<Integer, ?> reflexiveFunction = (ReflexiveFunction<Integer, ?>) function;
 				System.out.println(reflexiveFunction.evaluate(model));
 			} else if (function instanceof Evaluable) {
-				Evaluable<Integer> evaluable = (Evaluable<Integer>) function;
+				Evaluable<Integer, ?> evaluable = (Evaluable<Integer, ?>) function;
 				System.out.println(evaluable.evaluate(model));
 			} else if (function instanceof SetFunction) {
-				SetFunction<Integer> setFunction = (SetFunction<Integer>) function;
+				SetFunction<Integer, ?> setFunction = (SetFunction<Integer, ?>) function;
 				Set<Integer> set = setFunction.evaluate(model);
 				if (set instanceof FiniteSet) {
 					FiniteSet<Integer> finiteSet = (FiniteSet<Integer>) set;
@@ -68,7 +68,7 @@ public class IntegerReaderRepl {
 					System.out.println(set);
 				}
 			} else if (function instanceof VoidFunction) {
-				VoidFunction<Integer> voidFunction = (VoidFunction<Integer>) function;
+				VoidFunction<Integer, ?> voidFunction = (VoidFunction<Integer, ?>) function;
 				voidFunction.evaluate(model);
 			}
 		} catch (Exception e) {

@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 public class AdditionTest {
 	@Test
 	public void test() throws Exception {
-	ReflexiveFunction<Integer> two = new MemberIdentityFunction<>("2");
-		List<ReflexiveFunction<Integer>> parameters = new ArrayList<>();
+	ReflexiveFunction<Integer, ?> two = new MemberIdentityFunction<>("2");
+		List<ReflexiveFunction<Integer, ?>> parameters = new ArrayList<>();
 		parameters.add(two);
 		parameters.add(two);
 
@@ -60,7 +60,7 @@ public class AdditionTest {
 
 		parameters.clear();
 		parameters.add(new MemberIdentityFunction<>("1"));
-		List<ReflexiveFunction<Integer>> subParameters = new ArrayList<>();
+		List<ReflexiveFunction<Integer, ?>> subParameters = new ArrayList<>();
 		subParameters.add(new MemberIdentityFunction<>("2"));
 		subParameters.add(new MemberIdentityFunction<>("3"));
 		parameters.add(new Addition<>(subParameters, summor));

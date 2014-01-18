@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Steven Weston
  */
-public class IdentityFunctionTest {
+public class AbstractIdentityFunctionTest {
 	@Test
 	public void testEvaluate() throws Exception {
 		StandardSet<Object> variables = new StandardSet<>("variables");

@@ -27,8 +27,8 @@ public class QuantifierTest {
 		TestClassUniverse universe = model.getUniverse();
 		universe.setUniversalSet(X);
 
-		Predicate<TestClass> predicate = EqualityPredicateFactory.createElement("x", "y");
-		Evaluable<TestClass> contradiction = new EvaluableIdentityFunction<>(false);
+		Predicate<TestClass, ?> predicate = EqualityPredicateFactory.createElement("x", "y");
+		Evaluable<TestClass, ?> contradiction = new EvaluableIdentityFunction<>(false);
 
 		Quantifier quantifier;
 		// 100

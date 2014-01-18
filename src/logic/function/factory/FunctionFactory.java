@@ -35,7 +35,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME
 /**
  * @author Steven Weston
  */
-public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, ?>>
+public abstract class FunctionFactory<D extends Nameable, C, F extends Function<D, ?, ?>>
 		implements
 				TokenValidator,
 				TypeMatcher,
@@ -97,7 +97,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 	}
 
 	@Override
-	public MapToErrors<Function<D, ?>> validateFunctions(List<Function<D, ?>> functions) throws FunctionValidationException {
+	public MapToErrors<Function<D, ?, ?>> validateFunctions(List<Function<D, ?, ?>> functions) throws FunctionValidationException {
 		return functionValidator.validateFunctions(functions);
 	}
 
@@ -106,7 +106,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		return createElement(tokens, null, null);
 	}
 
-	public final F createElement(List<Token> tokens, List<Function<D, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public final F createElement(List<Token> tokens, List<Function<D, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		return construct(tokens, functions, boundVariables);
 	}
 

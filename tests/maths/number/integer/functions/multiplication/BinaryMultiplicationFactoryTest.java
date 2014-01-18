@@ -27,13 +27,13 @@ public class BinaryMultiplicationFactoryTest extends FactoryTest<Integer, Intege
 	@Test
 	public void testCreate() throws Exception {
 		Multiplication<Integer> expected = new Multiplication<>(
-				Arrays.<ReflexiveFunction<Integer>>asList(
+				Arrays.<ReflexiveFunction<Integer, ?>>asList(
 						new MemberIdentityFunction<Integer>("2"),
 						new MemberIdentityFunction<Integer>("3")
 				),
 				multiplior
 		);
-		Function<?, ?> actual = reader.read("(2 × 3)");
+		Function<?, ?, ?> actual = reader.read("(2 × 3)");
 
 		assertEquals(expected, actual);
 	}

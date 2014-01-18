@@ -13,17 +13,17 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class Addition<N extends Number> implements ReflexiveFunction<N> {
+public class Addition<N extends Number> implements ReflexiveFunction<N, Addition<N>> {
 
 	public static final String PLUS_SYMBOL = "+";
 	public static final String SUM_SYMBOL = "Σ";
 	public static final String ADDITION_SYMBOLS = PLUS_SYMBOL + SUM_SYMBOL;
 
-	private final List<ReflexiveFunction<N>> summands;
+	private final List<ReflexiveFunction<N, ?>> summands;
 
 	private final Summor<N> summor;
 
-	public Addition(List<ReflexiveFunction<N>> summands, Summor<N> summor) {
+	public Addition(List<ReflexiveFunction<N, ?>> summands, Summor<N> summor) {
 		this.summands = summands;
 		this.summor = summor;
 	}
@@ -31,15 +31,15 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 	@Override
 	public N evaluate(Model<N, ?, ?> model) throws Exception {
 		List<N> numbers = new ArrayList<>();
-		for(ReflexiveFunction<N> summand : summands) {
+		for(ReflexiveFunction<N, ?> summand : summands) {
 			numbers.add(summand.evaluate(model));
 		}
 		return summor.sum(numbers);
 	}
 
 	@Override
-	public void reduce(Map<String, Function<N, ?>> reductions) {
-		for (ReflexiveFunction<N> summand : summands) {
+	public void reduce(Map<String, Function<N, ?, ?>> reductions) {
+		for (ReflexiveFunction<N, ?> summand : summands) {
 			summand.reduce(reductions);
 		}
 	}
@@ -50,7 +50,7 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 			return "(" + summands.get(0).toString() + " " + PLUS_SYMBOL + " " + summands.get(1).toString() + ")";
 		} else {
 			String output = "(" + SUM_SYMBOL;
-			for (ReflexiveFunction<N> summand : summands) {
+			for (ReflexiveFunction<N, ?> summand : summands) {
 				output += " " + summand.toString();
 			}
 			return output + ")";
@@ -68,8 +68,8 @@ public class Addition<N extends Number> implements ReflexiveFunction<N> {
 
 	@Override
 	public Addition<N> copy() {
-		List<ReflexiveFunction<N>> newSummands = new ArrayList<>();
-		for (ReflexiveFunction<N> summand : summands) {
+		List<ReflexiveFunction<N, ?>> newSummands = new ArrayList<>();
+		for (ReflexiveFunction<N, ?> summand : summands) {
 			newSummands.add(summand.copy());
 		}
 		return new Addition<>(newSummands, summor);

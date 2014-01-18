@@ -16,12 +16,12 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
+public class SetTotal<N extends Number> implements ReflexiveFunction<N, SetTotal<N>> {
 
-	private final SetFunction<N> set;
+	private final SetFunction<N, ?> set;
 	private final Summor<N> summor;
 
-	public SetTotal(SetFunction<N> set, Summor<N> summor) {
+	public SetTotal(SetFunction<N, ?> set, Summor<N> summor) {
 		this.set = set;
 		this.summor = summor;
 	}
@@ -37,7 +37,7 @@ public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<N, ?>> reductions) {
+	public void reduce(Map<String, Function<N, ?, ?>> reductions) {
 		set.reduce(reductions);
 	}
 
@@ -61,5 +61,10 @@ public class SetTotal<N extends Number> implements ReflexiveFunction<N> {
 	@Override
 	public int hashCode() {
 		return set.hashCode();
+	}
+
+	@Override
+	public SetTotal<N> copy() {
+		return new SetTotal<>(set.copy(), summor);
 	}
 }

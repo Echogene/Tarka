@@ -22,15 +22,16 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class FunctionDefinition<D extends Nameable, C> implements VoidFunction<D> {
+public abstract class FunctionDefinition<D extends Nameable, C, F extends FunctionDefinition<D, C, F>>
+		implements VoidFunction<D, F> {
 
 	public static final String DEFINITION_SYMBOL = "≝";
 
-	private final String functionName;
-	private final Map<String, Set<Type>> parameters;
-	private final Function<D, C> definition;
+	final String functionName;
+	final Map<String, Set<Type>> parameters;
+	final Function<D, C, ?> definition;
 
-	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, Function<D, C> definition) {
+	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, Function<D, C, ?> definition) {
 		this.functionName = functionName;
 		this.parameters = parameters;
 		this.definition = definition;
@@ -80,7 +81,7 @@ public abstract class FunctionDefinition<D extends Nameable, C> implements VoidF
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		definition.reduce(reductions);
 	}
 }

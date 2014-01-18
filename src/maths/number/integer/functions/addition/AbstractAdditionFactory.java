@@ -31,10 +31,10 @@ public abstract class AbstractAdditionFactory<N extends Number> extends Reflexiv
 	}
 
 	@Override
-	public Addition<N> construct(List<Token> tokens, List<Function<N, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
-		List<ReflexiveFunction<N>> parameters = new ArrayList<>(functions.size());
-		for (Function<?, ?> function : functions) {
-			parameters.add((ReflexiveFunction<N>) function);
+	public Addition<N> construct(List<Token> tokens, List<Function<N, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+		List<ReflexiveFunction<N, ?>> parameters = new ArrayList<>(functions.size());
+		for (Function<?, ?, ?> function : functions) {
+			parameters.add((ReflexiveFunction<N, ?>) function);
 		}
 		return new Addition<>(parameters, summor);
 	}

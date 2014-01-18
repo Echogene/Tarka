@@ -6,17 +6,19 @@ import logic.function.evaluable.Evaluable;
 /**
  * @author Steven Weston
  */
-public class EvaluableIdentityFunction<T extends Nameable> extends IdentityFunction<T, Boolean> implements Evaluable<T> {
+public class EvaluableIdentityFunction<T extends Nameable>
+		extends AbstractIdentityFunction<T, Boolean, EvaluableIdentityFunction<T>>
+		implements Evaluable<T, EvaluableIdentityFunction<T>> {
 
 	public EvaluableIdentityFunction(String parameter) {
 		super(parameter);
 	}
 
-	public EvaluableIdentityFunction(Evaluable<T> function) {
+	public EvaluableIdentityFunction(Evaluable<T, ?> function) {
 		super(function);
 	}
 
-	EvaluableIdentityFunction(String parameter, Evaluable<T> function) {
+	EvaluableIdentityFunction(String parameter, Evaluable<T, ?> function) {
 		super(parameter, function);
 	}
 
@@ -26,6 +28,6 @@ public class EvaluableIdentityFunction<T extends Nameable> extends IdentityFunct
 
 	@Override
 	public EvaluableIdentityFunction<T> copy() {
-		return new EvaluableIdentityFunction<>(parameter, (Evaluable<T>) function.copy());
+		return new EvaluableIdentityFunction<>(parameter, (Evaluable<T, ?>) function.copy());
 	}
 }

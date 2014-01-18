@@ -18,7 +18,8 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F extends Function<D, C>> extends FunctionFactory<D, C, F> {
+public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F extends Function<D, C, ?>>
+		extends FunctionFactory<D, C, F> {
 
 	private final Map<String, Set<Type>> parameters;
 	protected final String functionSymbol;
@@ -43,9 +44,9 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 	}
 
 	@Override
-	public F construct(List<Token> tokens, List<Function<D, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public F construct(List<Token> tokens, List<Function<D, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		int i = 0;
-		Map<String, Function<D, ?>> parameterMap = new HashMap<>();
+		Map<String, Function<D, ?, ?>> parameterMap = new HashMap<>();
 		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
 			parameterMap.put(parameter.getKey(), functions.get(i));
 			i++;
@@ -53,7 +54,7 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 		return construct(parameterMap);
 	}
 
-	protected abstract F construct(Map<String, Function<D, ?>> parameters);
+	protected abstract F construct(Map<String, Function<D, ?, ?>> parameters);
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {

@@ -8,5 +8,5 @@ import logic.function.factory.validation.function.FunctionValidationException;
  */
 public interface FunctionChecker {
 
-	void check(Function<?, ?> function) throws FunctionValidationException;
+	void check(Function<?, ?, ?> function) throws FunctionValidationException;
 }

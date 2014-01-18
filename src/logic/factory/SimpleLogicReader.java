@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T, ?>> {
+public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T, ?, ?>> {
 
 	private final SimpleLogicLexer lexer;
 	private final SimpleLogicParser parser;
@@ -26,7 +26,7 @@ public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T,
 	}
 
 	@Override
-	public <F extends Function<T, ?>> F read(String string) throws ReadingException, TypeInferrorException {
+	public <F extends Function<T, ?, ?>> F read(String string) throws ReadingException, TypeInferrorException {
 		return (F) evaluator.evaluate(parser.parseTokens(lexer.tokeniseString(string)));
 	}
 

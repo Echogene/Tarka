@@ -10,17 +10,17 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
+public class UnaryStatement<T extends Nameable> implements Evaluable<T, UnaryStatement<T>> {
 
 	private final UnaryConnective connective;
-	private final Evaluable<T> evaluable;
+	private final Evaluable<T, ?> evaluable;
 
-	public UnaryStatement(UnaryConnective connective, Evaluable<T> evaluable) {
+	public UnaryStatement(UnaryConnective connective, Evaluable<T, ?> evaluable) {
 		this.connective = connective;
 		this.evaluable  = evaluable;
 	}
 
-	public UnaryStatement(Evaluable<T> evaluable) {
+	public UnaryStatement(Evaluable<T, ?> evaluable) {
 		this.connective = new UnaryConnective(UnaryConnective.UnaryConnectiveType.EMPTY);
 		this.evaluable  = evaluable;
 	}
@@ -31,8 +31,13 @@ public class UnaryStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
 		evaluable.reduce(reductions);
+	}
+
+	@Override
+	public UnaryStatement<T> copy() {
+		return new UnaryStatement<>(connective, evaluable.copy());
 	}
 
 	@Override

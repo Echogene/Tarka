@@ -48,9 +48,9 @@ public class EqualityPredicateFactory<T extends Nameable> extends PredicateFacto
 	}
 
 	@Override
-	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
-		Function<T, ?> equor  = functions.get(0);
-		Function<T, ?> equand = functions.get(1);
+	public EqualityPredicate<T> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+		Function<T, ?, ?> equor  = functions.get(0);
+		Function<T, ?, ?> equand = functions.get(1);
 		return new EqualityPredicate<>(equor, equand);
 	}
 

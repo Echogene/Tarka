@@ -17,11 +17,11 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public class DefinedReflexiveFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, T, ReflexiveFunction<T>> {
+public class DefinedReflexiveFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, T, ReflexiveFunction<T, ?>> {
 
 	protected DefinedReflexiveFunctionFactory(
 			String functionSymbol,
-			ReflexiveFunction<T> definition,
+			ReflexiveFunction<T, ?> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
@@ -35,7 +35,7 @@ public class DefinedReflexiveFunctionFactory<T extends Nameable> extends Abstrac
 	}
 
 	@Override
-	protected ReflexiveFunction<T> construct(Map<String, Function<T, ?>> parameters) {
+	protected ReflexiveFunction<T, ?> construct(Map<String, Function<T, ?, ?>> parameters) {
 		return new DefinedReflexiveFunction<>(functionSymbol, definition, parameters);
 	}
 }

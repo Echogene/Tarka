@@ -58,7 +58,7 @@ public class UnaryStatementTest {
 		assertFalse(statement.evaluate(model));
 	}
 
-	private void testAllTheThings(Evaluable<TestClass> tautology, Evaluable<TestClass> contradiction, TestClassModel model) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass, ?> tautology, Evaluable<TestClass, ?> contradiction, TestClassModel model) throws Exception {
 		UnaryConnective c;
 		c = new UnaryConnective(EMPTY);
 		assertUnaryStatement(tautology, c, model, true);
@@ -70,7 +70,7 @@ public class UnaryStatementTest {
 	}
 
 	private void assertUnaryStatement(
-		Evaluable<TestClass> evaluable,
+		Evaluable<TestClass, ?> evaluable,
 		UnaryConnective connective,
 		TestClassModel model,
 		boolean assertTrue

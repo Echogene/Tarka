@@ -63,11 +63,11 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	}
 
 	@Override
-	public RestrictedQuantifiedStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public RestrictedQuantifiedStatement<T> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();
-		SetFunction<T> setFunction = (SetFunction<T>) functions.get(0);
-		Evaluable<T> evaluable = (Evaluable<T>) functions.get(1);
+		SetFunction<T, ?> setFunction = (SetFunction<T, ?>) functions.get(0);
+		Evaluable<T, ?> evaluable = (Evaluable<T, ?>) functions.get(1);
 		return new RestrictedQuantifiedStatement<>(quantifier, variable, setFunction, evaluable);
 	}
 

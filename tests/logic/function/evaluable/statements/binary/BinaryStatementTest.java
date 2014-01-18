@@ -41,7 +41,7 @@ public class BinaryStatementTest {
 		testAllTheThings(membershipPredicate, CONTRADICTION, model);
 	}
 
-	private void testAllTheThings(Evaluable<TestClass> t, Evaluable<TestClass> f, TestClassModel o) throws Exception {
+	private void testAllTheThings(Evaluable<TestClass, ?> t, Evaluable<TestClass, ?> f, TestClassModel o) throws Exception {
 		assertBinaryStatementStates(f, new BinaryConnective(OR),          t, o, false, true,  true,  true);
 		assertBinaryStatementStates(f, new BinaryConnective(NOR),         t, o, true,  false, false, false);
 		assertBinaryStatementStates(f, new BinaryConnective(AND),         t, o, false, false, false, true);
@@ -55,9 +55,9 @@ public class BinaryStatementTest {
 	}
 
 	private void assertBinaryStatementStates(
-			Evaluable<TestClass> contradiction,
+			Evaluable<TestClass, ?> contradiction,
 			BinaryConnective connective,
-			Evaluable<TestClass> tautology,
+			Evaluable<TestClass, ?> tautology,
 			TestClassModel model,
 			boolean state1,
 			boolean state2,
@@ -71,9 +71,9 @@ public class BinaryStatementTest {
 	}
 
 	private void assertBinaryStatement(
-			Evaluable<TestClass> firstEvaluable,
+			Evaluable<TestClass, ?> firstEvaluable,
 			BinaryConnective connective,
-			Evaluable<TestClass> secondEvaluable,
+			Evaluable<TestClass, ?> secondEvaluable,
 			TestClassModel model,
 			boolean assertTrue)
 			throws Exception {

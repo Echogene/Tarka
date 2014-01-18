@@ -17,35 +17,35 @@ import static java.text.MessageFormat.format;
  *
  * @author Steven Weston
  */
-public class Union<T extends Nameable> implements SetFunction<T> {
+public class Union<T extends Nameable> implements SetFunction<T, Union<T>> {
 
 	public final static String MULTARY_SYMBOL = "⋃";
 	public final static String BINARY_SYMBOL = "∪";
 	public final static String UNION_SYMBOLS = MULTARY_SYMBOL + BINARY_SYMBOL;
 
-	private final java.util.Set<SetFunction<T>> parameters;
+	private final java.util.Set<SetFunction<T, ?>> parameters;
 
-	public Union(java.util.Set<SetFunction<T>> parameters) {
+	public Union(java.util.Set<SetFunction<T, ?>> parameters) {
 		this.parameters = parameters;
 	}
 
 	@Override
 	public Set<T> evaluate(Model<T, ?, ?> model) throws Exception {
 		java.util.Set<Set<T>> setsToUnion = new HashSet<>();
-		for(SetFunction<T> function : parameters) {
+		for(SetFunction<T, ?> function : parameters) {
 			setsToUnion.add(function.evaluate(model));
 		}
 		return Uniter.unite(setsToUnion);
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
-		for (SetFunction<T> parameter : parameters) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
+		for (SetFunction<T, ?> parameter : parameters) {
 			parameter.reduce(reductions);
 		}
 	}
 
-	public java.util.Set<SetFunction<T>> getParameters() {
+	public java.util.Set<SetFunction<T, ?>> getParameters() {
 		return parameters;
 	}
 
@@ -66,11 +66,11 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 	@Override
 	public String toString() {
 		if (parameters.size() == 2) {
-			Iterator<SetFunction<T>> iterator = parameters.iterator();
+			Iterator<SetFunction<T, ?>> iterator = parameters.iterator();
 			return format("({0} {1} {2})", iterator.next().toString(), BINARY_SYMBOL, iterator.next().toString());
 		} else {
 			String output = "(" + MULTARY_SYMBOL;
-			for (SetFunction<T> function : parameters) {
+			for (SetFunction<T, ?> function : parameters) {
 				output += " " + function.toString();
 			}
 			return output + ")";
@@ -79,8 +79,8 @@ public class Union<T extends Nameable> implements SetFunction<T> {
 
 	@Override
 	public Union<T> copy() {
-		java.util.Set<SetFunction<T>> newParameters = new HashSet<>();
-		for (SetFunction<T> parameter : parameters) {
+		java.util.Set<SetFunction<T, ?>> newParameters = new HashSet<>();
+		for (SetFunction<T, ?> parameter : parameters) {
 			newParameters.add(parameter.copy());
 		}
 		return new Union<>(newParameters);

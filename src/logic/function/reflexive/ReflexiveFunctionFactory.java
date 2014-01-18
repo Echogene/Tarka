@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends ReflexiveFunction<T>>
+public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends ReflexiveFunction<T, F>>
 		extends FunctionFactory<T, T, F> {
 
 	protected ReflexiveFunctionFactory(List<CheckerWithNumber> checkers, List<Pair<String, String>> acceptedBracketPairs, Class<T> universeType) {

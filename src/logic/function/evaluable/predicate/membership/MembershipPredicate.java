@@ -13,19 +13,19 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
+public class MembershipPredicate<T extends Nameable> extends Predicate<T, MembershipPredicate<T>> {
 
 	public static final String MEMBERSHIP_SYMBOL = "∊";
 
-	private final ReflexiveFunction<T> memberFunction;
-	private final SetFunction<T> setFunction;
+	private final ReflexiveFunction<T, ?> memberFunction;
+	private final SetFunction<T, ?> setFunction;
 
-	public MembershipPredicate(ReflexiveFunction<T> memberFunction, SetFunction<T> setFunction) {
+	public MembershipPredicate(ReflexiveFunction<T, ?> memberFunction, SetFunction<T, ?> setFunction) {
 		this.memberFunction = memberFunction;
 		this.setFunction    = setFunction;
 	}
 
-	public ReflexiveFunction<T> getMemberFunction() {
+	public ReflexiveFunction<T, ?> getMemberFunction() {
 		return memberFunction;
 	}
 
@@ -41,7 +41,7 @@ public class MembershipPredicate<T extends Nameable> extends Predicate<T> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
 		memberFunction.reduce(reductions);
 		setFunction.reduce(reductions);
 	}

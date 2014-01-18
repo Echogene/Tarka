@@ -36,9 +36,9 @@ public class UnaryStatementFactory<T extends Nameable> extends EvaluableFactory<
 	}
 
 	@Override
-	public UnaryStatement<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public UnaryStatement<T> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		UnaryConnective connective = unaryConnectiveFactory.createElement(tokens.get(1).getValue());
-		Evaluable<T> function = (Evaluable<T>) functions.get(0);
+		Evaluable<T, ?> function = (Evaluable<T, ?>) functions.get(0);
 		return new UnaryStatement<>(connective, function);
 	}
 

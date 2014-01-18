@@ -17,11 +17,11 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Void, VoidFunction<T>> {
+public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Void, VoidFunction<T, ?>> {
 
 	protected DefinedVoidFunctionFactory(
 			String functionSymbol,
-			VoidFunction<T> definition,
+			VoidFunction<T, ?> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
@@ -30,7 +30,7 @@ public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefi
 	}
 
 	@Override
-	protected VoidFunction<T> construct(Map<String, Function<T, ?>> parameters) {
+	protected DefinedVoidFunction<T> construct(Map<String, Function<T, ?, ?>> parameters) {
 		return new DefinedVoidFunction<>(functionSymbol, definition, parameters);
 	}
 

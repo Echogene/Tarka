@@ -6,22 +6,24 @@ import logic.function.reflexive.ReflexiveFunction;
 /**
  * @author Steven Weston
  */
-public class MemberIdentityFunction<T extends Nameable> extends IdentityFunction<T, T> implements ReflexiveFunction<T> {
+public class MemberIdentityFunction<T extends Nameable>
+		extends AbstractIdentityFunction<T, T, MemberIdentityFunction<T>>
+		implements ReflexiveFunction<T, MemberIdentityFunction<T>> {
 
 	public MemberIdentityFunction(String parameter) {
 		super(parameter);
 	}
 
-	public MemberIdentityFunction(ReflexiveFunction<T> function) {
+	public MemberIdentityFunction(ReflexiveFunction<T, ?> function) {
 		super(function);
 	}
 
-	MemberIdentityFunction(String parameter, ReflexiveFunction<T> function) {
+	MemberIdentityFunction(String parameter, ReflexiveFunction<T, ?> function) {
 		super(parameter, function);
 	}
 
 	@Override
 	public MemberIdentityFunction<T> copy() {
-		return new MemberIdentityFunction<>(parameter, (ReflexiveFunction<T>) function.copy());
+		return new MemberIdentityFunction<>(parameter, (ReflexiveFunction<T, ?>) function.copy());
 	}
 }

@@ -1,26 +1,30 @@
 package logic.function.evaluable.statements.quantified.restricted;
 
 import logic.Nameable;
+import logic.function.Function;
 import logic.function.evaluable.Evaluable;
 import logic.function.evaluable.predicate.membership.MembershipPredicate;
-import logic.function.evaluable.statements.quantified.standard.QuantifiedStatement;
+import logic.function.evaluable.statements.quantified.AbstractQuantifiedStatement;
 import logic.function.evaluable.statements.quantified.standard.Quantifier;
 import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
 
+import java.util.Map;
+
 /**
  * @author Steven Weston
  */
-public class RestrictedQuantifiedStatement<T extends Nameable> extends QuantifiedStatement<T> {
+public class RestrictedQuantifiedStatement<T extends Nameable>
+		extends AbstractQuantifiedStatement<T, RestrictedQuantifiedStatement<T>> {
 
-	private final SetFunction<T> setFunction;
+	private final SetFunction<T, ?> setFunction;
 
 	public RestrictedQuantifiedStatement(
 			Quantifier quantifier,
 			String variableSymbol,
-			SetFunction<T> setFunction,
-			Evaluable<T> evaluable
+			SetFunction<T, ?> setFunction,
+			Evaluable<T, ?> evaluable
 	) {
 		super(quantifier, variableSymbol, evaluable);
 		this.setFunction = setFunction;
@@ -35,6 +39,17 @@ public class RestrictedQuantifiedStatement<T extends Nameable> extends Quantifie
 				model,
 				restrictedSet
 		);
+	}
+
+	@Override
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
+		setFunction.reduce(reductions);
+		evaluable.reduce(reductions);
+	}
+
+	@Override
+	public RestrictedQuantifiedStatement<T> copy() {
+		return new RestrictedQuantifiedStatement<>(quantifier, variableSymbol, setFunction.copy(), evaluable.copy());
 	}
 
 	@Override

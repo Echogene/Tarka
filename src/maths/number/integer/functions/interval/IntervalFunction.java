@@ -15,18 +15,18 @@ import static maths.number.integer.sets.interval.IntervalBound.BoundType;
 /**
  * @author Steven Weston
  */
-public class IntervalFunction<N extends Number> implements SetFunction<N> {
+public class IntervalFunction<N extends Number> implements SetFunction<N, IntervalFunction<N>> {
 
 	private final BoundType lowerType;
-	private final ReflexiveFunction<N> lowerBound;
-	private final ReflexiveFunction<N> upperBound;
+	private final ReflexiveFunction<N, ?> lowerBound;
+	private final ReflexiveFunction<N, ?> upperBound;
 	private final BoundType upperType;
 	private final IntervalFactory<N> factory;
 
 	public IntervalFunction(
 			BoundType lowerType,
-			ReflexiveFunction<N> lowerBound,
-			ReflexiveFunction<N> upperBound,
+			ReflexiveFunction<N, ?> lowerBound,
+			ReflexiveFunction<N, ?> upperBound,
 			BoundType upperType,
 			IntervalFactory<N> factory
 	) {
@@ -43,7 +43,7 @@ public class IntervalFunction<N extends Number> implements SetFunction<N> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<N, ?>> reductions) {
+	public void reduce(Map<String, Function<N, ?, ?>> reductions) {
 		lowerBound.reduce(reductions);
 		upperBound.reduce(reductions);
 	}
@@ -66,5 +66,10 @@ public class IntervalFunction<N extends Number> implements SetFunction<N> {
 		if (upperType != that.upperType) return false;
 
 		return true;
+	}
+
+	@Override
+	public IntervalFunction<N> copy() {
+		return new IntervalFunction<>(lowerType, lowerBound.copy(), upperBound.copy(), upperType, factory);
 	}
 }

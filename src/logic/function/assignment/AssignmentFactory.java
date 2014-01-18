@@ -30,7 +30,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 /**
  * @author Steven Weston
  */
-public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object, Assignment<T, ?>> implements VariableAssignerFactory {
+public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object, AbstractAssignment<T, ?, ?>> implements VariableAssignerFactory {
 
 	public AssignmentFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
@@ -39,34 +39,34 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	private static List<CheckerWithNumber> getCheckers() {
 		return Arrays.asList(
 				new FunctionOrVariableChecker(),
-				new StringChecker(Assignment.WHERE),
+				new StringChecker(AbstractAssignment.WHERE),
 				new VariableChecker(),
-				new StringChecker(Assignment.IS),
+				new StringChecker(AbstractAssignment.IS),
 				new NonVoidFunctionOrVariableChecker()
 		);
 	}
 
 	@Override
-	public Assignment<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public AbstractAssignment<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		if (functions.size() != 2) {
 			throw new FactoryException("There were not the correct number of functions.");
 		}
-		Function<?, ?> evaluee = functions.get(0);
+		Function<T, ?, ?> evaluee = functions.get(0);
 		String assignee;
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			assignee = tokens.get(4).getValue();
 		} else {
 			assignee = tokens.get(3).getValue();
 		}
-		Function<T, ?> assignment = functions.get(1);
+		Function<T, ?, ?> assignment = functions.get(1);
 		if (evaluee instanceof ReflexiveFunction) {
-			return new ReflexiveAssignment<>((ReflexiveFunction<T>) evaluee, assignee, assignment);
+			return new ReflexiveAssignment<>((ReflexiveFunction<T, ?>) evaluee, assignee, assignment);
 		} else if (evaluee instanceof Evaluable) {
-			return new EvaluableAssignment<>((Evaluable<T>) evaluee, assignee, assignment);
+			return new EvaluableAssignment<>((Evaluable<T, ?>) evaluee, assignee, assignment);
 		} else if (evaluee instanceof SetFunction) {
-			return new SetAssignment<>((SetFunction<T>) evaluee, assignee, assignment);
+			return new SetAssignment<>((SetFunction<T, ?>) evaluee, assignee, assignment);
 		} else if (evaluee instanceof VoidFunction) {
-			return new VoidAssignment<>((VoidFunction<T>) evaluee, assignee, assignment);
+			return new VoidAssignment<>((VoidFunction<T, ?>) evaluee, assignee, assignment);
 		} else {
 			throw new FactoryException(
 					MessageFormat.format(

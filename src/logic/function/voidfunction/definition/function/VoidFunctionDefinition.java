@@ -10,9 +10,14 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public class VoidFunctionDefinition<T extends Nameable> extends FunctionDefinition<T, Void> {
+public class VoidFunctionDefinition<T extends Nameable> extends FunctionDefinition<T, Void, VoidFunctionDefinition<T>> {
 
-	VoidFunctionDefinition(String functionName, Map<String, Set<Type>> parameters, VoidFunction<T> definition) {
+	VoidFunctionDefinition(String functionName, Map<String, Set<Type>> parameters, VoidFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
+	}
+
+	@Override
+	public VoidFunctionDefinition<T> copy() {
+		return new VoidFunctionDefinition<>(functionName, parameters, (VoidFunction<T, ?>) definition.copy());
 	}
 }

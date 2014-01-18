@@ -29,7 +29,7 @@ public class QuantifiedStatementTest {
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
-		Evaluable<TestClass> evaluable = EqualityPredicateFactory.createElement("x", "y");
+		Evaluable<TestClass, ?> evaluable = EqualityPredicateFactory.createElement("x", "y");
 		QuantifiedStatement<TestClass> nestedStatement =
 				new QuantifiedStatement<>(nestedQuantifier, "y", evaluable);
 		// ∃y(x=y)
@@ -55,9 +55,9 @@ public class QuantifiedStatementTest {
 		universe.setUniversalSet(universalSet);
 
 		Quantifier nestedQuantifier = new Quantifier(EXISTS);
-		Evaluable<TestClass> innerEvaluable = EqualityPredicateFactory.createElement("x", "y");
+		Evaluable<TestClass, ?> innerEvaluable = EqualityPredicateFactory.createElement("x", "y");
 		UnaryConnective connective = new UnaryConnective(NEGATION);
-		Evaluable<TestClass> evaluable = new UnaryStatement<>(connective, innerEvaluable);
+		Evaluable<TestClass, ?> evaluable = new UnaryStatement<>(connective, innerEvaluable);
 		QuantifiedStatement<TestClass> nestedStatement = new QuantifiedStatement<>(nestedQuantifier, "y", evaluable);
 		// ∃y¬(x=y)
 

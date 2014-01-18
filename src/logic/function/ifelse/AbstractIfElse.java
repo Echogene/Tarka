@@ -12,16 +12,17 @@ import static java.text.MessageFormat.format;
 /**
  * @author Steven Weston
  */
-class IfElse<D extends Nameable, C> implements Function<D, C> {
+public abstract class AbstractIfElse<D extends Nameable, C, F extends AbstractIfElse<D, C, F>>
+		implements Function<D, C, F> {
 
 	public static final String IF = "if";
 	public static final String OTHERWISE = "otherwise";
 
-	final Evaluable<D> condition;
-	final Function<D, C> ifTrue;
-	final Function<D, C> ifFalse;
+	final Evaluable<D, ?> condition;
+	final Function<D, C, ?> ifTrue;
+	final Function<D, C, ?> ifFalse;
 
-	IfElse(Evaluable<D> condition, Function<D, C> ifTrue, Function<D, C> ifFalse) {
+	AbstractIfElse(Evaluable<D, ?> condition, Function<D, C, ?> ifTrue, Function<D, C, ?> ifFalse) {
 		this.condition = condition;
 		this.ifTrue = ifTrue;
 		this.ifFalse = ifFalse;
@@ -37,15 +38,10 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		condition.reduce(reductions);
 		ifTrue.reduce(reductions);
 		ifFalse.reduce(reductions);
-	}
-
-	@Override
-	public IfElse<D, C> copy() {
-		return new IfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
 	}
 
 	@Override
@@ -55,10 +51,10 @@ class IfElse<D extends Nameable, C> implements Function<D, C> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof IfElse)) {
+		if (!(o instanceof AbstractIfElse)) {
 			return false;
 		}
-		IfElse<?, ?> other = (IfElse<?, ?>) o;
+		AbstractIfElse<?, ?, ?> other = (AbstractIfElse<?, ?, ?>) o;
 		return condition.equals(other.condition)
 				&& ifTrue.equals(other.ifTrue)
 				&& ifFalse.equals(other.ifFalse);

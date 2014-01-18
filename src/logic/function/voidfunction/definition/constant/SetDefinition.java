@@ -7,14 +7,14 @@ import logic.set.Set;
 /**
  * @author Steven Weston
  */
-public class SetDefinition<T extends Nameable> extends Definition<T, Set<T>> {
+public class SetDefinition<T extends Nameable> extends AbstractDefinition<T, Set<T>, SetDefinition<T>> {
 
-	public SetDefinition(String variableName, SetFunction<T> definition) {
+	public SetDefinition(String variableName, SetFunction<T, ?> definition) {
 		super(variableName, definition);
 	}
 
 	@Override
 	public SetDefinition<T> copy() {
-		return new SetDefinition<>(variableName, (SetFunction<T>) definition.copy());
+		return new SetDefinition<>(variableName, (SetFunction<T, ?>) definition.copy());
 	}
 }

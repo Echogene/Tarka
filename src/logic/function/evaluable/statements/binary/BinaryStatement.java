@@ -10,13 +10,13 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
+public class BinaryStatement<T extends Nameable> implements Evaluable<T, BinaryStatement<T>> {
 
-	private final Evaluable<T> firstEvaluable;
+	private final Evaluable<T, ?> firstEvaluable;
 	private final BinaryConnective connective;
-	private final Evaluable<T> secondEvaluable;
+	private final Evaluable<T, ?> secondEvaluable;
 
-	public BinaryStatement(Evaluable<T> firstEvaluable, BinaryConnective connective, Evaluable<T> secondEvaluable) {
+	public BinaryStatement(Evaluable<T, ?> firstEvaluable, BinaryConnective connective, Evaluable<T, ?> secondEvaluable) {
 		this.firstEvaluable  = firstEvaluable;
 		this.connective      = connective;
 		this.secondEvaluable = secondEvaluable;
@@ -28,7 +28,7 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<T, ?>> reductions) {
+	public void reduce(Map<String, Function<T, ?, ?>> reductions) {
 		firstEvaluable.reduce(reductions);
 		secondEvaluable.reduce(reductions);
 	}
@@ -38,7 +38,7 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 		return "(" + firstEvaluable.toString() + " " + connective.toString() + " " + secondEvaluable.toString() + ")";
 	}
 
-	public Evaluable<T> getFirstEvaluable() {
+	public Evaluable<T, ?> getFirstEvaluable() {
 		return firstEvaluable;
 	}
 
@@ -46,7 +46,7 @@ public class BinaryStatement<T extends Nameable> implements Evaluable<T> {
 		return connective;
 	}
 
-	public Evaluable<T> getSecondEvaluable() {
+	public Evaluable<T, ?> getSecondEvaluable() {
 		return secondEvaluable;
 	}
 

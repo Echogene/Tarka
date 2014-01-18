@@ -2,7 +2,6 @@ package logic.model;
 
 import logic.Nameable;
 import logic.factory.SimpleLogicReader;
-import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.model.universe.Universe;
 import logic.model.universe.VariableAlreadyExistsException;
@@ -46,7 +45,7 @@ public abstract class AbstractModel<T extends Nameable, U extends Universe<T, ?,
 	}
 
 	@Override
-	public void addFactory(FunctionFactory<T, ?, ? extends Function<T, ?>> factory) {
+	public void addFactory(FunctionFactory<T, ?, ?> factory) {
 		reader.addFactory(factory);
 	}
 

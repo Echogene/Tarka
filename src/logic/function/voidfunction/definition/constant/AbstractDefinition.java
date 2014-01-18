@@ -10,14 +10,15 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-class Definition<D extends Nameable, C> implements VoidFunction<D> {
+abstract class AbstractDefinition<D extends Nameable, C, F extends AbstractDefinition<D, C, F>>
+		implements VoidFunction<D, F> {
 
 	final String variableName;
-	final Function<D, C> definition;
+	final Function<D, C, ?> definition;
 
 	public static final String DEFINITION_SYMBOL = "≔";
 
-	Definition(String variableName, Function<D, C> definition) {
+	AbstractDefinition(String variableName, Function<D, C, ?> definition) {
 		this.variableName = variableName;
 		this.definition   = definition;
 	}
@@ -30,21 +31,16 @@ class Definition<D extends Nameable, C> implements VoidFunction<D> {
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		definition.reduce(reductions);
 	}
 
 	@Override
-	public Definition<D, C> copy() {
-		return new Definition<>(variableName, definition.copy());
-	}
-
-	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Definition)) {
+		if (!(o instanceof AbstractDefinition)) {
 			return false;
 		}
-		Definition other = (Definition) o;
+		AbstractDefinition other = (AbstractDefinition) o;
 		return variableName.equals(other.variableName)
 				&& definition.equals(other.definition);
 	}

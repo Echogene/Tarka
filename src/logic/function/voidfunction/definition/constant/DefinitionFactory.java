@@ -26,7 +26,9 @@ import static logic.function.voidfunction.definition.constant.MemberDefinition.D
 /**
  * @author Steven Weston
  */
-public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Void, Definition<T, ?>> implements VariableAssignerFactory {
+public class DefinitionFactory<T extends Nameable>
+		extends FunctionFactory<T, Void, AbstractDefinition<T, ?, ?>>
+		implements VariableAssignerFactory {
 
 	public DefinitionFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
@@ -58,17 +60,17 @@ public class DefinitionFactory<T extends Nameable> extends FunctionFactory<T, Vo
 	}
 
 	@Override
-	public Definition<T, ?> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) {
-		Function<T, ?> definition = functions.get(0);
+	public AbstractDefinition<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) {
+		Function<T, ?, ?> definition = functions.get(0);
 		String variableName = tokens.get(1).getValue();
-		if (definition instanceof ReflexiveFunction<?>) {
-			return new MemberDefinition<>(variableName, (ReflexiveFunction<T>) definition);
-		} else if (definition instanceof Evaluable<?>) {
-			return new BooleanDefinition<>(variableName, (Evaluable<T>) definition);
-		} else if (definition instanceof SetFunction<?>) {
-			return new SetDefinition<>(variableName, (SetFunction<T>) definition);
+		if (definition instanceof ReflexiveFunction<?, ?>) {
+			return new MemberDefinition<>(variableName, (ReflexiveFunction<T, ?>) definition);
+		} else if (definition instanceof Evaluable<?, ?>) {
+			return new BooleanDefinition<>(variableName, (Evaluable<T, ?>) definition);
+		} else if (definition instanceof SetFunction<?, ?>) {
+			return new SetDefinition<>(variableName, (SetFunction<T, ?>) definition);
 		} else {
-			return new Definition<>(variableName, definition);
+			return new MultitypeDefinition<>(variableName, (Function<T, Object, ?>) definition);
 		}
 	}
 

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Steven Weston
  */
-public class IfElseTest {
+public class AbstractIfElseTest {
 
 	@Test
 	public void testEvaluate() throws Exception {
@@ -24,7 +24,7 @@ public class IfElseTest {
 		universe.put("0");
 		universe.put("1");
 
-		Evaluable<TestClass> condition;
+		Evaluable<TestClass, ?> condition;
 		MemberDefinition<TestClass> ifTrue;
 		MemberDefinition<TestClass> ifFalse;
 		VoidIfElse<TestClass> ifElse;

@@ -22,10 +22,10 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	}
 
 	@Override
-	public Intersection<T> construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) {
-		java.util.Set<SetFunction<T>> sets = new HashSet<>();
-		for (Function<?, ?> function : functions) {
-			sets.add((SetFunction<T>) function);
+	public Intersection<T> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) {
+		java.util.Set<SetFunction<T, ?>> sets = new HashSet<>();
+		for (Function<?, ?, ?> function : functions) {
+			sets.add((SetFunction<T, ?>) function);
 		}
 		return new Intersection<>(sets);
 	}
@@ -36,7 +36,7 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	}
 
 	public static <T extends Nameable> Intersection<T> createElement(String... setNames) {
-		java.util.Set<SetFunction<T>> sets = new HashSet<>();
+		java.util.Set<SetFunction<T, ?>> sets = new HashSet<>();
 		for (String setName : setNames) {
 			sets.add(new SetIdentityFunction<>(setName));
 		}
@@ -44,9 +44,9 @@ public abstract class AbstractIntersectionFactory<T extends Nameable> extends Se
 	}
 
 	@SafeVarargs
-	public static <T extends Nameable> Intersection<T> createElement(SetFunction<T>... setFunctions) {
-		java.util.Set<SetFunction<T>> sets = new HashSet<>();
-		for (SetFunction<T> setFunction : setFunctions) {
+	public static <T extends Nameable> Intersection<T> createElement(SetFunction<T, ?>... setFunctions) {
+		java.util.Set<SetFunction<T, ?>> sets = new HashSet<>();
+		for (SetFunction<T, ?> setFunction : setFunctions) {
 			sets.add(setFunction);
 		}
 		return new Intersection<>(sets);

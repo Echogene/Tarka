@@ -6,14 +6,14 @@ import logic.function.evaluable.Evaluable;
 /**
  * @author Steven Weston
  */
-public class BooleanDefinition<T extends Nameable> extends Definition<T, Boolean> {
+public class BooleanDefinition<T extends Nameable> extends AbstractDefinition<T, Boolean, BooleanDefinition<T>> {
 
-	public BooleanDefinition(String variableName, Evaluable<T> definition) {
+	public BooleanDefinition(String variableName, Evaluable<T, ?> definition) {
 		super(variableName, definition);
 	}
 
 	@Override
 	public BooleanDefinition<T> copy() {
-		return new BooleanDefinition<>(variableName, (Evaluable<T>) definition.copy());
+		return new BooleanDefinition<>(variableName, (Evaluable<T, ?>) definition.copy());
 	}
 }

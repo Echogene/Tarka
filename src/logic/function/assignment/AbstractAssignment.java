@@ -13,46 +13,47 @@ import static java.text.MessageFormat.format;
  * An assignment is a function that assigns a value to a variable within a scope.
  * @author Steven Weston
  */
-class Assignment<D extends Nameable, C> implements Function<D, C> {
+abstract class AbstractAssignment<D extends Nameable, C, F extends AbstractAssignment<D, C, F>>
+		implements Function<D, C, F> {
 
 	public static final String WHERE = "where";
 	public static final String IS = "is";
-	private final Function<D, C> evaluee;
-	private final String assignee;
-	private final Function<D, ?> assingment;
+	final Function<D, C, ?> evaluee;
+	final String assignee;
+	final Function<D, ?, ?> assignment;
 
-	Assignment(Function<D, C> evaluee, String assignee, Function<D, ?> assingment) {
+	AbstractAssignment(Function<D, C, ?> evaluee, String assignee, Function<D, ?, ?> assignment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
-		this.assingment = assingment;
+		this.assignment = assignment;
 	}
 
 	@Override
 	public C evaluate(Model<D, ?, ?> model) throws Exception {
-		FunctionUtils.reduce(evaluee, assignee, assingment);
+		FunctionUtils.reduce(evaluee, assignee, assignment);
 		return evaluee.evaluate(model);
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		evaluee.reduce(reductions);
-		assingment.reduce(reductions);
+		assignment.reduce(reductions);
 	}
 
 	@Override
 	public String toString() {
-		return format("({0} {1} {2} {3} {4})", evaluee, WHERE, assignee, IS, assingment);
+		return format("({0} {1} {2} {3} {4})", evaluee, WHERE, assignee, IS, assignment);
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Assignment)) {
+		if (!(o instanceof AbstractAssignment)) {
 			return false;
 		}
-		Assignment other = (Assignment) o;
+		AbstractAssignment other = (AbstractAssignment) o;
 		return this.evaluee.equals(other.evaluee)
 				&& this.assignee.equals(other.assignee)
-				&& this.assingment.equals(other.assingment)
+				&& this.assignment.equals(other.assignment)
 				&& (this.getClass().isInstance(other)
 					|| other.getClass().isInstance(this));
 	}
@@ -61,7 +62,7 @@ class Assignment<D extends Nameable, C> implements Function<D, C> {
 	public int hashCode() {
 		int result = evaluee != null ? evaluee.hashCode() : 0;
 		result = 31 * result + (assignee != null ? assignee.hashCode() : 0);
-		result = 31 * result + (assingment != null ? assingment.hashCode() : 0);
+		result = 31 * result + (assignment != null ? assignment.hashCode() : 0);
 		return result;
 	}
 }

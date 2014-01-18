@@ -30,7 +30,7 @@ public class NumberedChecker extends CheckerWithNumber {
 	}
 
 	@Override
-	public void check(Function<?, ?> function) throws FunctionValidationException {
+	public void check(Function<?, ?, ?> function) throws FunctionValidationException {
 		checker.check(function);
 	}
 

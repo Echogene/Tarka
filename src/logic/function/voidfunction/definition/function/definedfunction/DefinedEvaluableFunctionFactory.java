@@ -17,11 +17,11 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public class DefinedEvaluableFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Boolean, Evaluable<T>> {
+public class DefinedEvaluableFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Boolean, Evaluable<T, ?>> {
 
 	protected DefinedEvaluableFunctionFactory(
 			String functionSymbol,
-			Evaluable<T> definition,
+			Evaluable<T, ?> definition,
 			Map<String,Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
@@ -30,7 +30,7 @@ public class DefinedEvaluableFunctionFactory<T extends Nameable> extends Abstrac
 	}
 
 	@Override
-	protected Evaluable<T> construct(Map<String, Function<T, ?>> parameters) {
+	protected Evaluable<T, ?> construct(Map<String, Function<T, ?, ?>> parameters) {
 		return new DefinedEvaluable<>(functionSymbol, definition, parameters);
 	}
 

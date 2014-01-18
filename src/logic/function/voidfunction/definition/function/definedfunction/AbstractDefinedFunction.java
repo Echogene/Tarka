@@ -9,13 +9,14 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractDefinedFunction<D extends Nameable, C> implements Function<D, C> {
+public abstract class AbstractDefinedFunction<D extends Nameable, C, F extends AbstractDefinedFunction<D, C, F>>
+		implements Function<D, C, F> {
 
-	private String functionSymbol;
-	private final Map<String, Function<D, ?>> parameters;
-	private final Function<D, C> definition;
+	String functionSymbol;
+	final Map<String, Function<D, ?, ?>> parameters;
+	final Function<D, C, ?> definition;
 
-	public AbstractDefinedFunction(String functionSymbol, Function<D, C> definition, Map<String, Function<D, ?>> parameters) {
+	public AbstractDefinedFunction(String functionSymbol, Function<D, C, ?> definition, Map<String, Function<D, ?, ?>> parameters) {
 		this.functionSymbol = functionSymbol;
 		this.definition = definition;
 		// todo: ensure the parameters are in the correct order
@@ -29,8 +30,11 @@ public abstract class AbstractDefinedFunction<D extends Nameable, C> implements 
 	}
 
 	@Override
-	public void reduce(Map<String, Function<D, ?>> reductions) {
-		definition.reduce(reductions);
+	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
+		for (Function<D, ?, ?> parameter : parameters.values()) {
+			parameter.reduce(reductions);
+		}
+//		definition.reduce(reductions);
 	}
 
 	@Override
@@ -38,7 +42,7 @@ public abstract class AbstractDefinedFunction<D extends Nameable, C> implements 
 		StringBuilder builder = new StringBuilder();
 		builder.append("(");
 		builder.append(functionSymbol);
-		for (Function<D, ?> function : parameters.values()) {
+		for (Function<D, ?, ?> function : parameters.values()) {
 			builder.append(" ");
 			builder.append(function.toString());
 		}

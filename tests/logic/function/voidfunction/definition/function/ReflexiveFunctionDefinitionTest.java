@@ -4,7 +4,6 @@ import logic.TestClass;
 import logic.TestClassModel;
 import logic.TestClassUniverse;
 import logic.factory.SimpleLogicReader;
-import logic.function.Function;
 import logic.function.FunctionTest;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
@@ -47,7 +46,7 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		);
 		function.evaluate(model);
 
-		Function<TestClass, ?> definedFunction = reader.read("(f x)");
+		DefinedReflexiveFunction<TestClass> definedFunction = reader.read("(f x)");
 		assertEquals(new TestClass("x"), definedFunction.evaluate(model));
 	}
 

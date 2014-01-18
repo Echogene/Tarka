@@ -15,5 +15,5 @@ import java.util.Set;
  */
 public interface FunctionConstructor<T extends Nameable, F> {
 
-	F construct(List<Token> tokens, List<Function<T, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException;
+	F construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException;
 }

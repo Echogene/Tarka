@@ -27,10 +27,10 @@ public class MultaryMultiplicationFactoryTest extends FactoryTest<Integer, Integ
 	@Test
 	public void testEmptyCreate() throws Exception {
 		Multiplication<Integer> expected = new Multiplication<>(
-				Arrays.<ReflexiveFunction<Integer>>asList(),
+				Arrays.<ReflexiveFunction<Integer, ?>>asList(),
 				multiplior
 		);
-		Function<?, ?> actual = reader.read("(Π)");
+		Function<?, ?, ?> actual = reader.read("(Π)");
 
 		assertEquals(expected, actual);
 	}
@@ -38,13 +38,13 @@ public class MultaryMultiplicationFactoryTest extends FactoryTest<Integer, Integ
 	@Test
 	public void testCreate() throws Exception {
 		Multiplication<Integer> expected = new Multiplication<>(
-				Arrays.<ReflexiveFunction<Integer>>asList(
+				Arrays.<ReflexiveFunction<Integer, ?>>asList(
 						new MemberIdentityFunction<Integer>("2"),
 						new MemberIdentityFunction<Integer>("3")
 				),
 				multiplior
 		);
-		Function<?, ?> actual = reader.read("(Π 2 3)");
+		Function<?, ?, ?> actual = reader.read("(Π 2 3)");
 
 		assertEquals(expected, actual);
 	}
@@ -52,14 +52,14 @@ public class MultaryMultiplicationFactoryTest extends FactoryTest<Integer, Integ
 	@Test
 	public void testCreateWithThreeParameters() throws Exception {
 		Multiplication<Integer> expected = new Multiplication<>(
-				Arrays.<ReflexiveFunction<Integer>>asList(
+				Arrays.<ReflexiveFunction<Integer, ?>>asList(
 						new MemberIdentityFunction<Integer>("2"),
 						new MemberIdentityFunction<Integer>("3"),
 						new MemberIdentityFunction<Integer>("4")
 				),
 				multiplior
 		);
-		Function<?, ?> actual = reader.read("(Π 2 3 4)");
+		Function<?, ?, ?> actual = reader.read("(Π 2 3 4)");
 
 		assertEquals(expected, actual);
 	}

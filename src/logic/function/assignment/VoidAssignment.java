@@ -7,9 +7,16 @@ import logic.function.voidfunction.VoidFunction;
 /**
  * @author Steven Weston
  */
-public class VoidAssignment<T extends Nameable> extends Assignment<T, Void> implements VoidFunction<T> {
+public class VoidAssignment<T extends Nameable>
+		extends AbstractAssignment<T, Void, VoidAssignment<T>>
+		implements VoidFunction<T, VoidAssignment<T>> {
 
-	public VoidAssignment(VoidFunction<T> evaluee, String assignee, Function<T, ?> assingment) {
+	public VoidAssignment(VoidFunction<T, ?> evaluee, String assignee, Function<T, ?, ?> assingment) {
 		super(evaluee, assignee, assingment);
+	}
+
+	@Override
+	public VoidAssignment<T> copy() {
+		return new VoidAssignment<>((VoidFunction<T, ?>) evaluee.copy(), assignee, assignment.copy());
 	}
 }

@@ -10,5 +10,5 @@ import java.util.Set;
  */
 public interface IdentityConstructorFromType<D extends Nameable> {
 
-	IdentityFunction<D, ?> create(String parameter, Set<Type> type);
+	AbstractIdentityFunction<D, ?, ?> create(String parameter, Set<Type> type);
 }
