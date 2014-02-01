@@ -9,7 +9,7 @@ import logic.set.Set;
  * @author Steven Weston
  */
 public class SetAssignment<T extends Nameable>
-		extends AbstractAssignment<T, Set<T>, SetAssignment<T>>
+		extends AbstractAssignment<T, Set<T>, SetAssignment<T>, SetFunction<T, ?>>
 		implements SetFunction<T, SetAssignment<T>> {
 
 	public SetAssignment(SetFunction<T, ?> evaluee, String assignee, Function<T, ?, ?> assingment) {
@@ -18,6 +18,6 @@ public class SetAssignment<T extends Nameable>
 
 	@Override
 	public SetAssignment<T> copy() {
-		return new SetAssignment<>((SetFunction<T, ?>) evaluee.copy(), assignee, assignment.copy());
+		return new SetAssignment<>(evaluee.copy(), assignee, assignment.copy());
 	}
 }

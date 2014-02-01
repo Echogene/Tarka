@@ -28,7 +28,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
  * @author Steven Weston
  */
 public class IdentityFunctionFactory<T extends Nameable>
-		extends FunctionFactory<T, Object, AbstractIdentityFunction<T, ?, ?>>
+		extends FunctionFactory<T, Object, AbstractIdentityFunction<T, ?, ?, ?>>
 		implements
 				ConstructorFromString<MemberIdentityFunction<T>>,
 				IdentityConstructorFromType<T>  {
@@ -58,23 +58,25 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public AbstractIdentityFunction<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
+	public AbstractIdentityFunction<T, ?, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
 		Function<T, ?, ?> function = CollectionUtils.first(functions);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?, ?>) {
 				return new MemberIdentityFunction<>((ReflexiveFunction<T, ?>) function);
 			} else if (function instanceof Evaluable<?, ?>) {
 				return new EvaluableIdentityFunction<>((Evaluable<T, ?>) function);
-			} else {
+			} else if (function instanceof SetFunction<?, ?>) {
 				return new SetIdentityFunction<>((SetFunction<T, ?>) function);
+			} else {
+				return new MultitypeIdentityFunction<>((Function<T,Object,?>) function);
 			}
 		} else {
-			return (AbstractIdentityFunction<T, ?, ?>) function;
+			return (AbstractIdentityFunction<T, ?, ?, ?>) function;
 		}
 	}
 
 	@Override
-	public AbstractIdentityFunction<T, ?, ?> create(String parameter, java.util.Set<Type> types) {
+	public AbstractIdentityFunction<T, ?, ?, ?> create(String parameter, java.util.Set<Type> types) {
 		if (types.size() == 1) {
 			Type type = types.iterator().next();
 			if (type == Boolean.class) {

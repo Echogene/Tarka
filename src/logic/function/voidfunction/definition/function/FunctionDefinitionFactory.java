@@ -32,7 +32,7 @@ import static logic.function.voidfunction.definition.function.FunctionDefinition
  * @author Steven Weston
  */
 public class FunctionDefinitionFactory<T extends Nameable>
-		extends FunctionFactory<T, Void, FunctionDefinition<T, ?, ?>>
+		extends FunctionFactory<T, Void, FunctionDefinition<T, ?, ?, ?>>
 		implements VariableAssignerFactory {
 
 	public FunctionDefinitionFactory(Class<T> universeType) {
@@ -69,7 +69,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public FunctionDefinition<T, ?, ?> construct(
+	public FunctionDefinition<T, ?, ?, ?> construct(
 			List<Token> tokens,
 			List<Function<T, ?, ?>> functions,
 			Map<String, Set<Type>> boundVariables

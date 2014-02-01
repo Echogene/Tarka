@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Steven Weston
  */
 public class DefinedEvaluable<T extends Nameable>
-		extends AbstractDefinedFunction<T, Boolean, DefinedEvaluable<T>>
+		extends AbstractDefinedFunction<T, Boolean, DefinedEvaluable<T>, Evaluable<T, ?>>
 		implements Evaluable<T, DefinedEvaluable<T>> {
 
 	public DefinedEvaluable(String functionSymbol, Evaluable<T, ?> definition, Map<String, Function<T, ?, ?>> parameters) {
@@ -20,6 +20,6 @@ public class DefinedEvaluable<T extends Nameable>
 	@Override
 	public DefinedEvaluable<T> copy() {
 		// todo: should parameters be copied?
-		return new DefinedEvaluable<>(functionSymbol, (Evaluable<T, ?>) definition.copy(), parameters);
+		return new DefinedEvaluable<>(functionSymbol, definition.copy(), parameters);
 	}
 }

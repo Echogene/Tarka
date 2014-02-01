@@ -10,15 +10,15 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-abstract class AbstractDefinition<D extends Nameable, C, F extends AbstractDefinition<D, C, F>>
+abstract class AbstractDefinition<D extends Nameable, C, F extends AbstractDefinition<D, C, F, G>, G extends Function<D, C, ?>>
 		implements VoidFunction<D, F> {
 
 	final String variableName;
-	final Function<D, C, ?> definition;
+	final G definition;
 
 	public static final String DEFINITION_SYMBOL = "≔";
 
-	AbstractDefinition(String variableName, Function<D, C, ?> definition) {
+	AbstractDefinition(String variableName, G definition) {
 		this.variableName = variableName;
 		this.definition   = definition;
 	}

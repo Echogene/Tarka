@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Steven Weston
  */
 public class DefinedSetFunction<T extends Nameable>
-		extends AbstractDefinedFunction<T, Set<T>, DefinedSetFunction<T>>
+		extends AbstractDefinedFunction<T, Set<T>, DefinedSetFunction<T>, SetFunction<T, ?>>
 		implements SetFunction<T, DefinedSetFunction<T>> {
 
 	public DefinedSetFunction(String functionSymbol, SetFunction<T, ?> definition, Map<String, Function<T, ?, ?>> parameters) {
@@ -21,6 +21,6 @@ public class DefinedSetFunction<T extends Nameable>
 	@Override
 	public DefinedSetFunction<T> copy() {
 		// todo: copy parameters?
-		return new DefinedSetFunction<>(functionSymbol, (SetFunction<T, ?>) definition.copy(), parameters);
+		return new DefinedSetFunction<>(functionSymbol, definition.copy(), parameters);
 	}
 }

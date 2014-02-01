@@ -30,7 +30,9 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 /**
  * @author Steven Weston
  */
-public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Object, AbstractAssignment<T, ?, ?>> implements VariableAssignerFactory {
+public class AssignmentFactory<T extends Nameable>
+		extends FunctionFactory<T, Object, AbstractAssignment<T, ?, ?, ?>>
+		implements VariableAssignerFactory {
 
 	public AssignmentFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
@@ -47,7 +49,7 @@ public class AssignmentFactory<T extends Nameable> extends FunctionFactory<T, Ob
 	}
 
 	@Override
-	public AbstractAssignment<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public AbstractAssignment<T, ?, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		if (functions.size() != 2) {
 			throw new FactoryException("There were not the correct number of functions.");
 		}

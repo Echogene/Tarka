@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
  * @author Steven Weston
  */
 public class AbstractDefinedFunctionTest
-		extends FunctionTest<Integer, IntegerUniverse, IntegerModel, AbstractDefinedFunction<Integer, ?, ?>> {
+		extends FunctionTest<Integer, IntegerUniverse, IntegerModel, AbstractDefinedFunction<Integer, ?, ?, ?>> {
 
 	public AbstractDefinedFunctionTest() {
 		super(new IntegerModel());

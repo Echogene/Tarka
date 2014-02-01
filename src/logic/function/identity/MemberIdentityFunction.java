@@ -7,7 +7,7 @@ import logic.function.reflexive.ReflexiveFunction;
  * @author Steven Weston
  */
 public class MemberIdentityFunction<T extends Nameable>
-		extends AbstractIdentityFunction<T, T, MemberIdentityFunction<T>>
+		extends AbstractIdentityFunction<T, T, MemberIdentityFunction<T>, ReflexiveFunction<T, ?>>
 		implements ReflexiveFunction<T, MemberIdentityFunction<T>> {
 
 	public MemberIdentityFunction(String parameter) {
@@ -24,6 +24,6 @@ public class MemberIdentityFunction<T extends Nameable>
 
 	@Override
 	public MemberIdentityFunction<T> copy() {
-		return new MemberIdentityFunction<>(parameter, (ReflexiveFunction<T, ?>) function.copy());
+		return new MemberIdentityFunction<>(parameter, function.copy());
 	}
 }

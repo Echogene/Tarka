@@ -12,17 +12,22 @@ import static java.text.MessageFormat.format;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractIfElse<D extends Nameable, C, F extends AbstractIfElse<D, C, F>>
+public abstract class AbstractIfElse<
+		D extends Nameable,
+		C,
+		F extends AbstractIfElse<D, C, F, G>,
+		G extends Function<D, C, ?>
+>
 		implements Function<D, C, F> {
 
 	public static final String IF = "if";
 	public static final String OTHERWISE = "otherwise";
 
 	final Evaluable<D, ?> condition;
-	final Function<D, C, ?> ifTrue;
-	final Function<D, C, ?> ifFalse;
+	final G ifTrue;
+	final G ifFalse;
 
-	AbstractIfElse(Evaluable<D, ?> condition, Function<D, C, ?> ifTrue, Function<D, C, ?> ifFalse) {
+	AbstractIfElse(Evaluable<D, ?> condition, G ifTrue, G ifFalse) {
 		this.condition = condition;
 		this.ifTrue = ifTrue;
 		this.ifFalse = ifFalse;
@@ -54,7 +59,7 @@ public abstract class AbstractIfElse<D extends Nameable, C, F extends AbstractIf
 		if (!(o instanceof AbstractIfElse)) {
 			return false;
 		}
-		AbstractIfElse<?, ?, ?> other = (AbstractIfElse<?, ?, ?>) o;
+		AbstractIfElse<?, ?, ?, ?> other = (AbstractIfElse<?, ?, ?, ?>) o;
 		return condition.equals(other.condition)
 				&& ifTrue.equals(other.ifTrue)
 				&& ifFalse.equals(other.ifFalse);

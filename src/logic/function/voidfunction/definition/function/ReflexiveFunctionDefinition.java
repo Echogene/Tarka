@@ -11,7 +11,7 @@ import java.util.Set;
  * @author Steven Weston
  */
 public class ReflexiveFunctionDefinition<T extends Nameable>
-		extends FunctionDefinition<T, T, ReflexiveFunctionDefinition<T>> {
+		extends FunctionDefinition<T, T, ReflexiveFunctionDefinition<T>, ReflexiveFunction<T, ?>> {
 
 	ReflexiveFunctionDefinition(String functionName, Map<String, Set<Type>> parameters, ReflexiveFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
@@ -19,6 +19,6 @@ public class ReflexiveFunctionDefinition<T extends Nameable>
 
 	@Override
 	public ReflexiveFunctionDefinition<T> copy() {
-		return new ReflexiveFunctionDefinition<>(functionName, parameters, (ReflexiveFunction<T, ?>) definition.copy());
+		return new ReflexiveFunctionDefinition<>(functionName, parameters, definition.copy());
 	}
 }

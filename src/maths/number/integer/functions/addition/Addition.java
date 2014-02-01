@@ -5,6 +5,7 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.model.Model;
 import maths.number.Number;
 import maths.number.Summor;
+import util.FunctionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +69,6 @@ public class Addition<N extends Number> implements ReflexiveFunction<N, Addition
 
 	@Override
 	public Addition<N> copy() {
-		List<ReflexiveFunction<N, ?>> newSummands = new ArrayList<>();
-		for (ReflexiveFunction<N, ?> summand : summands) {
-			newSummands.add(summand.copy());
-		}
-		return new Addition<>(newSummands, summor);
+		return new Addition<>(FunctionUtils.copy(summands), summor);
 	}
 }

@@ -7,7 +7,7 @@ import logic.function.evaluable.Evaluable;
  * @author Steven Weston
  */
 public class EvaluableIfElse<T extends Nameable>
-		extends AbstractIfElse<T, Boolean, EvaluableIfElse<T>>
+		extends AbstractIfElse<T, Boolean, EvaluableIfElse<T>, Evaluable<T, ?>>
 		implements Evaluable<T, EvaluableIfElse<T>> {
 
 	public EvaluableIfElse(Evaluable<T, ?> condition, Evaluable<T, ?> ifTrue, Evaluable<T, ?> ifFalse) {
@@ -16,6 +16,6 @@ public class EvaluableIfElse<T extends Nameable>
 
 	@Override
 	public EvaluableIfElse<T> copy() {
-		return new EvaluableIfElse<>(condition.copy(), (Evaluable<T, ?>) ifTrue.copy(), (Evaluable<T, ?>) ifFalse.copy());
+		return new EvaluableIfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
 	}
 }

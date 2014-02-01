@@ -9,6 +9,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="junit4" level="project" />
+    <orderEntry type="library" name="reflections" level="project" />
+    <orderEntry type="library" name="guava" level="project" />
+    <orderEntry type="library" name="javassist-3.18" level="project" />
   </component>
 </module>
 

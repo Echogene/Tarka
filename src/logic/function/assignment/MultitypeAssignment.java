@@ -6,7 +6,8 @@ import logic.function.Function;
 /**
  * @author Steven Weston
  */
-public class MultitypeAssignment<T extends Nameable> extends AbstractAssignment<T, Object, MultitypeAssignment<T>> {
+public class MultitypeAssignment<T extends Nameable>
+		extends AbstractAssignment<T, Object, MultitypeAssignment<T>, Function<T, Object, ?>> {
 
 	MultitypeAssignment(Function<T, Object, ?> evaluee, String assignee, Function<T, ?, ?> assignment) {
 		super(evaluee, assignee, assignment);

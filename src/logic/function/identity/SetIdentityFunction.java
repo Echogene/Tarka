@@ -8,7 +8,7 @@ import logic.set.Set;
  * @author Steven Weston
  */
 public class SetIdentityFunction<T extends Nameable>
-		extends AbstractIdentityFunction<T, Set<T>, SetIdentityFunction<T>>
+		extends AbstractIdentityFunction<T, Set<T>, SetIdentityFunction<T>, SetFunction<T, ?>>
 		implements SetFunction<T, SetIdentityFunction<T>> {
 
 	public SetIdentityFunction(String parameter) {
@@ -25,6 +25,6 @@ public class SetIdentityFunction<T extends Nameable>
 
 	@Override
 	public SetIdentityFunction<T> copy() {
-		return new SetIdentityFunction<>(parameter, (SetFunction<T, ?>) function.copy());
+		return new SetIdentityFunction<>(parameter, function.copy());
 	}
 }

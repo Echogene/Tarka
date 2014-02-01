@@ -6,6 +6,7 @@ import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
 import logic.set.operators.Intersector;
+import util.FunctionUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -75,10 +76,6 @@ public class Intersection<T extends Nameable> implements SetFunction<T, Intersec
 
 	@Override
 	public Intersection<T> copy() {
-		java.util.Set<SetFunction<T, ?>> newParameters = new HashSet<>();
-		for (SetFunction<T, ?> parameter : parameters) {
-			newParameters.add(parameter.copy());
-		}
-		return new Intersection<>(newParameters);
+		return new Intersection<>(FunctionUtils.copy(parameters));
 	}
 }

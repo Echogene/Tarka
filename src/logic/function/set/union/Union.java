@@ -6,6 +6,7 @@ import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
 import logic.set.operators.Uniter;
+import util.FunctionUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -79,10 +80,6 @@ public class Union<T extends Nameable> implements SetFunction<T, Union<T>> {
 
 	@Override
 	public Union<T> copy() {
-		java.util.Set<SetFunction<T, ?>> newParameters = new HashSet<>();
-		for (SetFunction<T, ?> parameter : parameters) {
-			newParameters.add(parameter.copy());
-		}
-		return new Union<>(newParameters);
+		return new Union<>(FunctionUtils.copy(parameters));
 	}
 }

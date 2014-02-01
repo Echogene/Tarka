@@ -27,7 +27,7 @@ import static logic.function.voidfunction.definition.constant.MemberDefinition.D
  * @author Steven Weston
  */
 public class DefinitionFactory<T extends Nameable>
-		extends FunctionFactory<T, Void, AbstractDefinition<T, ?, ?>>
+		extends FunctionFactory<T, Void, AbstractDefinition<T, ?, ?, ?>>
 		implements VariableAssignerFactory {
 
 	public DefinitionFactory(Class<T> universeType) {
@@ -60,7 +60,7 @@ public class DefinitionFactory<T extends Nameable>
 	}
 
 	@Override
-	public AbstractDefinition<T, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) {
+	public AbstractDefinition<T, ?, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) {
 		Function<T, ?, ?> definition = functions.get(0);
 		String variableName = tokens.get(1).getValue();
 		if (definition instanceof ReflexiveFunction<?, ?>) {

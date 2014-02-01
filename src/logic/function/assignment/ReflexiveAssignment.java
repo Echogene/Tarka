@@ -8,7 +8,7 @@ import logic.function.reflexive.ReflexiveFunction;
  * @author Steven Weston
  */
 public class ReflexiveAssignment<T extends Nameable>
-		extends AbstractAssignment<T, T, ReflexiveAssignment<T>>
+		extends AbstractAssignment<T, T, ReflexiveAssignment<T>, ReflexiveFunction<T, ?>>
 		implements ReflexiveFunction<T, ReflexiveAssignment<T>> {
 
 	public ReflexiveAssignment(ReflexiveFunction<T, ?> evaluee, String assignee, Function<T, ?, ?> assingment) {
@@ -17,6 +17,6 @@ public class ReflexiveAssignment<T extends Nameable>
 
 	@Override
 	public ReflexiveAssignment<T> copy() {
-		return new ReflexiveAssignment<>((ReflexiveFunction<T, ?>) evaluee.copy(), assignee, assignment.copy());
+		return new ReflexiveAssignment<>(evaluee.copy(), assignee, assignment.copy());
 	}
 }

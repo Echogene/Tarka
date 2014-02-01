@@ -29,4 +29,22 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * Count the number of times a character occurs in a string.
+	 * @param character
+	 * @param string
+	 * @return
+	 */
+	public static int count(String character, String string) {
+		return string.length() - string.replace(character, "").length();
+	}
+
+	public static String substring(String string, int startIndex, int endIndex) {
+		if (endIndex == -1) {
+			return string.substring(startIndex);
+		} else {
+			return string.substring(startIndex, endIndex);
+		}
+	}
 }

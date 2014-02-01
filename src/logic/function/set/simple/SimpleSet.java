@@ -7,8 +7,8 @@ import logic.function.set.SetFunction;
 import logic.model.Model;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
+import util.FunctionUtils;
 
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -39,11 +39,7 @@ public class SimpleSet<T extends Nameable> implements SetFunction<T, SimpleSet<T
 
 	@Override
 	public SimpleSet<T> copy() {
-		java.util.Set<ReflexiveFunction<T, ?>> newMembers = new HashSet<>();
-		for (ReflexiveFunction<T, ?> member : members) {
-			newMembers.add(member.copy());
-		}
-		return new SimpleSet<>(newMembers);
+		return new SimpleSet<>(FunctionUtils.copy(members));
 	}
 
 	@Override

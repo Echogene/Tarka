@@ -11,20 +11,26 @@ import java.util.Map;
  * the model's universe.
  * @author Steven Weston
  */
-abstract class AbstractIdentityFunction<D extends Nameable, C, F extends AbstractIdentityFunction<D, C, F>> implements Function<D, C, F> {
+abstract class AbstractIdentityFunction<
+		D extends Nameable,
+		C,
+		F extends AbstractIdentityFunction<D, C, F, G>,
+		G extends Function<D, C, ?>
+>
+		implements Function<D, C, F> {
 
 	final String parameter;
-	Function<D, C, ?> function;
+	G function;
 
 	AbstractIdentityFunction(String parameter) {
 		this(parameter, null);
 	}
 
-	AbstractIdentityFunction(Function<D, C, ?> function) {
+	AbstractIdentityFunction(G function) {
 		this(null, function);
 	}
 
-	AbstractIdentityFunction(String parameter, Function<D, C, ?> function) {
+	AbstractIdentityFunction(String parameter, G function) {
 		this.parameter = parameter;
 		this.function  = function;
 	}
@@ -41,7 +47,7 @@ abstract class AbstractIdentityFunction<D extends Nameable, C, F extends Abstrac
 	@Override
 	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		if (parameter != null && reductions.containsKey(parameter)) {
-			function = (Function<D, C, ?>) reductions.get(parameter);
+			function = (G) reductions.get(parameter);
 		}
 	}
 
@@ -56,10 +62,10 @@ abstract class AbstractIdentityFunction<D extends Nameable, C, F extends Abstrac
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof AbstractIdentityFunction<?, ?, ?>)) {
+		if (!(o instanceof AbstractIdentityFunction<?, ?, ?, ?>)) {
 			return false;
 		}
-		AbstractIdentityFunction<?, ?, ?> other = (AbstractIdentityFunction<?, ?, ?>) o;
+		AbstractIdentityFunction<?, ?, ?, ?> other = (AbstractIdentityFunction<?, ?, ?, ?>) o;
 		boolean areParametersBothNull = getParameter() == null && other.getParameter() == null;
 		boolean areParametersEqual = areParametersBothNull
 				|| (getParameter() != null && getParameter().equals(other.getParameter()));

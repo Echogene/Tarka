@@ -13,16 +13,16 @@ import static java.text.MessageFormat.format;
  * An assignment is a function that assigns a value to a variable within a scope.
  * @author Steven Weston
  */
-abstract class AbstractAssignment<D extends Nameable, C, F extends AbstractAssignment<D, C, F>>
+abstract class AbstractAssignment<D extends Nameable, C, F extends AbstractAssignment<D, C, F, G>, G extends Function<D, C, ?>>
 		implements Function<D, C, F> {
 
 	public static final String WHERE = "where";
 	public static final String IS = "is";
-	final Function<D, C, ?> evaluee;
+	final G evaluee;
 	final String assignee;
 	final Function<D, ?, ?> assignment;
 
-	AbstractAssignment(Function<D, C, ?> evaluee, String assignee, Function<D, ?, ?> assignment) {
+	AbstractAssignment(G evaluee, String assignee, Function<D, ?, ?> assignment) {
 		this.evaluee    = evaluee;
 		this.assignee   = assignee;
 		this.assignment = assignment;

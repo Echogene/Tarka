@@ -10,7 +10,8 @@ import java.util.Map;
 /**
  * @author Steven Weston
  */
-public class SetFunctionDefinition<T extends Nameable> extends FunctionDefinition<T, Set<T>, SetFunctionDefinition<T>> {
+public class SetFunctionDefinition<T extends Nameable>
+		extends FunctionDefinition<T, Set<T>, SetFunctionDefinition<T>, SetFunction<T, ?>> {
 
 	SetFunctionDefinition(String functionName, Map<String, java.util.Set<Type>> parameters, SetFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
@@ -18,6 +19,6 @@ public class SetFunctionDefinition<T extends Nameable> extends FunctionDefinitio
 
 	@Override
 	public SetFunctionDefinition<T> copy() {
-		return new SetFunctionDefinition<>(functionName, parameters, (SetFunction<T, ?>) definition.copy());
+		return new SetFunctionDefinition<>(functionName, parameters, definition.copy());
 	}
 }

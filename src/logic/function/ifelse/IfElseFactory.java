@@ -25,7 +25,7 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 /**
  * @author Steven Weston
  */
-public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object, AbstractIfElse<T, ?, ?>> {
+public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object, AbstractIfElse<T, ?, ?, ?>> {
 
 	public IfElseFactory(Class<T> universeType) {
 		super(getCheckers(), STANDARD_BRACKETS, universeType);
@@ -48,7 +48,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	@Override
-	public AbstractIfElse<T, ?, ?> construct(
+	public AbstractIfElse<T, ?, ?, ?> construct(
 			List<Token> tokens,
 			List<Function<T, ?, ?>> functions,
 			Map<String, Set<Type>> boundVariables

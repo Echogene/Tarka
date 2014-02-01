@@ -22,16 +22,21 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class FunctionDefinition<D extends Nameable, C, F extends FunctionDefinition<D, C, F>>
+public abstract class FunctionDefinition<
+		D extends Nameable,
+		C,
+		F extends FunctionDefinition<D, C, F, G>,
+		G extends Function<D, C, ?>
+>
 		implements VoidFunction<D, F> {
 
 	public static final String DEFINITION_SYMBOL = "≝";
 
 	final String functionName;
 	final Map<String, Set<Type>> parameters;
-	final Function<D, C, ?> definition;
+	final G definition;
 
-	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, Function<D, C, ?> definition) {
+	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, G definition) {
 		this.functionName = functionName;
 		this.parameters = parameters;
 		this.definition = definition;

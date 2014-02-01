@@ -6,7 +6,8 @@ import logic.function.Function;
 /**
  * @author Steven Weston
  */
-public class MultitypeDefinition<T extends Nameable> extends AbstractDefinition<T, Object, MultitypeDefinition<T>> {
+public class MultitypeDefinition<T extends Nameable>
+		extends AbstractDefinition<T, Object, MultitypeDefinition<T>, Function<T, Object, ?>> {
 
 	MultitypeDefinition(String variableName, Function<T, Object, ?> definition) {
 		super(variableName, definition);
