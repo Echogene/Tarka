@@ -16,7 +16,7 @@ public class FunctionUtils {
 	}
 
 	public static <D extends Nameable, C> void reduce(Function<D, C, ?> function, String variable, D assignment) {
-		function.reduce(Collections.singletonMap(variable, new ObjectFunction<>(assignment)));
+		function.reduce(Collections.singletonMap(variable, (Function<D, ?, ?>) new ObjectFunction<>(assignment)));
 	}
 
 	public static <F extends Function<?, ?, ? extends F>> Set<F> copy(Set<F> set) {
