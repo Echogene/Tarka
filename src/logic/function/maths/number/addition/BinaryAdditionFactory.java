@@ -1,4 +1,4 @@
-package maths.number.integer.functions.addition;
+package logic.function.maths.number.addition;
 
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;

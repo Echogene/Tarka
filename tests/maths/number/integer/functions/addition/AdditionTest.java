@@ -1,6 +1,7 @@
 package maths.number.integer.functions.addition;
 
 import logic.function.identity.MemberIdentityFunction;
+import logic.function.maths.number.addition.Addition;
 import logic.function.reflexive.ReflexiveFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSummor;

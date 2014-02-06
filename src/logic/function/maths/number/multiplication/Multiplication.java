@@ -1,10 +1,11 @@
-package maths.number.integer.functions.multiplication;
+package logic.function.maths.number.multiplication;
 
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.model.Model;
 import maths.number.Multiplior;
 import maths.number.Number;
+import util.FunctionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,7 @@ public class Multiplication<N extends Number> implements ReflexiveFunction<N, Mu
 
 	@Override
 	public Multiplication<N> copy() {
-		List<ReflexiveFunction<N, ?>> newFactors = new ArrayList<>();
-		for (ReflexiveFunction<N, ?> factor : factors) {
-			newFactors.add(factor.copy());
-		}
-		return new Multiplication<>(newFactors, multiplior);
+		return new Multiplication<>(FunctionUtils.copy(factors), multiplior);
 	}
 
 	@Override

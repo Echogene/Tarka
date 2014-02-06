@@ -1,4 +1,4 @@
-package maths.number.integer.functions.interval;
+package logic.function.maths.number.interval;
 
 import javafx.util.Pair;
 import logic.function.Function;

@@ -1,4 +1,4 @@
-package maths.number.integer.functions.addition;
+package logic.function.maths.number.addition;
 
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;

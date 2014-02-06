@@ -3,6 +3,8 @@ package maths.number.integer.functions.multiplication;
 import logic.factory.FactoryTest;
 import logic.function.Function;
 import logic.function.identity.MemberIdentityFunction;
+import logic.function.maths.number.multiplication.BinaryMultiplicationFactory;
+import logic.function.maths.number.multiplication.Multiplication;
 import logic.function.reflexive.ReflexiveFunction;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerMultiplior;

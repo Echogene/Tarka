@@ -1,4 +1,4 @@
-package maths.number.integer.functions.subtraction;
+package logic.function.maths.number.subtraction;
 
 import logic.factory.FactoryException;
 import logic.function.Function;

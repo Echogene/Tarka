@@ -166,8 +166,12 @@ public class ImplementationExtractor {
 
 	@Test
 	public void test() throws Exception {
-		Reflections reflections = new Reflections("logic.function");
+		Reflections logic = new Reflections("logic.function");
 
+		checkImplementations(logic);
+	}
+
+	private void checkImplementations(Reflections reflections) throws NoSuchMethodException, IOException, NoSuchFieldException {
 		Class<Function> baseClazz = Function.class;
 
 		SortedSet<Class<? extends Function>> classes = new TreeSet<>((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
@@ -216,12 +220,7 @@ public class ImplementationExtractor {
 					}
 				}
 			}
-
-			//todo: does this get to Addition?
-
-//			System.out.println(implementation.substring(implementation.indexOf("\t")));
 		}
-
 	}
 
 	public static Field getDeclaredFieldFromSuperClassesUntilFunction(Class<?> clazz, String fieldName) throws NoSuchFieldException {

@@ -1,4 +1,4 @@
-package maths.number.integer.functions.interval;
+package logic.function.maths.number.interval;
 
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;

@@ -1,4 +1,4 @@
-package maths.number.integer.functions.multiplication;
+package logic.function.maths.number.multiplication;
 
 import logic.factory.FactoryException;
 import logic.function.Function;
