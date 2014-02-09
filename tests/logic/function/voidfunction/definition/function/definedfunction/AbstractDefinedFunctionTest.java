@@ -62,9 +62,9 @@ public class AbstractDefinedFunctionTest
 		function = new DefinedReflexiveFunction<>(
 				"f",
 				definition,
-				Collections.singletonMap("a", new MemberIdentityFunction<Integer>("2"))
+				Collections.singletonMap("a", new MemberIdentityFunction<Integer>("6"))
 		);
 
-		assertEquals(universe.get("2"), function.evaluate(model));
+		assertEquals(universe.get("6"), function.evaluate(model));
 	}
 }
