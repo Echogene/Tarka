@@ -4,6 +4,7 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.function.set.SetFunction;
 import logic.set.Set;
+import util.FunctionUtils;
 
 import java.util.Map;
 
@@ -21,6 +22,6 @@ public class DefinedSetFunction<T extends Nameable>
 	@Override
 	public DefinedSetFunction<T> copy() {
 		// todo: copy parameters?
-		return new DefinedSetFunction<>(functionSymbol, definition.copy(), parameters);
+		return new DefinedSetFunction<>(functionSymbol, definition.copy(), FunctionUtils.copy(parameters));
 	}
 }

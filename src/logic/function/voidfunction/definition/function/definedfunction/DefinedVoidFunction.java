@@ -3,6 +3,7 @@ package logic.function.voidfunction.definition.function.definedfunction;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.voidfunction.VoidFunction;
+import util.FunctionUtils;
 
 import java.util.Map;
 
@@ -19,7 +20,6 @@ public class DefinedVoidFunction<T extends Nameable>
 
 	@Override
 	public DefinedVoidFunction<T> copy() {
-		// todo: think about whether the parameters should be copied too
-		return new DefinedVoidFunction<>(functionSymbol, definition.copy(), parameters);
+		return new DefinedVoidFunction<>(functionSymbol, definition.copy(), FunctionUtils.copy(parameters));
 	}
 }

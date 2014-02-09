@@ -34,4 +34,20 @@ public class FunctionUtils {
 		}
 		return copy;
 	}
+
+	public static <F extends Function<?, ?, ? extends F>> F copy(F function) {
+		if (function == null) {
+			return null;
+		} else {
+			return function.copy();
+		}
+	}
+
+	public static <K, F extends Function<?, ?, ? extends F>> Map<K, F> copy(Map<K, F> map) {
+		Map<K, F> copy = new HashMap<>();
+		for (Map.Entry<K, F> entry : map.entrySet()) {
+			copy.put(entry.getKey(), entry.getValue().copy());
+		}
+		return copy;
+	}
 }

@@ -2,6 +2,7 @@ package logic.function.identity;
 
 import logic.Nameable;
 import logic.function.reflexive.ReflexiveFunction;
+import util.FunctionUtils;
 
 /**
  * @author Steven Weston
@@ -24,6 +25,6 @@ public class MemberIdentityFunction<T extends Nameable>
 
 	@Override
 	public MemberIdentityFunction<T> copy() {
-		return new MemberIdentityFunction<>(parameter, function.copy());
+		return new MemberIdentityFunction<>(parameter, FunctionUtils.copy(function));
 	}
 }

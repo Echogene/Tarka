@@ -3,6 +3,7 @@ package logic.function.voidfunction.definition.function.definedfunction;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
+import util.FunctionUtils;
 
 import java.util.Map;
 
@@ -19,7 +20,6 @@ public class DefinedEvaluable<T extends Nameable>
 
 	@Override
 	public DefinedEvaluable<T> copy() {
-		// todo: should parameters be copied?
-		return new DefinedEvaluable<>(functionSymbol, definition.copy(), parameters);
+		return new DefinedEvaluable<>(functionSymbol, definition.copy(), FunctionUtils.copy(parameters));
 	}
 }

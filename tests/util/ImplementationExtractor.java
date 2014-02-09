@@ -1,15 +1,13 @@
 package util;
 
 import logic.function.Function;
+import logic.function.reference.AbstractFunctionReference;
 import org.junit.Test;
 import org.reflections.Reflections;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
@@ -206,21 +204,47 @@ public class ImplementationExtractor {
 				if (functionCopyMatcher.matches()) {
 				} else if (collectionCopyMatcher.matches()) {
 				} else {
-					Field field = getDeclaredFieldFromSuperClassesUntilFunction(clazz, parameter);
-					if (Function.class.isAssignableFrom(field.getType())
-							|| Collection.class.isAssignableFrom(field.getType())) {
-						fail(format(
-								"{0} ({1}:{2})\nThe field {3} in {4} was not deep copied",
-								clazz.getName(),
-								sourceFileForClass.getFileName(),
-								implementation.substring(0, implementation.indexOf("\t")),
-								parameter,
-								clazz.getSimpleName()
-						));
-					}
+					checkNonCopiedField(clazz, sourceFileForClass, implementation, parameter);
 				}
 			}
 		}
+	}
+
+	private static final Map<Class, List<String>> IGNORED_FIELDS = new HashMap<>();
+	static {
+		IGNORED_FIELDS.put(AbstractFunctionReference.class, Arrays.asList("referee"));
+	}
+
+	private void checkNonCopiedField(Class<?> clazz, Path sourceFileForClass, String implementation, String parameter) throws NoSuchFieldException {
+		Field field = getDeclaredFieldFromSuperClassesUntilFunction(clazz, parameter);
+		if (IGNORED_FIELDS.containsKey(field.getDeclaringClass())) {
+			if (IGNORED_FIELDS.get(field.getDeclaringClass()).contains(field.getName())) {
+				return;
+			}
+		}
+		if (Function.class.isAssignableFrom(field.getType())) {
+			failFieldForNotBeingDeepCopied(clazz, sourceFileForClass, implementation, parameter);
+		} else if (Collection.class.isAssignableFrom(field.getType())) {
+			failFieldForNotBeingDeepCopied(clazz, sourceFileForClass, implementation, parameter);
+		} else if (Map.class.isAssignableFrom(field.getType())) {
+			ParameterizedType genericType = (ParameterizedType) field.getGenericType();
+			Type valueType = genericType.getActualTypeArguments()[1];
+			if (valueType instanceof ParameterizedType
+					&& Function.class.isAssignableFrom((Class<?>) ((ParameterizedType) valueType).getRawType())) {
+				failFieldForNotBeingDeepCopied(clazz, sourceFileForClass, implementation, parameter);
+			}
+		}
+	}
+
+	private void failFieldForNotBeingDeepCopied(Class<?> clazz, Path sourceFileForClass, String implementation, String parameter) {
+		fail(format(
+				"{0} ({1}:{2})\nThe field {3} in {4} was not deep copied",
+				clazz.getName(),
+				sourceFileForClass.getFileName(),
+				implementation.substring(0, implementation.indexOf("\t")),
+				parameter,
+				clazz.getSimpleName()
+		));
 	}
 
 	public static Field getDeclaredFieldFromSuperClassesUntilFunction(Class<?> clazz, String fieldName) throws NoSuchFieldException {

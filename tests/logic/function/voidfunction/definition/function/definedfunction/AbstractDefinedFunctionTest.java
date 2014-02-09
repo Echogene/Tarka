@@ -3,19 +3,17 @@ package logic.function.voidfunction.definition.function.definedfunction;
 import logic.function.FunctionTest;
 import logic.function.evaluable.predicate.equality.EqualityPredicateFactory;
 import logic.function.identity.MemberIdentityFunction;
-import logic.function.ifelse.AbstractIfElse;
 import logic.function.ifelse.ReflexiveIfElse;
 import logic.function.maths.number.addition.Addition;
 import logic.function.maths.number.subtraction.Subtraction;
+import logic.function.reference.ReflexiveFunctionReference;
 import maths.number.integer.Integer;
 import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.model.IntegerModel;
 import maths.number.integer.model.universe.IntegerUniverse;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -32,17 +30,15 @@ public class AbstractDefinedFunctionTest
 	}
 
 	@Test
-	@Ignore("Fix the stack overflow")
 	public void testRecursiveDefinedFunction() throws Exception {
+		ReflexiveFunctionReference<Integer> reference = new ReflexiveFunctionReference<>();
 		ReflexiveIfElse<Integer> definition = new ReflexiveIfElse<>(
 				EqualityPredicateFactory.createElement("a", "0"),
 				new MemberIdentityFunction<Integer>("0"),
-				null
+				reference
 		);
 
-		Field field = AbstractIfElse.class.getDeclaredField("ifFalse");
-		field.setAccessible(true);
-		field.set(definition,
+		reference.setReferee(
 				new Addition<Integer>(
 						Arrays.asList(
 								new DefinedReflexiveFunction<Integer>(

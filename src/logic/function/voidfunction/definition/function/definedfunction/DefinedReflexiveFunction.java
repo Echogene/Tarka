@@ -3,6 +3,7 @@ package logic.function.voidfunction.definition.function.definedfunction;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.reflexive.ReflexiveFunction;
+import util.FunctionUtils;
 
 import java.util.Map;
 
@@ -19,6 +20,6 @@ public class DefinedReflexiveFunction<T extends Nameable>
 
 	@Override
 	public DefinedReflexiveFunction<T> copy() {
-		return new DefinedReflexiveFunction<>(functionSymbol, definition.copy(), parameters);
+		return new DefinedReflexiveFunction<>(functionSymbol, definition.copy(), FunctionUtils.copy(parameters));
 	}
 }
