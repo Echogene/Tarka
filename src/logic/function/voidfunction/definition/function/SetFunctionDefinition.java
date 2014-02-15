@@ -5,7 +5,7 @@ import logic.function.set.SetFunction;
 import logic.set.Set;
 
 import java.lang.reflect.Type;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * @author Steven Weston
@@ -13,12 +13,12 @@ import java.util.Map;
 public class SetFunctionDefinition<T extends Nameable>
 		extends FunctionDefinition<T, Set<T>, SetFunctionDefinition<T>, SetFunction<T, ?>> {
 
-	SetFunctionDefinition(String functionName, Map<String, java.util.Set<Type>> parameters, SetFunction<T, ?> definition) {
+	SetFunctionDefinition(String functionName, LinkedHashMap<String, java.util.Set<Type>> parameters, SetFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
 	}
 
 	@Override
 	public SetFunctionDefinition<T> copy() {
-		return new SetFunctionDefinition<>(functionName, parameters, definition.copy());
+		return new SetFunctionDefinition<>(functionSymbol, parameters, definition.copy());
 	}
 }

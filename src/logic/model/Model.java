@@ -3,6 +3,7 @@ package logic.model;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.voidfunction.definition.function.definedfunction.AbstractDefinedFunctionFactory;
 import logic.model.universe.Universe;
 import logic.model.universe.VariableAlreadyExistsException;
 import logic.model.universe.VariableNotAssignedException;
@@ -24,4 +25,6 @@ public interface Model<T extends Nameable, U extends Universe<T, ?, ?>, R extend
 	void unassignVariable(String assignee);
 
 	void addFactory(FunctionFactory<T, ?, ?> factory);
+
+	AbstractDefinedFunctionFactory<T, ?, ?, ?> getDefinedFunctionFactory(String functionSymbol);
 }

@@ -95,6 +95,12 @@ public class CollectionUtils {
 		return output;
 	}
 
+	public static <K, V> LinkedHashMap<K, V> createLinkedHashMap(K key, V value) {
+		LinkedHashMap<K, V> output = new LinkedHashMap<>();
+		output.put(key, value);
+		return output;
+	}
+
 	public static <K, V> Map<K, V> createMap(List<K> keys, List<V> values) {
 		Map<K, V> output = new HashMap<>();
 		int index = 0;

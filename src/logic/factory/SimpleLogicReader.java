@@ -3,6 +3,7 @@ package logic.factory;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
+import logic.function.voidfunction.definition.function.definedfunction.AbstractDefinedFunctionFactory;
 import logic.model.universe.Universe;
 import logic.type.TypeInferrorException;
 import reading.reading.Reader;
@@ -28,6 +29,10 @@ public class SimpleLogicReader<T extends Nameable> implements Reader<Function<T,
 	@Override
 	public <F extends Function<T, ?, ?>> F read(String string) throws ReadingException, TypeInferrorException {
 		return (F) evaluator.evaluate(parser.parseTokens(lexer.tokeniseString(string)));
+	}
+
+	public AbstractDefinedFunctionFactory<T, ?, ?, ?> getDefinedFunctionFactory(String functionSymbol) {
+		return evaluator.getDefinedFunctionFactory(functionSymbol);
 	}
 
 	public void addFactory(FunctionFactory<T, ?, ?> factory) {

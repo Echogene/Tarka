@@ -10,8 +10,8 @@ import logic.function.voidfunction.VoidFunction;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Set;
  */
 public class DefinedFunctionFactoryFactory {
 
-	public static <T extends Nameable> AbstractDefinedFunctionFactory<T, ?, ?> create(
+	public static <T extends Nameable> AbstractDefinedFunctionFactory<T, ?, ?, ?> create(
 			String functionSymbol,
 			Function<T, ?, ?> definition,
-			Map<String, Set<Type>> parameters,
+			LinkedHashMap<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {

@@ -11,18 +11,19 @@ import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Steven Weston
  */
-public class DefinedSetFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Set<T>, SetFunction<T, ?>> {
+public class DefinedSetFunctionFactory<T extends Nameable>
+		extends AbstractDefinedFunctionFactory<T, Set<T>, DefinedSetFunction<T>, SetFunction<T, ?>> {
 
 	protected DefinedSetFunctionFactory(
 			String functionSymbol,
 			SetFunction<T, ?> definition,
-			Map<String, java.util.Set<Type>> parameters,
+			LinkedHashMap<String, java.util.Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
@@ -30,8 +31,8 @@ public class DefinedSetFunctionFactory<T extends Nameable> extends AbstractDefin
 	}
 
 	@Override
-	protected SetFunction<T, ?> construct(Map<String, Function<T, ?, ?>> parameters) {
-		return new DefinedSetFunction<>(functionSymbol, definition, parameters);
+	protected DefinedSetFunction<T> construct(LinkedHashMap<String, Function<T, ?, ?>> parameters) {
+		return new DefinedSetFunction<>(functionSymbol, definition.copy(), parameters);
 	}
 
 	@Override

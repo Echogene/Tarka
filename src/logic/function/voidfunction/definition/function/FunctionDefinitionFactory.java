@@ -75,7 +75,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			Map<String, Set<Type>> boundVariables
 	) throws FactoryException {
 		String functionName = tokens.get(1).getValue();
-		Map<String, Set<Type>> parameters = new HashMap<>();
+		LinkedHashMap<String, Set<Type>> parameters = new LinkedHashMap<>();
 		for (int i = 2; i < tokens.size(); i++) {
 			Token token = tokens.get(i);
 			String tokenValue = token.getValue();

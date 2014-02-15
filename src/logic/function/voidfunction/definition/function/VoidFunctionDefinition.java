@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.voidfunction.VoidFunction;
 
 import java.lang.reflect.Type;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 /**
@@ -13,12 +13,12 @@ import java.util.Set;
 public class VoidFunctionDefinition<T extends Nameable>
 		extends FunctionDefinition<T, Void, VoidFunctionDefinition<T>, VoidFunction<T, ?>> {
 
-	VoidFunctionDefinition(String functionName, Map<String, Set<Type>> parameters, VoidFunction<T, ?> definition) {
+	VoidFunctionDefinition(String functionName, LinkedHashMap<String, Set<Type>> parameters, VoidFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
 	}
 
 	@Override
 	public VoidFunctionDefinition<T> copy() {
-		return new VoidFunctionDefinition<>(functionName, parameters, definition.copy());
+		return new VoidFunctionDefinition<>(functionSymbol, parameters, definition.copy());
 	}
 }

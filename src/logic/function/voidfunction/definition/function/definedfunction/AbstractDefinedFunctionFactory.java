@@ -10,7 +10,7 @@ import reading.parsing.ParseTreeNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,17 +18,22 @@ import java.util.Set;
 /**
  * @author Steven Weston
  */
-public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F extends Function<D, C, ?>>
+public abstract class AbstractDefinedFunctionFactory<
+		D extends Nameable,
+		C,
+		F extends AbstractDefinedFunction<D, C, ? extends F, G>,
+		G extends Function<D, C, ? extends G>
+>
 		extends FunctionFactory<D, C, F> {
 
-	private final Map<String, Set<Type>> parameters;
+	private final LinkedHashMap<String, Set<Type>> parameters;
 	protected final String functionSymbol;
-	protected final F definition;
+	protected final G definition;
 
 	protected AbstractDefinedFunctionFactory(
 			String functionSymbol,
-			F definition,
-			Map<String, Set<Type>> parameters,
+			G definition,
+			LinkedHashMap<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<D> universeType
 	) {
@@ -46,7 +51,7 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 	@Override
 	public F construct(List<Token> tokens, List<Function<D, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		int i = 0;
-		Map<String, Function<D, ?, ?>> parameterMap = new HashMap<>();
+		LinkedHashMap<String, Function<D, ?, ?>> parameterMap = new LinkedHashMap<>();
 		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
 			parameterMap.put(parameter.getKey(), functions.get(i));
 			i++;
@@ -54,10 +59,18 @@ public abstract class AbstractDefinedFunctionFactory<D extends Nameable, C, F ex
 		return construct(parameterMap);
 	}
 
-	protected abstract F construct(Map<String, Function<D, ?, ?>> parameters);
+	protected abstract F construct(LinkedHashMap<String, Function<D, ?, ?>> parameters);
+
+	public F construct(List<Function<D, ?, ?>> parameters) throws FactoryException {
+		return construct(null, parameters, null);
+	}
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
 		throw new NotImplementedException();
+	}
+
+	public String getFunctionSymbol() {
+		return functionSymbol;
 	}
 }

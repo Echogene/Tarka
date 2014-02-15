@@ -3,6 +3,7 @@ package logic.model;
 import logic.Nameable;
 import logic.factory.SimpleLogicReader;
 import logic.function.factory.FunctionFactory;
+import logic.function.voidfunction.definition.function.definedfunction.AbstractDefinedFunctionFactory;
 import logic.model.universe.Universe;
 import logic.model.universe.VariableAlreadyExistsException;
 import logic.model.universe.VariableNotAssignedException;
@@ -47,6 +48,11 @@ public abstract class AbstractModel<T extends Nameable, U extends Universe<T, ?,
 	@Override
 	public void addFactory(FunctionFactory<T, ?, ?> factory) {
 		reader.addFactory(factory);
+	}
+
+	@Override
+	public AbstractDefinedFunctionFactory<T, ?, ?, ?> getDefinedFunctionFactory(String functionSymbol) {
+		return getReader().getDefinedFunctionFactory(functionSymbol);
 	}
 
 	public void setReader(SimpleLogicReader<T> reader) {

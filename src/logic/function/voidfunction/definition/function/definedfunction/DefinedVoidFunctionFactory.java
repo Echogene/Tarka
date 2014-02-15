@@ -10,19 +10,20 @@ import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Steven Weston
  */
-public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Void, VoidFunction<T, ?>> {
+public class DefinedVoidFunctionFactory<T extends Nameable>
+		extends AbstractDefinedFunctionFactory<T, Void, DefinedVoidFunction<T>, VoidFunction<T, ?>> {
 
 	protected DefinedVoidFunctionFactory(
 			String functionSymbol,
 			VoidFunction<T, ?> definition,
-			Map<String,Set<Type>> parameters,
+			LinkedHashMap<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
@@ -30,8 +31,8 @@ public class DefinedVoidFunctionFactory<T extends Nameable> extends AbstractDefi
 	}
 
 	@Override
-	protected DefinedVoidFunction<T> construct(Map<String, Function<T, ?, ?>> parameters) {
-		return new DefinedVoidFunction<>(functionSymbol, definition, parameters);
+	protected DefinedVoidFunction<T> construct(LinkedHashMap<String, Function<T, ?, ?>> parameters) {
+		return new DefinedVoidFunction<>(functionSymbol, definition.copy(), parameters);
 	}
 
 	@Override

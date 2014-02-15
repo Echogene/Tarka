@@ -14,10 +14,7 @@ import logic.model.Model;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -32,12 +29,12 @@ public abstract class FunctionDefinition<
 
 	public static final String DEFINITION_SYMBOL = "≝";
 
-	final String functionName;
-	final Map<String, Set<Type>> parameters;
+	final String functionSymbol;
+	final LinkedHashMap<String, Set<Type>> parameters;
 	final G definition;
 
-	FunctionDefinition(String functionName, Map<String, Set<Type>> parameters, G definition) {
-		this.functionName = functionName;
+	FunctionDefinition(String functionSymbol, LinkedHashMap<String, Set<Type>> parameters, G definition) {
+		this.functionSymbol = functionSymbol;
 		this.parameters = parameters;
 		this.definition = definition;
 	}
@@ -45,7 +42,7 @@ public abstract class FunctionDefinition<
 	@Override
 	public Void evaluate(Model<D, ?, ?> model) throws Exception {
 		List<CheckerWithNumber> checkers = new ArrayList<>();
-		checkers.add(new StringChecker(functionName));
+		checkers.add(new StringChecker(functionSymbol));
 		for (Map.Entry<String, Set<Type>> parameter : parameters.entrySet()) {
 			checkers.add(
 					new NonVoidFunctionOrVariableChecker(
@@ -55,7 +52,7 @@ public abstract class FunctionDefinition<
 		}
 		model.addFactory(
 				DefinedFunctionFactoryFactory.create(
-						functionName,
+						functionSymbol,
 						definition,
 						parameters,
 						checkers,
@@ -88,5 +85,22 @@ public abstract class FunctionDefinition<
 	@Override
 	public void reduce(Map<String, Function<D, ?, ?>> reductions) {
 		definition.reduce(reductions);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("(");
+		sb.append(functionSymbol);
+		for (String parameter : parameters.keySet()) {
+			sb.append(" ");
+			sb.append(parameter);
+		}
+		sb.append(" ");
+		sb.append(DEFINITION_SYMBOL);
+		sb.append(" ");
+		sb.append(definition);
+		sb.append(")");
+		return sb.toString();
 	}
 }

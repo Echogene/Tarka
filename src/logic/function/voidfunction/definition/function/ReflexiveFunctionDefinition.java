@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.reflexive.ReflexiveFunction;
 
 import java.lang.reflect.Type;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 /**
@@ -13,12 +13,12 @@ import java.util.Set;
 public class ReflexiveFunctionDefinition<T extends Nameable>
 		extends FunctionDefinition<T, T, ReflexiveFunctionDefinition<T>, ReflexiveFunction<T, ?>> {
 
-	ReflexiveFunctionDefinition(String functionName, Map<String, Set<Type>> parameters, ReflexiveFunction<T, ?> definition) {
+	public ReflexiveFunctionDefinition(String functionName, LinkedHashMap<String, Set<Type>> parameters, ReflexiveFunction<T, ?> definition) {
 		super(functionName, parameters, definition);
 	}
 
 	@Override
 	public ReflexiveFunctionDefinition<T> copy() {
-		return new ReflexiveFunctionDefinition<>(functionName, parameters, definition.copy());
+		return new ReflexiveFunctionDefinition<>(functionSymbol, parameters, definition.copy());
 	}
 }

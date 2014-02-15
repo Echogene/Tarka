@@ -10,19 +10,20 @@ import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Steven Weston
  */
-public class DefinedEvaluableFunctionFactory<T extends Nameable> extends AbstractDefinedFunctionFactory<T, Boolean, Evaluable<T, ?>> {
+public class DefinedEvaluableFunctionFactory<T extends Nameable>
+		extends AbstractDefinedFunctionFactory<T, Boolean, DefinedEvaluable<T>, Evaluable<T, ?>> {
 
 	protected DefinedEvaluableFunctionFactory(
 			String functionSymbol,
 			Evaluable<T, ?> definition,
-			Map<String,Set<Type>> parameters,
+			LinkedHashMap<String, Set<Type>> parameters,
 			List<CheckerWithNumber> checkers,
 			Class<T> universeType
 	) {
@@ -30,8 +31,8 @@ public class DefinedEvaluableFunctionFactory<T extends Nameable> extends Abstrac
 	}
 
 	@Override
-	protected Evaluable<T, ?> construct(Map<String, Function<T, ?, ?>> parameters) {
-		return new DefinedEvaluable<>(functionSymbol, definition, parameters);
+	protected DefinedEvaluable<T> construct(LinkedHashMap<String, Function<T, ?, ?>> parameters) {
+		return new DefinedEvaluable<>(functionSymbol, definition.copy(), parameters);
 	}
 
 	@Override

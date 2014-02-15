@@ -5,6 +5,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.identity.IdentityConstructorFromType;
+import logic.function.voidfunction.definition.function.definedfunction.AbstractDefinedFunctionFactory;
 import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
 import logic.type.TypeInferrorException;
@@ -36,6 +37,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	private final List<FunctionFactory<T, ?, ?>> factories;
 	private final SimpleLogicTypeInferror<T> typeInferror;
 	private final IdentityConstructorFromType<T> identityConstructorFromType;
+
+	private final Map<String, AbstractDefinedFunctionFactory<T, ?, ?, ?>> definedFunctions = new HashMap<>();
 
 	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T, ?, ?> universe) {
 		this.factories = new ArrayList<>(factories);
@@ -155,6 +158,10 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 	public void addFactory(FunctionFactory<T, ?, ?> factory) {
 		factories.add(factory);
+		if (factory instanceof AbstractDefinedFunctionFactory) {
+			AbstractDefinedFunctionFactory<T, ?, ?, ?> definedFunctionFactory = (AbstractDefinedFunctionFactory<T, ?, ?, ?>) factory;
+			definedFunctions.put(definedFunctionFactory.getFunctionSymbol(), definedFunctionFactory);
+		}
 	}
 
 	private interface Validator<K, V> {
@@ -209,6 +216,10 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 					+ StringUtils.addCharacterAfterEveryNewline(e.getMessage(), '\t')
 			);
 		}
+	}
+
+	public AbstractDefinedFunctionFactory<T, ?, ?, ?> getDefinedFunctionFactory(String functionSymbol) {
+		return definedFunctions.get(functionSymbol);
 	}
 
 	private boolean shouldWalkDownAt(ParseTreeNode n) {

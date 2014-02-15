@@ -9,6 +9,7 @@ import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedReflexiveFunction;
 import org.junit.Test;
+import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -39,9 +40,9 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 	@Test
 	public void testEvaluate() throws Exception {
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
-		function = new ReflexiveFunctionDefinition<>(
+		function = new ReflexiveFunctionDefinition<TestClass>(
 				"f",
-				Collections.singletonMap("a", Collections.<Type>singleton(TestClass.class)),
+				CollectionUtils.createLinkedHashMap("a", Collections.<Type>singleton(TestClass.class)),
 				identityFunction
 		);
 		function.evaluate(model);
@@ -55,7 +56,7 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 		MemberIdentityFunction<TestClass> identityFunction = new MemberIdentityFunction<>("a");
 		function = new ReflexiveFunctionDefinition<>(
 				"f",
-				Collections.singletonMap("a", Collections.<Type>singleton(TestClass.class)),
+				CollectionUtils.createLinkedHashMap("a", Collections.<Type>singleton(TestClass.class)),
 				identityFunction
 		);
 		function.evaluate(model);
