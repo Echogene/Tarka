@@ -2,6 +2,7 @@ package logic.function.identity;
 
 import logic.Nameable;
 import logic.function.evaluable.Evaluable;
+import util.FunctionUtils;
 
 /**
  * @author Steven Weston
@@ -28,6 +29,6 @@ public class EvaluableIdentityFunction<T extends Nameable>
 
 	@Override
 	public EvaluableIdentityFunction<T> copy() {
-		return new EvaluableIdentityFunction<>(parameter, function.copy());
+		return new EvaluableIdentityFunction<>(parameter, FunctionUtils.copy(function));
 	}
 }

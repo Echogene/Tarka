@@ -2,6 +2,7 @@ package logic.function.identity;
 
 import logic.Nameable;
 import logic.function.Function;
+import util.FunctionUtils;
 
 /**
  * @author Steven Weston
@@ -23,6 +24,6 @@ public class MultitypeIdentityFunction<T extends Nameable>
 
 	@Override
 	public MultitypeIdentityFunction<T> copy() {
-		return new MultitypeIdentityFunction<>(parameter, function.copy());
+		return new MultitypeIdentityFunction<>(parameter, FunctionUtils.copy(function));
 	}
 }
