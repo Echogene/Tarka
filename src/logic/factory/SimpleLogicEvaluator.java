@@ -10,6 +10,7 @@ import logic.model.universe.Universe;
 import logic.type.SimpleLogicTypeInferror;
 import logic.type.TypeInferrorException;
 import logic.type.VariableAssignerFactory;
+import logic.type.map.Checkor;
 import logic.type.map.CheckorException;
 import logic.type.map.MapToErrors;
 import reading.evaluating.Evaluator;
@@ -40,24 +41,30 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 
 	private final Map<String, AbstractDefinedFunctionFactory<T, ?, ?, ?>> definedFunctions = new HashMap<>();
 
-	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T, ?, ?> universe) {
+	public SimpleLogicEvaluator(List<FunctionFactory<T, ?, ?>> factories, Universe<T, ?, ?> universe)
+			throws EvaluatorException {
+
 		this.factories = new ArrayList<>(factories);
 
 		identityConstructorFromType = getIdentityConstructorFromType(factories);
 		typeInferror = new SimpleLogicTypeInferror<>(universe);
 	}
 
-	private IdentityConstructorFromType<T> getIdentityConstructorFromType(List<FunctionFactory<T, ?, ?>> factories) {
+	private IdentityConstructorFromType<T> getIdentityConstructorFromType(List<FunctionFactory<T, ?, ?>> factories)
+			throws EvaluatorException {
+
 		for (FunctionFactory<T, ?, ?> factory : factories) {
 			if (factory instanceof IdentityConstructorFromType) {
 				return (IdentityConstructorFromType<T>) factory;
 			}
 		}
-		return null;
+		throw new EvaluatorException("No identity constructor was specified");
 	}
 
 	@Override
-	public Function<T, ?, ?> evaluate(ParseTree tree) throws EvaluatorException, TypeInferrorException {
+	public Function<T, ?, ?> evaluate(ParseTree tree)
+			throws EvaluatorException, TypeInferrorException {
+
 		if (tree == null) {
 			return null;
 		}
@@ -83,33 +90,19 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		return evaluate(firstChildren, identityFunctions, passedFactories);
 	}
 
-	private Map<ParseTreeNode, Function<T, ?, ?>> createIdentityFunctionsForVariables(List<ParseTreeNode> firstChildren, Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories, Map<ParseTreeNode, Set<Type>> types) throws EvaluatorException {
+	private Map<ParseTreeNode, Function<T, ?, ?>> createIdentityFunctionsForVariables(
+			List<ParseTreeNode> firstChildren, Map<ParseTreeNode,
+			List<FunctionFactory<T, ?, ?>>> passedFactories,
+			Map<ParseTreeNode, Set<Type>> types
+	) throws EvaluatorException {
+
 		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions = new HashMap<>();
 		headRecurse(firstChildren, children -> {
 			ParseTreeNode mother = children.get(0).getMother();
 			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = passedFactories.get(mother);
 			MapToErrors<FunctionFactory<T, ?, ?>> errors = new MapToErrors<>(
 					passedFactoriesForNode,
-					factory -> {
-						List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
-						for (ParseTreeNode variable : variables) {
-							if (!types.containsKey(variable) || types.get(variable) == null) {
-								throw new EvaluatorException(
-										MessageFormat.format(
-												"{0} had no type bound to it after type inference.",
-												variable.getToken().getValue()
-										)
-								);
-							}
-							identityFunctions.put(
-									variable,
-									identityConstructorFromType.create(
-											variable.getToken().getValue(),
-											types.get(variable)
-									)
-							);
-						}
-					}
+					createIdentityFunctions(types, identityFunctions, children)
 			);
 			if (errors.allFailed()) {
 				throw new EvaluatorException(errors.concatenateErrorMessages());
@@ -117,6 +110,43 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			passedFactories.get(mother).retainAll(errors.getPassedKeys());
 		});
 		return identityFunctions;
+	}
+
+	private Checkor<FunctionFactory<T, ?, ?>> createIdentityFunctions(
+			Map<ParseTreeNode, Set<Type>> types,
+			Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions,
+			List<ParseTreeNode> children
+	) throws EvaluatorException {
+
+		return factory -> {
+			List<ParseTreeNode> variables = factory.getVariables(surroundWithParentNodes(children));
+			for (ParseTreeNode variable : variables) {
+				createIdentityFunctionForVariable(types, identityFunctions, variable);
+			}
+		};
+	}
+
+	private void createIdentityFunctionForVariable(
+			Map<ParseTreeNode, Set<Type>> types,
+			Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions,
+			ParseTreeNode variable
+	) throws EvaluatorException {
+
+		if (!types.containsKey(variable) || types.get(variable) == null) {
+			throw new EvaluatorException(
+					MessageFormat.format(
+							"{0} had no type bound to it after type inference.",
+							variable.getToken().getValue()
+					)
+			);
+		}
+		identityFunctions.put(
+				variable,
+				identityConstructorFromType.create(
+						variable.getToken().getValue(),
+						types.get(variable)
+				)
+		);
 	}
 
 	/**
