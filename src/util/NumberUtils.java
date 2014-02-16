@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class NumberUtils {
 
-	public static final String ordinal(int integer) {
+	public static String ordinal(int integer) {
 		int modOneHundred = integer % 100;
 		int tens = modOneHundred / 10;
 		int units = modOneHundred % 10;
