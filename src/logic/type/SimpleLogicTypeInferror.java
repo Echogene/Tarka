@@ -8,7 +8,7 @@ import logic.type.map.MapWithErrors;
 import logic.type.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
+import util.MapUtils;
 import util.StringUtils;
 
 import java.lang.reflect.Type;
@@ -94,7 +94,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	private void collectDescendantFreeVariables(Map<String, Set<Type>> freeVariables, List<ParseTreeNode> surroundedNodes) {
 		for (ParseTreeNode descendant : first(surroundedNodes).getDescendants()) {
 			if (freeVariableMap.containsKey(descendant)) {
-				CollectionUtils.overlay(
+				MapUtils.overlay(
 						freeVariables,
 						freeVariableMap.get(descendant)
 				);
@@ -150,7 +150,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			return map.getUniquePassedValue();
 		} else {
 			// Return the intersection of the guesses
-			return CollectionUtils.intersect(map.getPassedValues().values());
+			return MapUtils.intersect(map.getPassedValues().values());
 		}
 	}
 
@@ -215,7 +215,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (variableAssignments.hasTotallyUniquePass()) {
 			Map<String, Set<Type>> assignedVariableTypes = new HashMap<>(variableAssignments.getUniquePassedValue());
 			VariableAssignerFactory factory = variableAssignments.getUniquePassedKey();
-			CollectionUtils.overlay(assignedVariableTypes, variablesTypes);
+			MapUtils.overlay(assignedVariableTypes, variablesTypes);
 			List<ParseTreeNode> childrenNodes = new ArrayList<>();
 			for (ParseTreeNode node : nodes) {
 				List<ParseTreeNode> surroundedNodes = surroundWithParentNodes(nodes);

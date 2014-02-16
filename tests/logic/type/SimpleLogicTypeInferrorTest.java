@@ -12,7 +12,7 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import reading.parsing.Parser;
 import reading.parsing.ParserException;
-import util.CollectionUtils;
+import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -141,6 +141,6 @@ public class SimpleLogicTypeInferrorTest {
 		for (Integer index : indices) {
 			nodes.add(tree.getNodes().get(index));
 		}
-		return CollectionUtils.<ParseTreeNode, List<AssignmentFactory<TestClass>>>createMap(nodes, ASSIGNMENT_FACTORY);
+		return MapUtils.<ParseTreeNode, List<AssignmentFactory<TestClass>>>createMap(nodes, ASSIGNMENT_FACTORY);
 	}
 }

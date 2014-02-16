@@ -9,7 +9,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static util.CollectionUtils.createMap;
 import static util.CollectionUtils.createSet;
 
 /**
@@ -20,16 +19,16 @@ public class CollectionUtilsTest {
 	@Test
 	public void testIntersectMaps() throws Exception {
 		Collection<Map<String, Set<String>>> maps = Arrays.asList(
-				createMap(
+				MapUtils.createMap(
 						Arrays.asList("x", "y"),
 						Arrays.asList(createSet("a", "b"), createSet("b", "c"))
 				),
-				createMap(
+				MapUtils.createMap(
 						Arrays.asList("x", "z"),
 						Arrays.asList(createSet("a"), createSet("d"))
 				)
 		);
-		Map<String, Set<String>> intersection = CollectionUtils.intersect(maps);
+		Map<String, Set<String>> intersection = MapUtils.intersect(maps);
 		assertTrue(intersection.containsKey("x"));
 		assertEquals(1, intersection.keySet().size());
 		assertEquals(1, intersection.get("x").size());

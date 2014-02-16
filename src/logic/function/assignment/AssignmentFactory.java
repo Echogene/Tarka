@@ -19,7 +19,7 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
+import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -96,7 +96,7 @@ public class AssignmentFactory<T extends Nameable>
 			variable = nodes.get(3).getToken().getValue();
 			types = functionTypes.getPassedValues().get(nodes.get(5));
 		}
-		return CollectionUtils.createMap(variable, types);
+		return MapUtils.createMap(variable, types);
 	}
 
 	@Override

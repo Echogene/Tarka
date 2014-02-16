@@ -19,7 +19,7 @@ import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
+import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -54,7 +54,7 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	@Override
 	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
 		String variable = nodes.get(2).getToken().getValue();
-		return CollectionUtils.createMap(variable, Collections.singleton(getUniverseType()));
+		return MapUtils.createMap(variable, Collections.singleton(getUniverseType()));
 	}
 
 	@Override
