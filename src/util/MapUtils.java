@@ -14,7 +14,11 @@ public class MapUtils {
 		sb.append("{\n");
 		for (Map.Entry<K, V> entry : map.entrySet()) {
 			try {
-				sb.append("\t" + entry.getKey() + " → " + valuePrinter.extract(entry.getValue()) + "\n");
+				sb.append("\t")
+						.append(entry.getKey())
+						.append(" → ")
+						.append(valuePrinter.extract(entry.getValue()))
+						.append("\n");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
