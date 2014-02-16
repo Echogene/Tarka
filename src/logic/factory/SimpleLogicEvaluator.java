@@ -188,8 +188,10 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		);
 		if (mapToErrors.allFailed()) {
 			throw new EvaluatorException(
-					"Validation failed because:\n"
-					+ StringUtils.addCharacterAfterEveryNewline(mapToErrors.concatenateErrorMessages(), '\t')
+					MessageFormat.format(
+							"Validation failed because:\n{0}",
+							StringUtils.addCharacterAfterEveryNewline(mapToErrors.concatenateErrorMessages(), '\t')
+					)
 			);
 		}
 		return new ArrayList<>(mapToErrors.getPassedKeys());
