@@ -74,6 +74,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			List<Function<T, ?, ?>> functions,
 			Map<String, Set<Type>> boundVariables
 	) throws FactoryException {
+
 		String functionName = tokens.get(1).getValue();
 		LinkedHashMap<String, Set<Type>> parameters = new LinkedHashMap<>();
 		for (int i = 2; i < tokens.size(); i++) {
