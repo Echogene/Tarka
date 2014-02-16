@@ -160,9 +160,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	}
 
 	/**
-	 * Given some tokens, find out the list of factories for which the tokens were valid.
-	 * @param tokens
-	 * @return
+	 * @param tokens A list of tokens to validate against all factories
+	 * @return A list of factories for which the given tokens were valid
 	 * @throws EvaluatorException
 	 */
 	private List<FunctionFactory<T, ?, ?>> validateTokens(List<Token> tokens) throws EvaluatorException {
