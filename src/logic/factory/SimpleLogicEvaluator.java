@@ -199,7 +199,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	public void addFactory(FunctionFactory<T, ?, ?> factory) {
 		factories.add(factory);
 		if (factory instanceof AbstractDefinedFunctionFactory) {
-			AbstractDefinedFunctionFactory<T, ?, ?, ?> definedFunctionFactory = (AbstractDefinedFunctionFactory<T, ?, ?, ?>) factory;
+			AbstractDefinedFunctionFactory<T, ?, ?, ?> definedFunctionFactory
+					= (AbstractDefinedFunctionFactory<T, ?, ?, ?>) factory;
 			definedFunctions.put(definedFunctionFactory.getFunctionSymbol(), definedFunctionFactory);
 		}
 	}
