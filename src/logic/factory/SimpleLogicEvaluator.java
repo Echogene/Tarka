@@ -20,6 +20,7 @@ import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import util.CollectionUtils;
 import util.StringUtils;
+import util.TokenUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -165,7 +166,12 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 	 * @throws EvaluatorException
 	 */
 	private List<FunctionFactory<T, ?, ?>> validateTokens(List<Token> tokens) throws EvaluatorException {
-		return validate(factories, (functionFactory) -> functionFactory.validateTokens(tokens));
+		return validate(
+				factories,
+				tokens,
+				(validator, validatee) -> validator.validateTokens(validatee),
+				TokenUtils::toString
+		);
 	}
 
 	private List<FunctionFactory<T, ?, ?>> validateFunctions(
@@ -173,15 +179,27 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			List<Function<T, ?, ?>> functions
 	) throws EvaluatorException {
 
-		return validate(factories, (functionFactory) -> functionFactory.validateFunctions(functions));
+		return validate(
+				factories,
+				functions,
+				(validator, validatee) -> validator.validateFunctions(validatee),
+				CollectionUtils::toString
+		);
 	}
 
-	private <K, V> List<K> validate(List<K> keys, Validator<K, V> validator) throws EvaluatorException {
-		MapToErrors<K> mapToErrors = new MapToErrors<>(
+	private <V, W, R> List<V> validate(
+			List<V> keys,
+			W values,
+			Validator<V, W, R> validator,
+			java.util.function.Function<W, String> stringifier
+	) throws EvaluatorException {
+
+		MapToErrors<V> mapToErrors = new MapToErrors<>(
 				keys,
 				key -> {
-					MapToErrors<V> mapToErrors2 = validator.validate(key);
+					MapToErrors<R> mapToErrors2 = validator.validate(key, values);
 					if (!mapToErrors2.allPassed()) {
+						// todo: this shouldn't be function validation exception
 						throw new FunctionValidationException(mapToErrors2.concatenateErrorMessages());
 					}
 				}
@@ -189,7 +207,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		if (mapToErrors.allFailed()) {
 			throw new EvaluatorException(
 					MessageFormat.format(
-							"Validation failed because:\n{0}",
+							"Validation failed for {0} because:\n{1}",
+							stringifier.apply(values),
 							StringUtils.addCharacterAfterEveryNewline(mapToErrors.concatenateErrorMessages(), '\t')
 					)
 			);
@@ -206,8 +225,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		}
 	}
 
-	private interface Validator<K, V> {
-		MapToErrors<V> validate(K k) throws CheckorException;
+	private interface Validator<V, W, R> {
+		MapToErrors<R> validate(V validator, W validatee) throws CheckorException;
 	}
 
 	private void headRecurse(List<ParseTreeNode> nodes, NodeProcessor nodeProcessor) throws EvaluatorException {

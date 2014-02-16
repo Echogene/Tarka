@@ -78,4 +78,20 @@ public class CollectionUtils {
 		Collections.addAll(output, elements);
 		return output;
 	}
+
+	public static <T> String toString(Collection<T> collection) {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		boolean first = true;
+		for (T t : collection) {
+			if (!first) {
+				sb.append(", ");
+			}
+			sb.append(t.toString());
+			first = false;
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 }
