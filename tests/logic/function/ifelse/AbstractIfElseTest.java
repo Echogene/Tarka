@@ -32,7 +32,7 @@ public class AbstractIfElseTest {
 		condition = new EvaluableIdentityFunction<>(true);
 		ifTrue = new MemberDefinition<>("x",  new MemberIdentityFunction<>("1"));
 		ifFalse = new MemberDefinition<>("x", new MemberIdentityFunction<>("0"));
-		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
+		ifElse = new VoidIfElse<>(ifTrue, condition, ifFalse);
 		ifElse.evaluate(model);
 		assertTrue(universe.getVariables().contains("x"));
 		assertEquals(new TestClass("1"), universe.getVariables().get("x"));
@@ -40,7 +40,7 @@ public class AbstractIfElseTest {
 		condition = new EvaluableIdentityFunction<>(false);
 		ifTrue = new MemberDefinition<>("y",  new MemberIdentityFunction<>("1"));
 		ifFalse = new MemberDefinition<>("y", new MemberIdentityFunction<>("0"));
-		ifElse = new VoidIfElse<>(condition, ifTrue, ifFalse);
+		ifElse = new VoidIfElse<>(ifTrue, condition, ifFalse);
 		ifElse.evaluate(model);
 		assertTrue(universe.getVariables().contains("y"));
 		assertEquals(new TestClass("0"), universe.getVariables().get("y"));

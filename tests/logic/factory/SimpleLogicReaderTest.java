@@ -588,8 +588,8 @@ public class SimpleLogicReaderTest {
 		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<TestClass>(
-				new EvaluableIdentityFunction<>("⊤"),
 				new MemberIdentityFunction<>("x"),
+				new EvaluableIdentityFunction<>("⊤"),
 				new MemberIdentityFunction<>("y")
 		);
 		actual = reader.read("(x if ⊤ otherwise y)");
@@ -602,12 +602,12 @@ public class SimpleLogicReaderTest {
 		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<>(
-				new EvaluableIdentityFunction<TestClass>("⊤"),
 				new ReflexiveAssignment<TestClass>(
 						new MemberIdentityFunction<TestClass>("a"),
 						"a",
 						new MemberIdentityFunction<>("x")
 				),
+				new EvaluableIdentityFunction<TestClass>("⊤"),
 				new MemberIdentityFunction<TestClass>("y")
 		);
 		actual = reader.read("((a where a is x) if ⊤ otherwise y)");
@@ -620,8 +620,8 @@ public class SimpleLogicReaderTest {
 		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<TestClass>(
-				EqualityPredicateFactory.createElement("x", "y"),
 				new MemberIdentityFunction<>("x"),
+				EqualityPredicateFactory.createElement("x", "y"),
 				new MemberIdentityFunction<>("y")
 		);
 		actual = reader.read("(x if (x = y) otherwise y)");
@@ -634,8 +634,8 @@ public class SimpleLogicReaderTest {
 		ReflexiveIfElse<TestClass> actual;
 
 		expected = new ReflexiveIfElse<TestClass>(
-				new EvaluableIdentityFunction<>("⊤"),
 				new MemberIdentityFunction<TestClass>("x"),
+				new EvaluableIdentityFunction<>("⊤"),
 				new ReflexiveAssignment<TestClass>(
 						new MemberIdentityFunction<TestClass>("a"),
 						"a",

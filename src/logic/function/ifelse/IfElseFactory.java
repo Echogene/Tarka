@@ -62,22 +62,22 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 			if (!(ifFalse instanceof ReflexiveFunction<?, ?>)) {
 				throw new FactoryException("The true and false cases were different types.");
 			}
-			return new ReflexiveIfElse<>((Evaluable<T, ?>) condition, (ReflexiveFunction<T, ?>) ifTrue, (ReflexiveFunction<T, ?>) ifFalse);
+			return new ReflexiveIfElse<>((ReflexiveFunction<T, ?>) ifTrue, (Evaluable<T, ?>) condition, (ReflexiveFunction<T, ?>) ifFalse);
 		} else if (ifTrue instanceof Evaluable<?, ?>) {
 			if (!(ifFalse instanceof Evaluable<?, ?>)) {
 				throw new FactoryException("The true and false cases were different types.");
 			}
-			return new EvaluableIfElse<>((Evaluable<T, ?>) condition, (Evaluable<T, ?>) ifTrue, (Evaluable<T, ?>) ifFalse);
+			return new EvaluableIfElse<>((Evaluable<T, ?>) ifTrue, (Evaluable<T, ?>) condition, (Evaluable<T, ?>) ifFalse);
 		} else if (ifTrue instanceof VoidFunction<?, ?>) {
 			if (!(ifFalse instanceof VoidFunction<?, ?>)) {
 				throw new FactoryException("The true and false cases were different types.");
 			}
-			return new VoidIfElse<>((Evaluable<T, ?>) condition, (VoidFunction<T, ?>) ifTrue, (VoidFunction<T, ?>) ifFalse);
+			return new VoidIfElse<>((VoidFunction<T, ?>) ifTrue, (Evaluable<T, ?>) condition, (VoidFunction<T, ?>) ifFalse);
 		} else if (ifTrue instanceof SetFunction<?, ?>) {
 			if (!(ifFalse instanceof SetFunction<?, ?>)) {
 				throw new FactoryException("The true and false cases were different types.");
 			}
-			return new SetIfElse<>((Evaluable<T, ?>) condition, (SetFunction<T, ?>) ifTrue, (SetFunction<T, ?>) ifFalse);
+			return new SetIfElse<>((SetFunction<T, ?>) ifTrue, (Evaluable<T, ?>) condition, (SetFunction<T, ?>) ifFalse);
 		} else {
 			throw new FactoryException(
 					MessageFormat.format(

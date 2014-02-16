@@ -12,12 +12,16 @@ public class SetIfElse<T extends Nameable>
 		extends AbstractIfElse<T, Set<T>, SetIfElse<T>, SetFunction<T, ?>>
 		implements SetFunction<T, SetIfElse<T>> {
 
-	public SetIfElse(Evaluable<T, ?> condition, SetFunction<T, ?> ifTrue, SetFunction<T, ?> ifFalse) {
-		super(condition, ifTrue, ifFalse);
+	public SetIfElse(
+			SetFunction<T, ?> ifTrue,
+			Evaluable<T, ?> condition,
+			SetFunction<T, ?> ifFalse
+	) {
+		super(ifTrue, condition, ifFalse);
 	}
 
 	@Override
 	public SetIfElse<T> copy() {
-		return new SetIfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
+		return new SetIfElse<>(ifTrue.copy(), condition.copy(), ifFalse.copy());
 	}
 }

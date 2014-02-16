@@ -61,8 +61,8 @@ public class AbstractDefinedFunctionTest
 
 		// (0 if (a = 0) otherwise ((f (a - 1)) + 1))
 		ReflexiveIfElse<Integer> definition = new ReflexiveIfElse<>(
-				aEquals0,
 				new MemberIdentityFunction<Integer>("0"),
+				aEquals0,
 				integerAddition
 		);
 

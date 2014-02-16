@@ -10,12 +10,16 @@ public class EvaluableIfElse<T extends Nameable>
 		extends AbstractIfElse<T, Boolean, EvaluableIfElse<T>, Evaluable<T, ?>>
 		implements Evaluable<T, EvaluableIfElse<T>> {
 
-	public EvaluableIfElse(Evaluable<T, ?> condition, Evaluable<T, ?> ifTrue, Evaluable<T, ?> ifFalse) {
-		super(condition, ifTrue, ifFalse);
+	public EvaluableIfElse(
+			Evaluable<T, ?> ifTrue,
+			Evaluable<T, ?> condition,
+			Evaluable<T, ?> ifFalse
+	) {
+		super(ifTrue, condition, ifFalse);
 	}
 
 	@Override
 	public EvaluableIfElse<T> copy() {
-		return new EvaluableIfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
+		return new EvaluableIfElse<>(ifTrue.copy(), condition.copy(), ifFalse.copy());
 	}
 }

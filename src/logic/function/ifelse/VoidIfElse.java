@@ -11,12 +11,16 @@ public class VoidIfElse<T extends Nameable>
 		extends AbstractIfElse<T, Void, VoidIfElse<T>, VoidFunction<T, ?>>
 		implements VoidFunction<T, VoidIfElse<T>> {
 
-	public VoidIfElse(Evaluable<T, ?> condition, VoidFunction<T, ?> ifTrue, VoidFunction<T, ?> ifFalse) {
-		super(condition, ifTrue, ifFalse);
+	public VoidIfElse(
+			VoidFunction<T, ?> ifTrue,
+			Evaluable<T, ?> condition,
+			VoidFunction<T, ?> ifFalse
+	) {
+		super(ifTrue, condition, ifFalse);
 	}
 
 	@Override
 	public VoidIfElse<T> copy() {
-		return new VoidIfElse<>(condition.copy(), ifTrue.copy(), ifFalse.copy());
+		return new VoidIfElse<>(ifTrue.copy(), condition.copy(), ifFalse.copy());
 	}
 }

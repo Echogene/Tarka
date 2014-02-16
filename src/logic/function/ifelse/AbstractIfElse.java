@@ -23,13 +23,13 @@ public abstract class AbstractIfElse<
 	public static final String IF = "if";
 	public static final String OTHERWISE = "otherwise";
 
-	final Evaluable<D, ?> condition;
 	final G ifTrue;
+	final Evaluable<D, ?> condition;
 	final G ifFalse;
 
-	AbstractIfElse(Evaluable<D, ?> condition, G ifTrue, G ifFalse) {
-		this.condition = condition;
+	AbstractIfElse(G ifTrue, Evaluable<D, ?> condition, G ifFalse) {
 		this.ifTrue = ifTrue;
+		this.condition = condition;
 		this.ifFalse = ifFalse;
 	}
 
