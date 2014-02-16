@@ -20,6 +20,7 @@ import logic.function.set.union.MultaryUnionFactory;
 import logic.function.voidfunction.definition.constant.DefinitionFactory;
 import logic.function.voidfunction.definition.function.FunctionDefinitionFactory;
 import logic.model.universe.Universe;
+import reading.evaluating.EvaluatorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,14 @@ import java.util.List;
  */
 public class StandardReader {
 	public static <T extends Nameable> SimpleLogicReader<T> createStandardReader(Universe<T, ?, ?> universe) {
+
 		List<FunctionFactory<T, ?, ?>> factories = getStandardFunctionFactories(universe.getTypeOfUniverse());
-		return new SimpleLogicReader<>(factories, universe);
+		try {
+			return new SimpleLogicReader<>(factories, universe);
+		} catch (EvaluatorException e) {
+			// Should not happen, we should have included an identity function from the standard factories.
+			return null;
+		}
 	}
 
 	public static <T extends Nameable> List<FunctionFactory<T, ?, ?>> getStandardFunctionFactories(Class<T> universeType) {

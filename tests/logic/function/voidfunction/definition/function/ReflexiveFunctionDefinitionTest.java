@@ -9,6 +9,7 @@ import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedReflexiveFunction;
 import org.junit.Test;
+import reading.evaluating.EvaluatorException;
 import util.MapUtils;
 
 import java.lang.reflect.Type;
@@ -25,14 +26,22 @@ public class ReflexiveFunctionDefinitionTest extends FunctionTest<TestClass, Tes
 	private final SimpleLogicReader<TestClass> reader;
 
 	public ReflexiveFunctionDefinitionTest() {
+
 		super(new TestClassModel());
-		reader = new SimpleLogicReader<>(
-				Arrays.asList(
-						new IdentityFunctionFactory<>(TestClass.class)
-				),
-				universe
-		);
-		model.setReader(reader);
+		SimpleLogicReader<TestClass> reader;
+		try {
+			reader = new SimpleLogicReader<>(
+					Arrays.asList(
+							new IdentityFunctionFactory<>(TestClass.class)
+					),
+					universe
+			);
+		} catch (EvaluatorException e) {
+			// Should not happen, we've included the identity function.
+			reader = null;
+		}
+		this.reader = reader;
+		model.setReader(this.reader);
 		universe.put("x");
 		universe.put("y");
 	}

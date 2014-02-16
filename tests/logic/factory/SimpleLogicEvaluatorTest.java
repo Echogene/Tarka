@@ -18,6 +18,7 @@ import logic.function.factory.FunctionFactory;
 import logic.function.identity.IdentityFunctionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
 import reading.parsing.ParseTree;
 
@@ -63,7 +64,12 @@ public class SimpleLogicEvaluatorTest {
 
 		lexer     = new SimpleLogicLexer();
 		parser    = new SimpleLogicParser();
-		evaluator = new SimpleLogicEvaluator<>(factories, universe);
+		try {
+			evaluator = new SimpleLogicEvaluator<>(factories, universe);
+		} catch (EvaluatorException e) {
+			// Should not happen, we've included the identity function.
+			evaluator = null;
+		}
 
 		binaryConnectiveFactory = new BinaryConnectiveFactory();
 		unaryConnectiveFactory = new UnaryConnectiveFactory();

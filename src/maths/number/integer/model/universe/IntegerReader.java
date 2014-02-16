@@ -15,6 +15,7 @@ import maths.number.integer.IntegerMultiplior;
 import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.sets.interval.FiniteIntegerIntervalFactory;
+import reading.evaluating.EvaluatorException;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
  */
 public class IntegerReader {
 	public static SimpleLogicReader<Integer> createStandardReader(IntegerUniverse universe) {
+
 		Class<Integer> universeType = universe.getTypeOfUniverse();
 		List<FunctionFactory<Integer, ?, ?>> factories = StandardReader.getStandardFunctionFactories(universeType);
 		factories.add(new BinaryAdditionFactory<>(new IntegerSummor(), universeType));
@@ -32,6 +34,11 @@ public class IntegerReader {
 		factories.add(new SetTotalFactory<>(new IntegerSummor(), universeType));
 		factories.add(new SubtractionFactory<>(new IntegerSubtractor(), universeType));
 		factories.add(new IntervalFunctionFactory<>(new FiniteIntegerIntervalFactory(), universeType));
-		return new SimpleLogicReader<>(factories, universe);
+		try {
+			return new SimpleLogicReader<>(factories, universe);
+		} catch (EvaluatorException e) {
+			// Should not happen, we should have included an identity function from the standard factories.
+			return null;
+		}
 	}
 }
