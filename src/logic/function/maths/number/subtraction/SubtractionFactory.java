@@ -5,6 +5,7 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
+import logic.function.identity.MemberIdentityFunction;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.reflexive.ReflexiveFunctionFactory;
 import maths.number.Number;
@@ -36,7 +37,12 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	}
 
 	@Override
-	public Subtraction<N> construct(List<Token> tokens, List<Function<N, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
+	public Subtraction<N> construct(
+			List<Token> tokens,
+			List<Function<N, ?, ?>> functions,
+			Map<String, Set<Type>> boundVariables
+	) throws FactoryException {
+
 		return new Subtraction<>(
 				(ReflexiveFunction<N, ?>) functions.get(0),
 				(ReflexiveFunction<N, ?>) functions.get(1),
@@ -52,5 +58,25 @@ public class SubtractionFactory<N extends Number> extends ReflexiveFunctionFacto
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
 		return Collections.singleton(getUniverseType());
+	}
+
+	public Subtraction<N> create(
+			String minuend,
+			String subtrahend
+	) {
+
+		return new Subtraction<>(
+				new MemberIdentityFunction<N>(minuend),
+				new MemberIdentityFunction<N>(subtrahend),
+				subtractor
+		);
+	}
+
+	public Subtraction<N> create(
+			String minuend,
+			Integer subtrahend
+	) {
+
+		return create(minuend, Integer.toString(subtrahend));
 	}
 }
