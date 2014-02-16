@@ -12,6 +12,10 @@ import java.util.function.Function;
  */
 public class TreeUtils {
 
+	/**
+	 * @param nodes A list of tokens from which to extract tokens
+	 * @return The list of tokens contained in the nodes including the outer brackets.
+	 */
 	public static List<Token> extractTokens(List<ParseTreeNode> nodes) {
 		List<Token> output = new ArrayList<>(nodes.size());
 		if (!nodes.isEmpty()) {

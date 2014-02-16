@@ -74,20 +74,30 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		// Validate tokens recursively
 		final Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories = new HashMap<>();
 		final Map<ParseTreeNode, List<VariableAssignerFactory>> passedAssigners = new HashMap<>();
+		recursivelyValidateTokens(firstChildren, passedFactories, passedAssigners);
+
+		final Map<ParseTreeNode, Set<Type>> types = typeInferror.inferTypes(tree, passedFactories, passedAssigners);
+
+		// Create functions for the typed nodes
+		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions
+				= createIdentityFunctionsForVariables(firstChildren, passedFactories, types);
+
+		// Validate and construct functions recursively and return the function
+		return evaluate(firstChildren, identityFunctions, passedFactories);
+	}
+
+	private void recursivelyValidateTokens(
+			List<ParseTreeNode> firstChildren,
+			Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactories,
+			Map<ParseTreeNode, List<VariableAssignerFactory>> passedAssigners
+	) throws EvaluatorException {
+
 		headRecurse(firstChildren, children -> {
 			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = validateTokens(extractTokens(children));
 			ParseTreeNode key = first(children).getMother();
 			passedAssigners.put(key, CollectionUtils.filterList(passedFactoriesForNode, VariableAssignerFactory.class));
 			passedFactories.put(key, passedFactoriesForNode);
 		});
-
-		final Map<ParseTreeNode, Set<Type>> types = typeInferror.inferTypes(tree, passedFactories, passedAssigners);
-
-		// Create functions for the typed nodes
-		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions = createIdentityFunctionsForVariables(firstChildren, passedFactories, types);
-
-		// Validate and construct functions recursively and return the function
-		return evaluate(firstChildren, identityFunctions, passedFactories);
 	}
 
 	private Map<ParseTreeNode, Function<T, ?, ?>> createIdentityFunctionsForVariables(
@@ -227,25 +237,38 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		}
 
 		ParseTreeNode mother = first(nodes).getMother();
-		List<FunctionFactory<T, ?, ?>> passedFactories = passedFactoriesMap.get(mother);
-		List<FunctionFactory<T, ?, ?>> remainingFactories = validateFunctions(passedFactories, functions);
-		if (remainingFactories.size() > 1) {
-			throw new EvaluatorException("The functions " + functions.toString() + " were ambiguous.");
-		}
-
-		FunctionFactory<T, ?, ?> factory = first(remainingFactories);
+		FunctionFactory<T, ?, ?> factory = validateSingleFactoryLeft(passedFactoriesMap, functions, mother);
 
 		List<Token> tokens = extractTokens(nodes);
 		Map<String, Set<Type>> boundVariables = typeInferror.getBoundVariableMap().get(mother);
 		try {
 			return factory.createElement(tokens, functions, boundVariables);
 		} catch (FactoryException e) {
-			throw new EvaluatorException("Something went wrong when creating the function for "
-					+ tokens.toString()
-					+ " because:\n"
-					+ StringUtils.addCharacterAfterEveryNewline(e.getMessage(), '\t')
+			throw new EvaluatorException(
+					MessageFormat.format(
+							"Something went wrong when creating the function for {0} because:\n{1}",
+							tokens.toString(),
+							StringUtils.addCharacterAfterEveryNewline(e.getMessage(), '\t')
+					)
 			);
 		}
+	}
+
+	private FunctionFactory<T, ?, ?> validateSingleFactoryLeft(
+			Map<ParseTreeNode, List<FunctionFactory<T, ?, ?>>> passedFactoriesMap,
+			List<Function<T, ?, ?>> functions,
+			ParseTreeNode mother
+	) throws EvaluatorException {
+
+		List<FunctionFactory<T, ?, ?>> passedFactories = passedFactoriesMap.get(mother);
+		List<FunctionFactory<T, ?, ?>> remainingFactories = validateFunctions(passedFactories, functions);
+		if (remainingFactories.size() > 1) {
+			throw new EvaluatorException(
+					MessageFormat.format("The functions {0} were ambiguous.", functions.toString())
+			);
+		}
+
+		return first(remainingFactories);
 	}
 
 	public AbstractDefinedFunctionFactory<T, ?, ?, ?> getDefinedFunctionFactory(String functionSymbol) {
