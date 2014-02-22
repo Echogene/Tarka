@@ -43,18 +43,21 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 
 	@Override
 	public synchronized Map<ParseTreeNode, Set<Type>> inferTypes(
-			ParseTree tree,
-			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
-			Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
+			final ParseTree tree,
+			final Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
+			final Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
 	) throws TypeInferrorException {
+
 		if (tree == null) {
 			return null;
 		}
-		typeMap = new HashMap<>(tree.getNodes().size());
-		freeVariableMap = new HashMap<>();
-		boundVariableMap = new HashMap<>();
 		this.passedMatchers = passedMatchers;
 		this.passedAssigners = passedAssigners;
+
+		freeVariableMap = new HashMap<>();
+		boundVariableMap = new HashMap<>();
+
+		typeMap = new HashMap<>(tree.getNodes().size());
 		ParseTreeNode firstNode = tree.getFirstNode();
 		Set<Type> type = inferType(firstNode.getChildren(), new HashMap<>());
 		typeMap.put(firstNode, type);
@@ -66,21 +69,20 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			final Map<String, Set<Type>> variablesTypes
 	) throws TypeInferrorException {
 
+		// Recurse
 		final MapWithErrors<ParseTreeNode, Set<Type>> functionTypes
 				= inferChildTypes(nodes, variablesTypes);
 
 		List<ParseTreeNode> surroundedNodes = surroundWithParentNodes(nodes);
-		final Map<String, Set<Type>> freeVariables = guessFreeVariableTypes(surroundedNodes, functionTypes);
 
+		Map<String, Set<Type>> freeVariables = guessFreeVariableTypes(surroundedNodes, functionTypes);
 		freeVariables(freeVariables, surroundedNodes);
 		collectDescendantFreeVariables(freeVariables, surroundedNodes);
 
 		final MapWithErrors<VariableAssignerFactory, Map<String, Set<Type>>> variableAssignments
 				= assignVariableTypes(surroundedNodes, functionTypes, freeVariables);
 
-		if (!variableAssignments.getPassedValues().isEmpty()) {
-			bindVariables(variableAssignments, surroundedNodes);
-		}
+		bindVariables(variableAssignments, surroundedNodes);
 
 		final MapWithErrors<ParseTreeNode, Set<Type>> functionTypesAfterAssignment
 				= inferChildTypesAfterVariableAssignment(nodes, variablesTypes, functionTypes, variableAssignments);
@@ -106,7 +108,19 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		freeVariableMap.put(first(surroundedNodes), freeVariables);
 	}
 
-	private void bindVariables(MapWithErrors<VariableAssignerFactory, Map<String, Set<Type>>> variableAssignments, List<ParseTreeNode> surroundedNodes) {
+	private void bindVariables(
+			MapWithErrors<VariableAssignerFactory, Map<String, Set<Type>>> variableAssignments,
+			List<ParseTreeNode> surroundedNodes
+	) throws TypeInferrorException {
+
+		if (variableAssignments.hasTotallyAmbiguousPasses()) {
+			throw new TypeInferrorException(
+					MessageFormat.format(
+							"There were ambiguous bound variables for {0}.",
+							surroundedNodes.toString()
+					)
+			);
+		}
 		Map<String, Set<Type>> boundVariables = variableAssignments.getUniquePassedValue();
 		ParseTreeNode mother = first(surroundedNodes);
 		bindVariablesToNode(boundVariables, mother);
@@ -116,15 +130,17 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	}
 
 	private void bindVariablesToNode(Map<String, Set<Type>> boundVariables, ParseTreeNode node) {
-		if (freeVariableMap.containsKey(node)) {
-			for (Map.Entry<String, Set<Type>> binding : boundVariables.entrySet()) {
-				freeVariableMap.get(node).remove(binding.getKey());
-			}
-			if (boundVariableMap.containsKey(node)) {
-				boundVariableMap.get(node).putAll(boundVariables);
-			} else {
-				boundVariableMap.put(node, boundVariables);
-			}
+
+		if (!freeVariableMap.containsKey(node)) {
+			return;
+		}
+		for (Map.Entry<String, Set<Type>> binding : boundVariables.entrySet()) {
+			freeVariableMap.get(node).remove(binding.getKey());
+		}
+		if (boundVariableMap.containsKey(node)) {
+			boundVariableMap.get(node).putAll(boundVariables);
+		} else {
+			boundVariableMap.put(node, boundVariables);
 		}
 	}
 
@@ -135,12 +151,13 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 					Map<String, Set<Type>> output = new HashMap<>();
 					List<ParseTreeNode> variables = matcher.getVariables(nodes);
 					for (ParseTreeNode variable : variables) {
-						if (!functionTypes.getPassedValues().containsKey(variable)) {
-							output.put(
-									variable.getToken().getValue(),
-									matcher.guessTypes(variable, nodes)
-							);
+						if (functionTypes.getPassedValues().containsKey(variable)) {
+							continue;
 						}
+						output.put(
+								variable.getToken().getValue(),
+								matcher.guessTypes(variable, nodes)
+						);
 					}
 					return output;
 				}
