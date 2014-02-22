@@ -38,40 +38,43 @@ public class FunctionfulChecker extends AtomicChecker {
 		if (!tokenGroup.representsFunction()) {
 			throw new TokenValidationException(tokenGroup.toString() + " did not represent a function.");
 		}
-		if (!acceptedBracketPairs.isEmpty()) {
-			Pair<String, String> pair = new Pair<>(tokenGroup.getOpeningBracket(), tokenGroup.getClosingBracket());
-			if (!acceptedBracketPairs.contains(pair)) {
-				throw new TokenValidationException(
-						MessageFormat.format(
-								"{0} was not in {1}.",
-								tokenGroup.toString(),
-								acceptedBracketPairs.toString()
-						)
-				);
-			}
+		if (acceptedBracketPairs.isEmpty()) {
+			return;
+		}
+		Pair<String, String> pair = new Pair<>(tokenGroup.getOpeningBracket(), tokenGroup.getClosingBracket());
+		if (!acceptedBracketPairs.contains(pair)) {
+			throw new TokenValidationException(
+					MessageFormat.format(
+							"{0} was not in {1}.",
+							tokenGroup.toString(),
+							acceptedBracketPairs.toString()
+					)
+			);
 		}
 	}
 
 	@Override
 	public void check(Function<?, ?, ?> function) throws FunctionValidationException {
-		if (!acceptedFunctionClasses.isEmpty()) {
-			boolean classFound = false;
-			for (Class clazz : acceptedFunctionClasses) {
-				if (clazz.isInstance(function)) {
-					classFound = true;
-					break;
-				}
+
+		if (acceptedFunctionClasses.isEmpty()) {
+			return;
+		}
+		boolean classFound = false;
+		for (Class clazz : acceptedFunctionClasses) {
+			if (clazz.isInstance(function)) {
+				classFound = true;
+				break;
 			}
-			if (!classFound) {
-				throw new FunctionValidationException(
-						MessageFormat.format(
-								"{0} ({1}) was not in any of {2}.",
-								function.toString(),
-								function.getClass().getSimpleName(),
-								CollectionUtils.simpleNames(acceptedFunctionClasses)
-						)
-				);
-			}
+		}
+		if (!classFound) {
+			throw new FunctionValidationException(
+					MessageFormat.format(
+							"{0} ({1}) was not in any of {2}.",
+							function.toString(),
+							function.getClass().getSimpleName(),
+							CollectionUtils.simpleNames(acceptedFunctionClasses)
+					)
+			);
 		}
 	}
 
