@@ -1,6 +1,11 @@
 package util;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import static util.NumberUtils.isOdd;
 
 /**
  * @author Steven Weston
@@ -45,6 +50,54 @@ public class StringUtils {
 			return string.substring(startIndex);
 		} else {
 			return string.substring(startIndex, endIndex);
+		}
+	}
+
+	public static <T> String identify(
+			Collection<T> collection,
+			Function<T, Boolean> identifier,
+			Function<T, String> presentationFunction
+	) {
+
+		Map<T, String> map = new HashMap<>();
+		for (T t : collection) {
+			map.put(t, presentationFunction.apply(t));
+		}
+		StringBuilder sb = new StringBuilder();
+		for (T t : collection) {
+			sb.append(map.get(t));
+		}
+		sb.append("\n");
+		for (T t : collection) {
+			int length = map.get(t).length();
+			if (identifier.apply(t)) {
+				if (length == 1) {
+					sb.append("│");
+				} else if (length == 2) {
+					sb.append("├╯");
+				} else if (isOdd(length)) {
+					sb.append("╰");
+					repeatedlyAppend(length / 2 - 1, sb, "─");
+					sb.append("┬");
+					repeatedlyAppend(length / 2 - 1, sb, "─");
+					sb.append("╯");
+				} else {
+					sb.append("╰");
+					repeatedlyAppend(length / 2 - 2, sb, "─");
+					sb.append("┬");
+					repeatedlyAppend(length / 2 - 1, sb, "─");
+					sb.append("╯");
+				}
+			} else {
+				repeatedlyAppend(length, sb, " ");
+			}
+		}
+		return sb.toString();
+	}
+
+	static void repeatedlyAppend(int times, StringBuilder sb, String toAppend) {
+		for (int i = 0; i < times; i++) {
+			sb.append(toAppend);
 		}
 	}
 }

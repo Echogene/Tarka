@@ -70,14 +70,14 @@ public class TreeUtils {
 					} else {
 						output.append(" ");
 					}
-					repeatedlyAppend(indentation, output, " ");
+					StringUtils.repeatedlyAppend(indentation, output, " ");
 				} else {
 					if (isAnotherChild) {
 						output.append("├");
 					} else {
 						output.append("└");
 					}
-					repeatedlyAppend(indentation, output, "─");
+					StringUtils.repeatedlyAppend(indentation, output, "─");
 				}
 				output.append(s);
 				output.append("\n");
@@ -89,11 +89,5 @@ public class TreeUtils {
 	// Not sure what to call this...
 	private static boolean isPartOfTree(String trimmed) {
 		return trimmed.startsWith("└") || trimmed.startsWith("├") || trimmed.startsWith("│");
-	}
-
-	private static void repeatedlyAppend(int times, StringBuilder sb, String toAppend) {
-		for (int i = 0; i < times; i++) {
-			sb.append(toAppend);
-		}
 	}
 }
