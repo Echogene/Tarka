@@ -60,33 +60,40 @@ public class TreeUtils {
 				Boolean isAnotherChild = false;
 				for (int j = i + 1; j < split.length; j++) {
 					String t = split[j].trim();
-					if (!t.startsWith("└") && !t.startsWith("├") && !t.startsWith("│")) {
+					if (!isPartOfTree(t)) {
 						isAnotherChild = true;
 					}
 				}
-				if (trimmed.startsWith("└") || trimmed.startsWith("├") || trimmed.startsWith("│")) {
+				if (isPartOfTree(trimmed)) {
 					if (isAnotherChild) {
 						output.append("│");
 					} else {
 						output.append(" ");
 					}
-					for (int j = 0; j < indentation; j++) {
-						output.append(" ");
-					}
+					repeatedlyAppend(indentation, output, " ");
 				} else {
 					if (isAnotherChild) {
 						output.append("├");
 					} else {
 						output.append("└");
 					}
-					for (int j = 0; j < indentation; j++) {
-						output.append("─");
-					}
+					repeatedlyAppend(indentation, output, "─");
 				}
 				output.append(s);
 				output.append("\n");
 			}
 		}
 		return output.toString();
+	}
+
+	// Not sure what to call this...
+	private static boolean isPartOfTree(String trimmed) {
+		return trimmed.startsWith("└") || trimmed.startsWith("├") || trimmed.startsWith("│");
+	}
+
+	private static void repeatedlyAppend(int times, StringBuilder sb, String toAppend) {
+		for (int i = 0; i < times; i++) {
+			sb.append(toAppend);
+		}
 	}
 }
