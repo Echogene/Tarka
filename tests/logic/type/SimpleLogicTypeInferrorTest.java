@@ -2,16 +2,10 @@ package logic.type;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
-import logic.factory.SimpleLogicLexer;
-import logic.factory.SimpleLogicParser;
 import logic.function.assignment.AssignmentFactory;
 import org.junit.Test;
-import reading.lexing.Lexer;
-import reading.lexing.LexerException;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import reading.parsing.Parser;
-import reading.parsing.ParserException;
 import util.MapUtils;
 
 import java.lang.reflect.Type;
@@ -27,23 +21,17 @@ import static util.NumberUtils.ordinal;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicTypeInferrorTest {
+public class SimpleLogicTypeInferrorTest
+		extends AbstractTypeInferrorTest<TestClass, TestClassUniverse, SimpleLogicTypeInferror<TestClass>> {
 
 	private static final List<AssignmentFactory<TestClass>> ASSIGNMENT_FACTORY =
 			singletonList(new AssignmentFactory<>(TestClass.class));
-	private final Lexer lexer;
-	private final Parser parser;
-	private final SimpleLogicTypeInferror<TestClass> inferror;
-	private final TestClassUniverse universe;
+	private static final TestClassUniverse UNIVERSE = new TestClassUniverse();
 
 	public SimpleLogicTypeInferrorTest() {
-		lexer = new SimpleLogicLexer();
-		parser = new SimpleLogicParser();
-		universe = new TestClassUniverse();
+
+		super(UNIVERSE, new SimpleLogicTypeInferror<>(UNIVERSE));
 		universe.put("2");
-		inferror = new SimpleLogicTypeInferror<>(
-				universe
-		);
 	}
 
 	@Test
@@ -130,10 +118,6 @@ public class SimpleLogicTypeInferrorTest {
 				assertNull(ordinal(index) + " element should be null", types);
 			}
 		}
-	}
-
-	private ParseTree parse(String string) throws LexerException, ParserException {
-		return parser.parseTokens(lexer.tokeniseString(string));
 	}
 
 	private Map<ParseTreeNode, List<AssignmentFactory<TestClass>>> createMap(ParseTree tree, Integer... indices) {

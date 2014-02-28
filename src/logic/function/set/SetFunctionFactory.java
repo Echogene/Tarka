@@ -27,4 +27,9 @@ public abstract class SetFunctionFactory<T extends Nameable, F extends SetFuncti
 	public java.util.Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, java.util.Set<Type>> types) throws TypeInferrorException {
 		return Collections.singleton(Set.class);
 	}
+
+	@Override
+	public java.util.Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return Collections.singleton(Set.class);
+	}
 }

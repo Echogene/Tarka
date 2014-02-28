@@ -134,4 +134,9 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 		// The type of a variable cannot be void.
 		return nonVoidTypes;
 	}
+
+	@Override
+	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return allTypes;
+	}
 }

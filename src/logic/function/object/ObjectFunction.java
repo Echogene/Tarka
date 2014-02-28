@@ -4,6 +4,7 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.model.Model;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -30,5 +31,10 @@ public class ObjectFunction<D extends Nameable, C> implements Function<D, C, Obj
 	@Override
 	public ObjectFunction<D, C> copy() {
 		return new ObjectFunction<>(object);
+	}
+
+	@Override
+	public Type getCodomain(Class<D> universeType) {
+		return object.getClass();
 	}
 }

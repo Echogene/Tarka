@@ -5,7 +5,9 @@ import reading.parsing.ParseTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author Steven Weston
@@ -89,5 +91,20 @@ public class TreeUtils {
 	// Not sure what to call this...
 	private static boolean isPartOfTree(String trimmed) {
 		return trimmed.startsWith("└") || trimmed.startsWith("├") || trimmed.startsWith("│");
+	}
+
+	public static void recurse(
+			ParseTreeNode parent,
+			Predicate<ParseTreeNode> shouldWalkDown,
+			BiConsumer<ParseTreeNode, List<ParseTreeNode>> parentAndChildConsumer
+	) {
+
+		List<ParseTreeNode> children = parent.getChildren();
+		for (ParseTreeNode child : children) {
+			if (shouldWalkDown.test(child)) {
+				recurse(child, shouldWalkDown, parentAndChildConsumer);
+			}
+		}
+		parentAndChildConsumer.accept(parent, children);
 	}
 }

@@ -10,10 +10,7 @@ import reading.parsing.ParseTreeNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Type;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Steven Weston
@@ -72,5 +69,10 @@ public abstract class AbstractDefinedFunctionFactory<
 
 	public String getFunctionSymbol() {
 		return functionSymbol;
+	}
+
+	@Override
+	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return Collections.singleton(definition.getCodomain(getUniverseType()));
 	}
 }

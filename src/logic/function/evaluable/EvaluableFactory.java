@@ -26,4 +26,9 @@ public abstract class EvaluableFactory<T extends Nameable, F extends Evaluable<T
 	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
 		return Collections.singleton(Boolean.class);
 	}
+
+	@Override
+	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return Collections.singleton(Boolean.class);
+	}
 }

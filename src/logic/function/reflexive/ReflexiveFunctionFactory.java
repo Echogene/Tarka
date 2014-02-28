@@ -27,4 +27,9 @@ public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends Ref
 	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
 		return Collections.singleton(getUniverseType());
 	}
+
+	@Override
+	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return Collections.singleton(getUniverseType());
+	}
 }

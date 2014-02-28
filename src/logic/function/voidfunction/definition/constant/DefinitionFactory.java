@@ -3,13 +3,13 @@ package logic.function.voidfunction.definition.constant;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
-import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.NonVoidFunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
+import logic.function.voidfunction.VoidFunctionFactory;
 import logic.type.TypeInferrorException;
 import logic.type.VariableAssignerFactory;
 import logic.type.VariableAssignmentTypeException;
@@ -27,7 +27,7 @@ import static logic.function.voidfunction.definition.constant.MemberDefinition.D
  * @author Steven Weston
  */
 public class DefinitionFactory<T extends Nameable>
-		extends FunctionFactory<T, Void, AbstractDefinition<T, ?, ?, ?>>
+		extends VoidFunctionFactory<T, AbstractDefinition<T, ?, ?, ?>>
 		implements VariableAssignerFactory {
 
 	public DefinitionFactory(Class<T> universeType) {
@@ -52,11 +52,6 @@ public class DefinitionFactory<T extends Nameable>
 	@Override
 	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
 		return nodes.indexOf(node) > 1;
-	}
-
-	@Override
-	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
-		return Collections.singleton(Void.class);
 	}
 
 	@Override

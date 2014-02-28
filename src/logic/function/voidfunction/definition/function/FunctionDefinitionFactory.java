@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.evaluable.Evaluable;
-import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.factory.validation.checking.checkers.NumberedChecker;
@@ -13,7 +12,7 @@ import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
-import logic.type.TypeInferrorException;
+import logic.function.voidfunction.VoidFunctionFactory;
 import logic.type.VariableAssignerFactory;
 import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
@@ -32,7 +31,7 @@ import static logic.function.voidfunction.definition.function.FunctionDefinition
  * @author Steven Weston
  */
 public class FunctionDefinitionFactory<T extends Nameable>
-		extends FunctionFactory<T, Void, FunctionDefinition<T, ?, ?, ?>>
+		extends VoidFunctionFactory<T, FunctionDefinition<T, ?, ?, ?>>
 		implements VariableAssignerFactory {
 
 	public FunctionDefinitionFactory(Class<T> universeType) {
@@ -107,11 +106,6 @@ public class FunctionDefinitionFactory<T extends Nameable>
 					)
 			);
 		}
-	}
-
-	@Override
-	public Set<Type> getTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> types) throws TypeInferrorException {
-		return Collections.singleton(Void.class);
 	}
 
 	@Override

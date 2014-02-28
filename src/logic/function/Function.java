@@ -3,6 +3,7 @@ package logic.function;
 import logic.Nameable;
 import logic.model.Model;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -24,4 +25,6 @@ public interface Function<D extends Nameable, C, F extends Function<D, C, F>> {
 	 * Create a deep copy of this function.
 	 */
 	F copy();
+
+	Type getCodomain(Class<D> universeType);
 }

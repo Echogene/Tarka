@@ -51,6 +51,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 			SetFunction.class
 	);
 	protected final Set<Type> nonVoidTypes;
+	protected final Set<Type> allTypes;
 
 	private final TokenValidator tokenValidator;
 	private final FunctionValidator<D> functionValidator;
@@ -62,6 +63,7 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 		functionValidator = new SimpleLogicFunctionValidator<>(extractFunctionCheckers(checkers));
 
 		nonVoidTypes = CollectionUtils.createSet(getUniverseType(), Boolean.class, logic.set.Set.class);
+		allTypes = CollectionUtils.createSet(getUniverseType(), Boolean.class, logic.set.Set.class, Void.class);
 	}
 
 	private List<CheckerWithNumber> extractFunctionCheckers(List<CheckerWithNumber> checkers) {

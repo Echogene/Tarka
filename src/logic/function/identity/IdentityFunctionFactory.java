@@ -100,4 +100,9 @@ public class IdentityFunctionFactory<T extends Nameable>
 	public java.util.Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
 		return nonVoidTypes;
 	}
+
+	@Override
+	public java.util.Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return nonVoidTypes;
+	}
 }

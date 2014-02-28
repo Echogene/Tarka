@@ -113,6 +113,10 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 			List<ParseTreeNode> surroundedNodes
 	) throws TypeInferrorException {
 
+		if (variableAssignments.allFailed()) {
+			return;
+		}
+
 		if (variableAssignments.hasTotallyAmbiguousPasses()) {
 			throw new TypeInferrorException(
 					MessageFormat.format(
@@ -144,7 +148,12 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		}
 	}
 
-	private Map<String, Set<Type>> guessFreeVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes) throws TypeInferrorException {
+	private Map<String, Set<Type>> guessFreeVariableTypes(
+			List<ParseTreeNode> nodes,
+			MapWithErrors<ParseTreeNode,
+			Set<Type>> functionTypes
+	) throws TypeInferrorException {
+
 		MapWithErrors<TypeMatcher, Map<String, Set<Type>>> map = new MapWithErrors<>(
 				passedMatchers.get(first(nodes)),
 				matcher -> {
@@ -213,8 +222,9 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 		if (variableAssignments.hasAmbiguousPasses()) {
 			throw new TypeInferrorException(
 					MessageFormat.format(
-							"Ambiguous assignment for {0}.",
-							surroundedNodes.toString()
+							"Ambiguous assignment for {0}.  The following factories passed: {1}",
+							surroundedNodes,
+							variableAssignments.getPassedValues().keySet()
 					)
 			);
 		}

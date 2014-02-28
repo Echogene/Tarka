@@ -20,7 +20,9 @@ public class MapWithErrors<K, V> implements ErrorMap {
 	public MapWithErrors(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
 		passedValues = new HashMap<>();
 		failedValues = new HashMap<>();
-		fillFrom(keys, extractor);
+		if (keys != null && !keys.isEmpty()) {
+			fillFrom(keys, extractor);
+		}
 	}
 
 	private void fillFrom(final Collection<? extends K> keys, final Extractor<K, V> extractor) {

@@ -48,4 +48,12 @@ public class NumberUtils {
 		assertEquals("112th", ordinal(112));
 		assertEquals("113th", ordinal(113));
 	}
+
+	public static boolean isEven(int integer) {
+		return 0 == (integer % 2);
+	}
+
+	public static boolean isOdd(int integer) {
+		return 1 == (integer % 2);
+	}
 }

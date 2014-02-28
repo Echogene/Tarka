@@ -37,4 +37,6 @@ public interface TypeMatcher {
 	 * @return
 	 */
 	Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes);
+
+	Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children);
 }

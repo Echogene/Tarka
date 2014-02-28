@@ -285,7 +285,11 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		List<FunctionFactory<T, ?, ?>> remainingFactories = validateFunctions(passedFactories, functions);
 		if (remainingFactories.size() > 1) {
 			throw new EvaluatorException(
-					MessageFormat.format("The functions {0} were ambiguous.", functions.toString())
+					MessageFormat.format(
+							"The functions {0} were ambiguous.  The factories {1} remain.",
+							functions,
+							CollectionUtils.toString(remainingFactories)
+					)
 			);
 		}
 

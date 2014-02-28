@@ -1,5 +1,6 @@
 package util;
 
+import javafx.util.Pair;
 import logic.type.map.Extractor;
 
 import java.util.*;
@@ -109,6 +110,24 @@ public class MapUtils {
 			for (Map<K, S> map : maps) {
 				entry.getValue().retainAll(map.get(entry.getKey()));
 			}
+		}
+		return output;
+	}
+
+	public static <K, V> Map<K, V> emptyMap() {
+		return Collections.EMPTY_MAP;
+	}
+
+	public static <K, V> Pair<K, V> $(K key, V value) {
+		return new Pair<>(key, value);
+	}
+
+	@SafeVarargs
+	public static <K, V> Map<K, V> map(Pair<K, V>... pairs) {
+
+		Map<K, V> output = new HashMap<>();
+		for (Pair<K, V> pair : pairs) {
+			output.put(pair.getKey(), pair.getValue());
 		}
 		return output;
 	}

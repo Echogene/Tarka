@@ -133,4 +133,9 @@ public class AssignmentFactory<T extends Nameable>
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
 		return nonVoidTypes;
 	}
+
+	@Override
+	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+		return allTypes;
+	}
 }
