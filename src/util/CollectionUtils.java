@@ -73,6 +73,7 @@ public class CollectionUtils {
 		return output;
 	}
 
+	@SafeVarargs
 	public static <T> Set<T> createSet(T... elements) {
 		HashSet<T> output = new HashSet<>();
 		Collections.addAll(output, elements);

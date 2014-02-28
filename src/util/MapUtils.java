@@ -28,6 +28,22 @@ public class MapUtils {
 		return sb.toString();
 	}
 
+	public static <K, V> void updateSetBasedMap(Map<K, Set<V>> map, K key, V value) {
+		if (map.containsKey(key)) {
+			map.get(key).add(value);
+		} else {
+			map.put(key, CollectionUtils.createSet(value));
+		}
+	}
+
+	public static <K, V> void updateSetBasedMap(Map<K, Set<V>> map, K key, Set<V> value) {
+		if (map.containsKey(key)) {
+			map.get(key).addAll(value);
+		} else {
+			map.put(key, new HashSet<>(value));
+		}
+	}
+
 	public static <K, V> Map<K, V> createMap(K key, V value) {
 		Map<K, V> output = new HashMap<>();
 		output.put(key, value);

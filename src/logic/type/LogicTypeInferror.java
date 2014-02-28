@@ -5,6 +5,7 @@ import logic.model.universe.Universe;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import util.MapUtils;
 import util.TreeUtils;
 
 import java.lang.reflect.Type;
@@ -49,7 +50,10 @@ public class LogicTypeInferror<T extends Nameable> implements TypeInferror {
 				(parent, children) -> {
 					Collection<? extends TypeMatcher> matchers = passedMatchers.get(parent);
 					for (TypeMatcher matcher : matchers) {
-						output.put(parent, matcher.getPotentialReturnTypes(parent, children));
+						MapUtils.updateSetBasedMap(
+								output,
+								parent,
+								matcher.getPotentialReturnTypes(parent, children));
 					}
 				}
 		);
