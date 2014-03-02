@@ -30,7 +30,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.evaluating.EvaluatorException;
 import util.CollectionUtils;
-import util.ExceptionalRunnable;
+import util.function.ExceptionalRunnable;
 
 import java.text.MessageFormat;
 
