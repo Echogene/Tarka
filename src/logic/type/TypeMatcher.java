@@ -4,7 +4,9 @@ import logic.type.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -39,4 +41,19 @@ public interface TypeMatcher {
 	Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes);
 
 	Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children);
+
+	/**
+	 * Go through the variables and guess the types of each.
+	 * @param nodes the list of nodes (including surrounding brackets)
+	 * @return
+	 */
+	default Map<ParseTreeNode, Set<Type>> guessVariableTypes(List<ParseTreeNode> nodes) {
+
+		List<ParseTreeNode> variables = getVariables(nodes);
+		Map<ParseTreeNode, Set<Type>> output = new HashMap<>(variables.size());
+		for (ParseTreeNode variable : variables) {
+			output.put(variable, guessTypes(variable, nodes));
+		}
+		return output;
+	}
 }
