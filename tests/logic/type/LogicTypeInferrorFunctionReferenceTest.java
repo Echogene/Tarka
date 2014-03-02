@@ -31,18 +31,16 @@ public class LogicTypeInferrorFunctionReferenceTest
 	public static final List<TypeMatcher> FUNCTION_REFERENCE_FACTORY
 			= Collections.singletonList(new FunctionReferenceFactory<>(TestClass.class));
 
-	private static final TestClassUniverse UNIVERSE = new TestClassUniverse();
-
 	public LogicTypeInferrorFunctionReferenceTest() {
-		super(UNIVERSE, new LogicTypeInferror<>(UNIVERSE));
+		super(new TestClassUniverse());
 	}
 
 	@Test
 	public void testFunctionReferenceTypeGuessed() throws Exception {
 
 		ParseTree tree = parse("(⊤ ∧ (f ⊤))");
+		inferror = new LogicTypeInferror<>(universe, tree);
 		Map<ParseTreeNode, Set<Type>> map = inferror.inferTypes(
-				tree,
 				createMap(
 						tree,
 						Arrays.asList(0, 3),

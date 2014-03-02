@@ -19,30 +19,28 @@ import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN
 /**
  * @author Steven Weston
  */
-public class LogicTypeInferror<T extends Nameable> implements TypeInferror {
+public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
-	private final Universe<T, ?, ?> universe;
+	final Map<ParseTreeNode, Set<Type>> typeMap = new HashMap<>();
 
-	public LogicTypeInferror(Universe<T, ?, ?> universe) {
-		this.universe = universe;
+	protected LogicTypeInferror(Universe<T, ?, ?> universe, ParseTree tree) {
+		super(universe, tree);
 	}
 
 	@Override
 	public Map<ParseTreeNode, Set<Type>> inferTypes(
-			ParseTree tree,
 			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
 			Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
 	) throws TypeInferrorException {
 
+		inferTypesFromMatchers(passedMatchers);
+
+		guessTypesOfFreeVariables(passedMatchers);
+
 		throw new NotImplementedException();
 	}
 
-	Map<ParseTreeNode, Set<Type>> inferTypesFromMatchers(
-			ParseTree tree,
-			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers
-	) {
-
-		Map<ParseTreeNode, Set<Type>> output = new HashMap<>();
+	void inferTypesFromMatchers(Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers) {
 
 		TreeUtils.recurse(
 				tree.getFirstNode(),
@@ -51,14 +49,16 @@ public class LogicTypeInferror<T extends Nameable> implements TypeInferror {
 					Collection<? extends TypeMatcher> matchers = passedMatchers.get(parent);
 					for (TypeMatcher matcher : matchers) {
 						MapUtils.updateSetBasedMap(
-								output,
+								typeMap,
 								parent,
 								matcher.getPotentialReturnTypes(parent, children));
 					}
 				}
 		);
+	}
 
-		return output;
+	private void guessTypesOfFreeVariables(Map<ParseTreeNode,? extends Collection<? extends TypeMatcher>> passedMatchers) {
+
 	}
 
 

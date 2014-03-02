@@ -23,9 +23,7 @@ import static util.TreeUtils.surroundWithParentNodes;
 /**
  * @author Steven Weston
  */
-public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror {
-
-	private final Universe<T, ?, ?> universe;
+public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 	private Map<ParseTreeNode, Set<Type>> typeMap;
 
@@ -37,13 +35,12 @@ public class SimpleLogicTypeInferror<T extends Nameable> implements TypeInferror
 	private Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers;
 	private Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners;
 
-	public SimpleLogicTypeInferror(Universe<T, ?, ?> universe) {
-		this.universe = universe;
+	public SimpleLogicTypeInferror(Universe<T, ?, ?> universe, ParseTree tree) {
+		super(universe, tree);
 	}
 
 	@Override
 	public synchronized Map<ParseTreeNode, Set<Type>> inferTypes(
-			final ParseTree tree,
 			final Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
 			final Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
 	) throws TypeInferrorException {

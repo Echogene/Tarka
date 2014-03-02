@@ -23,13 +23,12 @@ public class AbstractTypeInferrorTest<T extends Nameable, U extends Universe<T, 
 
 	protected final Lexer lexer;
 	protected final Parser parser;
-	protected final I inferror;
 	protected final U universe;
+	protected I inferror;
 
-	public AbstractTypeInferrorTest(U universe, I inferror) {
+	public AbstractTypeInferrorTest(U universe) {
 
 		this.universe = universe;
-		this.inferror = inferror;
 
 		parser = new SimpleLogicParser();
 		lexer = new SimpleLogicLexer();
