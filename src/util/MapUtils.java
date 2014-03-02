@@ -131,6 +131,14 @@ public class MapUtils {
 		}
 	}
 
+	/**
+	 * Given a collection of maps from keys to sets, return the map whose keys are the intersection of all the maps'
+	 * keys and whose values (as sets) are the intersection of all the maps' corresponding (by key) values.
+	 * @param maps
+	 * @param <K>
+	 * @param <S>
+	 * @return
+	 */
 	public static <K, S extends Set<?>> Map<K, S> intersect(Collection<Map<K, S>> maps) {
 		Iterator<Map<K, S>> iterator = maps.iterator();
 		Map<K, S> output = new HashMap<>(iterator.next());
@@ -144,10 +152,6 @@ public class MapUtils {
 			}
 		}
 		return output;
-	}
-
-	public static <K, V> Map<K, V> emptyMap() {
-		return Collections.EMPTY_MAP;
 	}
 
 	public static <K, V> Pair<K, V> $(K key, V value) {

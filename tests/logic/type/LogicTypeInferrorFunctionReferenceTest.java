@@ -9,7 +9,6 @@ import logic.type.map.MapToErrors;
 import org.junit.Test;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -46,7 +45,7 @@ public class LogicTypeInferrorFunctionReferenceTest
 						Arrays.asList(0, 3),
 						Arrays.asList(BINARY_STATEMENT_FACTORY, FUNCTION_REFERENCE_FACTORY)
 				),
-				MapUtils.emptyMap()
+				Collections.emptyMap()
 		);
 		checkNodes(
 				tree,
