@@ -28,6 +28,14 @@ public class MapUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Update a set-based map by adding the given value to the set represented by a key.
+	 * @param map the map to update
+	 * @param key the key to update
+	 * @param value the set of value to add to the key's set
+	 * @param <K> the key type
+	 * @param <V> the value type
+	 */
 	public static <K, V> void updateSetBasedMap(Map<K, Set<V>> map, K key, V value) {
 		if (map.containsKey(key)) {
 			map.get(key).add(value);
@@ -36,11 +44,19 @@ public class MapUtils {
 		}
 	}
 
-	public static <K, V> void updateSetBasedMap(Map<K, Set<V>> map, K key, Set<V> value) {
+	/**
+	 * Update a set-based map by adding (by union) the given set to the set represented by a key.
+	 * @param map the map to update
+	 * @param key the key to update
+	 * @param values the set of values to unite with the key's set
+	 * @param <K> the key type
+	 * @param <V> the value type
+	 */
+	public static <K, V> void updateSetBasedMap(Map<K, Set<V>> map, K key, Set<V> values) {
 		if (map.containsKey(key)) {
-			map.get(key).addAll(value);
+			map.get(key).addAll(values);
 		} else {
-			map.put(key, new HashSet<>(value));
+			map.put(key, new HashSet<>(values));
 		}
 	}
 
