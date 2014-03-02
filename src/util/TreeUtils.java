@@ -2,10 +2,10 @@ package util;
 
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
+import util.function.ExceptionalBiConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -93,11 +93,11 @@ public class TreeUtils {
 		return trimmed.startsWith("└") || trimmed.startsWith("├") || trimmed.startsWith("│");
 	}
 
-	public static void recurse(
+	public static <E extends Exception> void recurse(
 			ParseTreeNode parent,
 			Predicate<ParseTreeNode> shouldWalkDown,
-			BiConsumer<ParseTreeNode, List<ParseTreeNode>> parentAndChildConsumer
-	) {
+			ExceptionalBiConsumer<ParseTreeNode, List<ParseTreeNode>, E> parentAndChildConsumer
+	) throws E {
 
 		List<ParseTreeNode> children = parent.getChildren();
 		for (ParseTreeNode child : children) {
