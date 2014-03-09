@@ -110,6 +110,16 @@ public class AssignmentFactory<T extends Nameable>
 	}
 
 	@Override
+	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
+
+		if (surroundedChildren.get(1).getToken().isOfType(OPEN_BRACKET)) {
+			return Collections.singletonList(surroundedChildren.get(4).getToken().getValue());
+		} else {
+			return Collections.singletonList(surroundedChildren.get(3).getToken().getValue());
+		}
+	}
+
+	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		ParseTreeNode firstNode = nodes.get(1);
 		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {

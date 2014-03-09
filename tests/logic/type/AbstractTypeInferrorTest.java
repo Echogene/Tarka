@@ -38,10 +38,10 @@ public class AbstractTypeInferrorTest<T extends Nameable, U extends Universe<T, 
 		return parser.parseTokens(lexer.tokeniseString(string));
 	}
 
-	protected Map<ParseTreeNode, List<TypeMatcher>> createMap(
+	protected <T> Map<ParseTreeNode, List<T>> createMap(
 			ParseTree tree,
 			List<Integer> integers,
-			List<List<TypeMatcher>> matchers
+			List<List<T>> matchers
 	) {
 
 		List<ParseTreeNode> nodes = new ArrayList<>(integers.size());

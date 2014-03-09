@@ -56,6 +56,12 @@ public class QuantifiedStatementFactory<T extends Nameable> extends EvaluableFac
 	}
 
 	@Override
+	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
+
+		return Collections.singletonList(surroundedChildren.get(2).getToken().getValue());
+	}
+
+	@Override
 	public QuantifiedStatement<T> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables) throws FactoryException {
 		Quantifier quantifier = quantifierFactory.createElement(tokens.get(1).getValue());
 		String variable = tokens.get(2).getValue();

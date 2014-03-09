@@ -103,18 +103,26 @@ public class MapUtils {
 	 * @param <K>
 	 * @param <V>
 	 */
-	public static <K, V, S extends Set<? extends V>> void overlay(
-			Map<K, S> underlay,
-			Map<K, S> overlay
+	public static <K, V> void overlay(
+			Map<K, Set<V>> underlay,
+			Map<K, Set<V>> overlay
 	) {
-		for (Map.Entry<K, S> entry : overlay.entrySet()) {
+		for (Map.Entry<K, Set<V>> entry : overlay.entrySet()) {
 			K key = entry.getKey();
-			S value = entry.getValue();
-			if (underlay.containsKey(key)) {
-				underlay.get(key).retainAll(value);
-			} else {
-				underlay.put(key, value);
-			}
+			Set<V> value = entry.getValue();
+			overlay(underlay, key, value);
+		}
+	}
+
+	public static <K, V> void overlay(
+			Map<K, Set<V>> underlay,
+			K key,
+			Set<V> value
+	) {
+		if (underlay.containsKey(key)) {
+			underlay.get(key).retainAll(value);
+		} else {
+			underlay.put(key, new HashSet<>(value));
 		}
 	}
 
@@ -166,5 +174,21 @@ public class MapUtils {
 			output.put(pair.getKey(), pair.getValue());
 		}
 		return output;
+	}
+
+	public static <K, V> String debugToString(Map<K, V> map) {
+
+		if (map.size() > 10) {
+			return "size = " + map.size();
+		}
+		int count = 0;
+		for (Map.Entry<K, V> entry : map.entrySet()) {
+			count += entry.getKey().toString().length();
+			count += entry.getValue().toString().length();
+		}
+		if (count > 100) {
+			return "size = " + map.size();
+		}
+		return map.toString();
 	}
 }

@@ -140,4 +140,19 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		}
 		return false;
 	}
+
+	@Override
+	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
+
+		List<String> output = new ArrayList<>();
+		for (int i = 2; i < surroundedChildren.size(); i++) {
+			ParseTreeNode child = surroundedChildren.get(i);
+			String value = child.getToken().getValue();
+			if (DEFINITION_SYMBOL.equals(value)) {
+				return output;
+			}
+			output.add(value);
+		}
+		return output;
+	}
 }

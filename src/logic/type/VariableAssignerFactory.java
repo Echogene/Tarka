@@ -31,4 +31,6 @@ public interface VariableAssignerFactory {
 	) throws VariableAssignmentTypeException;
 
 	boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes);
+
+	List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren);
 }

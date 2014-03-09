@@ -10,7 +10,6 @@ import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunctionFactory;
-import logic.type.TypeInferrorException;
 import logic.type.VariableAssignerFactory;
 import logic.type.VariableAssignmentTypeException;
 import logic.type.map.MapWithErrors;
@@ -52,6 +51,12 @@ public class DefinitionFactory<T extends Nameable>
 	@Override
 	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
 		return nodes.indexOf(node) > 1;
+	}
+
+	@Override
+	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
+
+		return Collections.singletonList(surroundedChildren.get(1).getToken().getValue());
 	}
 
 	@Override

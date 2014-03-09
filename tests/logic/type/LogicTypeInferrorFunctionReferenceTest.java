@@ -38,8 +38,9 @@ public class LogicTypeInferrorFunctionReferenceTest
 	public void testFunctionReferenceTypeGuessed() throws Exception {
 
 		ParseTree tree = parse("(⊤ ∧ (f ⊤))");
-		inferror = new LogicTypeInferror<>(universe, tree);
-		Map<ParseTreeNode, Set<Type>> map = inferror.inferTypes(
+		inferror = new LogicTypeInferror<>(
+				universe,
+				tree,
 				createMap(
 						tree,
 						Arrays.asList(0, 3),
@@ -47,6 +48,7 @@ public class LogicTypeInferrorFunctionReferenceTest
 				),
 				Collections.emptyMap()
 		);
+		Map<ParseTreeNode, Set<Type>> map = inferror.inferTypes();
 		checkNodes(
 				tree,
 				map,

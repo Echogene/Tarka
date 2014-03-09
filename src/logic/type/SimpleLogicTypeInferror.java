@@ -35,22 +35,22 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 	private Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers;
 	private Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners;
 
-	public SimpleLogicTypeInferror(Universe<T, ?, ?> universe, ParseTree tree) {
-		super(universe, tree);
+	public SimpleLogicTypeInferror(
+			Universe<T, ?, ?> universe,
+			ParseTree tree,
+			Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
+			Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
+	) {
+		super(universe, tree, passedMatchers, passedAssigners);
 	}
 
 	@Override
 	public synchronized Map<ParseTreeNode, Set<Type>> inferTypes(
-			final Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers,
-			final Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners
 	) throws TypeInferrorException {
 
 		if (tree == null) {
 			return null;
 		}
-		this.passedMatchers = passedMatchers;
-		this.passedAssigners = passedAssigners;
-
 		freeVariableMap = new HashMap<>();
 		boundVariableMap = new HashMap<>();
 

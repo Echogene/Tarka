@@ -71,4 +71,10 @@ public class ComplexSetFactory<T extends Nameable> extends SetFunctionFactory<T,
 	public boolean shouldWalkDownAt(ParseTreeNode node, List<ParseTreeNode> nodes) {
 		return nodes.indexOf(node) > 1;
 	}
+
+	@Override
+	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
+
+		return Collections.singletonList(surroundedChildren.get(1).getToken().getValue());
+	}
 }

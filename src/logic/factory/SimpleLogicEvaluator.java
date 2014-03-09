@@ -71,7 +71,6 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			return null;
 		}
 
-		typeInferror = new SimpleLogicTypeInferror<>(universe, tree);
 
 		final List<ParseTreeNode> firstChildren = tree.getFirstNode().getChildren();
 
@@ -80,7 +79,8 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		final Map<ParseTreeNode, List<VariableAssignerFactory>> passedAssigners = new HashMap<>();
 		recursivelyValidateTokens(firstChildren, passedFactories, passedAssigners);
 
-		final Map<ParseTreeNode, Set<Type>> types = typeInferror.inferTypes(passedFactories, passedAssigners);
+		typeInferror = new SimpleLogicTypeInferror<>(universe, tree, passedFactories, passedAssigners);
+		final Map<ParseTreeNode, Set<Type>> types = typeInferror.inferTypes();
 
 		// Create functions for the typed nodes
 		final Map<ParseTreeNode, Function<T, ?, ?>> identityFunctions

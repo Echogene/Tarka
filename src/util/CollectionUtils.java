@@ -1,6 +1,9 @@
 package util;
 
+import util.function.ExceptionalTriConsumer;
+
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @author Steven Weston
@@ -94,5 +97,49 @@ public class CollectionUtils {
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	public static <T> String debugToString(Collection<T> collection) {
+
+		if (collection.size() > 10) {
+			return "size = " + collection.size();
+		}
+		int count = 0;
+		for (T t : collection) {
+			count += t.toString().length();
+		}
+		if (count > 100) {
+			return "size = " + collection.size();
+		}
+		return toString(collection);
+	}
+
+	/**
+	 * From a collection, extract something from each of its members, but throw an error if it is not the same for all
+	 * of them.
+	 * @param collection
+	 * @param function
+	 * @param consumer throws an error if the
+	 * @param <T>
+	 * @param <U>
+	 * @param <E>
+	 * @return
+	 * @throws E
+	 */
+	public static <T, U, E extends Exception> T extractOrThrowIfDifferent(
+			Collection<U> collection,
+			Function<U, T> function,
+			ExceptionalTriConsumer<T, T, U, E> consumer
+	) throws E {
+
+		T output = null;
+		for (U u : collection) {
+			T t = function.apply(u);
+			if (output != null && !output.equals(t)) {
+				consumer.accept(output, t, u);
+			}
+			output = t;
+		}
+		return output;
 	}
 }
