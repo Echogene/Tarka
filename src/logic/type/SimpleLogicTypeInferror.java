@@ -32,8 +32,6 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 	 */
 	private Map<ParseTreeNode, Map<String, Set<Type>>> freeVariableMap;
 	private Map<ParseTreeNode, Map<String, Set<Type>>> boundVariableMap;
-	private Map<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> passedMatchers;
-	private Map<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> passedAssigners;
 
 	public SimpleLogicTypeInferror(
 			Universe<T, ?, ?> universe,
