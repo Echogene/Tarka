@@ -23,6 +23,7 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 	final Map<ParseTreeNode, Set<Type>> typeMap = new HashMap<>();
 	final Map<ParseTreeNode, List<String>> variablesAssigned = new HashMap<>();
+	final Map<ParseTreeNode, Map<String, Set<Type>>> assignedVariableTypes = new HashMap<>();
 
 	protected LogicTypeInferror(
 			Universe<T, ?, ?> universe,
@@ -40,38 +41,42 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 		findVariableAssignments();
 
-		guessFreeVariableTypes();
 
 		throw new NotImplementedException();
 	}
 
 	void findVariableAssignments() throws TypeInferrorException {
 
-		TreeUtils.recurse(
-				tree.getFirstNode(),
-				this::shouldWalkDownAt,
-				(parent, children) -> {
-					List<ParseTreeNode> surroundedChildren = surroundWithParentNodes(children);
+		for (Map.Entry<ParseTreeNode, ? extends Collection<? extends VariableAssignerFactory>> entry
+				: passedAssigners.entrySet()) {
 
-					Collection<? extends VariableAssignerFactory> assigners = passedAssigners.get(parent);
-					variablesAssigned.put(
-							parent,
-							CollectionUtils.extractOrThrowIfDifferent(
-									assigners,
-									(assigner) -> assigner.getVariablesToAssign(surroundedChildren),
-									(expectedVariables, variables, assigner) -> {
-										throw new TypeInferrorException(
-												MessageFormat.format(
-														"Ambiguous variables for assigner {0}.  Expected {1} but got {2}",
-														assigner,
-														expectedVariables,
-														variables
-												)
-										);
-									}
-							)
-					);
-				}
+			ParseTreeNode parent = entry.getKey();
+			Collection<? extends VariableAssignerFactory> assigners = entry.getValue();
+			List<ParseTreeNode> surroundedChildren = surroundWithParentNodes(parent.getChildren());
+			variablesAssigned.put(
+					parent,
+					CollectionUtils.extractUnique(
+							assigners,
+							(assigner) -> assigner.getVariablesToAssign(surroundedChildren),
+							this::throwIfVariablesDiffer
+					)
+			);
+		}
+	}
+
+	private void throwIfVariablesDiffer(
+			List<String> expectedVariables,
+			List<String> variables,
+			VariableAssignerFactory assigner
+	) throws TypeInferrorException {
+
+		throw new TypeInferrorException(
+				MessageFormat.format(
+						"Ambiguous variables for assigner {0}.  Expected {1} but got {2}",
+						assigner,
+						expectedVariables,
+						variables
+				)
 		);
 	}
 
@@ -87,71 +92,6 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 								typeMap,
 								parent,
 								matcher.getPotentialReturnTypes(parent, children));
-					}
-				}
-		);
-	}
-
-	void guessFreeVariableTypes() throws TypeInferrorException {
-
-		TreeUtils.recurse(
-				tree.getFirstNode(),
-				this::shouldWalkDownAt,
-				this::guessTypesOfFreeVariables
-		);
-	}
-
-	private void guessTypesOfFreeVariables(ParseTreeNode parent, List<ParseTreeNode> children)
-			throws TypeInferrorException {
-
-		List<ParseTreeNode> surroundedChildren = surroundWithParentNodes(children);
-
-		Collection<? extends TypeMatcher> matchers = passedMatchers.get(parent);
-		List<ParseTreeNode> variables = Collections.emptyList();
-		for (TypeMatcher matcher : matchers) {
-			List<ParseTreeNode> matcherVariables = matcher.getVariables(surroundedChildren);
-			if (!variables.isEmpty() && !variables.equals(matcherVariables)) {
-				throw new TypeInferrorException(
-						MessageFormat.format(
-								"Ambiguous free variables for {0} from matchers {1}.",
-								surroundedChildren,
-								matchers
-						)
-				);
-			}
-			variables = matcherVariables;
-
-			Map<ParseTreeNode, Set<Type>> matcherVariableTypes = matcher.guessVariableTypes(
-					surroundedChildren
-			);
-			MapUtils.overlay(typeMap, matcherVariableTypes);
-		}
-		List<String> variableSymbols = getStringsFromNodes(variables);
-		overlayFreeVariableTypesOfDescendants(parent, variableSymbols);
-	}
-
-	private void overlayFreeVariableTypesOfDescendants(
-			ParseTreeNode parent,
-			List<String> variables
-	) {
-
-		Map<String, Set<ParseTreeNode>> variableToNodesMap = new HashMap<>(variables.size());
-		Map<String, Set<Type>> variableToTypesMap = new HashMap<>(variables.size());
-		TreeUtils.recurse(
-				parent,
-				this::shouldWalkDownAt,
-				(parent2, children2) -> {
-					for (ParseTreeNode child : children2) {
-						String childSymbol = child.getToken().getValue();
-						if (!variables.contains(childSymbol)) {
-							continue;
-						}
-						MapUtils.overlay(variableToTypesMap, childSymbol, typeMap.get(child));
-						Set<Type> types = variableToTypesMap.get(childSymbol);
-						MapUtils.updateSetBasedMap(variableToNodesMap, childSymbol, child);
-						for (ParseTreeNode otherVariableNode : variableToNodesMap.get(childSymbol)) {
-							MapUtils.overlay(typeMap, otherVariableNode, types);
-						}
 					}
 				}
 		);

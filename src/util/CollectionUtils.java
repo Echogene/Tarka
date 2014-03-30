@@ -117,26 +117,27 @@ public class CollectionUtils {
 	/**
 	 * From a collection, extract something from each of its members, but throw an error if it is not the same for all
 	 * of them.
-	 * @param collection
-	 * @param function
-	 * @param consumer throws an error if the
-	 * @param <T>
-	 * @param <U>
-	 * @param <E>
-	 * @return
-	 * @throws E
+	 * @param collection  the collection from which to extract things
+	 * @param function    the function that extracts a thing from each member
+	 * @param ifDifferent throws an error if the extracted thing differs to the current thing.  It has access to the
+	 *                    expected and actual things to generate the error message
+	 * @param <T> the type of the extracted things
+	 * @param <U> the type of the collection's members
+	 * @param <E> the type of exception thrown
+	 * @return the result of the extraction {@code function}
+	 * @throws E if the extraction is ambiguous
 	 */
-	public static <T, U, E extends Exception> T extractOrThrowIfDifferent(
+	public static <T, U, E extends Exception> T extractUnique(
 			Collection<U> collection,
 			Function<U, T> function,
-			ExceptionalTriConsumer<T, T, U, E> consumer
+			ExceptionalTriConsumer<T, T, U, E> ifDifferent
 	) throws E {
 
 		T output = null;
 		for (U u : collection) {
 			T t = function.apply(u);
 			if (output != null && !output.equals(t)) {
-				consumer.accept(output, t, u);
+				ifDifferent.accept(output, t, u);
 			}
 			output = t;
 		}
