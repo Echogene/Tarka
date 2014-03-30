@@ -7,7 +7,6 @@ import reading.parsing.ParseTreeNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import util.CollectionUtils;
 import util.MapUtils;
-import util.TreeUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -82,19 +81,18 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 	void inferTypesFromMatchers() {
 
-		TreeUtils.recurse(
-				tree.getFirstNode(),
-				this::shouldWalkDownAt,
-				(parent, children) -> {
-					Collection<? extends TypeMatcher> matchers = passedMatchers.get(parent);
-					for (TypeMatcher matcher : matchers) {
-						MapUtils.updateSetBasedMap(
-								typeMap,
-								parent,
-								matcher.getPotentialReturnTypes(parent, children));
-					}
-				}
-		);
+		for (Map.Entry<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> entry : passedMatchers.entrySet()) {
+			ParseTreeNode parent = entry.getKey();
+			Collection<? extends TypeMatcher> matchers = entry.getValue();
+			List<ParseTreeNode> surroundedChildren = surroundWithParentNodes(parent.getChildren());
+
+			for (TypeMatcher matcher : matchers) {
+				MapUtils.updateSetBasedMap(
+						typeMap,
+						parent,
+						matcher.getPotentialReturnTypes(surroundedChildren));
+			}
+		}
 	}
 
 	private boolean shouldWalkDownAt(ParseTreeNode n) {

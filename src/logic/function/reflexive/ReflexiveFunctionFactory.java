@@ -29,7 +29,7 @@ public abstract class ReflexiveFunctionFactory<T extends Nameable, F extends Ref
 	}
 
 	@Override
-	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return Collections.singleton(getUniverseType());
 	}
 }

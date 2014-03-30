@@ -136,7 +136,7 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	}
 
 	@Override
-	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return allTypes;
 	}
 }

@@ -72,7 +72,7 @@ public abstract class AbstractDefinedFunctionFactory<
 	}
 
 	@Override
-	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return Collections.singleton(definition.getCodomain(getUniverseType()));
 	}
 }

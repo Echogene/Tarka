@@ -102,7 +102,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 	}
 
 	@Override
-	public java.util.Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public java.util.Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return nonVoidTypes;
 	}
 }

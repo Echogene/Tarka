@@ -67,7 +67,7 @@ public class FunctionReferenceFactory<T extends Nameable>
 	}
 
 	@Override
-	public Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return allTypes;
 	}
 }

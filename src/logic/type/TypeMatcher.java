@@ -40,7 +40,7 @@ public interface TypeMatcher {
 	 */
 	Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes);
 
-	Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children);
+	Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren);
 
 	/**
 	 * Go through the variables and guess the types of each.

@@ -29,7 +29,7 @@ public abstract class SetFunctionFactory<T extends Nameable, F extends SetFuncti
 	}
 
 	@Override
-	public java.util.Set<Type> getPotentialReturnTypes(ParseTreeNode parent, List<ParseTreeNode> children) {
+	public java.util.Set<Type> getPotentialReturnTypes(List<ParseTreeNode> surroundedChildren) {
 		return Collections.singleton(Set.class);
 	}
 }
