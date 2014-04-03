@@ -26,4 +26,34 @@ Tarka supports universal, existential and unique quantification:
 - `(∃x ⊤)` would be `true` only in everything but the empty model
 - `(∃!x ⊤)` would be `true` only in all models with a universal set of cardinality 1
 
+Equality
+--------
+A single equals sign is used for equals.
+- `(1 = 2)` returns `false` in the default integer model
+
+Membership
+----------
+- `(2 ∊ ℙ)` returns `true` in the default integer model
+
+Binary Operations
+-----------------
+Tarka supports the binary operators `∨`, `⊽`, `∧`, `⊼`, `→`, `↛`, `↔`, `↮`, `←` and `↚`, which correspond to or, nor, and, nand, implies, does not imply, iff, xor, implied by and not implied by.
+- `(⊥ → ⊤)` is a tautology
+
+Negation
+--------
+- `(¬⊤)` is a contradiction
+
+Union
+-----
+Tarka supports binary and multary unions.
+- `({1 2} ∪ {2 3})` returns `{1 2 3}` in the default integer model
+- `(⋃ {1} {2} {3})` returns `{1 2 3}` in the default integer model
+
+Intersection
+------------
+Tarka supports binary and multary intersections.
+- `({1 2} ∩ {2 3})` returns `{1 2 3}` in the default integer model
+- `(⋂ {1 2 3} {2 3} {3})` returns `{3}` in the default integer model
+
 `todo: document some more`
