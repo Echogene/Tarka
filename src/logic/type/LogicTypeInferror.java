@@ -23,6 +23,7 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 	final Map<ParseTreeNode, Set<Type>> typeMap = new HashMap<>();
 	final Map<ParseTreeNode, List<String>> variablesAssigned = new HashMap<>();
 	final Map<ParseTreeNode, Map<String, Set<Type>>> assignedVariableTypes = new HashMap<>();
+	final Set<ParseTreeNode> variables = new HashSet<>();
 
 	protected LogicTypeInferror(
 			Universe<T, ?, ?> universe,
@@ -38,8 +39,9 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 		inferTypesFromMatchers();
 
-		findVariableAssignments();
+		findVariables();
 
+		findVariableAssignments();
 
 		throw new NotImplementedException();
 	}
@@ -57,13 +59,13 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 					CollectionUtils.extractUnique(
 							assigners,
 							(assigner) -> assigner.getVariablesToAssign(surroundedChildren),
-							this::throwIfVariablesDiffer
+							this::throwIfVariablesAssignedDiffer
 					)
 			);
 		}
 	}
 
-	private void throwIfVariablesDiffer(
+	private void throwIfVariablesAssignedDiffer(
 			List<String> expectedVariables,
 			List<String> variables,
 			VariableAssignerFactory assigner
@@ -73,6 +75,40 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 				MessageFormat.format(
 						"Ambiguous variables for assigner {0}.  Expected {1} but got {2}",
 						assigner,
+						expectedVariables,
+						variables
+				)
+		);
+	}
+
+	void findVariables() throws TypeInferrorException {
+
+		for (Map.Entry<ParseTreeNode, ? extends Collection<? extends TypeMatcher>> entry : passedMatchers.entrySet()) {
+
+			ParseTreeNode parent = entry.getKey();
+			Collection<? extends TypeMatcher> assigners = entry.getValue();
+
+			List<ParseTreeNode> surroundedChildren = surroundWithParentNodes(parent.getChildren());
+			variables.addAll(
+					CollectionUtils.extractUnique(
+							assigners,
+							(assigner) -> assigner.getVariables(surroundedChildren),
+							this::throwIfVariablesDiffer
+					)
+			);
+		}
+	}
+
+	private void throwIfVariablesDiffer(
+			List<ParseTreeNode> expectedVariables,
+			List<ParseTreeNode> variables,
+			TypeMatcher matcher
+	) throws TypeInferrorException {
+
+		throw new TypeInferrorException(
+				MessageFormat.format(
+						"Ambiguous variables for matcher {0}.  Expected {1} but got {2}",
+						matcher,
 						expectedVariables,
 						variables
 				)

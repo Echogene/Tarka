@@ -111,4 +111,40 @@ public class LogicTypeInferrorTest
 		assertEquals(1, map.size());
 		assertEquals(CollectionUtils.<Type>createSet(Boolean.class, Void.class), map.get(tree.getFirstNode()));
 	}
+
+	@Test
+	public void test_variables_found() throws Exception {
+
+		ParseTree tree = parse("(a ∨ b)");
+		List<TypeMatcher> matcher = Collections.<TypeMatcher>singletonList(BINARY_STATEMENT_FACTORY);
+		Map<ParseTreeNode, List<TypeMatcher>> passedMatchers = createMap(
+				tree,
+				asList(0),
+				asList(matcher)
+		);
+		inferror = new LogicTypeInferror<>(universe, tree, passedMatchers, null);
+		inferror.findVariables();
+
+		Set<ParseTreeNode> set = inferror.variables;
+		assertEquals(2, set.size());
+		assertEquals(CollectionUtils.createSet(tree.getNodes().get(1), tree.getNodes().get(3)), set);
+	}
+
+	@Test
+	public void test_variables_found2() throws Exception {
+
+		ParseTree tree = parse("(a where a is 2)");
+		List<TypeMatcher> matcher = Collections.<TypeMatcher>singletonList(ASSIGNMENT_FACTORY);
+		Map<ParseTreeNode, List<TypeMatcher>> passedMatchers = createMap(
+				tree,
+				asList(0),
+				asList(matcher)
+		);
+		inferror = new LogicTypeInferror<>(universe, tree, passedMatchers, null);
+		inferror.findVariables();
+
+		Set<ParseTreeNode> set = inferror.variables;
+		assertEquals(2, set.size());
+		assertEquals(CollectionUtils.createSet(tree.getNodes().get(1), tree.getNodes().get(5)), set);
+	}
 }
