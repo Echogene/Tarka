@@ -53,7 +53,7 @@ Tarka supports binary and multary unions.
 Intersection
 ------------
 Tarka supports binary and multary intersections.
-- `({1 2} ∩ {2 3})` returns `{1 2 3}` in the default integer model
+- `({1 2} ∩ {2 3})` returns `{2}` in the default integer model
 - `(⋂ {1 2 3} {2 3} {3})` returns `{3}` in the default integer model
 
 `todo: document some more`
