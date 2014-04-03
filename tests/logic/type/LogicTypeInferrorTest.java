@@ -68,4 +68,47 @@ public class LogicTypeInferrorTest
 		assertEquals(1, map.size());
 		assertEquals(BOOLEAN_ONLY, map.get(tree.getFirstNode()));
 	}
+
+	@Test
+	public void test_more_than_one_type_inferred_from_matcher_matching_more_than_one_type() throws Exception {
+
+		ParseTree tree = parse("(a ∨ b)");
+		Map<ParseTreeNode, List<TypeMatcher>> passedMatchers = createMap(
+				tree,
+				asList(0),
+				asList(
+						Arrays.<TypeMatcher>asList(
+								IDENTITY_FUNCTION_FACTORY
+						)
+				)
+		);
+		inferror = new LogicTypeInferror<>(universe, tree, passedMatchers, null);
+		inferror.inferTypesFromMatchers();
+
+		Map<ParseTreeNode, Set<Type>> map = inferror.typeMap;
+		assertEquals(1, map.size());
+		assertEquals(NON_VOID_TYPES, map.get(tree.getFirstNode()));
+	}
+
+	@Test
+	public void test_more_than_one_type_inferred_from_ambiguous_match() throws Exception {
+
+		ParseTree tree = parse("(a ∨ b)");
+		Map<ParseTreeNode, List<TypeMatcher>> passedMatchers = createMap(
+				tree,
+				asList(0),
+				asList(
+						Arrays.<TypeMatcher>asList(
+								BINARY_STATEMENT_FACTORY,
+								DEFINITION_FACTORY
+						)
+				)
+		);
+		inferror = new LogicTypeInferror<>(universe, tree, passedMatchers, null);
+		inferror.inferTypesFromMatchers();
+
+		Map<ParseTreeNode, Set<Type>> map = inferror.typeMap;
+		assertEquals(1, map.size());
+		assertEquals(CollectionUtils.<Type>createSet(Boolean.class, Void.class), map.get(tree.getFirstNode()));
+	}
 }
