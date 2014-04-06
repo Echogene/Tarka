@@ -43,6 +43,8 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 		findVariableAssignments();
 
+		inferTypesOfVariablesFromUniverse();
+
 		throw new NotImplementedException();
 	}
 
@@ -127,6 +129,16 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 						typeMap,
 						parent,
 						matcher.getPotentialReturnTypes(surroundedChildren));
+			}
+		}
+	}
+
+	void inferTypesOfVariablesFromUniverse() {
+
+		for (ParseTreeNode variable : variables) {
+			String value = variable.getToken().getValue();
+			if (universe.contains(value)) {
+				MapUtils.updateSetBasedMap(typeMap, variable, universe.getTypeOfElement(value));
 			}
 		}
 	}
