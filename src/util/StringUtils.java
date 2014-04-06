@@ -1,5 +1,7 @@
 package util;
 
+import com.sun.istack.internal.Nullable;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,6 +100,14 @@ public class StringUtils {
 	static void repeatedlyAppend(int times, StringBuilder sb, String toAppend) {
 		for (int i = 0; i < times; i++) {
 			sb.append(toAppend);
+		}
+	}
+
+	public static String safeToString(@Nullable Object o) {
+		if (o == null) {
+			return "null";
+		} else {
+			return o.toString();
 		}
 	}
 }
