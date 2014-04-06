@@ -43,7 +43,7 @@ public class DefinitionFactory<T extends Nameable>
 
 	@Override
 	public Map<String, Set<Type>> assignVariableTypes(List<ParseTreeNode> nodes, MapWithErrors<ParseTreeNode, Set<Type>> functionTypes, Map<String, Set<Type>> freeVariables) throws VariableAssignmentTypeException {
-		String variableName = nodes.get(1).getToken().getValue();
+		String variableName = nodes.get(1).getValue();
 		Set<Type> types = functionTypes.getPassedValues().get(nodes.get(3));
 		return MapUtils.createMap(variableName, types);
 	}
@@ -56,7 +56,7 @@ public class DefinitionFactory<T extends Nameable>
 	@Override
 	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
 
-		return Collections.singletonList(surroundedChildren.get(1).getToken().getValue());
+		return Collections.singletonList(surroundedChildren.get(1).getValue());
 	}
 
 	@Override

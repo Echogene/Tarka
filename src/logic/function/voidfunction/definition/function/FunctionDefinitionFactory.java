@@ -55,7 +55,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (node.getToken().isOfType(NAME) && definitionSymbolReached) {
 				output.add(node);
 			}
-			if (DEFINITION_SYMBOL.equals(node.getToken().getValue())) {
+			if (DEFINITION_SYMBOL.equals(node.getValue())) {
 				definitionSymbolReached = true;
 			}
 		}
@@ -117,7 +117,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		Map<String, Set<Type>> output = new HashMap<>();
 		for (int i = 2; i < nodes.size(); i++) {
 			ParseTreeNode node = nodes.get(i);
-			String nodeValue = node.getToken().getValue();
+			String nodeValue = node.getValue();
 			if (DEFINITION_SYMBOL.equals(nodeValue)) {
 				break;
 			} else if (freeVariables.containsKey(nodeValue)) {
@@ -134,7 +134,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 			if (node.equals(n)) {
 				return definitionSymbolReached;
 			}
-			if (DEFINITION_SYMBOL.equals(n.getToken().getValue())) {
+			if (DEFINITION_SYMBOL.equals(n.getValue())) {
 				definitionSymbolReached = true;
 			}
 		}
@@ -147,7 +147,7 @@ public class FunctionDefinitionFactory<T extends Nameable>
 		List<String> output = new ArrayList<>();
 		for (int i = 2; i < surroundedChildren.size(); i++) {
 			ParseTreeNode child = surroundedChildren.get(i);
-			String value = child.getToken().getValue();
+			String value = child.getValue();
 			if (DEFINITION_SYMBOL.equals(value)) {
 				return output;
 			}

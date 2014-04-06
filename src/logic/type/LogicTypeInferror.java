@@ -136,7 +136,7 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 	void inferTypesOfVariablesFromUniverse() {
 
 		for (ParseTreeNode variable : variables) {
-			String value = variable.getToken().getValue();
+			String value = variable.getValue();
 			if (universe.contains(value)) {
 				MapUtils.updateSetBasedMap(typeMap, variable, universe.getTypeOfElement(value));
 			}
@@ -152,7 +152,7 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 		List<String> variableSymbols = new ArrayList<>();
 		for (ParseTreeNode variable : variables) {
-			variableSymbols.add(variable.getToken().getValue());
+			variableSymbols.add(variable.getValue());
 		}
 		return variableSymbols;
 	}

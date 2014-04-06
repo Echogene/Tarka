@@ -150,14 +150,14 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 			throw new EvaluatorException(
 					MessageFormat.format(
 							"{0} had no type bound to it after type inference.",
-							variable.getToken().getValue()
+							variable.getValue()
 					)
 			);
 		}
 		identityFunctions.put(
 				variable,
 				identityConstructorFromType.create(
-						variable.getToken().getValue(),
+						variable.getValue(),
 						types.get(variable)
 				)
 		);

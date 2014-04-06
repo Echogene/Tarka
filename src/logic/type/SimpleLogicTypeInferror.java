@@ -159,7 +159,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 							continue;
 						}
 						output.put(
-								variable.getToken().getValue(),
+								variable.getValue(),
 								matcher.guessTypes(variable, nodes)
 						);
 					}
@@ -189,12 +189,12 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 						(ParseTreeNode node) -> inferType(node.getChildren(), variableTypes)
 				),
 				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
-						(ParseTreeNode node) -> variableTypes.containsKey(node.getToken().getValue()),
-						(ParseTreeNode node) -> variableTypes.get(node.getToken().getValue())
+						(ParseTreeNode node) -> variableTypes.containsKey(node.getValue()),
+						(ParseTreeNode node) -> variableTypes.get(node.getValue())
 				),
 				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
-						(ParseTreeNode node) -> universe.contains(node.getToken().getValue()),
-						(ParseTreeNode node) -> Collections.singleton(universe.getTypeOfElement(node.getToken().getValue()))
+						(ParseTreeNode node) -> universe.contains(node.getValue()),
+						(ParseTreeNode node) -> Collections.singleton(universe.getTypeOfElement(node.getValue()))
 				)
 		);
 		return functionTypes;

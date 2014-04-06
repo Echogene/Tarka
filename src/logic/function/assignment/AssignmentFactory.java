@@ -90,10 +90,10 @@ public class AssignmentFactory<T extends Nameable>
 		String variable;
 		Set<Type> types;
 		if (nodes.get(1).getToken().isOfType(OPEN_BRACKET)) {
-			variable = nodes.get(4).getToken().getValue();
+			variable = nodes.get(4).getValue();
 			types = functionTypes.getPassedValues().get(nodes.get(6));
 		} else {
-			variable = nodes.get(3).getToken().getValue();
+			variable = nodes.get(3).getValue();
 			types = functionTypes.getPassedValues().get(nodes.get(5));
 		}
 		return MapUtils.createMap(variable, types);
@@ -113,9 +113,9 @@ public class AssignmentFactory<T extends Nameable>
 	public List<String> getVariablesToAssign(List<ParseTreeNode> surroundedChildren) {
 
 		if (surroundedChildren.get(1).getToken().isOfType(OPEN_BRACKET)) {
-			return Collections.singletonList(surroundedChildren.get(4).getToken().getValue());
+			return Collections.singletonList(surroundedChildren.get(4).getValue());
 		} else {
-			return Collections.singletonList(surroundedChildren.get(3).getToken().getValue());
+			return Collections.singletonList(surroundedChildren.get(3).getValue());
 		}
 	}
 
