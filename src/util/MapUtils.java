@@ -1,5 +1,6 @@
 package util;
 
+import com.sun.istack.internal.Nullable;
 import javafx.util.Pair;
 import logic.type.map.Extractor;
 
@@ -117,12 +118,17 @@ public class MapUtils {
 	public static <K, V> void overlay(
 			Map<K, Set<V>> underlay,
 			K key,
-			Set<V> value
+			@Nullable Set<V> value
 	) {
 		if (underlay.containsKey(key)) {
-			underlay.get(key).retainAll(value);
+			if (value == null) {
+				underlay.put(key, null);
+			} else {
+				underlay.get(key).retainAll(value);
+			}
 		} else {
-			underlay.put(key, new HashSet<>(value));
+			Set<V> newSet = value == null ? null : new HashSet<>(value);
+			underlay.put(key, newSet);
 		}
 	}
 
@@ -183,8 +189,8 @@ public class MapUtils {
 		}
 		int count = 0;
 		for (Map.Entry<K, V> entry : map.entrySet()) {
-			count += entry.getKey().toString().length();
-			count += entry.getValue().toString().length();
+			count += StringUtils.safeToString(entry.getKey()).length();
+			count += StringUtils.safeToString(entry.getValue()).length();
 		}
 		if (count > 100) {
 			return "size = " + map.size();
