@@ -1,16 +1,24 @@
 package reading.parsing;
 
+import util.CollectionUtils;
+
 import java.util.List;
 
 /**
  * @author Steven Weston
  */
 public interface ParseTree {
-	public List<ParseTreeNode> getNodes();
+	List<ParseTreeNode> getNodes();
 
-	public ParseTreeNode getFirstNode();
+	default ParseTreeNode getFirstNode() {
+		return CollectionUtils.first(getNodes());
+	}
 
-	public ParseTree getSubtreeAt(ParseTreeNode node);
+	default ParseTreeNode getNode(int index) {
+		return getNodes().get(index);
+	}
 
-	public String getSubstringAt(ParseTreeNode node);
+	ParseTree getSubtreeAt(ParseTreeNode node);
+
+	String getSubstringAt(ParseTreeNode node);
 }

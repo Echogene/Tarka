@@ -6,8 +6,6 @@ import reading.parsing.ParseTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.CollectionUtils.first;
-
 /**
  * @author Steven Weston
  */
@@ -21,11 +19,6 @@ public class SimpleLogicParseTree implements ParseTree {
 
 	public List<ParseTreeNode> getNodes() {
 		return nodes;
-	}
-
-	@Override
-	public ParseTreeNode getFirstNode() {
-		return first(nodes);
 	}
 
 	@Override
