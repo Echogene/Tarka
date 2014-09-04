@@ -1,5 +1,7 @@
 package logic.type.map;
 
+import util.ExtractorException;
+
 /**
  * @author Steven Weston
  */

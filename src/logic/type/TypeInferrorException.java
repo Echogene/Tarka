@@ -1,6 +1,6 @@
 package logic.type;
 
-import logic.type.map.ExtractorException;
+import util.ExtractorException;
 
 /**
  * @author Steven Weston

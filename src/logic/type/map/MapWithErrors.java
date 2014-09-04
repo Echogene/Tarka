@@ -1,6 +1,8 @@
 package logic.type.map;
 
 import javafx.util.Pair;
+import util.Extractor;
+import util.ExtractorException;
 import util.StringUtils;
 
 import java.util.Collection;

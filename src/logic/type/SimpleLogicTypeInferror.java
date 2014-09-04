@@ -3,11 +3,11 @@ package logic.type;
 import javafx.util.Pair;
 import logic.Nameable;
 import logic.model.universe.Universe;
-import logic.type.map.Extractor;
 import logic.type.map.MapWithErrors;
 import logic.type.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
+import util.Extractor;
 import util.MapUtils;
 import util.StringUtils;
 
@@ -182,7 +182,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 
 		MapWithErrors<ParseTreeNode, Set<Type>> functionTypes;
 		//noinspection unchecked
-		functionTypes = new MapWithErrors<>(
+		functionTypes = new MapWithErrors<ParseTreeNode, Set<Type>>(
 				nodes,
 				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
 						this::shouldWalkDownAt,
