@@ -89,14 +89,16 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 	}
 
 	private void collectDescendantFreeVariables(Map<String, Set<Type>> freeVariables, List<ParseTreeNode> surroundedNodes) {
-		for (ParseTreeNode descendant : first(surroundedNodes).getDescendants()) {
-			if (freeVariableMap.containsKey(descendant)) {
-				MapUtils.overlay(
-						freeVariables,
-						freeVariableMap.get(descendant)
+
+		first(surroundedNodes).getDescendants()
+				.stream()
+				.filter(freeVariableMap::containsKey)
+				.forEach(
+						descendant -> MapUtils.overlay(
+								freeVariables,
+								freeVariableMap.get(descendant)
+						)
 				);
-			}
-		}
 	}
 
 	private void freeVariables(Map<String, Set<Type>> freeVariables, List<ParseTreeNode> surroundedNodes) {
