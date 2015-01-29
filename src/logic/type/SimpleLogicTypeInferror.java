@@ -162,7 +162,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 						}
 						output.put(
 								variable.getValue(),
-								matcher.guessTypes(variable, nodes)
+								new HashSet<>(matcher.guessTypes(variable, nodes))
 						);
 					}
 					return output;
