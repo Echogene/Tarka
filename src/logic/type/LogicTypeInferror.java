@@ -4,7 +4,6 @@ import logic.Nameable;
 import logic.model.universe.Universe;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import util.CollectionUtils;
 import util.MapUtils;
 
@@ -45,7 +44,24 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 
 		inferTypesOfVariablesFromUniverse();
 
-		throw new NotImplementedException();
+		inferTypesOfVariablesFromMatcherArguments();
+		
+		return typeMap;
+	}
+
+	private void inferTypesOfVariablesFromMatcherArguments() {
+
+		for (ParseTreeNode variable : variables) {
+			ParseTreeNode mother = variable.getMother();
+			Collection<? extends TypeMatcher> matchers = passedMatchers.get(mother);
+
+			for (TypeMatcher matcher : matchers) {
+				MapUtils.overlay(
+						typeMap,
+						variable,
+						matcher.guessTypes(variable, mother.getChildren()));
+			}
+		}
 	}
 
 	void findVariableAssignments() throws TypeInferrorException {
