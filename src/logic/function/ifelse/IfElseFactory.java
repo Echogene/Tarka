@@ -92,41 +92,24 @@ public class IfElseFactory<T extends Nameable> extends FunctionFactory<T, Object
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		ParseTreeNode firstNode = nodes.get(1);
+		ParseTreeNode secondNode;
+		ParseTreeNode thirdNode;
 		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {
-			ParseTreeNode secondNode = nodes.get(4);
+			secondNode = nodes.get(4);
 			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
-				ParseTreeNode thirdNode = nodes.get(7);
-				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
-					return new ArrayList<>();
-				} else {
-					return Arrays.asList(thirdNode);
-				}
+				thirdNode = nodes.get(7);
 			} else {
-				ParseTreeNode thirdNode = nodes.get(6);
-				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
-					return Arrays.asList(secondNode);
-				} else {
-					return Arrays.asList(secondNode, thirdNode);
-				}
+				thirdNode = nodes.get(6);
 			}
 		} else {
-			ParseTreeNode secondNode = nodes.get(3);
+			secondNode = nodes.get(3);
 			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
-				ParseTreeNode thirdNode = nodes.get(6);
-				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
-					return Arrays.asList(firstNode);
-				} else {
-					return Arrays.asList(firstNode, thirdNode);
-				}
+				thirdNode = nodes.get(6);
 			} else {
-				ParseTreeNode thirdNode = nodes.get(5);
-				if (thirdNode.getToken().isOfType(OPEN_BRACKET)) {
-					return Arrays.asList(firstNode, secondNode);
-				} else {
-					return Arrays.asList(firstNode, secondNode, thirdNode);
-				}
+				thirdNode = nodes.get(5);
 			}
 		}
+		return Arrays.asList(firstNode, secondNode, thirdNode);
 	}
 
 	@Override

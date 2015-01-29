@@ -24,6 +24,7 @@ import java.text.MessageFormat;
 import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 import static logic.function.factory.validation.checking.CheckerWithNumber.Number.MANY;
 import static logic.function.voidfunction.definition.function.FunctionDefinition.DEFINITION_SYMBOL;
 
@@ -49,10 +50,11 @@ public class FunctionDefinitionFactory<T extends Nameable>
 
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
+		// todo:
 		List<ParseTreeNode> output = new ArrayList<>();
 		boolean definitionSymbolReached = false;
 		for (ParseTreeNode node : nodes) {
-			if (node.getToken().isOfType(NAME) && definitionSymbolReached) {
+			if ((node.getToken().isOfType(NAME) || node.getToken().isOfType(OPEN_BRACKET)) && definitionSymbolReached) {
 				output.add(node);
 			}
 			if (DEFINITION_SYMBOL.equals(node.getValue())) {

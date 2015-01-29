@@ -80,21 +80,13 @@ public class RestrictedQuantifiedStatementFactory<T extends Nameable>
 	@Override
 	public List<ParseTreeNode> getVariables(List<ParseTreeNode> nodes) {
 		ParseTreeNode firstNode = nodes.get(4);
+		ParseTreeNode secondNode;
 		if (firstNode.getToken().isOfType(OPEN_BRACKET)) {
-			ParseTreeNode secondNode = nodes.get(6);
-			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
-				return new ArrayList<>();
-			} else {
-				return Arrays.asList(secondNode);
-			}
+			secondNode = nodes.get(6);
 		} else {
-			ParseTreeNode secondNode = nodes.get(5);
-			if (secondNode.getToken().isOfType(OPEN_BRACKET)) {
-				return Arrays.asList(firstNode);
-			} else {
-				return Arrays.asList(firstNode, secondNode);
-			}
+			secondNode = nodes.get(5);
 		}
+		return Arrays.asList(firstNode, secondNode);
 	}
 
 	@Override

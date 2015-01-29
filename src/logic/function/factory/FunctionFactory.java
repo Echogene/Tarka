@@ -29,8 +29,10 @@ import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.NAME;
+import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
 
 /**
  * @author Steven Weston
@@ -123,33 +125,23 @@ public abstract class FunctionFactory<D extends Nameable, C, F extends Function<
 
 	protected List<ParseTreeNode> getSingleVariableWithIndex(List<ParseTreeNode> nodes, int index) {
 		ParseTreeNode node = nodes.get(index);
-		if (node.getToken().isOfType(NAME)) {
+		if (node.getToken().isOfType(NAME) || node.getToken().isOfType(OPEN_BRACKET)) {
 			return Arrays.asList(node);
 		}
 		return new ArrayList<>();
 	}
 
 	protected List<ParseTreeNode> getAllVariables(List<ParseTreeNode> nodes) {
-		List<ParseTreeNode> output = new ArrayList<>();
-		for (ParseTreeNode node : nodes) {
-			if (node.getToken().isOfType(NAME)) {
-				output.add(node);
-			}
-		}
+		List<ParseTreeNode> output = nodes.stream()
+				.filter(node -> node.getToken().isOfType(NAME) || node.getToken().isOfType(OPEN_BRACKET))
+				.collect(Collectors.toList());
+		output.remove(nodes.get(0));
 		return output;
 	}
 
 	protected List<ParseTreeNode> getAllVariablesExcept(List<ParseTreeNode> nodes, Integer exception) {
-		List<ParseTreeNode> output = new ArrayList<>();
-		for (int i = 0; i < nodes.size(); i++) {
-			if (i == exception) {
-				continue;
-			}
-			ParseTreeNode node = nodes.get(i);
-			if (node.getToken().isOfType(NAME)) {
-				output.add(node);
-			}
-		}
+		List<ParseTreeNode> output = getAllVariables(nodes);
+		output.remove(nodes.get(exception));
 		return output;
 	}
 }
