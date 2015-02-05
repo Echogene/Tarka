@@ -5,19 +5,20 @@ import util.Extractor;
 import util.ExtractorException;
 import util.StringUtils;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
+ * A map created using an {@link util.Extractor} that may fail for some values.  The error messages may be collected
+ * for the failed values.
  * @author Steven Weston
  */
+@SuppressWarnings("ThrowableResultOfMethodCallIgnored")
 public class MapWithErrors<K, V> implements ErrorMap {
 
 	private final Map<K, V> passedValues;
 
-	private final Map<K, String> failedValues;
+	private final Map<K, Exception> failedValues;
 
 	public MapWithErrors(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
 		passedValues = new HashMap<>();
@@ -32,7 +33,7 @@ public class MapWithErrors<K, V> implements ErrorMap {
 			try {
 				passedValues.put(key, extractor.extract(key));
 			} catch (ExtractorException e) {
-				failedValues.put(key, e.getMessage());
+				failedValues.put(key, e);
 			}
 		}
 	}
@@ -54,7 +55,7 @@ public class MapWithErrors<K, V> implements ErrorMap {
 					try {
 						passedValues.put(key, extractor.extract(key));
 					} catch (ExtractorException e) {
-						failedValues.put(key, e.getMessage());
+						failedValues.put(key, e);
 					}
 				}
 			}
@@ -125,11 +126,14 @@ public class MapWithErrors<K, V> implements ErrorMap {
 
 	@Override
 	public String concatenateErrorMessages() {
-		return StringUtils.join(failedValues.values(), "\n");
+		return StringUtils.join(getErrorMessages(), "\n");
 	}
 
 	@Override
 	public Collection<String> getErrorMessages() {
-		return failedValues.values();
+		return failedValues.values()
+				.stream()
+				.map(Exception::getMessage)
+				.collect(Collectors.toList());
 	}
 }
