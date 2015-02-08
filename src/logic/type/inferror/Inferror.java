@@ -1,4 +1,4 @@
-package logic.oldtype.inferror;
+package logic.type.inferror;
 
 import reading.parsing.ParseTreeNode;
 
