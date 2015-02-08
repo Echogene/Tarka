@@ -11,8 +11,8 @@ import logic.function.factory.validation.checking.checkers.FunctionOrVariableChe
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.set.Set;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
+import logic.oldtype.TypeInferrorException;
+import logic.oldtype.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 import util.CollectionUtils;

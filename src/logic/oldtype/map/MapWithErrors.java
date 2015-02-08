@@ -1,4 +1,4 @@
-package logic.type.map;
+package logic.oldtype.map;
 
 import javafx.util.Pair;
 import util.Extractor;

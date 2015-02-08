@@ -4,8 +4,8 @@ import javafx.util.Pair;
 import logic.Nameable;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
+import logic.oldtype.TypeInferrorException;
+import logic.oldtype.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;

@@ -3,7 +3,7 @@ package logic.function.factory.validation.function;
 import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
-import logic.type.map.MapToErrors;
+import logic.oldtype.map.MapToErrors;
 import util.CurrentIterator;
 
 import java.util.List;

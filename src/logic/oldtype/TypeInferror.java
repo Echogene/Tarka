@@ -1,4 +1,4 @@
-package logic.type;
+package logic.oldtype;
 
 import logic.Nameable;
 import logic.model.universe.Universe;

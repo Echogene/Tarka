@@ -5,7 +5,7 @@ import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.voidfunction.definition.function.definedfunction.AbstractDefinedFunctionFactory;
 import logic.model.universe.Universe;
-import logic.type.TypeInferrorException;
+import logic.oldtype.TypeInferrorException;
 import reading.evaluating.EvaluatorException;
 import reading.reading.Reader;
 import reading.reading.ReadingException;

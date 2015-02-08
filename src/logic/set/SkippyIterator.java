@@ -1,6 +1,6 @@
 package logic.set;
 
-import logic.type.map.Testor;
+import logic.oldtype.map.Testor;
 
 import java.util.Iterator;
 

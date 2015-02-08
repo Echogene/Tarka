@@ -1,6 +1,6 @@
 package reading.reading;
 
-import logic.type.map.CheckorException;
+import logic.oldtype.map.CheckorException;
 
 /**
  * @author Steven Weston

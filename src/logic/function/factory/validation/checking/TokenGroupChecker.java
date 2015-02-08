@@ -2,7 +2,7 @@ package logic.function.factory.validation.checking;
 
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.type.map.Checkor;
+import logic.oldtype.map.Checkor;
 
 /**
  * @author Steven Weston

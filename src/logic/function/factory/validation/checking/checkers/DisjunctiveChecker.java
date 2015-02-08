@@ -7,7 +7,7 @@ import logic.function.factory.validation.checking.TokenGroupChecker;
 import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.type.map.MapToErrors;
+import logic.oldtype.map.MapToErrors;
 import util.StringUtils;
 
 import java.util.Arrays;

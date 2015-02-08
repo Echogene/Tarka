@@ -1,6 +1,6 @@
-package logic.type;
+package logic.oldtype;
 
-import logic.type.map.MapWithErrors;
+import logic.oldtype.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;

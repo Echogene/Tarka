@@ -1,10 +1,10 @@
-package logic.type;
+package logic.oldtype;
 
 import javafx.util.Pair;
 import logic.Nameable;
 import logic.model.universe.Universe;
-import logic.type.map.MapWithErrors;
-import logic.type.map.Testor;
+import logic.oldtype.map.MapWithErrors;
+import logic.oldtype.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import util.Extractor;

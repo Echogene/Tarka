@@ -1,6 +1,6 @@
 package logic.function.factory.validation.token;
 
-import logic.type.map.CheckorException;
+import logic.oldtype.map.CheckorException;
 
 /**
  * @author Steven Weston

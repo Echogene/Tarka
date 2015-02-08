@@ -4,8 +4,8 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.reflexive.ReflexiveFunction;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
+import logic.oldtype.TypeInferrorException;
+import logic.oldtype.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;

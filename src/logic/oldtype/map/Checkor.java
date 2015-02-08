@@ -1,4 +1,4 @@
-package logic.type.map;
+package logic.oldtype.map;
 
 /**
  * @author Steven Weston

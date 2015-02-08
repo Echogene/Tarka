@@ -13,9 +13,9 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
 import logic.function.voidfunction.VoidFunctionFactory;
-import logic.type.VariableAssignerFactory;
-import logic.type.VariableAssignmentTypeException;
-import logic.type.map.MapWithErrors;
+import logic.oldtype.VariableAssignerFactory;
+import logic.oldtype.VariableAssignmentTypeException;
+import logic.oldtype.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
 

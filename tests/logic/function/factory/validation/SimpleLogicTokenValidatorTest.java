@@ -9,7 +9,7 @@ import logic.function.factory.validation.checking.checkers.OperatorChecker;
 import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.function.factory.validation.token.SimpleLogicTokenValidator;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.type.map.MapToErrors;
+import logic.oldtype.map.MapToErrors;
 import org.junit.Test;
 
 import java.util.Arrays;

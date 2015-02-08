@@ -1,6 +1,6 @@
 package reading.reading;
 
-import logic.type.TypeInferrorException;
+import logic.oldtype.TypeInferrorException;
 
 /**
  * @author Steven Weston

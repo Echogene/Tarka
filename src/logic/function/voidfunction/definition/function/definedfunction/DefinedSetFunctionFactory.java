@@ -5,8 +5,8 @@ import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.set.SetFunction;
 import logic.set.Set;
-import logic.type.TypeInferrorException;
-import logic.type.map.MapWithErrors;
+import logic.oldtype.TypeInferrorException;
+import logic.oldtype.map.MapWithErrors;
 import reading.parsing.ParseTreeNode;
 
 import java.lang.reflect.Type;

@@ -1,11 +1,11 @@
-package logic.type;
+package logic.oldtype;
 
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.evaluable.statements.binary.BinaryStatementFactory;
 import logic.function.reference.FunctionReferenceFactory;
-import logic.type.map.CheckorException;
-import logic.type.map.MapToErrors;
+import logic.oldtype.map.CheckorException;
+import logic.oldtype.map.MapToErrors;
 import org.junit.Test;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;

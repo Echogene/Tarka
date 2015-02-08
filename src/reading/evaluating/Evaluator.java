@@ -1,6 +1,6 @@
 package reading.evaluating;
 
-import logic.type.TypeInferrorException;
+import logic.oldtype.TypeInferrorException;
 import reading.parsing.ParseTree;
 
 /**

@@ -1,4 +1,4 @@
-package logic.type;
+package logic.oldtype;
 
 import logic.TestClass;
 import logic.TestClassUniverse;

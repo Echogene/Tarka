@@ -4,7 +4,7 @@ import javafx.util.Pair;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionfulChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
-import logic.type.map.MapToErrors;
+import logic.oldtype.map.MapToErrors;
 import reading.lexing.Token;
 import util.CollectionUtils;
 import util.CurrentIterator;
