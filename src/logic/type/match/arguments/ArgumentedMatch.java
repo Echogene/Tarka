@@ -16,7 +16,7 @@ public class ArgumentedMatch extends InitialMatch {
 	/**
 	 * The arguments of the match.  These will be opening brackets or variable names.
 	 */
-	private final List<ParseTreeNode> arguments;
+	protected final List<ParseTreeNode> arguments;
 
 	protected ArgumentedMatch(List<ParseTreeNode> surroundedNodes, List<ParseTreeNode> arguments) {
 
