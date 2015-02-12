@@ -3,7 +3,7 @@ package logic.type.match.arguments;
 import logic.type.match.initial.InitialMatch;
 
 /**
- * Tests inital matches and gives them arguments.
+ * Tests initial matches and gives them arguments.
  * @author Steven Weston
  */
 public interface ArgumentMatcher {
