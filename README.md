@@ -4,7 +4,10 @@ This is a simple logical language currently interpreted by Java 8.  Tarka works 
 
 Additional Libraries
 ====================
-The source code currently needs no additional libraries, but the test code does.  It needs
+The source code needs
+- [Ophelia](https://github.com/Echogene/Ophelia)
+
+The test code needs
 - [JUnit](https://github.com/junit-team/junit/wiki/Download-and-Install)
 - [Reflections](https://code.google.com/p/reflections/), which in turn needs
   - [Javassist](https://github.com/jboss-javassist/javassist)
