@@ -5,9 +5,11 @@ This is a simple logical language currently interpreted by Java 8.  Tarka works 
 Additional Libraries
 ====================
 The source code needs
+
 - [Ophelia](https://github.com/Echogene/Ophelia)
 
 The test code needs
+
 - [JUnit](https://github.com/junit-team/junit/wiki/Download-and-Install)
 - [Reflections](https://code.google.com/p/reflections/), which in turn needs
   - [Javassist](https://github.com/jboss-javassist/javassist)
@@ -16,6 +18,7 @@ The test code needs
 Examples
 ========
 The syntax has not been finalised, but here are some current examples in the default integer model:
+
 - `(∀x ∊ {2 3 5} (x ∊ ℙ))` _returns_ `true`
 - `(⋂ ℙ [0 10])` _returns_ `{2 3 5 7}`
 - `((x + 2) where x is 2)` _returns_ `4`
@@ -32,6 +35,7 @@ Tarka supports universal, existential and unique quantification:
 Equality
 --------
 A single equals sign is used for equals.
+
 - `(1 = 2)` returns `false` in the default integer model
 
 Membership
@@ -41,6 +45,7 @@ Membership
 Binary Operations
 -----------------
 Tarka supports the binary operators `∨`, `⊽`, `∧`, `⊼`, `→`, `↛`, `↔`, `↮`, `←` and `↚`, which correspond to or, nor, and, nand, implies, does not imply, iff, xor, implied by and not implied by.
+
 - `(⊥ → ⊤)` is a tautology
 
 Negation
@@ -50,12 +55,14 @@ Negation
 Union
 -----
 Tarka supports binary and multary unions.
+
 - `({1 2} ∪ {2 3})` returns `{1 2 3}` in the default integer model
 - `(⋃ {1} {2} {3})` returns `{1 2 3}` in the default integer model
 
 Intersection
 ------------
 Tarka supports binary and multary intersections.
+
 - `({1 2} ∩ {2 3})` returns `{2}` in the default integer model
 - `(⋂ {1 2 3} {2 3} {3})` returns `{3}` in the default integer model
 
