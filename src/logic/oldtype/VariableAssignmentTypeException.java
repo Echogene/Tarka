@@ -1,6 +1,6 @@
 package logic.oldtype;
 
-import util.ExtractorException;
+import util.function.ExtractorException;
 
 /**
  * @author Steven Weston
