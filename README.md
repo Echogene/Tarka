@@ -66,4 +66,23 @@ Tarka supports binary and multary intersections.
 - `({1 2} ∩ {2 3})` returns `{2}` in the default integer model
 - `(⋂ {1 2 3} {2 3} {3})` returns `{3}` in the default integer model
 
+Addition
+--------
+In the default integer model, Tarka supports binary and multary sums.
+
+- `(2 + 2)` returns `4`
+- `(Σ 1 2 3)` returns `6`
+
+Assignment
+----------
+Assign local variables:
+
+- `(x where x is 2)` returns `2` in the default integer model
+- `((x = 1) where x is (1 + 1))` returns `false` in the default integer model
+
+If/else
+-------
+- `(2 if ⊤ otherwise 3)` returns `2` in the default integer model
+- `((1 + 2) if (⊤ → ⊥) otherwise (3 - 1))` returns `2` in the default integer model
+
 `todo: document some more`
