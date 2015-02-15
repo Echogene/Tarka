@@ -21,11 +21,15 @@ public class ConstantsTypedMatch extends ArgumentedMatch {
 		super(surroundedNodes, arguments);
 	}
 
-	public void typeArgument(ParseTreeNode argument, Set<Type> types) {
+	public void typeArgument(ParseTreeNode argument, Set<Type> types) throws NoTypeException {
 
 		assert arguments.contains(argument);
 
 		MapUtils.overlay(argumentTypeMap, argument, types);
+		
+		if (argumentTypeMap.get(argument).isEmpty()) {
+			throw new NoTypeException(getOriginalNodes(), argument);
+		}
 	}
 
 	public Map<ParseTreeNode, Set<Type>> getArgumentTypes() {
