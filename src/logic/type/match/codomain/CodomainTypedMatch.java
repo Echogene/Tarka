@@ -15,7 +15,7 @@ public class CodomainTypedMatch extends ArgumentedMatch {
 
 	protected final Set<Type> codomainTypes;
 
-	CodomainTypedMatch(
+	protected CodomainTypedMatch(
 			ArgumentedMatch match
 	) {
 		super(match.getOriginalNodes(), match.getArguments());

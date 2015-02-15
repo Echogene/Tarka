@@ -6,7 +6,7 @@ import logic.type.match.initial.InitialMatch;
  * Tests initial matches and gives them arguments.
  * @author Steven Weston
  */
-public interface ArgumentMatcher {
+public interface ArgumentTyper {
 
 	/**
 	 * @param match the initial match to give arguments
