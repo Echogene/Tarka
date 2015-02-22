@@ -1,15 +1,15 @@
 package logic.oldtype.map;
 
 import javafx.util.Pair;
-import util.Extractor;
-import util.ExtractorException;
+import util.function.Extractor;
+import util.function.ExtractorException;
 import util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A map created using an {@link util.Extractor} that may fail for some values.  The error messages may be collected
+ * A map created using an {@link util.function.Extractor} that may fail for some values.  The error messages may be collected
  * for the failed values.
  * @author Steven Weston
  */

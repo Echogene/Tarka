@@ -1,6 +1,6 @@
 package logic.type.match.codomain;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import util.CollectionUtils;
 
 import java.text.MessageFormat;

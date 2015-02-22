@@ -7,7 +7,7 @@ import logic.model.universe.VariableNotAssignedException;
 import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -46,17 +46,17 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T, Dictionary
 
 	@Override
 	public Object unassignVariable(String variableSymbol) {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override
 	public void assignVariable(String variableSymbol) throws VariableAlreadyExistsException {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override
 	public Object setVariable(String variableSymbol, Object object) throws VariableNotAssignedException {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override
@@ -71,11 +71,11 @@ public class EmptyUniverse<T extends Nameable> implements Universe<T, Dictionary
 
 	@Override
 	public Object get(String value) {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override
 	public Map<String, Stack<Object>> getBoundParameters() {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 }

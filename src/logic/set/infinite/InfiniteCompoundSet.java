@@ -7,7 +7,7 @@ import logic.set.Set;
 import logic.set.finite.FiniteCompoundSet;
 import logic.set.finite.FiniteSet;
 import logic.set.finite.StandardSet;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -58,7 +58,7 @@ public class InfiniteCompoundSet<T extends Nameable> extends NamedSet<T> impleme
 		} else if (s instanceof InfiniteSet<?>) {
 			infinitePart.add((InfiniteSet<T>) s);
 		} else {
-			throw new NotImplementedException();
+			throw new NotImplementedYetException();
 		}
 	}
 }

@@ -12,7 +12,7 @@ import logic.oldtype.TypeInferrorException;
 import logic.oldtype.map.MapWithErrors;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public class FunctionReferenceFactory<T extends Nameable>
 			List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, Set<Type>> boundVariables
 	) throws FactoryException {
 
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override

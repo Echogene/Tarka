@@ -1,6 +1,6 @@
 package logic.type.match.codomain;
 
-import util.ExtractorException;
+import util.function.ExtractorException;
 
 /**
  * @author Steven Weston

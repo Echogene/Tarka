@@ -7,7 +7,7 @@ import logic.oldtype.map.MapWithErrors;
 import logic.oldtype.map.Testor;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.Extractor;
+import util.function.Extractor;
 import util.MapUtils;
 import util.StringUtils;
 

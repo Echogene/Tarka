@@ -5,7 +5,7 @@ import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 /**
  * @author Steven Weston
@@ -43,7 +43,7 @@ public class IntegerUniverseSetOfSets implements Dictionary<Set<Integer>> {
 
 	@Override
 	public String getName() {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	private boolean stringRepresentsIntegerSetMultiple(String string) {

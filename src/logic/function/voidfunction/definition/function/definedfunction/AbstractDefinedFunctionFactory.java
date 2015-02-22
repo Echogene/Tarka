@@ -7,7 +7,7 @@ import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -64,7 +64,7 @@ public abstract class AbstractDefinedFunctionFactory<
 
 	@Override
 	public Set<Type> guessTypes(ParseTreeNode variable, List<ParseTreeNode> nodes) {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	public String getFunctionSymbol() {

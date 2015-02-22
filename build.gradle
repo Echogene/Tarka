@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+libsDirName = 'libs'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations:13.0'
+    compile files('file:/usr/lib/java/Ophelia/Ophelia.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'com.google.guava', name: 'guava', version: '12.0'
+    testCompile 'javassist:javassist:3.12.1.GA'
+    testCompile 'org.reflections:reflections:0.9.9'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'tests'
+        }
+    }
+}

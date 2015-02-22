@@ -7,7 +7,7 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
@@ -35,7 +35,7 @@ public class DefinedFunctionFactoryFactory {
 		} else if (definition instanceof VoidFunction) {
 			return new DefinedVoidFunctionFactory<T>(functionSymbol, (VoidFunction<T, ?>) definition, parameters, checkers, universeType);
 		} else {
-			throw new NotImplementedException();
+			throw new NotImplementedYetException();
 		}
 	}
 }

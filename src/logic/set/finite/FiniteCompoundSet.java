@@ -6,7 +6,7 @@ import logic.set.NamedSet;
 import logic.set.Set;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.NotImplementedYetException;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -30,7 +30,7 @@ public class FiniteCompoundSet<T extends Nameable> extends NamedSet<T> implement
 
 	@Override
 	public Integer size() {
-		throw new NotImplementedException();
+		throw new NotImplementedYetException();
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class FiniteCompoundSet<T extends Nameable> extends NamedSet<T> implement
 
 		@Override
 		public T next() {
-			throw new NotImplementedException();
+			throw new NotImplementedYetException();
 		}
 	}
 
@@ -106,7 +106,7 @@ public class FiniteCompoundSet<T extends Nameable> extends NamedSet<T> implement
 				components.add((FiniteSet<T>) s);
 			}
 		} else {
-			throw new NotImplementedException();
+			throw new NotImplementedYetException();
 		}
 	}
 }
