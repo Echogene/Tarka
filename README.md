@@ -1,6 +1,6 @@
 Tarka
 =====
-This is a simple logical language currently interpreted by Java 8.  Tarka works in a domain of discourse defined by a _model_.  There is currently only one model, the integer model, whose universal set is the set of integers ℤ.  This model will be known as ℤ in the following.
+This is a simple logical language currently interpreted by Java 8.  Tarka works in a domain of discourse defined by a _model_.  There is currently only one model, the integer model, whose universal set is the set of integers ℤ.  This model will be identified with ℤ in the following.
 
 Examples
 ========
