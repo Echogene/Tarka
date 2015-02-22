@@ -36,14 +36,14 @@ Membership
 ----------
 - `(2 ∊ ℙ)` returns `true` in ℤ
 
-Binary Operations
+Binary Logical Operations
 -----------------
 Tarka supports the binary operators `∨`, `⊽`, `∧`, `⊼`, `→`, `↛`, `↔`, `↮`, `←` and `↚`, which correspond to or, nor, and, nand, implies, does not imply, iff, xor, implied by and not implied by.
 
 - `(⊥ → ⊤)` is a tautology
 
-Negation
---------
+Negation (a Unary Logical Operation)
+-----------------------------------
 - `(¬⊤)` is a contradiction
 
 Union
