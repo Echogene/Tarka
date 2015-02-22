@@ -2,19 +2,6 @@ Tarka
 =====
 This is a simple logical language currently interpreted by Java 8.  Tarka works in a domain of discourse defined by a _model_.  There is currently only one model, the integer model, whose universal set is the set of integers ℤ.
 
-Additional Libraries
-====================
-The source code needs
-
-- [Ophelia](https://github.com/Echogene/Ophelia)
-
-The test code needs
-
-- [JUnit](https://github.com/junit-team/junit/wiki/Download-and-Install)
-- [Reflections](https://code.google.com/p/reflections/), which in turn needs
-  - [Javassist](https://github.com/jboss-javassist/javassist)
-  - [Guava](https://code.google.com/p/guava-libraries/)
-
 Examples
 ========
 The syntax has not been finalised, but here are some current examples in the default integer model:
