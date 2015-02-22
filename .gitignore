@@ -1,5 +1,7 @@
 out
+build
 doc
+.gradle
 .idea
 Logic.iml
 Logic.eml
