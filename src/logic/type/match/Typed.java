@@ -13,7 +13,7 @@ public abstract class Typed {
 
 	protected final Superposition<Type, TypeNotPossibleException> types;
 
-	public Typed(Set<Type> allTypes) {
+	protected Typed(Set<Type> allTypes) {
 		this.types = new Superposition<>(allTypes);
 	}
 
