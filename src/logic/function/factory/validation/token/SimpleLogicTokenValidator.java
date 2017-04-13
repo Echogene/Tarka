@@ -5,9 +5,9 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionfulChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.oldtype.map.MapToErrors;
+import ophelia.util.CurrentIterator;
+import ophelia.util.ListUtils;
 import reading.lexing.Token;
-import util.CollectionUtils;
-import util.CurrentIterator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class SimpleLogicTokenValidator implements TokenValidator {
 		if (!this.acceptedBracketPairs.isEmpty()) {
 			groups.add(new TokenGroup(tokens.get(0), tokens.get(tokens.size() - 1)));
 		}
-		groups.addAll(groupTokens(CollectionUtils.stripFirstAndLast(tokens)));
+		groups.addAll(groupTokens(ListUtils.stripFirstAndLast(tokens)));
 		MapToErrors<TokenGroup> errors = new MapToErrors<>(groups, this::checkToken);
 		if (currentChecker.hasNext()
 				|| (currentChecker.current() != null && currentChecker.current().getNumber() == ONE)) {

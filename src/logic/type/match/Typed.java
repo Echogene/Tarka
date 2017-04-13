@@ -1,7 +1,7 @@
 package logic.type.match;
 
-import superposition.Superposition;
-import util.function.ExceptionalConsumer;
+import ophelia.function.ExceptionalConsumer;
+import ophelia.superposition.Superposition;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -24,7 +24,7 @@ public abstract class Typed {
 	 */
 	public void restrictTypes(ExceptionalConsumer<Type, TypeNotPossibleException> observer) throws NoPossibleTypeException {
 		types.observe(observer);
-		
+
 		if (types.isEmpty()) {
 			throw new NoPossibleTypeException(types.getCollapsion());
 		}

@@ -16,8 +16,8 @@ import maths.number.integer.IntegerSubtractor;
 import maths.number.integer.IntegerSummor;
 import maths.number.integer.model.IntegerModel;
 import maths.number.integer.model.universe.IntegerUniverse;
+import ophelia.util.MapUtils;
 import org.junit.Test;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;

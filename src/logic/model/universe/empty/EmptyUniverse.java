@@ -7,7 +7,7 @@ import logic.model.universe.VariableNotAssignedException;
 import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.Map;

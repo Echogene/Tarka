@@ -4,7 +4,7 @@ package logic.type.match;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import static util.StringUtils.indent;
+import static ophelia.util.StringUtils.indent;
 
 /**
  * @author Steven Weston

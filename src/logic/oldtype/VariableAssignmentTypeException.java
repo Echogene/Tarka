@@ -1,11 +1,9 @@
 package logic.oldtype;
 
-import util.function.ExtractorException;
-
 /**
  * @author Steven Weston
  */
-public class VariableAssignmentTypeException extends ExtractorException {
+public class VariableAssignmentTypeException extends Exception {
 
 	public VariableAssignmentTypeException(String message) {
 		super(message);

@@ -11,7 +11,7 @@ import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedFunctionFactoryFactory;
 import logic.model.Model;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.*;

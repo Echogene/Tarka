@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     compile 'org.jetbrains:annotations:13.0'
-    compile files('file:/usr/lib/java/Ophelia/Ophelia.jar')
+    compile files(System.properties['user.home'] + '/.lib/java/Ophelia/Ophelia.jar')
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'com.google.guava', name: 'guava', version: '12.0'
     testCompile 'javassist:javassist:3.12.1.GA'

@@ -5,19 +5,18 @@ import logic.Nameable;
 import logic.model.universe.Universe;
 import logic.oldtype.map.MapWithErrors;
 import logic.oldtype.map.Testor;
+import ophelia.function.ExceptionalFunction;
+import ophelia.util.MapUtils;
+import ophelia.util.StringUtils;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.function.Extractor;
-import util.MapUtils;
-import util.StringUtils;
 
 import java.lang.reflect.Type;
-import java.text.MessageFormat;
 import java.util.*;
 
 import static java.text.MessageFormat.format;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static util.CollectionUtils.first;
+import static ophelia.util.ListUtils.first;
 import static util.TreeUtils.surroundWithParentNodes;
 
 /**
@@ -116,7 +115,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 
 		if (variableAssignments.hasTotallyAmbiguousPasses()) {
 			throw new TypeInferrorException(
-					MessageFormat.format(
+					format(
 							"There were ambiguous bound variables for {0}.",
 							surroundedNodes.toString()
 					)
@@ -186,15 +185,15 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 		//noinspection unchecked
 		functionTypes = new MapWithErrors<ParseTreeNode, Set<Type>>(
 				nodes,
-				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
+				new Pair<Testor<ParseTreeNode>, ExceptionalFunction<ParseTreeNode, Set<Type>, Exception>>(
 						this::shouldWalkDownAt,
 						(ParseTreeNode node) -> inferType(node.getChildren(), variableTypes)
 				),
-				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
+				new Pair<Testor<ParseTreeNode>, ExceptionalFunction<ParseTreeNode, Set<Type>, Exception>>(
 						(ParseTreeNode node) -> variableTypes.containsKey(node.getValue()),
 						(ParseTreeNode node) -> variableTypes.get(node.getValue())
 				),
-				new Pair<Testor<ParseTreeNode>, Extractor<ParseTreeNode, Set<Type>>>(
+				new Pair<Testor<ParseTreeNode>, ExceptionalFunction<ParseTreeNode, Set<Type>, Exception>>(
 						(ParseTreeNode node) -> universe.contains(node.getValue()),
 						(ParseTreeNode node) -> Collections.singleton(universe.getTypeOfElement(node.getValue()))
 				)
@@ -218,7 +217,7 @@ public class SimpleLogicTypeInferror<T extends Nameable> extends TypeInferror<T>
 		);
 		if (variableAssignments.hasAmbiguousPasses()) {
 			throw new TypeInferrorException(
-					MessageFormat.format(
+					format(
 							"Ambiguous assignment for {0}.  The following factories passed: {1}",
 							surroundedNodes,
 							variableAssignments.getPassedValues().keySet()

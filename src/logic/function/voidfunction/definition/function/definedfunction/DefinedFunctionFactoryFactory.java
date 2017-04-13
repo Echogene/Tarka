@@ -7,7 +7,7 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.function.voidfunction.VoidFunction;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;

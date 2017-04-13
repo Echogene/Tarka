@@ -7,7 +7,7 @@ import logic.set.Set;
 import logic.set.finite.FiniteCompoundSet;
 import logic.set.finite.FiniteSet;
 import logic.set.finite.StandardSet;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 import java.util.Collections;
 import java.util.HashSet;

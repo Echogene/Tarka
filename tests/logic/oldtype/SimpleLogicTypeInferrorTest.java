@@ -3,10 +3,10 @@ package logic.oldtype;
 import logic.TestClass;
 import logic.TestClassUniverse;
 import logic.function.assignment.AssignmentFactory;
+import ophelia.util.MapUtils;
 import org.junit.Test;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -15,8 +15,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static ophelia.util.NumberUtils.ordinal;
 import static org.junit.Assert.assertEquals;
-import static util.NumberUtils.ordinal;
 
 /**
  * @author Steven Weston

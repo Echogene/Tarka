@@ -8,9 +8,9 @@ import logic.function.FunctionTest;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.identity.MemberIdentityFunction;
 import logic.function.voidfunction.definition.function.definedfunction.DefinedReflexiveFunction;
+import ophelia.util.MapUtils;
 import org.junit.Test;
 import reading.evaluating.EvaluatorException;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;

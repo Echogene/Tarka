@@ -6,7 +6,7 @@ import logic.set.NamedSet;
 import logic.set.Set;
 import logic.set.infinite.InfiniteSet;
 import maths.number.integer.Integer;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 import java.util.HashSet;
 import java.util.Iterator;

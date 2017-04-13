@@ -10,9 +10,9 @@ import logic.function.factory.validation.checking.checkers.NumberedChecker;
 import logic.function.factory.validation.checking.checkers.VariableChecker;
 import logic.oldtype.TypeInferrorException;
 import logic.oldtype.map.MapWithErrors;
+import ophelia.exceptions.NotImplementedYetException;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;

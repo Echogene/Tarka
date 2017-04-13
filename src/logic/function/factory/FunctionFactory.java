@@ -23,9 +23,9 @@ import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
 import logic.oldtype.TypeMatcher;
 import logic.oldtype.map.MapToErrors;
+import ophelia.util.CollectionUtils;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;

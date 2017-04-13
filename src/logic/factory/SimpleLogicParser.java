@@ -9,8 +9,8 @@ import java.util.List;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.CLOSE_BRACKET;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static util.CollectionUtils.first;
-import static util.CollectionUtils.last;
+import static ophelia.util.ListUtils.first;
+import static ophelia.util.ListUtils.last;
 
 /**
  * @author Steven Weston
