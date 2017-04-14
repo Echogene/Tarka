@@ -4,7 +4,7 @@ import logic.Nameable;
 import logic.function.Function;
 import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.oldtype.map.MapToErrors;
-import ophelia.util.CurrentIterator;
+import util.CurrentIterator;
 
 import java.util.List;
 

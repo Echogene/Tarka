@@ -5,9 +5,9 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionfulChecker;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.oldtype.map.MapToErrors;
-import ophelia.util.CurrentIterator;
 import ophelia.util.ListUtils;
 import reading.lexing.Token;
+import util.CurrentIterator;
 
 import java.util.ArrayList;
 import java.util.List;
