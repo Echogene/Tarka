@@ -1,8 +1,8 @@
 package util;
 
+import ophelia.function.ExceptionalBiConsumer;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.function.ExceptionalBiConsumer;
 
 import java.util.ArrayList;
 import java.util.List;

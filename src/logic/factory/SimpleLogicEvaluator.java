@@ -13,13 +13,13 @@ import logic.oldtype.VariableAssignerFactory;
 import logic.oldtype.map.Checkor;
 import logic.oldtype.map.CheckorException;
 import logic.oldtype.map.MapToErrors;
+import ophelia.util.CollectionUtils;
+import ophelia.util.StringUtils;
 import reading.evaluating.Evaluator;
 import reading.evaluating.EvaluatorException;
 import reading.lexing.Token;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
-import util.StringUtils;
 import util.TokenUtils;
 
 import java.lang.reflect.Type;
@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 import java.util.*;
 
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.OPEN_BRACKET;
-import static util.CollectionUtils.first;
+import static ophelia.util.ListUtils.first;
 import static util.TreeUtils.extractTokens;
 import static util.TreeUtils.surroundWithParentNodes;
 
@@ -99,7 +99,7 @@ public class SimpleLogicEvaluator<T extends Nameable> implements Evaluator<Funct
 		headRecurse(firstChildren, children -> {
 			List<FunctionFactory<T, ?, ?>> passedFactoriesForNode = validateTokens(extractTokens(children));
 			ParseTreeNode key = first(children).getMother();
-			passedAssigners.put(key, CollectionUtils.filterList(passedFactoriesForNode, VariableAssignerFactory.class));
+			passedAssigners.put(key, CollectionUtils.listOfClass(passedFactoriesForNode, VariableAssignerFactory.class));
 			passedFactories.put(key, passedFactoriesForNode);
 		});
 	}

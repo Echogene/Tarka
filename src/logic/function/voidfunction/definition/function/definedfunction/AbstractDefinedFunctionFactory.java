@@ -5,9 +5,9 @@ import logic.factory.FactoryException;
 import logic.function.Function;
 import logic.function.factory.FunctionFactory;
 import logic.function.factory.validation.checking.CheckerWithNumber;
+import ophelia.exceptions.NotImplementedYetException;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import exceptions.NotImplementedYetException;
 
 import java.lang.reflect.Type;
 import java.util.*;

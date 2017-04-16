@@ -18,8 +18,8 @@ import static java.util.Arrays.asList;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType.CLOSED;
 import static maths.number.integer.sets.interval.IntervalBound.BoundType.OPEN;
-import static util.CollectionUtils.first;
-import static util.CollectionUtils.last;
+import static ophelia.util.ListUtils.first;
+import static ophelia.util.ListUtils.last;
 
 /**
  * @author Steven Weston

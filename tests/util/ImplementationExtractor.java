@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.text.MessageFormat.format;
+import static ophelia.util.StringUtils.count;
+import static ophelia.util.StringUtils.substring;
 import static org.junit.Assert.fail;
-import static util.StringUtils.count;
-import static util.StringUtils.substring;
 
 /**
  * @author Steven Weston

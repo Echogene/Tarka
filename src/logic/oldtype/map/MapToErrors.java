@@ -1,7 +1,7 @@
 package logic.oldtype.map;
 
 import javafx.util.Pair;
-import util.StringUtils;
+import ophelia.util.StringUtils;
 
 import java.util.*;
 

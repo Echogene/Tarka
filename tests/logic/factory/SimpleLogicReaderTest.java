@@ -26,11 +26,11 @@ import logic.function.set.simple.SimpleSetFactory;
 import logic.function.set.union.AbstractUnionFactory;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.constant.MemberDefinition;
+import ophelia.function.ExceptionalRunnable;
+import ophelia.util.CollectionUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import reading.evaluating.EvaluatorException;
-import util.CollectionUtils;
-import util.function.ExceptionalRunnable;
 
 import java.text.MessageFormat;
 

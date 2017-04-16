@@ -8,7 +8,7 @@ import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
 import logic.oldtype.map.MapToErrors;
-import util.StringUtils;
+import ophelia.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;

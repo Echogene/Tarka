@@ -2,10 +2,10 @@ package logic.oldtype;
 
 import logic.Nameable;
 import logic.model.universe.Universe;
+import ophelia.util.CollectionUtils;
+import ophelia.util.MapUtils;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -45,7 +45,7 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 		inferTypesOfVariablesFromUniverse();
 
 		inferTypesOfVariablesFromMatcherArguments();
-		
+
 		return typeMap;
 	}
 
@@ -59,7 +59,8 @@ public class LogicTypeInferror<T extends Nameable> extends TypeInferror<T> {
 				MapUtils.overlay(
 						typeMap,
 						variable,
-						matcher.guessTypes(variable, mother.getChildren()));
+						matcher.guessTypes(variable, mother.getChildren())
+				);
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import logic.function.Function;
 import logic.function.factory.validation.function.FunctionValidationException;
 import logic.function.factory.validation.token.TokenValidationException;
 import logic.function.factory.validation.token.group.TokenGroup;
-import util.CollectionUtils;
+import ophelia.util.CollectionUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

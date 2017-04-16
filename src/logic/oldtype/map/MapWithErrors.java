@@ -1,15 +1,13 @@
 package logic.oldtype.map;
 
 import javafx.util.Pair;
-import util.function.Extractor;
-import util.function.ExtractorException;
-import util.StringUtils;
+import ophelia.function.ExceptionalFunction;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A map created using an {@link util.function.Extractor} that may fail for some values.  The error messages may be collected
+ * A map created using an {@link ExceptionalFunction} that may fail for some values.  The error messages may be collected
  * for the failed values.
  * @author Steven Weston
  */
@@ -20,7 +18,7 @@ public class MapWithErrors<K, V> implements ErrorMap {
 
 	private final Map<K, Exception> failedValues;
 
-	public MapWithErrors(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
+	public MapWithErrors(final Collection<? extends K> keys, final ExceptionalFunction<K, V, Exception> extractor) {
 		passedValues = new HashMap<>();
 		failedValues = new HashMap<>();
 		if (keys != null && !keys.isEmpty()) {
@@ -28,33 +26,33 @@ public class MapWithErrors<K, V> implements ErrorMap {
 		}
 	}
 
-	private void fillFrom(final Collection<? extends K> keys, final Extractor<K, V> extractor) {
+	private void fillFrom(final Collection<? extends K> keys, final ExceptionalFunction<K, V, Exception> extractor) {
 		for (K key : keys) {
 			try {
-				passedValues.put(key, extractor.extract(key));
-			} catch (ExtractorException e) {
+				passedValues.put(key, extractor.apply(key));
+			} catch (Exception e) {
 				failedValues.put(key, e);
 			}
 		}
 	}
 
 	@SafeVarargs
-	public MapWithErrors(final Collection<? extends K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
+	public MapWithErrors(final Collection<? extends K> keys, final Pair<Testor<K>, ExceptionalFunction<K, V, Exception>>... pairs) {
 		passedValues = new HashMap<>();
 		failedValues = new HashMap<>();
 		fillFrom(keys, pairs);
 	}
 
 	@SafeVarargs
-	private final void fillFrom(final Collection<? extends K> keys, final Pair<Testor<K>, Extractor<K, V>>... pairs) {
+	private final void fillFrom(final Collection<? extends K> keys, final Pair<Testor<K>, ExceptionalFunction<K, V, Exception>>... pairs) {
 		for (K key : keys) {
-			for (Pair<Testor<K>, Extractor<K, V>> pair : pairs) {
+			for (Pair<Testor<K>, ExceptionalFunction<K, V, Exception>> pair : pairs) {
 				Testor<K> testor = pair.getKey();
 				if (testor.test(key)) {
-					Extractor<K, V> extractor = pair.getValue();
+					ExceptionalFunction<K, V, Exception> extractor = pair.getValue();
 					try {
-						passedValues.put(key, extractor.extract(key));
-					} catch (ExtractorException e) {
+						passedValues.put(key, extractor.apply(key));
+					} catch (Exception e) {
 						failedValues.put(key, e);
 					}
 				}
@@ -126,7 +124,10 @@ public class MapWithErrors<K, V> implements ErrorMap {
 
 	@Override
 	public String concatenateErrorMessages() {
-		return StringUtils.join(getErrorMessages(), "\n");
+		return failedValues.values()
+				.stream()
+				.map(Exception::getMessage)
+				.collect(Collectors.joining("\n"));
 	}
 
 	@Override

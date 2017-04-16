@@ -10,12 +10,12 @@ import logic.function.factory.validation.checking.CheckerWithNumber;
 import logic.function.factory.validation.checking.checkers.FunctionOrVariableChecker;
 import logic.function.reflexive.ReflexiveFunction;
 import logic.function.set.SetFunction;
-import logic.set.Set;
 import logic.oldtype.TypeInferrorException;
 import logic.oldtype.map.MapWithErrors;
+import logic.set.Set;
+import ophelia.util.ListUtils;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ public class IdentityFunctionFactory<T extends Nameable>
 
 	@Override
 	public AbstractIdentityFunction<T, ?, ?, ?> construct(List<Token> tokens, List<Function<T, ?, ?>> functions, Map<String, java.util.Set<Type>> boundVariables) throws FactoryException {
-		Function<T, ?, ?> function = CollectionUtils.first(functions);
+		Function<T, ?, ?> function = ListUtils.first(functions);
 		if (tokens.get(1).isOfType(OPEN_BRACKET)) {
 			if (function instanceof ReflexiveFunction<?, ?>) {
 				return new MemberIdentityFunction<>((ReflexiveFunction<T, ?>) function);

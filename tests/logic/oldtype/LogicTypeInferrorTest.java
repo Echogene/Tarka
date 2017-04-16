@@ -8,10 +8,10 @@ import logic.function.evaluable.predicate.membership.MembershipPredicateFactory;
 import logic.function.evaluable.statements.binary.BinaryStatementFactory;
 import logic.function.identity.IdentityFunctionFactory;
 import logic.function.voidfunction.definition.constant.DefinitionFactory;
+import ophelia.util.CollectionUtils;
 import org.junit.Test;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
-import util.CollectionUtils;
 
 import java.lang.reflect.Type;
 import java.util.*;

@@ -1,6 +1,7 @@
 package reading.parsing;
 
-import util.CollectionUtils;
+
+import ophelia.util.ListUtils;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface ParseTree {
 	List<ParseTreeNode> getNodes();
 
 	default ParseTreeNode getFirstNode() {
-		return CollectionUtils.first(getNodes());
+		return ListUtils.first(getNodes());
 	}
 
 	default ParseTreeNode getNode(int index) {

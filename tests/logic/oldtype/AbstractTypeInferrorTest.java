@@ -4,13 +4,13 @@ import logic.Nameable;
 import logic.factory.SimpleLogicLexer;
 import logic.factory.SimpleLogicParser;
 import logic.model.universe.Universe;
+import ophelia.util.MapUtils;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
 import reading.parsing.ParseTree;
 import reading.parsing.ParseTreeNode;
 import reading.parsing.Parser;
 import reading.parsing.ParserException;
-import util.MapUtils;
 
 import java.util.ArrayList;
 import java.util.List;

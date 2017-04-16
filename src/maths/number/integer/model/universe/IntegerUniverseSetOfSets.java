@@ -5,7 +5,7 @@ import logic.set.Dictionary;
 import logic.set.Set;
 import logic.set.finite.StandardSet;
 import maths.number.integer.Integer;
-import exceptions.NotImplementedYetException;
+import ophelia.exceptions.NotImplementedYetException;
 
 /**
  * @author Steven Weston

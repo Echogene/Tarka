@@ -15,8 +15,8 @@ import java.text.MessageFormat;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static ophelia.util.NumberUtils.ordinal;
 import static org.junit.Assert.assertTrue;
-import static util.NumberUtils.ordinal;
 
 /**
  * @author Steven Weston

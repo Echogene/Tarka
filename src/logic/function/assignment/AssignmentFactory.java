@@ -17,9 +17,9 @@ import logic.oldtype.TypeInferrorException;
 import logic.oldtype.VariableAssignerFactory;
 import logic.oldtype.VariableAssignmentTypeException;
 import logic.oldtype.map.MapWithErrors;
+import ophelia.util.MapUtils;
 import reading.lexing.Token;
 import reading.parsing.ParseTreeNode;
-import util.MapUtils;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
