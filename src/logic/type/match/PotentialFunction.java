@@ -1,6 +1,7 @@
 package logic.type.match;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,7 +9,10 @@ import java.util.Set;
  */
 public class PotentialFunction extends Typed {
 
-	public PotentialFunction(Set<Type> allTypes) {
+	private final List<Typed> arguments;
+
+	public PotentialFunction(Set<Type> allTypes, List<Typed> arguments) {
 		super(allTypes);
+		this.arguments = arguments;
 	}
 }

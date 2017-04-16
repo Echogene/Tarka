@@ -1,5 +1,7 @@
 package reading.lexing;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -12,5 +14,6 @@ public interface Lexer {
 	 * @param string The string to tokenise.
 	 * @return A list of tokens that represent the string.
 	 */
-	public List<Token> tokeniseString(String string) throws LexerException;
+	@NotNull
+	List<Token> tokeniseString(@NotNull String string) throws LexerException;
 }

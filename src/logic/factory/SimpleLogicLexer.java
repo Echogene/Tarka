@@ -11,6 +11,7 @@ import logic.function.set.intersection.Intersection;
 import logic.function.set.union.Union;
 import logic.function.voidfunction.definition.constant.MemberDefinition;
 import logic.function.voidfunction.definition.function.FunctionDefinition;
+import org.jetbrains.annotations.NotNull;
 import reading.lexing.Lexer;
 import reading.lexing.LexerException;
 import reading.lexing.PatternNotRecognisedException;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static java.util.Collections.emptyList;
 import static logic.factory.SimpleLogicLexerToken.SimpleLogicLexerTokenType.*;
 
 /**
@@ -58,10 +60,11 @@ public class SimpleLogicLexer implements Lexer {
 	private static final String QUANTIFIER_SPLIT_REGEX = "(?<=[" + QUANTIFIER_GROUP + "]{2})"
 			+ "|(?<=[" + QUANTIFIER_GROUP + "])(?=[^" + QUANTIFIER_GROUP + "])";
 
+	@NotNull
 	@Override
-	public List<Token> tokeniseString(String string) throws LexerException {
-		if (string == null || string.isEmpty()) {
-			return null;
+	public List<Token> tokeniseString(@NotNull String string) throws LexerException {
+		if (string.isEmpty()) {
+			return emptyList();
 		}
 		ArrayList<Token> output = new ArrayList<>();
 		String[] splitArray = string.split(

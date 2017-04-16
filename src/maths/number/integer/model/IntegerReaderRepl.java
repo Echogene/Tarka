@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * 1. (Σ / ([0 1000) ∩ (3ℤ ∪ 5ℤ)))
  * @author Steven Weston
  */
 public class IntegerReaderRepl {
